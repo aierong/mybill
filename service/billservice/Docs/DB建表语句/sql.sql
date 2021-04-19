@@ -101,6 +101,7 @@ UNION ALL
 SELECT 0,1,'в╙ук'  
 
 
+
 -- укд©
 CREATE TABLE bills
 (
