@@ -1,12 +1,13 @@
 -- 角色表 目前就2种角色 admin user
-CREATE TABLE Roles
+CREATE TABLE roles
 (
     ids INT IDENTITY ,
-    name NVARCHAR(188) NOT NULL DEFAULT ( '' )
+    -- 角色名
+    name NVARCHAR(28) NOT NULL DEFAULT ( '' ) PRIMARY KEY
 )
 
 -- 先插入2个角色
-INSERT INTO [dbo].[Roles] ( [name] )
+INSERT INTO [dbo].[roles] ( [name] )
             SELECT  'admin'
             UNION ALL
             SELECT  'user'
@@ -15,6 +16,8 @@ INSERT INTO [dbo].[Roles] ( [name] )
 CREATE TABLE users
 (
     ids INT IDENTITY ,
+    -- 角色名 
+    rolename NVARCHAR(28) NOT NULL DEFAULT ( 'user' ) ,
     --电话号码
     mobile VARCHAR(25) NOT NULL PRIMARY KEY ,
     --头像
@@ -31,7 +34,74 @@ CREATE TABLE users
     logintimes INT NOT NULL DEFAULT ( 0 ) ,
 
     -- 记录的 添加 修改 删除时间
-    adddate DATETIME ,
+    adddate DATETIME NOT NULL DEFAULT ( GETDATE ()) ,
     updatedate DATETIME ,
     deletedate DATETIME ,
+
+    --删除标志,暂时无用
+    delmark VARCHAR(1) NOT NULL DEFAULT ( 'N' )
 )
+
+--先默认插入 一个管理员
+INSERT INTO [dbo].[users] (
+                              [rolename] ,
+                              [mobile] ,
+                              [avatar] ,
+                              [password] ,
+                              [name] ,
+                              [email]
+                          )
+            SELECT  'admin' ,
+                    '13912345678' ,
+                    '' ,
+                    '' ,
+                    '管理员' ,
+                    'aierong@126.com'
+
+CREATE TABLE billtype
+(
+    ids INT IDENTITY PRIMARY KEY ,
+    -- 是支出类型
+    isout BIT NOT NULL DEFAULT ( 0 ) ,
+    -- 是系统预定义类型
+    issystemtype BIT NOT NULL DEFAULT ( 1 ) ,
+    -- 类型名称
+    typename NVARCHAR(38) NOT NULL DEFAULT ( '' ) ,
+
+    -- 哪个用户的类型
+    mobile VARCHAR(25) NOT NULL DEFAULT ( '' ) ,
+
+    -- 记录的 添加 修改 删除时间
+    adddate DATETIME NOT NULL DEFAULT ( GETDATE ()) ,
+    updatedate DATETIME ,
+    deletedate DATETIME
+)
+
+-- 一些系统内置的类型
+CREATE TABLE bills
+(
+    ids INT IDENTITY PRIMARY KEY ,
+    -- 哪个用户
+    mobile VARCHAR(25) NOT NULL DEFAULT ( '' ) ,
+    -- 类型id
+    billtypeid INT ,
+    -- 金额
+    moneys MONEY NOT NULL DEFAULT ( 0 ) ,
+    -- 金额发生日期 2020-01-01
+    moneydate NVARCHAR(168) NOT NULL DEFAULT ( '' ) ,
+
+    --备注
+    memo NVARCHAR(168) DEFAULT ( '' ) ,
+
+    -- 记录的 添加 修改 删除时间
+    adddate DATETIME NOT NULL DEFAULT ( GETDATE ()) ,
+    updatedate DATETIME ,
+    deletedate DATETIME ,
+
+    --删除标志
+    delmark VARCHAR(1) NOT NULL DEFAULT ( 'N' )
+)
+
+-- 搞一个索引
+CREATE INDEX idx_bills
+    ON bills ( mobile )
