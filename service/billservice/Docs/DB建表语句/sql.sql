@@ -67,6 +67,8 @@ CREATE TABLE billtype
     issystemtype BIT NOT NULL DEFAULT ( 1 ) ,
     -- 类型名称
     typename NVARCHAR(38) NOT NULL DEFAULT ( '' ) ,
+	-- 图标
+	avatar NVARCHAR(88) NOT NULL DEFAULT ( '' ) ,
 
     -- 哪个用户的类型
     mobile VARCHAR(25) NOT NULL DEFAULT ( '' ) ,
@@ -78,20 +80,47 @@ CREATE TABLE billtype
 )
 
 -- 一些系统内置的类型
+INSERT INTO [dbo].[billtype]
+           ([isout]
+           ,[issystemtype]
+           ,[typename])
+SELECT 1,1,'餐饮'  
+UNION ALL
+SELECT 1,1,'娱乐'  
+UNION ALL
+SELECT 1,1,'住房'  
+UNION ALL
+SELECT 1,1,'购物'  
+UNION ALL
+SELECT 0,1,'工资'  
+UNION ALL
+SELECT 0,1,'奖金'  
+UNION ALL
+SELECT 0,1,'红包'  
+UNION ALL
+SELECT 0,1,'转账'  
+
+
+-- 账目
 CREATE TABLE bills
 (
     ids INT IDENTITY PRIMARY KEY ,
     -- 哪个用户
     mobile VARCHAR(25) NOT NULL DEFAULT ( '' ) ,
     -- 类型id
-    billtypeid INT ,
-    -- 金额
+    billtypeid INT NOT NULL DEFAULT ( 0 ) ,
+	-- 是支出类型
+    isout BIT NOT NULL DEFAULT ( 0 ) ,
+    -- 金额 
     moneys MONEY NOT NULL DEFAULT ( 0 ) ,
     -- 金额发生日期 2020-01-01
     moneydate NVARCHAR(168) NOT NULL DEFAULT ( '' ) ,
 
     --备注
     memo NVARCHAR(168) DEFAULT ( '' ) ,
+
+	-- 来源,暂时无用
+	sources  NVARCHAR(168) DEFAULT ( '' ) ,
 
     -- 记录的 添加 修改 删除时间
     adddate DATETIME NOT NULL DEFAULT ( GETDATE ()) ,
