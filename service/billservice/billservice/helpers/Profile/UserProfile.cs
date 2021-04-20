@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using billservice.models;
-using billservice.models.Dto;
+using billservice.Models;
+using billservice.Models.Dto;
 
-namespace billservice.helpers.Profile
+namespace billservice.Helpers.Profile
 {
     public class UserProfile : AutoMapper.Profile
     {

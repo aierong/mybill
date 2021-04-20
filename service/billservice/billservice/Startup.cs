@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using billservice.Helpers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -32,7 +33,7 @@ namespace billservice
            
             services.AddMvc().AddJsonOptions( ( options ) =>
             {
-                options.JsonSerializerOptions.Converters.Add( new helpers.DatetimeJsonConverter() );
+                options.JsonSerializerOptions.Converters.Add( new DatetimeJsonConverter() );
 
                 //.net core3.1中返回数据属性字段首字母是默认小写(驼峰格式)
                 // 该值指定用于将对象的属性名称转换为其他格式（例如 camel 大小写）的策略；若为 null，则保持属性名称不变。

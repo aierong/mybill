@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 */
 
-namespace billservice.helpers
+namespace billservice.Helpers
 {
     public class DatetimeJsonConverter : JsonConverter<DateTime>
     {

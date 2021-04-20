@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using billservice.models.Dto;
+using billservice.Models.Dto;
 using FluentValidation;
 
-namespace billservice.helpers.Validator
+namespace billservice.Helpers.Validator
 {
     public class UserDtoValidator : AbstractValidator<UserDto>
     {
