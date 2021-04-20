@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using SqlSugar;
 
 namespace billservice
 {
@@ -31,6 +32,11 @@ namespace billservice
             services.AddControllers();
 
            
+
+            // 可以把服务注册的代码放在静态扩展方法里，使得 ConfigureServices 更加简洁
+            // 可以分模块分别写不同的静态扩展方法
+            services.AddService( Configuration );
+
             services.AddMvc().AddJsonOptions( ( options ) =>
             {
                 options.JsonSerializerOptions.Converters.Add( new DatetimeJsonConverter() );
