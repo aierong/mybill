@@ -3,7 +3,7 @@ using System.Linq;
 using System.Text;
 using SqlSugar;
 
-namespace billservice.models
+namespace billservice.Models
 {
     ///<summary>
     ///
