@@ -75,11 +75,16 @@ namespace billservice
         {
             #region 数据库
 
+            ////连接符字串
+            string constr = configuration["DbConnectionString"];
+
             SqlSugarClient db = new SqlSugarClient( new ConnectionConfig()
             {
-                ConnectionString = "Server=.;Database=mybill;User Id=sa;Password=yanfa;" ,//连接符字串
+                
+                ConnectionString = constr  ,//连接符字串
                 DbType = DbType.SqlServer ,
                 IsAutoCloseConnection = true
+
             } );
 
             services.AddSingleton<SqlSugarClient>( db );
@@ -87,6 +92,8 @@ namespace billservice
             #endregion
 
             services.AddSingleton<IUser , UserService>();
+            services.AddSingleton<IBillType , BillTypeService>();
+            services.AddSingleton<IBill , BillService>();
 
             return services;
         }
