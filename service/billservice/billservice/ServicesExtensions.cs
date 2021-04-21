@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using billservice.Helpers.Result;
 using billservice.Helpers.Validator;
 using billservice.Models.Dto;
+using billservice.Services;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
@@ -30,6 +31,11 @@ namespace billservice
             services.AddSingleton<SqlSugarClient>( db );
 
             #endregion
+
+
+
+            services.AddSingleton<IUser , UserService>();
+
 
 
             #region  FluentValidation

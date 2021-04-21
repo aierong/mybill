@@ -7,6 +7,11 @@ namespace billservice.Services
 {
     public interface IUser
     {
-
+        /// <summary>
+        /// 是存在用户
+        /// </summary>
+        /// <param name="mobile"></param>
+        /// <returns></returns>
+        bool IsExistUser ( string mobile );
     }
 }
