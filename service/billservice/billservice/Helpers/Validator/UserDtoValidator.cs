@@ -12,10 +12,10 @@ namespace billservice.Helpers.Validator
     {
 
         IUser user;
-
-        public UserDtoValidator ( IUser user )
+        //IUser user 
+        public UserDtoValidator ( )
         {
-            this.user = user;
+            //this.user = user;
 
             RuleFor( user => user.mobile )
                 .NotNull().WithMessage( "{PropertyName}没有传递或者空" )
@@ -24,12 +24,12 @@ namespace billservice.Helpers.Validator
                 .WithName( "手机号码" )
                 .Must( ( item , mobile ) =>
                 {
-                    bool bl = this.user.IsExistUser( mobile );
+                    //bool bl = this.user.IsExistUser( mobile );
 
-                    if ( bl )
-                    {
-                        return false;
-                    }
+                    //if ( bl )
+                    //{
+                    //    return false;
+                    //}
 
                     //返回true 就是验证成功
                     return true;
