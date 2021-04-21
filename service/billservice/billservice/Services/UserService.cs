@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using billservice.Models;
 using SqlSugar;
 
 namespace billservice.Services
@@ -21,9 +22,21 @@ namespace billservice.Services
 
         public bool IsExistUser ( string mobile )
         {
+            //var getFirst = db.Queryable<users>().First( it => it.mobile == mobile );
 
+            //if ( getFirst == null )
+            //{
+            //    return false;
+            //}
 
-            return true;
+            var isAny = db.Queryable<users>().Where( it => it.mobile == mobile );
+
+            if ( isAny != null && isAny.Count() > 0 )
+            {
+                return true;
+            }
+
+            return false;
         }
 
 

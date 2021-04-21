@@ -23,7 +23,7 @@ namespace billservice
 
             SqlSugarClient db = new SqlSugarClient( new ConnectionConfig()
             {
-                ConnectionString = "Server=192.168.8.156;Database=ERPDATANEW;User Id=erpadmin;Password=voionit;" ,//连接符字串
+                ConnectionString = "Server=.;Database=mybill;User Id=sa;Password=yanfa;" ,//连接符字串
                 DbType = DbType.SqlServer ,
                 IsAutoCloseConnection = true
             } );
