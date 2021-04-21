@@ -12,28 +12,21 @@ namespace billservice.Helpers.Validator
     {
 
         IUser user;
-        //IUser user 
-        public UserDtoValidator ( )
+        //
+        public UserDtoValidator ( IUser user )
         {
-            //this.user = user;
+            this.user = user;
 
             RuleFor( user => user.mobile )
                 .NotNull().WithMessage( "{PropertyName}没有传递或者空" )
                 .NotEmpty().WithMessage( "{PropertyName}为空" )
                 .MinimumLength( 6 ).WithMessage( "{PropertyName}最小长度6位" )
-                .WithName( "手机号码" )
                 .Must( ( item , mobile ) =>
                 {
-                    //bool bl = this.user.IsExistUser( mobile );
-
-                    //if ( bl )
-                    //{
-                    //    return false;
-                    //}
-
                     //返回true 就是验证成功
-                    return true;
-                } ).WithMessage( "{PropertyName}重复" );
+                    return !this.user.IsExistUser( mobile );                   
+
+                } ).WithMessage( item => string.Format( "{0}{1}重复" , "{PropertyName}" , item.mobile ) ).WithName( "手机号码" );
 
 
             RuleFor( user => user.password )

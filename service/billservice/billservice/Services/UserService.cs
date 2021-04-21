@@ -29,9 +29,9 @@ namespace billservice.Services
             //    return false;
             //}
 
-            var isAny = db.Queryable<users>().Where( it => it.mobile == mobile );
+            var isAny = db.Queryable<users>().Where( it => it.mobile == mobile ).Any();
 
-            if ( isAny != null && isAny.Count() > 0 )
+            if ( isAny )
             {
                 return true;
             }

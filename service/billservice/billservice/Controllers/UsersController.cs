@@ -38,11 +38,11 @@ namespace billservice.Controllers
             var result = new ServiceResult();
 
 
-            bool bl = this.user.IsExistUser(  userDto.mobile );
+            //bool bl = this.user.IsExistUser(  userDto.mobile );
 
-            if ( bl )
-            {
-            }
+            //if ( bl )
+            //{
+            //}
 
             return result;
         }
