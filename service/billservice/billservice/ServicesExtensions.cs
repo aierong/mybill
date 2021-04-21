@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using billservice.Helpers.Validator;
+using billservice.Models.Dto;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SqlSugar;
@@ -12,7 +16,7 @@ namespace billservice
     {
         public static IServiceCollection AddService ( this IServiceCollection services , IConfiguration configuration )
         {
-            #region db
+            #region 数据库
 
             SqlSugarClient db = new SqlSugarClient( new ConnectionConfig()
             {
@@ -24,6 +28,16 @@ namespace billservice
             services.AddSingleton<SqlSugarClient>( db );
 
             #endregion
+
+
+            #region  FluentValidation
+
+            services.AddMvc().AddFluentValidation();
+
+            services.AddTransient<IValidator<UserDto> , UserDtoValidator>();
+
+            #endregion
+
 
 
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using billservice.Helpers.Result;
 using billservice.Models.Dto;
 using Microsoft.AspNetCore.Mvc;
 
@@ -26,12 +27,15 @@ namespace billservice.Controllers
 
 
         [HttpPost]
-        [Route( "adduser" )]
-        public IEnumerable<string> adduser ( [FromBody] UserDto userDto )
+        [Route( "" )]
+        public ServiceResult adduser ( [FromBody] UserDto userDto )
         {
+            var result = new ServiceResult();
 
 
-            return new string[] { "value1" , "value2" };
+
+
+            return result;
         }
 
 
