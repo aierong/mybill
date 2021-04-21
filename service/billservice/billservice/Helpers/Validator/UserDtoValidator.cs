@@ -4,15 +4,17 @@ using System.Linq;
 using System.Threading.Tasks;
 using billservice.Models.Dto;
 using billservice.Services;
+using billservice.Services.Interfaces;
 using FluentValidation;
 
 namespace billservice.Helpers.Validator
 {
     public class UserDtoValidator : AbstractValidator<UserDto>
     {
+        readonly IUser user;
 
-        IUser user;
-        //
+
+
         public UserDtoValidator ( IUser user )
         {
             this.user = user;
@@ -24,7 +26,7 @@ namespace billservice.Helpers.Validator
                 .Must( ( item , mobile ) =>
                 {
                     //返回true 就是验证成功
-                    return !this.user.IsExistUser( mobile );                   
+                    return !this.user.IsExistUser( mobile );
 
                 } ).WithMessage( item => string.Format( "{0}{1}重复" , "{PropertyName}" , item.mobile ) ).WithName( "手机号码" );
 

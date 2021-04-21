@@ -6,6 +6,7 @@ using billservice.Helpers.Result;
 using billservice.Helpers.Validator;
 using billservice.Models.Dto;
 using billservice.Services;
+using billservice.Services.Interfaces;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc;

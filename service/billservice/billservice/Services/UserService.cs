@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using billservice.Models;
+using billservice.Services.Interfaces;
 using SqlSugar;
 
 namespace billservice.Services
@@ -11,7 +12,7 @@ namespace billservice.Services
 
     public class UserService : IUser
     {
-        SqlSugarClient db;
+        readonly SqlSugarClient db;
 
         public UserService ( SqlSugarClient db )
         {

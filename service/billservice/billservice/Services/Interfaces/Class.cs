@@ -5,8 +5,7 @@ using System.Threading.Tasks;
 
 namespace billservice.Services.Interfaces
 {
-    public interface IBillType
+    public class Class
     {
-
     }
 }
