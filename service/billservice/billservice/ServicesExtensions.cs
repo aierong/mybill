@@ -15,39 +15,17 @@ using SqlSugar;
 
 namespace billservice
 {
-    public static class ServicesOtherExtensions
+    public static class ServicesExtensions
     {
+        /// <summary>
+        /// 其它的相关服务注册
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="configuration"></param>
+        /// <returns></returns>
         public static IServiceCollection AddOtherService ( this IServiceCollection services , IConfiguration configuration )
         {
-            #region 数据库
-
-            SqlSugarClient db = new SqlSugarClient( new ConnectionConfig()
-            {
-                ConnectionString = "Server=.;Database=mybill;User Id=sa;Password=yanfa;" ,//连接符字串
-                DbType = DbType.SqlServer ,
-                IsAutoCloseConnection = true
-            } );
-
-            services.AddSingleton<SqlSugarClient>( db );
-
-            #endregion
-
-
-
-            services.AddSingleton<IUser , UserService>();
-
-
-
-            #region  FluentValidation
-
-            services.AddMvc().AddFluentValidation();
-
-            services.AddTransient<IValidator<UserDto> , UserDtoValidator>();
-
-            #endregion
-
-
-
+             
             #region 接收模型参数验证失败,自定义错误格式
 
             services.Configure<ApiBehaviorOptions>( options =>
@@ -81,13 +59,17 @@ namespace billservice
 
             #endregion
 
-
-
-
             return services;
         }
 
 
+
+        /// <summary>
+        /// 数据库的相关服务注册
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="configuration"></param>
+        /// <returns></returns>
         public static IServiceCollection AddDBService ( this IServiceCollection services , IConfiguration configuration )
         {
             #region 数据库
@@ -103,12 +85,21 @@ namespace billservice
 
             #endregion
 
-
-
             services.AddSingleton<IUser , UserService>();
 
+            return services;
+        }
 
 
+
+        /// <summary>
+        /// FluentValidation的相关服务注册
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="configuration"></param>
+        /// <returns></returns>
+        public static IServiceCollection AddFluentValidationService ( this IServiceCollection services , IConfiguration configuration )
+        {
             #region  FluentValidation
 
             services.AddMvc().AddFluentValidation();
@@ -117,45 +108,10 @@ namespace billservice
 
             #endregion
 
-
-
-            #region 接收模型参数验证失败,自定义错误格式
-
-            services.Configure<ApiBehaviorOptions>( options =>
-            {
-                options.InvalidModelStateResponseFactory = ( context ) =>
-                {
-                    string errormsg = string.Empty;
-
-                    foreach ( var item in context.ModelState )
-                    {
-                        var state = item.Value;
-                        var message = state.Errors.FirstOrDefault( p => !string.IsNullOrWhiteSpace( p.ErrorMessage ) )?.ErrorMessage;
-
-                        if ( message != null )
-                        {
-                            errormsg = message;
-
-                            // 可能会有多个错误,这里,我们取第一个,就返回了
-                            break;
-                        }
-
-                    }
-
-                    var result = new ServiceResult();
-                    result.IsFailed( errormsg );
-
-                    return new JsonResult( result );
-
-                };
-            } );
-
-            #endregion
-
-
-
-
             return services;
         }
+
+
+
     }
 }
