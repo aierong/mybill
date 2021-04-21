@@ -11,6 +11,9 @@ INSERT INTO [dbo].[roles] ( [name] )
             SELECT  'admin'
             UNION ALL
             SELECT  'user'
+go
+
+
 
 -- ”√ªß±Ì
 CREATE TABLE users
