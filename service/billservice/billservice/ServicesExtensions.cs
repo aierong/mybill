@@ -7,9 +7,10 @@ using billservice.Helpers;
 using billservice.Helpers.ConfigData;
 using billservice.Helpers.Result;
 using billservice.Helpers.Validator;
+using billservice.interfaces;
 using billservice.models.Dto;
 using billservice.Services;
-using billservice.Services.Interfaces;
+ 
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;

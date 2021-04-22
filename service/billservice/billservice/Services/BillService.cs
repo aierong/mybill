@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using billservice.Services.Interfaces;
+using billservice.interfaces;
 
 namespace billservice.Services
 {

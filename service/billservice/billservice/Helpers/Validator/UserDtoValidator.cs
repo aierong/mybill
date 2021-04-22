@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using billservice.interfaces;
 using billservice.models.Dto;
 using billservice.Services;
-using billservice.Services.Interfaces;
+ 
 using FluentValidation;
 
 namespace billservice.Helpers.Validator

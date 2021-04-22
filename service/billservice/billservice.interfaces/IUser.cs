@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using billservice.models;
 
-namespace billservice.Services.Interfaces
+namespace billservice.interfaces
 {
     public interface IUser
     {

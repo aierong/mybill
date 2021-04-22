@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using billservice.interfaces;
 using billservice.models;
-using billservice.Services.Interfaces;
+ 
 using SqlSugar;
 
 namespace billservice.Services

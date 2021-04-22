@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace billservice.Services.Interfaces
+namespace billservice.interfaces
 {
     public interface IBill
     {
