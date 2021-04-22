@@ -16,8 +16,10 @@ namespace billservice.Helpers.Validator
         public BillTypeDtoValidator ( IBillType billtype )
         {
             this.billtype = billtype;
-             
 
+            RuleFor( item => item.isout )
+              .NotNull().WithMessage( "{PropertyName}没有传递或者空" )
+              .WithName( "类型" );
 
             RuleFor( item => item.mobile )
                .NotNull().WithMessage( "{PropertyName}没有传递或者空" )
@@ -30,9 +32,9 @@ namespace billservice.Helpers.Validator
                .MaximumLength( 10 ).WithMessage( "{PropertyName}最大长度请小于10位" )
                .Must( ( item , name ) =>
                {
+                   return !this.billtype.IsExistName( name , item.mobile );
 
-                   return true;
-               } ).WithMessage( "" )
+               } ).When( item => !string.IsNullOrWhiteSpace( item.typename ) && !string.IsNullOrWhiteSpace( item.mobile ) ).WithMessage( item => string.Format( "{0}:{1}不唯一" , "{PropertyName}" , item.typename ) )
                .WithName( "名称" );
 
 
