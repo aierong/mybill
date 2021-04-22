@@ -108,13 +108,13 @@ namespace billservice
         /// <returns></returns>
         public static IServiceCollection AddFluentValidationService ( this IServiceCollection services , IConfiguration configuration )
         {
-            #region  FluentValidation
+            
 
             services.AddMvc().AddFluentValidation();
 
             services.AddTransient<IValidator<UserDto> , UserDtoValidator>();
+            services.AddTransient<IValidator<BillTypeDto> , BillTypeDtoValidator>();
 
-            #endregion
 
             return services;
         }
@@ -129,11 +129,8 @@ namespace billservice
         /// <returns></returns>
         public static IServiceCollection AddAutoMapperService ( this IServiceCollection services , IConfiguration configuration )
         {
-            #region  AutoMapper
-
-            services.AddAutoMapper( AppDomain.CurrentDomain.GetAssemblies() );
-                        
-            #endregion
+             
+            services.AddAutoMapper( AppDomain.CurrentDomain.GetAssemblies() );          
 
             return services;
         }
