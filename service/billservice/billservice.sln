@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.31205.134
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "billservice", "billservice\billservice.csproj", "{6AE02167-F251-4E4B-A1D5-3E0A196C2527}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Docs", "Docs\Docs.csproj", "{0958D40A-E9D9-4405-A3B1-06CC29DC8261}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Docs", "Docs\Docs.csproj", "{0958D40A-E9D9-4405-A3B1-06CC29DC8261}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "billservice.model", "billservice.model\billservice.model.csproj", "{04A720E0-B7FF-4633-BA2F-510CDC1CC32F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,6 +22,10 @@ Global
 		{0958D40A-E9D9-4405-A3B1-06CC29DC8261}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0958D40A-E9D9-4405-A3B1-06CC29DC8261}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0958D40A-E9D9-4405-A3B1-06CC29DC8261}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04A720E0-B7FF-4633-BA2F-510CDC1CC32F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04A720E0-B7FF-4633-BA2F-510CDC1CC32F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04A720E0-B7FF-4633-BA2F-510CDC1CC32F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04A720E0-B7FF-4633-BA2F-510CDC1CC32F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
