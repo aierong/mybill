@@ -21,14 +21,22 @@ namespace billservice.Services
 
 
 
+        public bool IsExistEmail ( string email )
+        {
+            var isAny = db.Queryable<users>().Where( it => it.email == email ).Any();
+
+            if ( isAny )
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+
+
         public bool IsExistUser ( string mobile )
         {
-            //var getFirst = db.Queryable<users>().First( it => it.mobile == mobile );
-
-            //if ( getFirst == null )
-            //{
-            //    return false;
-            //}
 
             var isAny = db.Queryable<users>().Where( it => it.mobile == mobile ).Any();
 
@@ -39,6 +47,16 @@ namespace billservice.Services
 
             return false;
         }
+
+
+
+        public bool SaveUser ( users user )
+        {
+            var ids = db.Insertable( user ).ExecuteReturnIdentity();
+
+            return ids > 0;
+        }
+
 
 
     }

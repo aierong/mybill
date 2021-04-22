@@ -23,6 +23,7 @@ namespace billservice.Helpers.Validator
                 .NotNull().WithMessage( "{PropertyName}没有传递或者空" )
                 .NotEmpty().WithMessage( "{PropertyName}为空" )
                 .MinimumLength( 6 ).WithMessage( "{PropertyName}最小长度6位" )
+                // 判断手机号码是否唯一
                 .Must( ( item , mobile ) =>
                 {
                     //返回true 就是验证成功
@@ -47,6 +48,16 @@ namespace billservice.Helpers.Validator
                .NotNull().WithMessage( "{PropertyName}没有传递或者空" )
                .NotEmpty().WithMessage( "{PropertyName}为空" )
                .WithName( "头像" );
+
+            RuleFor( user => user.email )
+                // 判断邮件地址是否唯一
+                .Must( ( item , email ) =>
+                {
+                    return !this.user.IsExistEmail( email );
+
+                } ).When( item => !string.IsNullOrWhiteSpace( item.email ) )
+                .WithMessage( item => string.Format( "{0}{1}不唯一(重复)" , "{PropertyName}" , item.email ) )
+                .WithName( "Email(邮件)" );
 
         }
 

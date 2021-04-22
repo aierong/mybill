@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using billservice.Models;
 
 namespace billservice.Services.Interfaces
 {
@@ -13,5 +14,10 @@ namespace billservice.Services.Interfaces
         /// <param name="mobile"></param>
         /// <returns></returns>
         bool IsExistUser ( string mobile );
+
+        bool IsExistEmail ( string email );
+
+
+        bool SaveUser ( users user ) ;
     }
 }

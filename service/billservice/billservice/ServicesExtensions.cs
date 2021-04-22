@@ -121,5 +121,24 @@ namespace billservice
 
 
 
+        /// <summary>
+        /// AutoMapper的相关服务注册
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="configuration"></param>
+        /// <returns></returns>
+        public static IServiceCollection AddAutoMapperService ( this IServiceCollection services , IConfiguration configuration )
+        {
+            #region  AutoMapper
+
+            services.AddAutoMapper( AppDomain.CurrentDomain.GetAssemblies() );
+                        
+            #endregion
+
+            return services;
+        }
+
+
+
     }
 }

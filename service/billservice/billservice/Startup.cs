@@ -36,6 +36,7 @@ namespace billservice
             // 可以把服务注册的代码放在静态扩展方法里，使得 ConfigureServices 更加简洁
             // 可以分模块分别写不同的静态扩展方法
             services.AddDBService( Configuration );
+            services.AddAutoMapperService( Configuration );
             services.AddFluentValidationService( Configuration );
             services.AddOtherService( Configuration );
 

@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using billservice.Helpers.Result;
+using billservice.Models;
 using billservice.Models.Dto;
 using billservice.Services;
 using billservice.Services.Interfaces;
@@ -18,10 +20,15 @@ namespace billservice.Controllers
     {
         readonly IUser user;
 
-        public UsersController ( IUser user )
+        private readonly IMapper mapper;
+
+        public UsersController ( IUser user , IMapper mapper )
         {
             this.user = user;
+
+            this.mapper = mapper;
         }
+
 
 
         [HttpPost]
@@ -39,12 +46,17 @@ namespace billservice.Controllers
         {
             var result = new ServiceResult();
 
+            users user = this.mapper.Map<UserDto , users>( userDto );
 
-            //bool bl = this.user.IsExistUser(  userDto.mobile );
+            bool bl = this.user.SaveUser( user );
 
-            //if ( bl )
-            //{
-            //}
+            if ( !bl )
+            {
+                result.IsFailed( "保存失败" );
+
+                return result;
+            }
+
 
             return result;
         }
