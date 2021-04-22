@@ -50,7 +50,7 @@ namespace billservice.Helpers.Validator
                .WithName( "头像" );
 
             RuleFor( user => user.email )
-                // 判断邮件地址是否唯一
+                // 条件验证:如果有email的情况下, 判断邮件地址是否唯一
                 .Must( ( item , email ) =>
                 {
                     return !this.user.IsExistEmail( email );
