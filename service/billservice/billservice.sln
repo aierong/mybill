@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Docs", "Docs\Docs.csproj", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "billservice.models", "billservice.models\billservice.models.csproj", "{04A720E0-B7FF-4633-BA2F-510CDC1CC32F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "billservice.interfaces", "billservice.interfaces\billservice.interfaces.csproj", "{438BC1F3-127D-4533-B305-FEBB5944C78C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "billservice.interfaces", "billservice.interfaces\billservice.interfaces.csproj", "{438BC1F3-127D-4533-B305-FEBB5944C78C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "billservice.services", "billservice.services\billservice.services.csproj", "{CDF41A02-53F5-443F-AD3B-E6EE110D1B60}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,6 +34,10 @@ Global
 		{438BC1F3-127D-4533-B305-FEBB5944C78C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{438BC1F3-127D-4533-B305-FEBB5944C78C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{438BC1F3-127D-4533-B305-FEBB5944C78C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CDF41A02-53F5-443F-AD3B-E6EE110D1B60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CDF41A02-53F5-443F-AD3B-E6EE110D1B60}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CDF41A02-53F5-443F-AD3B-E6EE110D1B60}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CDF41A02-53F5-443F-AD3B-E6EE110D1B60}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
