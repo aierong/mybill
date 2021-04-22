@@ -4,9 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using billservice.interfaces;
 
-namespace billservice.Services
+namespace billservice.services
 {
     public class BillService : IBill
     {
+
     }
 }

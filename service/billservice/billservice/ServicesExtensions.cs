@@ -9,7 +9,8 @@ using billservice.Helpers.Result;
 using billservice.Helpers.Validator;
 using billservice.interfaces;
 using billservice.models.Dto;
-using billservice.Services;
+using billservice.services;
+ 
  
 using FluentValidation;
 using FluentValidation.AspNetCore;

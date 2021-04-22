@@ -7,7 +7,7 @@ using billservice.models;
  
 using SqlSugar;
 
-namespace billservice.Services
+namespace billservice.services
 {
 
 
