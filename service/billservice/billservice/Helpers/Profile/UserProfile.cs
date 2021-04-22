@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using billservice.model;
 using billservice.model.Dto;
-using billservice.Models;
 
 
 namespace billservice.Helpers.Profile
@@ -14,7 +13,7 @@ namespace billservice.Helpers.Profile
         public UserProfile ()
         {
             CreateMap<UserDto , users>()
-                .ForMember( destination => destination.password , opt => opt.MapFrom( src => new MD5Security().Encrypt( src.password ) ) )
+               .ForMember( destination => destination.password , opt => opt.MapFrom( src => new MD5Security().Encrypt( src.password ) ) )
                .AfterMap( ( src , dest ) =>
                {
                    DateTime now = DateTime.Now;

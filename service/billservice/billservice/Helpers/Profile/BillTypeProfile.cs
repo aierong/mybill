@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using billservice.model;
 using billservice.model.Dto;
-using billservice.Models;
 
 
 namespace billservice.Helpers.Profile
