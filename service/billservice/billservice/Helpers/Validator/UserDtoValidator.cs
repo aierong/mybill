@@ -29,7 +29,8 @@ namespace billservice.Helpers.Validator
                     //返回true 就是验证成功
                     return !this.user.IsExistUser( mobile );
 
-                } ).WithMessage( item => string.Format( "{0}{1}重复" , "{PropertyName}" , item.mobile ) ).WithName( "手机号码" );
+                } ).WithMessage( item => string.Format( "{0}{1}重复" , "{PropertyName}" , item.mobile ) )
+                .WithName( "手机号码" );
 
 
             RuleFor( user => user.password )
@@ -50,13 +51,14 @@ namespace billservice.Helpers.Validator
                .WithName( "头像" );
 
             RuleFor( user => user.email )
+                // 条件验证:如果有email的情况下 ,判断格式
+                .EmailAddress().When( item => !string.IsNullOrWhiteSpace( item.email ) ).WithMessage( "{PropertyName}格式不正确" )
                 // 条件验证:如果有email的情况下, 判断邮件地址是否唯一
                 .Must( ( item , email ) =>
                 {
                     return !this.user.IsExistEmail( email );
 
-                } ).When( item => !string.IsNullOrWhiteSpace( item.email ) )
-                .WithMessage( item => string.Format( "{0}{1}不唯一(重复)" , "{PropertyName}" , item.email ) )
+                } ).When( item => !string.IsNullOrWhiteSpace( item.email ) ).WithMessage( item => string.Format( "{0}{1}不唯一(重复)" , "{PropertyName}" , item.email ) )
                 .WithName( "Email(邮件)" );
 
         }
