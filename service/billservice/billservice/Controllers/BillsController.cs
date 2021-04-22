@@ -8,17 +8,21 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace billservice.Controllers
 {
-    [Route( "api/billtypes" )]
+    [Route( "api/bills" )]
     [ApiController]
-    public class BillTypeController : ControllerBase
+    public class BillsController : ControllerBase
     {
 
 
-        // POST api/<BillTypeController>
+
+
+        // POST api/<BillController>
         [HttpPost]
         public void Post ( [FromBody] string value )
         {
         }
+
+
 
 
     }
