@@ -7,6 +7,6 @@ namespace billservice.Services.Interfaces
 {
     public interface IBillType
     {
-
+        bool IsExistName ( string typename , string mobile );
     }
 }
