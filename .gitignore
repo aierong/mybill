@@ -21,6 +21,4 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
-/service/billservice/billservice/bin
-/service/billservice/billservice/obj
-/service/billservice/.vs
+
