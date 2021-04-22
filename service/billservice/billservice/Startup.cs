@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Threading.Tasks;
 using billservice.Helpers;
@@ -19,12 +20,26 @@ namespace billservice
         public Startup ( IConfiguration configuration )
         {
             Configuration = configuration;
+
+            /**
+            这里不清除一下
+
+            new Claim( System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames.Sub, "主题来了D2-B49B") 
+
+            这种方式注册的值会被框架默认转换为:http://schemas.xmlsoap.org/ws/2005/05/identity/claims，这样的存储方式
+            
+            */
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
         }
+
+
 
         public IConfiguration Configuration
         {
             get;
         }
+
+
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices ( IServiceCollection services )
@@ -38,6 +53,7 @@ namespace billservice
             services.AddDBService( Configuration );
             services.AddAutoMapperService( Configuration );
             services.AddFluentValidationService( Configuration );
+            services.AddTokenService( Configuration );
             services.AddOtherService( Configuration );
 
             services.AddMvc().AddJsonOptions( ( options ) =>
