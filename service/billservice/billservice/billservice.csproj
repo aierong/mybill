@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\billservice.model\billservice.model.csproj" />
+    <ProjectReference Include="..\billservice.model\billservice.models.csproj" />
   </ItemGroup>
 
 
