@@ -7,7 +7,7 @@ using billservice.Helpers;
 using billservice.Helpers.ConfigData;
 using billservice.Helpers.Result;
 using billservice.Helpers.Validator;
-using billservice.model.Dto;
+using billservice.models.Dto;
 using billservice.Services;
 using billservice.Services.Interfaces;
 using FluentValidation;

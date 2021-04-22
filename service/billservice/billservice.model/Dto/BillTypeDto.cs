@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace billservice.model.Dto
+namespace billservice.models.Dto
 {
     public class BillTypeDto
     {
