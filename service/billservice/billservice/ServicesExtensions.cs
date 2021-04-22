@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 using billservice.Helpers;
 using billservice.Helpers.Result;
 using billservice.Helpers.Validator;
+using billservice.model.Dto;
 using billservice.Models.ConfigData;
-using billservice.Models.Dto;
+
 using billservice.Services;
 using billservice.Services.Interfaces;
 using FluentValidation;

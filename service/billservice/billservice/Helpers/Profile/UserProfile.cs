@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using billservice.model;
+using billservice.model.Dto;
 using billservice.Models;
-using billservice.Models.Dto;
+
 
 namespace billservice.Helpers.Profile
 {
