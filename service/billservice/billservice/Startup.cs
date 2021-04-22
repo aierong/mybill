@@ -56,20 +56,10 @@ namespace billservice
             services.AddTokenService( Configuration );
             services.AddOtherService( Configuration );
 
-            services.AddMvc().AddJsonOptions( ( options ) =>
-            {
-                options.JsonSerializerOptions.Converters.Add( new DatetimeJsonConverter() );
-
-                //.net core3.1中返回数据属性字段首字母是默认小写(驼峰格式)
-                // 该值指定用于将对象的属性名称转换为其他格式（例如 camel 大小写）的策略；若为 null，则保持属性名称不变。
-                options.JsonSerializerOptions.PropertyNamingPolicy = null;
-
-                // 这个是 是否格式化输出
-                // 该值定义JSON是否应使用整齐打印。 默认情况下，不使用任何额外的空白来序列化JSON。
-                options.JsonSerializerOptions.WriteIndented = true;
-
-            } );
+            
         }
+
+
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure ( IApplicationBuilder app , IWebHostEnvironment env )
@@ -80,6 +70,9 @@ namespace billservice
             }
 
             app.UseRouting();
+
+            // 开启验证中间件
+            app.UseAuthentication();//启用验证
 
             app.UseAuthorization();
 

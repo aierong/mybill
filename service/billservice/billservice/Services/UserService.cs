@@ -21,6 +21,15 @@ namespace billservice.Services
 
 
 
+        public users GetUser ( string mobile )
+        {
+            var model = db.Queryable<users>().First( it => it.mobile == mobile );
+
+            return model;
+        }
+
+
+
         public bool IsExistEmail ( string email )
         {
             var isAny = db.Queryable<users>().Where( it => it.email == email ).Any();

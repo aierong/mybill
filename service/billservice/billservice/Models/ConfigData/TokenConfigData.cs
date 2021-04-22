@@ -21,5 +21,10 @@ namespace billservice.Models.ConfigData
         {
             get; set;
         }
+
+        public int expiresminute
+        {
+            get; set;
+        }
     }
 }

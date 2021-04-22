@@ -19,5 +19,8 @@ namespace billservice.Services.Interfaces
 
 
         bool SaveUser ( users user ) ;
+
+
+        users GetUser ( string mobile );
     }
 }

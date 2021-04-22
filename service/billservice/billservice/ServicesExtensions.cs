@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using billservice.Helpers;
 using billservice.Helpers.Result;
 using billservice.Helpers.Validator;
 using billservice.Models.ConfigData;
@@ -30,7 +31,7 @@ namespace billservice
         /// <returns></returns>
         public static IServiceCollection AddOtherService ( this IServiceCollection services , IConfiguration configuration )
         {
-             
+
             #region 接收模型参数验证失败,自定义错误格式
 
             services.Configure<ApiBehaviorOptions>( options =>
@@ -64,6 +65,22 @@ namespace billservice
 
             #endregion
 
+
+
+            services.AddMvc().AddJsonOptions( ( options ) =>
+            {
+                options.JsonSerializerOptions.Converters.Add( new DatetimeJsonConverter() );
+
+                //.net core3.1中返回数据属性字段首字母是默认小写(驼峰格式)
+                // 该值指定用于将对象的属性名称转换为其他格式（例如 camel 大小写）的策略；若为 null，则保持属性名称不变。
+                options.JsonSerializerOptions.PropertyNamingPolicy = null;
+
+                // 这个是 是否格式化输出
+                // 该值定义JSON是否应使用整齐打印。 默认情况下，不使用任何额外的空白来序列化JSON。
+                options.JsonSerializerOptions.WriteIndented = true;
+
+            } );
+
             return services;
         }
 
@@ -84,8 +101,8 @@ namespace billservice
 
             SqlSugarClient db = new SqlSugarClient( new ConnectionConfig()
             {
-                
-                ConnectionString = constr  ,//连接符字串
+
+                ConnectionString = constr ,//连接符字串
                 DbType = DbType.SqlServer ,
                 IsAutoCloseConnection = true
 
@@ -112,7 +129,7 @@ namespace billservice
         /// <returns></returns>
         public static IServiceCollection AddFluentValidationService ( this IServiceCollection services , IConfiguration configuration )
         {
-            
+
 
             services.AddMvc().AddFluentValidation();
 
@@ -133,8 +150,8 @@ namespace billservice
         /// <returns></returns>
         public static IServiceCollection AddAutoMapperService ( this IServiceCollection services , IConfiguration configuration )
         {
-             
-            services.AddAutoMapper( AppDomain.CurrentDomain.GetAssemblies() );          
+
+            services.AddAutoMapper( AppDomain.CurrentDomain.GetAssemblies() );
 
             return services;
         }
@@ -158,18 +175,7 @@ namespace billservice
             {
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
-                    //ValidateIssuerSigningKey = true ,
-                    //IssuerSigningKey = new SymmetricSecurityKey( Encoding.UTF8.GetBytes( "1234567890123456key" ) ) ,
 
-                    //ValidateIssuer = true ,
-                    //ValidIssuer = "http://localhost:5000" ,
-
-                    //ValidateAudience = true ,
-                    //ValidAudience = "http://localhost:5001" ,
-
-                    //ValidateLifetime = true ,
-
-                    //ClockSkew = TimeSpan.FromMinutes( 5 )
 
                     ValidateIssuer = true ,  //是否验证Issuer
                     ValidateAudience = true ,//是否验证Audience
