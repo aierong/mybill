@@ -10,6 +10,6 @@ namespace billservice.interfaces
     {
         bool IsExistName ( string typename , string mobile );
 
-        bool Save ( billtype user );
+        bool Save ( billtype _billtype );
     }
 }

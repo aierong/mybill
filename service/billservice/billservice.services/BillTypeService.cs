@@ -46,9 +46,9 @@ namespace billservice.services
 
 
 
-        public bool Save ( billtype user )
+        public bool Save ( billtype _billtype )
         {
-            var ids = db.Insertable( user ).ExecuteReturnIdentity();
+            var ids = db.Insertable( _billtype ).ExecuteReturnIdentity();
 
             return ids > 0;
         }

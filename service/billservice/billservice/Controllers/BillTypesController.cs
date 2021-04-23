@@ -20,6 +20,7 @@ namespace billservice.Controllers
         [HttpPost]
         public void Post ( [FromBody] string value )
         {
+            //base.HttpContext.User
         }
 
 
