@@ -17,9 +17,7 @@ namespace billservice.interfaces
 
         bool IsExistEmail ( string email );
 
-
-        bool SaveUser ( users user ) ;
-
+        bool Save ( users user ) ;
 
         users GetUser ( string mobile );
     }

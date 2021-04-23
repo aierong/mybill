@@ -12,7 +12,7 @@ using billservice.Helpers.Result;
 using billservice.interfaces;
 using billservice.models;
 using billservice.models.Dto;
-
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -21,6 +21,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace billservice.Controllers
 {
+    [Authorize]
     [Route( "api/users" )]
     [ApiController]
     public class UsersController : ControllerBase
@@ -41,7 +42,7 @@ namespace billservice.Controllers
         }
 
 
-
+        [AllowAnonymous]
         [HttpPost]
         [Route( "login" )]
         public ServiceResult<UserTokenDto> login ( [FromForm] string mobile , [FromForm] string pwd )
@@ -69,6 +70,7 @@ namespace billservice.Controllers
                 }
             }
 
+            var _role = usermodel.rolename;
 
             // 验证通过了
             var claims = new Claim[]
@@ -82,7 +84,7 @@ namespace billservice.Controllers
                 new Claim( System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames.Email, usermodel.email ),
                 
                 // 角色               
-                
+                new Claim( System.Security.Claims.ClaimTypes.Role, _role),
             };
 
             //Key的长度至少是16位  (注意密钥最少16位)
@@ -102,11 +104,22 @@ namespace billservice.Controllers
 
             var jwtToken = new JwtSecurityTokenHandler().WriteToken( token );
 
-            return null;
+            // 把自己的数据带回去
+            result.IsSuccess( new UserTokenDto()
+            {
+                token = jwtToken ,
+
+                mobile = mobile ,
+
+                rolename = _role
+            } );
+
+            return result;
         }
 
 
 
+        [AllowAnonymous]
         [HttpPost]
         [Route( "" )]
         public ServiceResult adduser ( [FromBody] UserDto userDto )
@@ -115,7 +128,7 @@ namespace billservice.Controllers
 
             users user = this.mapper.Map<UserDto , users>( userDto );
 
-            bool bl = this.user.SaveUser( user );
+            bool bl = this.user.Save( user );
 
             if ( !bl )
             {

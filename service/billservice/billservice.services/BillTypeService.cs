@@ -4,12 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using billservice.interfaces;
 using billservice.models;
- 
 using SqlSugar;
 
 namespace billservice.services
 {
-
 
     public class BillTypeService : IBillType
     {
@@ -48,5 +46,11 @@ namespace billservice.services
 
 
 
+        public bool Save ( billtype user )
+        {
+            var ids = db.Insertable( user ).ExecuteReturnIdentity();
+
+            return ids > 0;
+        }
     }
 }

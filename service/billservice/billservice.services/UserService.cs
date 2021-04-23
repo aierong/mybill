@@ -60,7 +60,7 @@ namespace billservice.services
 
 
 
-        public bool SaveUser ( users user )
+        public bool Save ( users user )
         {
             var ids = db.Insertable( user ).ExecuteReturnIdentity();
 
