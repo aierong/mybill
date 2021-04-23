@@ -6,7 +6,7 @@ using billservice.models;
 using billservice.models.Dto;
 
 
-namespace billservice.Helpers.Profile
+namespace billservice.Profile
 {
     public class UserProfile : AutoMapper.Profile
     {
