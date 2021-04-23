@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using billservice.Helpers.Result;
+using billservice.models.Dto;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,9 +20,12 @@ namespace billservice.Controllers
 
         // POST api/<BillTypeController>
         [HttpPost]
-        public void Post ( [FromBody] string value )
+        public ServiceResult add ( [FromBody] BillTypeDto billTypeDto )
         {
+            var result = new ServiceResult();
             //base.HttpContext.User
+
+            return result;
         }
 
 

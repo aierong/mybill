@@ -64,9 +64,10 @@ namespace billservice.Controllers
             {
                 if ( !usermodel.password.Equals( new MD5Security().Encrypt( pwd ) ) )
                 {
-                    result.IsFailed( "密码错误" );
+                    //密码这里暂时关闭
+                    //result.IsFailed( "密码错误" );
 
-                    return result;
+                    //return result;
                 }
             }
 
@@ -122,7 +123,7 @@ namespace billservice.Controllers
         [AllowAnonymous]
         [HttpPost]
         [Route( "" )]
-        public ServiceResult adduser ( [FromBody] UserDto userDto )
+        public ServiceResult add ( [FromBody] UserDto userDto )
         {
             var result = new ServiceResult();
 

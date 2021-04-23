@@ -38,7 +38,9 @@ namespace billservice.Validator
 
                .Must( ( item , name ) =>
                {
-                   if ( _context != null && _context.HttpContext != null && _context.HttpContext.User != null )
+                   if ( _context != null 
+                            && _context.HttpContext != null 
+                            && _context.HttpContext.User != null )
                    {
                        var user = _context.HttpContext.User;
 
@@ -46,9 +48,8 @@ namespace billservice.Validator
 
                        if ( claims != null && claims.Count() > 0 )
                        {
-                           //var mobile = claims.FirstOrDefault( it => it.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name" )?.Value;
-
                            var mobile = claims.FirstOrDefault( item => item.Type == System.Security.Claims.ClaimTypes.Name )?.Value;
+
 
                        }
 
