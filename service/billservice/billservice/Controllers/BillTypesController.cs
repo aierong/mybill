@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using billservice.Helpers.Result;
+using billservice.models;
 using billservice.models.Dto;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -16,6 +18,14 @@ namespace billservice.Controllers
     [ApiController]
     public class BillTypesController : Base.BaseController
     {
+        private readonly IMapper mapper;
+
+        public BillTypesController ( IMapper mapper )
+        {
+
+            this.mapper = mapper;
+        }
+
 
 
         // POST api/<BillTypeController>
@@ -24,6 +34,13 @@ namespace billservice.Controllers
         {
             var result = new ServiceResult();
             //base.HttpContext.User
+
+            billtype _billtype = this.mapper.Map<BillTypeDto , billtype>( billTypeDto );
+
+            if ( _billtype != null )
+            {
+
+            }
 
             return result;
         }

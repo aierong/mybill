@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using billservice.models;
 using billservice.models.Dto;
-
+using billservice.Profile.Resolver;
 
 namespace billservice.Profile
 {
@@ -13,7 +13,7 @@ namespace billservice.Profile
         public BillTypeProfile ()
         {
             CreateMap<BillTypeDto , billtype>()
-                //.ForMember( destination => destination.password , opt => opt.MapFrom( src => new MD5Security().Encrypt( src.password ) ) )
+                .ForMember( destination => destination.mobile , opt => opt.MapFrom<BillTypeResolver>() )
                .AfterMap( ( src , dest ) =>
                {
                    DateTime now = DateTime.Now;
@@ -21,13 +21,12 @@ namespace billservice.Profile
                    dest.issystemtype = false;
 
                    dest.avatar = ""; // 用户加的类型,有一个固定头像
-                                      
+
 
                    dest.adddate = now;
                    dest.updatedate = null;
                    dest.deletedate = null;
 
-                   dest.mobile = ""; 
                } );
 
 

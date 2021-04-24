@@ -13,14 +13,15 @@ namespace billservice.Validator
     public class BillTypeDtoValidator : AbstractValidator<BillTypeDto>
     {
         readonly IBillType billtype;
-        IHttpContextAccessor _context;
+        readonly IHttpContextAccessor _context;
 
         public BillTypeDtoValidator ( IBillType billtype , IHttpContextAccessor _context )
         {
 
-
             this.billtype = billtype;
             this._context = _context;
+
+
 
             RuleFor( item => item.isout )
               .NotNull().WithMessage( "{PropertyName}没有传递或者空" )
