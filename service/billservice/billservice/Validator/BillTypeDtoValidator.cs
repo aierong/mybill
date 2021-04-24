@@ -38,22 +38,16 @@ namespace billservice.Validator
 
                .Must( ( item , name ) =>
                {
-                   if ( _context != null 
-                            && _context.HttpContext != null 
-                            && _context.HttpContext.User != null )
+
+                   var user = _context.HttpContext.User;
+
+                   var claims = user.Claims;
+
+                   if ( claims != null && claims.Count() > 0 )
                    {
-                       var user = _context.HttpContext.User;
+                       var mobile = claims.FirstOrDefault( item => item.Type == System.Security.Claims.ClaimTypes.Name )?.Value;
 
-                       var claims = user.Claims;
-
-                       if ( claims != null && claims.Count() > 0 )
-                       {
-                           var mobile = claims.FirstOrDefault( item => item.Type == System.Security.Claims.ClaimTypes.Name )?.Value;
-
-
-                       }
-
-
+                       return !this.billtype.IsExistName( name , mobile );
                    }
 
                    //return !this.billtype.IsExistName( name , item.mobile );

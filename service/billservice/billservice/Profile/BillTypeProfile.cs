@@ -27,7 +27,7 @@ namespace billservice.Profile
                    dest.updatedate = null;
                    dest.deletedate = null;
 
-                    
+                   dest.mobile = ""; 
                } );
 
 

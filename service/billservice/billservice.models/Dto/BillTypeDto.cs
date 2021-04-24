@@ -17,13 +17,7 @@ namespace billservice.models.Dto
             get; set;
         }
 
-
-
-        //public string mobile
-        //{
-        //    get; set;
-        //}
-
+                
 
     }
 }

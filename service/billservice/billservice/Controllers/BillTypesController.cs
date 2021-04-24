@@ -14,7 +14,7 @@ namespace billservice.Controllers
     [Authorize]
     [Route( "api/billtypes" )]
     [ApiController]
-    public class BillTypesController : ControllerBase
+    public class BillTypesController : Base.BaseController
     {
 
 
