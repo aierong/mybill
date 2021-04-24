@@ -9,11 +9,11 @@ using Microsoft.AspNetCore.Http;
 
 namespace billservice.Profile.Resolver
 {
-    public class BillTypeResolver : IValueResolver<BillTypeDto , billtype , string>
+    public class BillTypeMobileResolver : IValueResolver<BillTypeDto , billtype , string>
     {
         readonly IHttpContextAccessor _context;
 
-        public BillTypeResolver ( IHttpContextAccessor _context )
+        public BillTypeMobileResolver ( IHttpContextAccessor _context )
         {
             this._context = _context;
         }

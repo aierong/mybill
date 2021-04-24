@@ -13,7 +13,7 @@ namespace billservice.Profile
         public BillTypeProfile ()
         {
             CreateMap<BillTypeDto , billtype>()
-                .ForMember( destination => destination.mobile , opt => opt.MapFrom<BillTypeResolver>() )
+               .ForMember( destination => destination.mobile , opt => opt.MapFrom<BillTypeMobileResolver>() )
                .AfterMap( ( src , dest ) =>
                {
                    DateTime now = DateTime.Now;
