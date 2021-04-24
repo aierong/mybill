@@ -18,7 +18,13 @@ namespace billservice.Profile
                 {
                     DateTime now = DateTime.Now;
 
+                    dest.sources = string.Empty;
 
+                    dest.adddate = now;
+                    dest.updatedate = null;
+                    dest.deletedate = null;
+
+                    dest.delmark = Helpers.Constant.N;
                 } );
         }
     }
