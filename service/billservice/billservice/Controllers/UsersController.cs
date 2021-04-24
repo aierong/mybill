@@ -24,7 +24,7 @@ namespace billservice.Controllers
     [Authorize]
     [Route( "api/users" )]
     [ApiController]
-    public class UsersController : ControllerBase
+    public class UsersController : Base.BaseController
     {
         readonly IUser user;
 
@@ -47,6 +47,9 @@ namespace billservice.Controllers
         [Route( "login" )]
         public ServiceResult<UserTokenDto> login ( [FromForm] string mobile , [FromForm] string pwd )
         {
+            //var user = base.User;
+            //var u = base.HttpContext.User;
+
             var result = new ServiceResult<UserTokenDto>();
 
             // 一些验证
@@ -84,6 +87,9 @@ namespace billservice.Controllers
                 //2.System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames
                 new Claim( System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames.Email, usermodel.email ),
                 
+                //3.自定义名称
+                //new Claim( "avatar",usermodel.avatar ),
+
                 // 角色               
                 new Claim( System.Security.Claims.ClaimTypes.Role, _role),
             };
