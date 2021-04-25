@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using billservice.interfaces;
+using billservice.models;
 using SqlSugar;
 
 namespace billservice.services
@@ -16,12 +17,15 @@ namespace billservice.services
             this.db = db;
         }
 
-        //public bool IsExist ( int billtypeid , bool isout )
-        //{
-        //    var isAny = db.Queryable<billtype>().Where( it => it.typename == typename
-        //                                                                        && it.mobile == mobile
-        //                                                                        && it.issystemtype == false ).Any();
 
-        //}
+
+        public bool Save ( bills bill )
+        {
+            var ids = db.Insertable( bill ).ExecuteReturnIdentity();
+
+            return ids > 0;
+        }
+
+
     }
 }

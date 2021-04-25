@@ -26,7 +26,7 @@ namespace billservice.Controllers
     [ApiController]
     public class UsersController : Base.BaseController
     {
-        readonly IUser user;
+        readonly IUser Iuser;
 
         private readonly IMapper mapper;
 
@@ -34,7 +34,7 @@ namespace billservice.Controllers
 
         public UsersController ( IUser user , IMapper mapper , IOptionsMonitor<TokenConfigData> _TokenConfigDataOptions )
         {
-            this.user = user;
+            this.Iuser = user;
 
             this.mapper = mapper;
 
@@ -54,7 +54,7 @@ namespace billservice.Controllers
 
             // 一些验证
 
-            users usermodel = this.user.GetUser( mobile );
+            users usermodel = this.Iuser.GetUser( mobile );
 
             if ( usermodel == null )
             {

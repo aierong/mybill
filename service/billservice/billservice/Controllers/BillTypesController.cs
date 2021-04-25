@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using billservice.Helpers.Result;
+using billservice.interfaces;
 using billservice.models;
 using billservice.models.Dto;
 using Microsoft.AspNetCore.Authorization;
@@ -19,10 +20,11 @@ namespace billservice.Controllers
     public class BillTypesController : Base.BaseController
     {
         private readonly IMapper mapper;
+        readonly IBillType Ibilltype;
 
-        public BillTypesController ( IMapper mapper )
+        public BillTypesController ( IBillType Ibilltype , IMapper mapper )
         {
-
+            this.Ibilltype = Ibilltype;
             this.mapper = mapper;
         }
 

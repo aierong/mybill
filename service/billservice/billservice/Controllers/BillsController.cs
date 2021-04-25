@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using billservice.interfaces;
+using billservice.models.Dto;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,13 +18,23 @@ namespace billservice.Controllers
     public class BillsController : Base.BaseController
     {
 
+        private readonly IMapper mapper;
+        readonly IBill Ibill;
+
+        public BillsController ( IBill Ibill , IMapper mapper )
+        {
+            this.Ibill = Ibill;
+            this.mapper = mapper;
+        }
 
 
 
         // POST api/<BillController>
         [HttpPost]
-        public void Post ( [FromBody] string value )
+        public void add ( [FromBody] BillDto billTypeDto )
         {
+
+
         }
 
 
