@@ -9,5 +9,6 @@ namespace billservice.interfaces
 {
     public interface IBill
     {
+       
     }
 }

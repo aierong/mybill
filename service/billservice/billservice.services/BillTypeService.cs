@@ -46,6 +46,17 @@ namespace billservice.services
 
 
 
+        public bool IsExistType ( int billtypeid , bool isout )
+        {
+            var isAny = db.Queryable<billtype>().Where( it => it.ids == billtypeid
+                                                                                && it.isout == isout ).Any();
+
+
+            return isAny;
+        }
+
+
+
         public bool Save ( billtype _billtype )
         {
             var ids = db.Insertable( _billtype ).ExecuteReturnIdentity();
