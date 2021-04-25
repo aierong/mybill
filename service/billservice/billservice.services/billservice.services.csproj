@@ -5,10 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="SqlSugarCore" Version="5.0.2.8" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\billservice.interfaces\billservice.interfaces.csproj" />
   </ItemGroup>
 
