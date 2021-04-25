@@ -18,6 +18,8 @@ namespace billservice.Validator
         {
             this.user = user;
 
+            CascadeMode = CascadeMode.Stop;
+
             RuleFor( user => user.mobile )
                 .NotNull().WithMessage( "{PropertyName}没有传递或者空" )
                 .NotEmpty().WithMessage( "{PropertyName}为空" )

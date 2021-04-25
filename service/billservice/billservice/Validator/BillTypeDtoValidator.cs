@@ -21,7 +21,7 @@ namespace billservice.Validator
             this.billtype = billtype;
             this._context = _context;
 
-
+            CascadeMode = CascadeMode.Stop;
 
             RuleFor( item => item.isout )
               .NotNull().WithMessage( "{PropertyName}没有传递或者空" )
