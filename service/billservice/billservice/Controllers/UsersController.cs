@@ -17,7 +17,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+
 
 namespace billservice.Controllers
 {
@@ -28,9 +28,11 @@ namespace billservice.Controllers
     {
         readonly IUser Iuser;
 
-        private readonly IMapper mapper;
+        readonly IMapper mapper;
 
-        private readonly TokenConfigData tokenConfigData;
+        readonly TokenConfigData tokenConfigData;
+
+
 
         public UsersController ( IUser user , IMapper mapper , IOptionsMonitor<TokenConfigData> _TokenConfigDataOptions )
         {
@@ -47,8 +49,6 @@ namespace billservice.Controllers
         [Route( "login" )]
         public ServiceResult<UserTokenDto> login ( [FromForm] string mobile , [FromForm] string pwd )
         {
-            //var user = base.User;
-            //var u = base.HttpContext.User;
 
             var result = new ServiceResult<UserTokenDto>();
 
@@ -135,7 +135,7 @@ namespace billservice.Controllers
 
             users user = this.mapper.Map<UserDto , users>( userDto );
 
-            bool bl = this.user.Save( user );
+            bool bl = this.Iuser.Save( user );
 
             if ( !bl )
             {

@@ -20,6 +20,8 @@ namespace billservice.Validator
 
             CascadeMode = CascadeMode.Stop;
 
+
+
             RuleFor( user => user.mobile )
                 .NotNull().WithMessage( "{PropertyName}没有传递或者空" )
                 .NotEmpty().WithMessage( "{PropertyName}为空" )
@@ -63,6 +65,8 @@ namespace billservice.Validator
                 .WithName( "Email(邮件)" );
 
         }
+
+
 
     }
 }
