@@ -15,6 +15,31 @@ Time: 16:40
                      title="用户登录"
                      @click-right="onClickRight"/>
         <br>
+        <van-form @submit="onSubmit"
+                  @failed="onFailed">
+            <van-field v-model="userinfo.mobile"
+                       clearable
+                       required
+                       label="手机"
+                       placeholder="请输入手机"
+                       :rules="[{ required: true, message: '请填写手机号码' },
+                                { validator: validatorMobileMessage, message: '请输入合法手机号码(11位长度)' } ]"/>
+            <van-field v-model="userinfo.password"
+                       type="password"
+                       clearable
+                       label="密码"
+                       placeholder="请输入密码"
+                       required
+                       :rules="[{ required: true, message: '请填写密码' } ]"/>
+            <div style="margin: 16px;">
+                <van-button round
+                            block
+                            type="primary"
+                            native-type="submit">提交
+                </van-button>
+            </div>
+        </van-form>
+        <br>
     </div>
 
 </template>
@@ -25,7 +50,6 @@ Time: 16:40
 // 导入
 import {
     defineComponent ,
-
     ref ,
     reactive ,
     toRefs ,
@@ -37,10 +61,24 @@ import {
     useRoute
 } from 'vue-router'
 
+interface UserObj {
+    userinfo : {
+        mobile : string,
+        password : string
+    }
+}
+
 export default defineComponent( {
 
     setup () {
         const router = useRouter()
+
+        const modeldata = reactive<UserObj>( {
+            userinfo : {
+                mobile : '' ,
+                password : ''
+            } ,
+        } );
 
         //转向注册页面
         const onClickRight = () => {
@@ -49,9 +87,31 @@ export default defineComponent( {
             return;
         }
 
-        return {
+        const validatorMobileMessage = ( val : string ) => {
+            if ( !Number.isFinite( val ) && val.length != 11 ) {
+                return false;
+            }
 
-            onClickRight
+            return true;
+        }
+
+        // 提交
+        const onSubmit = ( values : any ) => {
+            //values 可以收到表单中各个项目的值
+            console.log( 'submit' , values );
+        }
+
+        // failed	提交表单且验证不通过后触发	errorInfo: { values: object, errors: object[] }
+        const onFailed = ( errorInfo : any ) => {
+            //console.log( 'failed' , errorInfo );
+        }
+
+        return {
+            ...toRefs( modeldata ) ,
+            onClickRight ,
+            validatorMobileMessage ,
+            onSubmit ,
+            onFailed ,
         };
     } ,
 
