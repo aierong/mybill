@@ -55,7 +55,6 @@ namespace billservice
             services.AddFluentValidationService( Configuration );
             services.AddTokenService( Configuration );
             services.AddOtherService( Configuration );
-
             
         }
 

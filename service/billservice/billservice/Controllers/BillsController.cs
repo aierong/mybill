@@ -54,6 +54,13 @@ namespace billservice.Controllers
 
 
 
+        [HttpPost]
+        public ServiceResult update ( [FromBody] BillDto billDto )
+        {
+            return null;
+        }
+
+
 
     }
 }

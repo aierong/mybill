@@ -26,6 +26,18 @@ namespace billservice.Profile
 
                     dest.delmark = Helpers.Constant.N;
                 } );
+
+
+            CreateMap<BillUpdateDto , bills>()
+               .AfterMap( ( src , dest ) =>
+               {
+                   DateTime now = DateTime.Now;
+                                                     
+                   dest.updatedate = now;
+                                  
+               } );
+
+
         }
     }
 }

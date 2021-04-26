@@ -12,6 +12,8 @@ namespace billservice.interfaces
     {
         bool Save ( bills bill );
 
+        bool Update ( bills bill );
+
         bool IsExistId ( int id , string mobile );
     }
 }

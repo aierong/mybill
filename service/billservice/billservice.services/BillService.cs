@@ -39,5 +39,15 @@ namespace billservice.services
         }
 
 
+
+        public bool Update ( bills bill )
+        {
+            var result = db.Updateable( bill ).UpdateColumns( it => new { it.billtypeid , it.isout , it.moneys , it.moneydate , it.memo , it.updatedate } ).ExecuteCommand();
+
+            return result > 0;
+        }
+
+
+
     }
 }
