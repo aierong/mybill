@@ -10,8 +10,6 @@ using billservice.models.Dto;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-
-
 namespace billservice.Controllers
 {
     [Authorize]
@@ -54,10 +52,23 @@ namespace billservice.Controllers
 
 
 
-        [HttpPost]
+        [HttpPut]
         public ServiceResult update ( [FromBody] BillDto billDto )
         {
-            return null;
+            var result = new ServiceResult();
+
+            bills _bill = this.mapper.Map<BillDto , bills>( billDto );
+
+            bool bl = this.Ibill.Update( _bill );
+
+            if ( !bl )
+            {
+                result.IsFailed( "保存失败" );
+
+                return result;
+            }
+
+            return result;
         }
 
 
