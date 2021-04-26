@@ -18,24 +18,21 @@ namespace billservice.Profile
                 {
                     DateTime now = DateTime.Now;
 
-                    dest.sources = string.Empty;
+                    if ( src.isadd )
+                    {
+                        dest.sources = string.Empty;
 
-                    dest.adddate = now;
-                    dest.updatedate = null;
-                    dest.deletedate = null;
+                        dest.adddate = now;
+                        dest.updatedate = null;
+                        dest.deletedate = null;
 
-                    dest.delmark = Helpers.Constant.N;
+                        dest.delmark = Helpers.Constant.N;
+                    }
+                    else
+                    {
+                        dest.updatedate = now;
+                    }
                 } );
-
-
-            CreateMap<BillUpdateDto , bills>()
-               .AfterMap( ( src , dest ) =>
-               {
-                   DateTime now = DateTime.Now;
-                                                     
-                   dest.updatedate = now;
-                                  
-               } );
 
 
         }

@@ -34,5 +34,24 @@ namespace billservice.models.Dto
         {
             get; set;
         }
+
+
+
+        public bool isadd
+        {
+            get;set;
+        }
+
+
+
+        /// <summary>
+        /// 记录id (修改模式才传递值)
+        /// </summary>
+        public int ids
+        {
+            get; set;
+        }
+
+
     }
 }

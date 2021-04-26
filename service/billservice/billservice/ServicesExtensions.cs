@@ -134,7 +134,6 @@ namespace billservice
 
             services.AddTransient<IValidator<UserDto> , UserDtoValidator>();
             services.AddTransient<IValidator<BillTypeDto> , BillTypeDtoValidator>();
-            services.AddTransient<IValidator<BillUpdateDto> , BillUpdateDtoValidator>();
             services.AddTransient<IValidator<BillDto> , BillDtoValidator>();
 
             return services;

@@ -12,16 +12,23 @@ namespace billservice.Validator
     public class BillDtoValidator : AbstractValidator<BillDto>
     {
         readonly IBillType billtype;
+        readonly IBill bill;
         readonly IHttpContextAccessor _context;
 
 
-        public BillDtoValidator ( IBillType billtype , IHttpContextAccessor _context )
+        public BillDtoValidator ( IBillType billtype , IBill bill , IHttpContextAccessor _context )
         {
             this.billtype = billtype;
+            this.bill = bill;
             this._context = _context;
 
             CascadeMode = CascadeMode.Stop;
 
+
+
+            RuleFor( item => item.isadd )
+                .NotNull().WithMessage( "{PropertyName}没有传递或者空" )
+                .WithName( "操作类型" );
 
 
             RuleFor( item => item.billtypeid )
@@ -81,6 +88,28 @@ namespace billservice.Validator
                 .GreaterThan( 0 ).WithMessage( "{PropertyName}请大于0" )
                 .WithName( "金额" );
 
+
+            // 修改时,才验证
+            RuleFor( item => item.ids )
+               .Cascade( CascadeMode.Stop )
+               .NotNull().When( item => !item.isadd ).WithMessage( "{PropertyName}没有传递或者空" )
+               .GreaterThan( 0 ).When( item => !item.isadd ).WithMessage( "{PropertyName}请大于0" )
+               .Must( ( item , ids ) =>
+               {
+                   if ( !item.isadd )
+                   {
+                       var user = _context.HttpContext.User;
+
+                       var claims = user.Claims;
+
+                       var mobile = ( claims != null && claims.Count() > 0 ) ? ( claims.FirstOrDefault( item => item.Type == System.Security.Claims.ClaimTypes.Name )?.Value ) : string.Empty;
+
+                       return this.bill.IsExistId( ids , mobile );
+                   }
+
+                   return true;
+               } ).When( item => !item.isadd ).WithMessage( "" )
+               .WithName( "记录ID" );
 
         }
 
