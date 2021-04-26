@@ -57,11 +57,35 @@ namespace billservice.services
 
 
 
+        public bool IsExistUserType ( int billtypeid , string mobile )
+        {
+            var isAny = db.Queryable<billtype>().Where( it => it.ids == billtypeid
+                                                                                && it.issystemtype == false
+                                                                                && it.mobile == mobile ).Any();
+
+            return isAny;
+        }
+
+
+
+        public bool IsExistSystemType ( int billtypeid )
+        {
+            var isAny = db.Queryable<billtype>().Where( it => it.ids == billtypeid
+                                                                                && it.issystemtype == true ).Any();
+
+            return isAny;
+        }
+
+
+
         public bool Save ( billtype _billtype )
         {
             var ids = db.Insertable( _billtype ).ExecuteReturnIdentity();
 
             return ids > 0;
         }
+
+
+
     }
 }

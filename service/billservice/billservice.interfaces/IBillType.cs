@@ -12,6 +12,10 @@ namespace billservice.interfaces
 
         bool IsExistType ( int billtypeid , bool isout );
 
+        bool IsExistSystemType ( int billtypeid );
+
+        bool IsExistUserType ( int billtypeid , string mobile );
+
         bool Save ( billtype _billtype );
     }
 }

@@ -11,5 +11,7 @@ namespace billservice.interfaces
     public interface IBill
     {
         bool Save ( bills bill );
+
+        bool IsExistId ( int id , string mobile );
     }
 }

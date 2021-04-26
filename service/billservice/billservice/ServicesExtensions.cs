@@ -130,12 +130,12 @@ namespace billservice
         public static IServiceCollection AddFluentValidationService ( this IServiceCollection services , IConfiguration configuration )
         {
 
-
             services.AddMvc().AddFluentValidation();
 
             services.AddTransient<IValidator<UserDto> , UserDtoValidator>();
             services.AddTransient<IValidator<BillTypeDto> , BillTypeDtoValidator>();
-
+            services.AddTransient<IValidator<BillUpdateDto> , BillUpdateDtoValidator>();
+            services.AddTransient<IValidator<BillDto> , BillDtoValidator>();
 
             return services;
         }
@@ -176,7 +176,6 @@ namespace billservice
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
 
-
                     ValidateIssuer = true ,  //是否验证Issuer
                     ValidateAudience = true ,//是否验证Audience
                     ValidateLifetime = true ,//是否验证失效时间
@@ -186,11 +185,9 @@ namespace billservice
                     ValidIssuer = _tokenconfigdata.issuer , // "http://localhost:5000" ,//Issuer，这两项和前面签发jwt的设置一致
                                                             //IssuerSigningKey = new SymmetricSecurityKey( Encoding.UTF8.GetBytes( "1234567890123456key" ) )//拿到SecurityKey
                     IssuerSigningKey = new SymmetricSecurityKey( Encoding.UTF8.GetBytes( _tokenconfigdata.key ) )//拿到SecurityKey
+
                 };
             } );
-
-
-
 
             return services;
         }

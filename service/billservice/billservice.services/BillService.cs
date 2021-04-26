@@ -12,9 +12,21 @@ namespace billservice.services
     {
         readonly SqlSugarClient db;
 
+
+
         public BillService ( SqlSugarClient db )
         {
             this.db = db;
+        }
+
+
+
+        public bool IsExistId ( int id , string mobile )
+        {
+            var isAny = db.Queryable<bills>().Where( it => it.ids == id
+                                                                                && it.mobile == mobile ).Any();
+
+            return isAny;
         }
 
 

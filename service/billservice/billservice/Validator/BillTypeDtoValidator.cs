@@ -41,17 +41,14 @@ namespace billservice.Validator
                    var user = _context.HttpContext.User;
 
                    var claims = user.Claims;
+                   
+                   var mobile = ( claims != null && claims.Count() > 0 ) ? ( claims.FirstOrDefault( item => item.Type == System.Security.Claims.ClaimTypes.Name )?.Value ) : string.Empty;
 
-                   if ( claims != null && claims.Count() > 0 )
-                   {
-                       var mobile = claims.FirstOrDefault( item => item.Type == System.Security.Claims.ClaimTypes.Name )?.Value;
-
-                       return !this.billtype.IsExistName( name , mobile );
-                   }
+                   return !this.billtype.IsExistName( name , mobile );
 
                    //return !this.billtype.IsExistName( name , item.mobile );
 
-                   return true;
+                   //return true;
 
                } ).When( item => !string.IsNullOrWhiteSpace( item.typename ) ).WithMessage( item => string.Format( "{0}:{1}不唯一" , "{PropertyName}" , item.typename ) )
                .WithName( "名称" );
