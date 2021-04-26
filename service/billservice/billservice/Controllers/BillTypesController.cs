@@ -30,21 +30,26 @@ namespace billservice.Controllers
 
 
 
-        
+
         [HttpPost]
         public ServiceResult add ( [FromBody] BillTypeDto billTypeDto )
         {
             var result = new ServiceResult();
-            
+
             billtype _billtype = this.mapper.Map<BillTypeDto , billtype>( billTypeDto );
 
-            if ( _billtype != null )
-            {
+            bool bl = this.Ibilltype.Save( _billtype );
 
+            if ( !bl )
+            {
+                result.IsFailed( "保存失败" );
+
+                return result;
             }
 
             return result;
         }
+
 
 
     }

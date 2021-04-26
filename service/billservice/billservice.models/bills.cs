@@ -12,7 +12,7 @@ namespace billservice.models
     public partial class bills
     {
 
-        // billservice.interfaces
+       
 
         /// <summary>
         /// Desc:

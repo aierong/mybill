@@ -15,8 +15,7 @@ namespace billservice.Validator
         public BillDtoValidator ( IBillType billtype )
         {
             this.billtype = billtype;
-
-            //CascadeMode = CascadeMode.StopOnFirstFailure;
+                        
             CascadeMode = CascadeMode.Stop;
 
 
