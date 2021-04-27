@@ -9,7 +9,6 @@ Time: 16:39
 
 <!-- html代码片段 -->
 <template>
-
     <div>
         <van-nav-bar title="注册新用户"
                      left-text="返回"
@@ -75,7 +74,6 @@ Time: 16:39
                       @userselectavatar="userselectavatar"
                       v-if="avatarobj.showdialog"></selectavatar>
     </div>
-
 </template>
 
 <!-- TypeScript脚本代码片段 -->
