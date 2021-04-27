@@ -16,6 +16,7 @@ Time: 16:40
                      @click-right="onClickRight"/>
         <br>
         <van-form @submit="onSubmit"
+                  :validate-first="true"
                   @failed="onFailed">
             <van-field v-model="userinfo.mobile"
                        clearable
@@ -23,14 +24,14 @@ Time: 16:40
                        label="手机"
                        placeholder="请输入手机"
                        :rules="[{ required: true, message: '请填写手机号码' },
-                                { validator: validatorMobileMessage, message: '请输入合法手机号码(11位长度)' } ]"/>
+                                { validator: validatorMobileMessage } ]"/>
             <van-field v-model="userinfo.password"
                        type="password"
                        clearable
                        label="密码"
                        placeholder="请输入密码"
                        required
-                       :rules="[{ required: true, message: '请填写密码' } ]"/>
+                       :rules="[{ required: true, message: '请填写密码' },{ validator: validatorPwdMessage } ]"/>
             <div style="margin: 16px;">
                 <van-button round
                             block
@@ -89,10 +90,18 @@ export default defineComponent( {
 
         const validatorMobileMessage = ( val : string ) => {
             if ( !Number.isFinite( val ) && val.length != 11 ) {
-                return false;
+                return '请输入合法手机号码(11位长度)';
             }
 
-            return true;
+            return '';
+        }
+
+        const validatorPwdMessage = ( val : string ) => {
+            if ( val.length < 3 ) {
+                return '请输入合法密码(至少3位长度)';
+            }
+
+            return '';
         }
 
         // 提交
@@ -109,7 +118,7 @@ export default defineComponent( {
         return {
             ...toRefs( modeldata ) ,
             onClickRight ,
-            validatorMobileMessage ,
+            validatorMobileMessage , validatorPwdMessage ,
             onSubmit ,
             onFailed ,
         };
