@@ -14,7 +14,6 @@ Time: 11:50
         <van-dialog :before-close="beforeClose"
                     show-cancel-button
                     v-model:show="avatarobj.showdialog">
-
             <van-cell title="请选择头像">
             </van-cell>
             <van-radio-group v-model="selectavatar">
@@ -33,11 +32,8 @@ Time: 11:50
                     </van-cell>
                 </van-cell-group>
             </van-radio-group>
-
-
         </van-dialog>
     </div>
-
 </template>
 
 <!-- TypeScript脚本代码片段 -->
