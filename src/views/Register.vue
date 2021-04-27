@@ -53,6 +53,13 @@ Time: 16:39
                        label="邮箱"
                        placeholder="请输入邮箱"
                        :rules="[{ validator: validatorEmailMessage } ]"/>
+
+            <van-field label="头像">
+                <template #input>
+                    <van-icon :name="userinfo.avatar"
+                              size="40"/>
+                </template>
+            </van-field>
             <div style="margin: 16px;">
                 <van-button round
                             block
@@ -97,14 +104,19 @@ interface UserObj {
         password : string,
         password2 : string,
         name : string,
-        email : string
+        email : string,
+        avatar : string
     }
 }
 
+import selectavatar from "@comp/selectavatar.vue";
+import { avatariconlist } from '@common/constant'
+
 export default defineComponent( {
     // 子组件
-    components : {} ,
-
+    components : {
+        selectavatar
+    } ,
     setup () {
         const router = useRouter()
 
@@ -114,7 +126,9 @@ export default defineComponent( {
                 password : '' ,
                 password2 : '' ,
                 name : '' ,
-                email : ''
+                email : '' ,
+                //头像 先默认一个头像
+                avatar : avatariconlist[ 0 ]
             } ,
         } );
 
@@ -136,7 +150,7 @@ export default defineComponent( {
 
         // 提交
         const onSubmit = () => {
-            console.log('ok')
+            console.log( 'ok' )
         }
 
         //failed	提交表单且验证不通过后触发	errorInfo: { values: object, errors: object[] }

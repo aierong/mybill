@@ -29,11 +29,15 @@ import {
     computed
 } from "vue";
 
+import * as globalconstant from '@common/constant'
+
 export default defineComponent( {
     // 子组件
     components : {} ,
     // 声明 props
-    props : {} ,
+    props : {
+
+    } ,
     setup () {
 
         return {};
