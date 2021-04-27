@@ -4,6 +4,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Threading.Tasks;
 using billservice.Helpers;
+using billservice.Helpers.ConfigData;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -40,41 +41,23 @@ namespace billservice
         }
 
 
-        //定义名称
-        const string PolicyName = "CorsPolicy";
+
 
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices ( IServiceCollection services )
         {
             services.AddControllers();
-
-
-            //添加cors 服务 配置跨域处理            
-            services.AddCors( options => options.AddPolicy( PolicyName ,
-             builder =>
-             {
-                 builder.WithOrigins( new string[] { "http://localhost:8338" } )
-                     .AllowAnyMethod()
-                     .AllowAnyHeader()
-                     .AllowCredentials();
-
-                 //builder.WithOrigins( urls.ToArray() )
-                 //                .AllowAnyMethod()
-                 //                .AllowAnyHeader()
-                 //                .AllowCredentials();
-
-             } ) );
-
-
+            
             // 可以把服务注册的代码放在静态扩展方法里，使得 ConfigureServices 更加简洁
             // 可以分模块分别写不同的静态扩展方法
             services.AddDBService( Configuration );
             services.AddAutoMapperService( Configuration );
             services.AddFluentValidationService( Configuration );
             services.AddTokenService( Configuration );
+            services.AddCorsService( Configuration );
             services.AddOtherService( Configuration );
-            
+
         }
 
 
@@ -87,6 +70,9 @@ namespace billservice
                 app.UseDeveloperExceptionPage();
             }
 
+            CorsConfigData _CorsConfigData = this.Configuration.GetSection( "CorsInfo" ).Get<CorsConfigData>();
+            //定义名称
+            string PolicyName = _CorsConfigData.name;
             app.UseCors( PolicyName );
 
             app.UseRouting();

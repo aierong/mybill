@@ -87,6 +87,41 @@ namespace billservice
 
 
         /// <summary>
+        /// 跨域的相关服务注册
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="configuration"></param>
+        /// <returns></returns>
+        public static IServiceCollection AddCorsService ( this IServiceCollection services , IConfiguration configuration )
+        {
+            CorsConfigData _CorsConfigData = configuration.GetSection( "CorsInfo" ).Get<CorsConfigData>();
+
+            //定义名称
+            string PolicyName = _CorsConfigData.name;
+            string[] urls = _CorsConfigData.urls.ToArray();
+
+            //添加cors 服务 配置跨域处理            
+            services.AddCors( options => options.AddPolicy( PolicyName ,
+             builder =>
+             {
+                 //builder.WithOrigins( new string[] { "http://localhost:8338" } )
+                 //    .AllowAnyMethod()
+                 //    .AllowAnyHeader()
+                 //    .AllowCredentials();
+
+                 builder.WithOrigins( urls )
+                                 .AllowAnyMethod()
+                                 .AllowAnyHeader()
+                                 .AllowCredentials();
+
+             } ) );
+
+            return services;
+        }
+
+
+
+        /// <summary>
         /// 数据库的相关服务注册
         /// </summary>
         /// <param name="services"></param>
