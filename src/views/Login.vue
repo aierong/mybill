@@ -105,13 +105,15 @@ export default defineComponent( {
         }
 
         // 提交
-        const onSubmit = ( values : any ) => {
+        const onSubmit = () => {
             //values 可以收到表单中各个项目的值
-            console.log( 'submit' , values );
+            // console.log( 'submit' , values );
+
+
         }
 
         // failed	提交表单且验证不通过后触发	errorInfo: { values: object, errors: object[] }
-        const onFailed = ( errorInfo : any ) => {
+        const onFailed = () => {
             //console.log( 'failed' , errorInfo );
         }
 
