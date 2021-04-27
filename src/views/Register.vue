@@ -32,7 +32,8 @@ Time: 16:39
                        required
                        clearable
                        label="用户名"
-                       placeholder="请输入用户名"/>
+                       placeholder="请输入用户名"
+                       :rules="[{ required: true, message: '请填写用户名' }  ]"/>
 
             <van-field v-model="userinfo.password"
                        type="password"
@@ -50,7 +51,15 @@ Time: 16:39
             <van-field v-model="userinfo.email"
                        clearable
                        label="邮箱"
-                       placeholder="请输入邮箱"/>
+                       placeholder="请输入邮箱"
+                       :rules="[{ validator: validatorEmailMessage } ]"/>
+            <div style="margin: 16px;">
+                <van-button round
+                            block
+                            type="primary"
+                            native-type="submit">注册
+                </van-button>
+            </div>
         </van-form>
     </div>
 
@@ -76,7 +85,11 @@ import {
 //引入一下
 import { Toast } from 'vant';
 
-import { ValidatorMobile , ValidatorPassword } from '@common/util'
+import {
+    ValidatorMobile ,
+    ValidatorPassword ,
+    IsEmail
+} from '@common/util'
 
 interface UserObj {
     userinfo : {
@@ -123,23 +136,24 @@ export default defineComponent( {
 
         // 提交
         const onSubmit = () => {
+            console.log('ok')
         }
 
         //failed	提交表单且验证不通过后触发	errorInfo: { values: object, errors: object[] }
         const onFailed = () => {
         }
 
-        const validatorMobileMessage = ( val : string ) => {
+        const validatorMobileMessage = ( val : string ) : string => {
 
             return ValidatorMobile( val );
         }
 
-        const validatorPwdMessage = ( val : string ) => {
+        const validatorPwdMessage = ( val : string ) : string => {
 
             return ValidatorPassword( val );
         }
 
-        const validatorPwd2Message = ( val : string ) => {
+        const validatorPwd2Message = ( val : string ) : string => {
             var msg : string = ValidatorPassword( val );
 
             if ( msg == '' ) {
@@ -152,11 +166,30 @@ export default defineComponent( {
             return msg;
         }
 
+        const validatorEmailMessage = ( val : string ) : string => {
+            if ( val == '' ) {
+                return ''
+            }
+
+            var bl : boolean = IsEmail( val );
+
+            if ( !bl ) {
+                return '请输入有效Email'
+            }
+
+            return ''
+        }
+
         return {
             ...toRefs( modeldata ) ,
             onClickLeft ,
             onClickRight ,
-            onSubmit , onFailed , validatorMobileMessage , validatorPwdMessage , validatorPwd2Message ,
+            onSubmit ,
+            onFailed ,
+            validatorMobileMessage ,
+            validatorPwdMessage ,
+            validatorPwd2Message ,
+            validatorEmailMessage ,
         };
     } ,
 

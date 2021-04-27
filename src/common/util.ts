@@ -12,7 +12,7 @@
  * @param val
  * @constructor
  */
-const ValidatorMobile = ( val : string ) => {
+const ValidatorMobile = ( val : string ) : string => {
     if ( !Number.isFinite( val ) && val.length != 11 ) {
         return '请输入合法手机号码(11位长度)';
     }
@@ -32,7 +32,7 @@ const ValidatorMobile = ( val : string ) => {
  * @param val
  * @constructor
  */
-const ValidatorPassword = ( val : string ) => {
+const ValidatorPassword = ( val : string ) : string => {
     if ( val.length < 3 ) {
         return '请输入合法密码(至少3位长度)';
     }
@@ -40,9 +40,22 @@ const ValidatorPassword = ( val : string ) => {
     return '';
 }
 
+const IsEmail = ( val : string ) : boolean => {
+    //验证邮箱的正则表达式
+    var reg = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
+
+    if ( !reg.test( val ) ) {
+        return false;    //不对
+    }
+    else {
+        return true;
+    }
+}
+
 export {
 
     ValidatorMobile ,
     ValidatorPassword ,
+    IsEmail ,
 
 }
