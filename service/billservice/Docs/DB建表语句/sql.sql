@@ -56,7 +56,7 @@ INSERT INTO [dbo].[users] (
                           )
             SELECT  'admin' ,
                     '13912345678' ,
-                    '' ,
+                    'smile-o' ,
                     '' ,
                     'π‹¿Ì‘±' ,
                     'aierong@126.com'

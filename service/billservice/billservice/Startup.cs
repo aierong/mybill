@@ -40,12 +40,31 @@ namespace billservice
         }
 
 
+        //定义名称
+        const string PolicyName = "CorsPolicy";
+
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices ( IServiceCollection services )
         {
             services.AddControllers();
 
+
+            //添加cors 服务 配置跨域处理            
+            services.AddCors( options => options.AddPolicy( PolicyName ,
+             builder =>
+             {
+                 builder.WithOrigins( new string[] { "http://localhost:8338" } )
+                     .AllowAnyMethod()
+                     .AllowAnyHeader()
+                     .AllowCredentials();
+
+                 //builder.WithOrigins( urls.ToArray() )
+                 //                .AllowAnyMethod()
+                 //                .AllowAnyHeader()
+                 //                .AllowCredentials();
+
+             } ) );
 
 
             // 可以把服务注册的代码放在静态扩展方法里，使得 ConfigureServices 更加简洁
@@ -67,6 +86,8 @@ namespace billservice
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors( PolicyName );
 
             app.UseRouting();
 
