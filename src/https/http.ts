@@ -15,7 +15,10 @@ import {
     useRoute
 } from 'vue-router'
 
+// console.log( 'http.ts' )
+
 let _url = process.env.VUE_APP_serverurl;
+// console.log( '_url' , _url )
 axios.defaults.baseURL = `${ _url }/api`
 
 // 请求拦截

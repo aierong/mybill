@@ -101,12 +101,13 @@ import { Toast } from 'vant';
 import {
     ValidatorMobile ,
     ValidatorPassword ,
-    IsEmail
+    IsEmail , EncryptPassWord
 } from '@common/util'
 
 import selectavatar from "@comp/selectavatar.vue";
 import { avatariconlist } from '@common/constant.ts'
 import { IAvatarObj } from '@comp/types'
+import * as userapi from '@https/api/user'
 
 interface UserObj {
     userinfo : {
@@ -170,8 +171,30 @@ export default defineComponent( {
 
         // 提交
         const onSubmit = () => {
-            console.log( 'ok' )
+            // console.log( 'ok' )
 
+            ( async () => {
+                let registerUser = {
+                    mobile : modeldata.userinfo.mobile ,
+                    avatar : modeldata.userinfo.avatar ,
+                    // 密码加密一下
+                    password : EncryptPassWord( modeldata.userinfo.password ) ,
+                    name : modeldata.userinfo.name ,
+                    email : modeldata.userinfo.email
+                }
+
+                let status = await userapi.add( registerUser );
+
+                console.log( 'status' , status )
+                if ( !status.data ) {
+                    // this.$toast( status.data.msg )
+
+                    return;
+                }
+
+                return;
+
+            } )();
         }
 
         //failed	提交表单且验证不通过后触发	errorInfo: { values: object, errors: object[] }

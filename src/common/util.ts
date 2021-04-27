@@ -7,6 +7,8 @@
 
  */
 
+import CryptoJS from 'crypto-js'
+
 /**
  * 验证手机号码
  * @param val
@@ -52,10 +54,30 @@ const IsEmail = ( val : string ) : boolean => {
     }
 }
 
+/**
+ * 加密字符串
+ * @param str
+ * @constructor
+ */
+function EncryptString ( str = '' ) {
+    var ciphertext = CryptoJS.MD5( str ).toString()
+    return ciphertext;
+}
+
+/**
+ * 加密密码
+ * @param pwd
+ * @constructor
+ */
+function EncryptPassWord ( pwd = '' ) {
+    return EncryptString( pwd );
+}
+
 export {
 
     ValidatorMobile ,
     ValidatorPassword ,
     IsEmail ,
+    EncryptPassWord ,
 
 }
