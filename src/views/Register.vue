@@ -57,7 +57,8 @@ Time: 16:39
             <van-field label="头像">
                 <template #input>
                     <van-icon :name="userinfo.avatar"
-                              size="40"/>
+                              size="36"
+                              @click="avatarclick"/>
                 </template>
             </van-field>
             <div style="margin: 16px;">
@@ -68,6 +69,11 @@ Time: 16:39
                 </van-button>
             </div>
         </van-form>
+
+        <br>
+        <selectavatar :avatarobj="avatarobj"
+                      @userselectavatar="userselectavatar"
+                      v-if="avatarobj.showdialog"></selectavatar>
     </div>
 
 </template>
@@ -98,6 +104,10 @@ import {
     IsEmail
 } from '@common/util'
 
+import selectavatar from "@comp/selectavatar.vue";
+import { avatariconlist } from '@common/constant.ts'
+import { IAvatarObj } from '@comp/types'
+
 interface UserObj {
     userinfo : {
         mobile : string,
@@ -106,11 +116,10 @@ interface UserObj {
         name : string,
         email : string,
         avatar : string
-    }
+    },
+    showdialog : boolean
+    // avatarobj : IAvatarObj
 }
-
-import selectavatar from "@comp/selectavatar.vue";
-import { avatariconlist } from '@common/constant'
 
 export default defineComponent( {
     // 子组件
@@ -130,6 +139,17 @@ export default defineComponent( {
                 //头像 先默认一个头像
                 avatar : avatariconlist[ 0 ]
             } ,
+            showdialog : false ,
+
+        } );
+
+        const avatarobj = computed( () => {
+            var obj : IAvatarObj = {
+                showdialog : modeldata.showdialog ,
+                avatar : modeldata.userinfo.avatar
+            };
+
+            return obj;
         } );
 
         const onClickLeft = () => {
@@ -151,6 +171,7 @@ export default defineComponent( {
         // 提交
         const onSubmit = () => {
             console.log( 'ok' )
+
         }
 
         //failed	提交表单且验证不通过后触发	errorInfo: { values: object, errors: object[] }
@@ -194,8 +215,31 @@ export default defineComponent( {
             return ''
         }
 
+        /**
+         * 头像单击
+         */
+        const avatarclick = () : void => {
+            // console.log( 'avatarclick' )
+
+            modeldata.showdialog = true;
+
+        }
+
+        const userselectavatar = ( val : string ) : void => {
+
+            modeldata.showdialog = false;
+
+            if ( val != '' ) {
+                modeldata.userinfo.avatar = val;
+            }
+
+            return;
+        }
+
         return {
             ...toRefs( modeldata ) ,
+            avatarobj ,
+            userselectavatar ,
             onClickLeft ,
             onClickRight ,
             onSubmit ,
@@ -204,6 +248,7 @@ export default defineComponent( {
             validatorPwdMessage ,
             validatorPwd2Message ,
             validatorEmailMessage ,
+            avatarclick ,
         };
     } ,
 

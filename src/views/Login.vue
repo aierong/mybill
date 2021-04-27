@@ -69,7 +69,7 @@ interface UserObj {
     }
 }
 
-import { ValidatorMobile , ValidatorPassword } from '@common/util'
+import { ValidatorMobile , ValidatorPassword } from '@common/util.ts'
 
 export default defineComponent( {
 

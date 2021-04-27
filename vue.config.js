@@ -9,6 +9,9 @@ function resolve(dir) {
 }
 
 module.exports = {
+    //关闭eslint
+    lintOnSave : false ,
+
     chainWebpack : ( config ) => {
         //vue有一个默认的别名:@ 对应 src
         //下面定义了2个别名
