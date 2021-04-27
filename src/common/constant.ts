@@ -7,9 +7,16 @@
 
  */
 
-//头像列表
+/**
+ * 头像列表
+ */
 export const avatariconlist = [
     'smile-o' ,
     'friends-o' ,
     'user-o' ,
 ];
+
+/**
+ * token名称
+ */
+export const tokenname = 'billloginusertoken'

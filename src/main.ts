@@ -3,6 +3,8 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
+import axios from '@https/http';
+
 //导入vant
 import Vant from 'vant';
 import 'vant/lib/index.css';

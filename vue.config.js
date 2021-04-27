@@ -20,6 +20,7 @@ module.exports = {
         .set( '@comp' , resolve( 'src/components' ) )
         .set( '@views' , resolve( 'src/views' ) )
         .set( '@common' , resolve( 'src/common' ) )
+        .set( '@https' , resolve( 'src/https' ) )
 
     } ,
     devServer : {
