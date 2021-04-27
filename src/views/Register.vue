@@ -21,7 +21,36 @@ Time: 16:39
         <van-form @submit="onSubmit"
                   :validate-first="true"
                   @failed="onFailed">
+            <van-field v-model="userinfo.mobile"
+                       required
+                       clearable
+                       label="手机"
+                       placeholder="请输入手机号码"
+                       :rules="[{ required: true, message: '请填写手机号码' },
+                                { validator: validatorMobileMessage } ]"/>
+            <van-field v-model="userinfo.name"
+                       required
+                       clearable
+                       label="用户名"
+                       placeholder="请输入用户名"/>
 
+            <van-field v-model="userinfo.password"
+                       type="password"
+                       label="密码"
+                       placeholder="请输入密码"
+                       required
+                       :rules="[{ required: true, message: '请填写密码' },{ validator: validatorPwdMessage } ]"/>
+
+            <van-field v-model="userinfo.password2"
+                       type="password"
+                       label="再次密码"
+                       placeholder="请输入密码"
+                       required
+                       :rules="[{ required: true, message: '请填写密码' },{ validator: validatorPwd2Message } ]"/>
+            <van-field v-model="userinfo.email"
+                       clearable
+                       label="邮箱"
+                       placeholder="请输入邮箱"/>
         </van-form>
     </div>
 
@@ -33,7 +62,6 @@ Time: 16:39
 // 导入
 import {
     defineComponent ,
-
     ref ,
     reactive ,
     toRefs ,
@@ -48,12 +76,34 @@ import {
 //引入一下
 import { Toast } from 'vant';
 
+import { ValidatorMobile , ValidatorPassword } from '@common/util'
+
+interface UserObj {
+    userinfo : {
+        mobile : string,
+        password : string,
+        password2 : string,
+        name : string,
+        email : string
+    }
+}
+
 export default defineComponent( {
     // 子组件
     components : {} ,
 
     setup () {
         const router = useRouter()
+
+        const modeldata = reactive<UserObj>( {
+            userinfo : {
+                mobile : '' ,
+                password : '' ,
+                password2 : '' ,
+                name : '' ,
+                email : ''
+            } ,
+        } );
 
         const onClickLeft = () => {
             gotologin( '' );
@@ -79,11 +129,34 @@ export default defineComponent( {
         const onFailed = () => {
         }
 
-        return {
+        const validatorMobileMessage = ( val : string ) => {
 
+            return ValidatorMobile( val );
+        }
+
+        const validatorPwdMessage = ( val : string ) => {
+
+            return ValidatorPassword( val );
+        }
+
+        const validatorPwd2Message = ( val : string ) => {
+            var msg : string = ValidatorPassword( val );
+
+            if ( msg == '' ) {
+                //继续判断,2个密码是否一样
+                if ( modeldata.userinfo.password != val ) {
+                    return '2次输入密码不一致'
+                }
+            }
+
+            return msg;
+        }
+
+        return {
+            ...toRefs( modeldata ) ,
             onClickLeft ,
             onClickRight ,
-            onSubmit , onFailed ,
+            onSubmit , onFailed , validatorMobileMessage , validatorPwdMessage , validatorPwd2Message ,
         };
     } ,
 

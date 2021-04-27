@@ -69,6 +69,8 @@ interface UserObj {
     }
 }
 
+import { ValidatorMobile , ValidatorPassword } from '@common/util'
+
 export default defineComponent( {
 
     setup () {
@@ -89,26 +91,19 @@ export default defineComponent( {
         }
 
         const validatorMobileMessage = ( val : string ) => {
-            if ( !Number.isFinite( val ) && val.length != 11 ) {
-                return '请输入合法手机号码(11位长度)';
-            }
 
-            return '';
+            return ValidatorMobile( val );
         }
 
         const validatorPwdMessage = ( val : string ) => {
-            if ( val.length < 3 ) {
-                return '请输入合法密码(至少3位长度)';
-            }
 
-            return '';
+            return ValidatorPassword( val );
         }
 
         // 提交
         const onSubmit = () => {
             //values 可以收到表单中各个项目的值
             // console.log( 'submit' , values );
-
 
         }
 

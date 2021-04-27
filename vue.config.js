@@ -16,6 +16,7 @@ module.exports = {
         // 链式，接着可以往下写
         .set( '@comp' , resolve( 'src/components' ) )
         .set( '@views' , resolve( 'src/views' ) )
+        .set( '@common' , resolve( 'src/common' ) )
 
     } ,
     devServer : {

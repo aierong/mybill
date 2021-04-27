@@ -23,6 +23,9 @@
       ],
       "@views/*": [
         "src/views/*"
+      ],
+      "@common/*": [
+        "src/common/*"
       ]
     },
     "lib": [
