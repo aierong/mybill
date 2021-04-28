@@ -73,7 +73,6 @@ import { EncryptPassWord , ValidatorMobile , ValidatorPassword } from '@common/u
 
 import * as userapi from '@/http/api/user'
 
-
 export default defineComponent( {
     // 声明 props
     props : {
@@ -120,10 +119,8 @@ export default defineComponent( {
 
                 // console.log( 'status' , status )
                 if ( status.data.Success ) {
-                    // this.$toast( status.data.msg )
-                    // Toast( "注册成功,请登录" )
 
-                    // router.push( `/login?mobile=${ modeldata.userinfo.mobile }` )
+                    // Toast( "注册成功,请登录" )
 
                     return;
 
