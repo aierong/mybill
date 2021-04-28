@@ -123,7 +123,6 @@ export default defineComponent( {
                     // Toast( "注册成功,请登录" )
 
                     return;
-
                 }
                 else {
                     Toast.fail( status.data.Message )
