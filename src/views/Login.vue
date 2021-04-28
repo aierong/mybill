@@ -59,6 +59,9 @@ import {
 
 import { useRouter , useRoute } from 'vue-router'
 
+//引入一下
+import { Toast } from 'vant';
+
 interface UserObj {
     userinfo : {
         mobile : string,
@@ -66,7 +69,10 @@ interface UserObj {
     }
 }
 
-import { ValidatorMobile , ValidatorPassword } from '@common/util.ts'
+import { EncryptPassWord , ValidatorMobile , ValidatorPassword } from '@common/util.ts'
+
+import * as userapi from '@/http/api/user'
+
 
 export default defineComponent( {
     // 声明 props
@@ -108,6 +114,27 @@ export default defineComponent( {
             //values 可以收到表单中各个项目的值
             // console.log( 'submit' , values );
 
+            ( async () => {
+
+                let status = await userapi.login( modeldata.userinfo.mobile , EncryptPassWord( modeldata.userinfo.password ) );
+
+                // console.log( 'status' , status )
+                if ( status.data.Success ) {
+                    // this.$toast( status.data.msg )
+                    // Toast( "注册成功,请登录" )
+
+                    // router.push( `/login?mobile=${ modeldata.userinfo.mobile }` )
+
+                    return;
+
+                }
+                else {
+                    Toast.fail( status.data.Message )
+                }
+
+                return;
+
+            } )();
         }
 
         // failed	提交表单且验证不通过后触发	errorInfo: { values: object, errors: object[] }

@@ -48,9 +48,10 @@ namespace billservice.Controllers
         [AllowAnonymous]
         [HttpPost]
         [Route( "login" )]
-        public ServiceResult<UserTokenDto> login ( [FromForm] string mobile , [FromForm] string pwd )
+        public ServiceResult<UserTokenDto> login ( [FromBody] UserLoginDto userLoginDto )
         {
-
+            string mobile = userLoginDto.mobile;
+         
             var result = new ServiceResult<UserTokenDto>();
 
             // 一些验证
@@ -64,16 +65,7 @@ namespace billservice.Controllers
 
                 return result;
             }
-            else
-            {
-                if ( !usermodel.password.Equals( new MD5Security().Encrypt( pwd ) ) )
-                {
-                    //密码这里暂时关闭
-                    //result.IsFailed( "密码错误" );
-
-                    //return result;
-                }
-            }
+            
 
             var _role = usermodel.rolename;
 

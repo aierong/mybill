@@ -39,7 +39,7 @@ namespace billservice.Validator
             RuleFor( user => user.password )
                 .NotNull().WithMessage( "{PropertyName}没有传递或者空" )
                 .NotEmpty().WithMessage( "{PropertyName}为空" )
-                .MinimumLength( 6 ).WithMessage( "{PropertyName}最小长度6位" )
+                
                 .WithName( "密码" );
 
 

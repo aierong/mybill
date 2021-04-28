@@ -14,3 +14,7 @@ const prefix = '/users';
 export function add ( registerUser ) {
     return axios.post( `${ prefix }` , registerUser );
 }
+
+export function login ( mobile : string , password : string ) {
+    return axios.post( `${ prefix }/login` , { mobile : mobile , password : password } );
+}
