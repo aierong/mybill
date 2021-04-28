@@ -104,10 +104,6 @@ namespace billservice
             services.AddCors( options => options.AddPolicy( PolicyName ,
              builder =>
              {
-                 //builder.WithOrigins( new string[] { "http://localhost:8338" } )
-                 //    .AllowAnyMethod()
-                 //    .AllowAnyHeader()
-                 //    .AllowCredentials();
 
                  builder.WithOrigins( urls )
                                  .AllowAnyMethod()
