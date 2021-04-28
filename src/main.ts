@@ -4,7 +4,7 @@ import router from './router'
 import store from './store'
 
 // import axios from '@https/http.ts';
-import '@https/http.ts';
+import '@/http/http.ts';
 
 //导入vant
 import Vant from 'vant';

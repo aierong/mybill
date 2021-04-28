@@ -57,10 +57,7 @@ import {
     computed
 } from "vue";
 
-import {
-    useRouter ,
-    useRoute
-} from 'vue-router'
+import { useRouter , useRoute } from 'vue-router'
 
 interface UserObj {
     userinfo : {

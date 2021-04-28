@@ -10,10 +10,7 @@
 import axios from 'axios';
 import { tokenname } from '@common/constant'
 
-import {
-    useRouter ,
-    useRoute
-} from 'vue-router'
+import { useRouter , useRoute } from 'vue-router'
 
 // console.log( 'http.ts' )
 

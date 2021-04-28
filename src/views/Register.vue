@@ -88,24 +88,18 @@ import {
     computed
 } from "vue";
 
-import {
-    useRouter ,
-    useRoute
-} from 'vue-router'
+import { useRouter , useRoute } from 'vue-router'
 
 //引入一下
 import { Toast } from 'vant';
 
-import {
-    ValidatorMobile ,
-    ValidatorPassword ,
-    IsEmail , EncryptPassWord
-} from '@common/util'
-
 import selectavatar from "@comp/selectavatar.vue";
+
+import { ValidatorMobile , ValidatorPassword , IsEmail , EncryptPassWord } from '@common/util'
+
 import { avatariconlist } from '@common/constant.ts'
 import { IAvatarObj } from '@comp/types'
-import * as userapi from '@https/api/user'
+import * as userapi from '@/http/api/user'
 
 interface UserObj {
     userinfo : {
@@ -197,6 +191,7 @@ export default defineComponent( {
 
         //failed	提交表单且验证不通过后触发	errorInfo: { values: object, errors: object[] }
         const onFailed = () => {
+
         }
 
         const validatorMobileMessage = ( val : string ) : string => {
