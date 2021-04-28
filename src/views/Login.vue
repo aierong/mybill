@@ -69,13 +69,19 @@ interface UserObj {
 import { ValidatorMobile , ValidatorPassword } from '@common/util.ts'
 
 export default defineComponent( {
-
-    setup () {
+    // 声明 props
+    props : {
+        returnmobile : {
+            type : String ,
+            default : ''
+        } ,
+    } ,
+    setup ( props ) {
         const router = useRouter()
 
         const modeldata = reactive<UserObj>( {
             userinfo : {
-                mobile : '' ,
+                mobile : props.returnmobile ,
                 password : ''
             } ,
         } );

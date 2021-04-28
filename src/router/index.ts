@@ -11,6 +11,9 @@ const routes : Array<RouteRecordRaw> = [
         path : '/login' ,
         name : 'login' ,
         component : () => import( '@/views/Login.vue') ,
+        props : ( route ) => ( {
+            returnmobile : route.query.mobile ,
+        } ) ,
         meta : {
             //不需要登录验证
             requiresAuth : false

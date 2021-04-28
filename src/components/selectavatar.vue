@@ -55,7 +55,6 @@ import { avatariconlist } from '@common/constant.ts'
 import { IAvatarObj } from '@comp/types'
 
 export default defineComponent( {
-
     // 声明 props
     props : {
         avatarobj : {
