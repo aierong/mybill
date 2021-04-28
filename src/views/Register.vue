@@ -177,11 +177,18 @@ export default defineComponent( {
 
                 let status = await userapi.add( registerUser );
 
-                console.log( 'status' , status )
-                if ( !status.data ) {
+                // console.log( 'status' , status )
+                if ( status.data.Success ) {
                     // this.$toast( status.data.msg )
+                    Toast( "注册成功,请登录" )
+
+                    router.push( `/login?mobile=${ modeldata.userinfo.mobile }` )
 
                     return;
+
+                }
+                else {
+                    Toast.fail( status.data.Message )
                 }
 
                 return;
