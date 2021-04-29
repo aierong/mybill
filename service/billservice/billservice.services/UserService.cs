@@ -119,25 +119,8 @@ namespace billservice.services
             return result > 0;
         }
 
-        bool IUser.UpdateLoginInfo ( string mobile , int logintimes )
-        {
-            throw new NotImplementedException();
-        }
+       
     }
 }
 
-
-/**
-
-        public async Task<bool> IsExistUser ( string mobile )
-        {
-            var isAny = await db.Queryable<users>().Where( it => it.mobile == mobile ).AnyAsync();
-
-            if ( isAny )
-            {
-                return true;
-            }
-
-            return false;
-        }
-*/
+ 
