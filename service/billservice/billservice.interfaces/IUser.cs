@@ -17,8 +17,15 @@ namespace billservice.interfaces
 
         bool IsExistEmail ( string email );
 
-        bool Save ( users user ) ;
+        bool Save ( users user );
 
         users GetUser ( string mobile );
+
+        bool UpdateAvatar ( string mobile , string avatar );
+
+        bool UpdatePassWord ( string mobile , string pwd );
+
+        Task<bool> UpdateLoginInfo ( string mobile ,int logintimes );
+
     }
 }

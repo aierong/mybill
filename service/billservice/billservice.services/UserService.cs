@@ -4,12 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using billservice.interfaces;
 using billservice.models;
- 
+
 using SqlSugar;
 
 namespace billservice.services
 {
-
 
     public class UserService : IUser
     {
@@ -67,6 +66,50 @@ namespace billservice.services
             return ids > 0;
         }
 
+
+
+        public bool UpdateAvatar ( string mobile , string avatar )
+        {
+
+
+            //var result = db.Updateable( updateObj ).UpdateColumns( it => new { it.Name , it.CreateTime } ).ExecuteCommand();
+
+            var result = db.Updateable<users>()
+                    .SetColumns( it => new users() { avatar = avatar , updatedate = DateTime.Now } )
+                    .Where( it => it.mobile == mobile )
+                    .ExecuteCommand();
+
+            return result > 0;
+        }
+
+
+
+        public async Task<bool> UpdateLoginInfo ( string mobile , int logintimes )
+        {
+            //var result = db.Updateable<users>()
+            //        .SetColumns( it => new users() { logintimes = logintimes , lastlogindate = DateTime.Now } )
+            //        .Where( it => it.mobile == mobile )
+            //        .ExecuteCommand();
+
+            var result = await db.Updateable<users>()
+                    .SetColumns( it => new users() { logintimes = logintimes , lastlogindate = DateTime.Now } )
+                    .Where( it => it.mobile == mobile )
+                    .ExecuteCommandAsync();
+
+            return result > 0;
+        }
+
+
+
+        public bool UpdatePassWord ( string mobile , string pwd )
+        {
+            var result = db.Updateable<users>()
+                    .SetColumns( it => new users() { password = pwd , updatedate = DateTime.Now } )
+                    .Where( it => it.mobile == mobile )
+                    .ExecuteCommand();
+
+            return result > 0;
+        }
 
 
     }

@@ -45,6 +45,9 @@ CREATE TABLE users
     delmark VARCHAR(1) NOT NULL DEFAULT ( 'N' )
 )
 
+-- 202cb962ac59075b964b07152d234b70             123前端密码加密
+-- 2bHX20zW5wk1Nooe+xDjdw==                     123数据库中密码
+
 --先默认插入 一个管理员
 INSERT INTO [dbo].[users] (
                               [rolename] ,
@@ -57,7 +60,7 @@ INSERT INTO [dbo].[users] (
             SELECT  'admin' ,
                     '13912345678' ,
                     'smile-o' ,
-                    '' ,
+                    '2bHX20zW5wk1Nooe+xDjdw==' ,
                     '管理员' ,
                     'aierong@126.com'
 

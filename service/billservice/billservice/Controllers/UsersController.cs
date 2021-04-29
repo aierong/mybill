@@ -26,7 +26,7 @@ namespace billservice.Controllers
     [ApiController]
     public class UsersController : Base.BaseController
     {
-        readonly IUser Iuser;
+        readonly IUser iuser;
 
         readonly IMapper mapper;
 
@@ -36,7 +36,7 @@ namespace billservice.Controllers
 
         public UsersController ( IUser user , IMapper mapper , IOptionsMonitor<TokenConfigData> _TokenConfigDataOptions )
         {
-            this.Iuser = user;
+            this.iuser = user;
 
             this.mapper = mapper;
 
@@ -48,15 +48,15 @@ namespace billservice.Controllers
         [AllowAnonymous]
         [HttpPost]
         [Route( "login" )]
-        public ServiceResult<UserTokenDto> login ( [FromBody] UserLoginDto userLoginDto )
+        public async Task<ServiceResult<UserTokenDto>> login ( [FromBody] UserLoginDto userLoginDto )
         {
             string mobile = userLoginDto.mobile;
-         
+
             var result = new ServiceResult<UserTokenDto>();
 
             // 一些验证
 
-            users usermodel = this.Iuser.GetUser( mobile );
+            users usermodel = this.iuser.GetUser( mobile );
 
             if ( usermodel == null )
             {
@@ -65,7 +65,12 @@ namespace billservice.Controllers
 
                 return result;
             }
-            
+            else
+            {
+                // 修改一下,登录信息
+                await this.iuser.UpdateLoginInfo( mobile , usermodel.logintimes + 1 );
+            }
+
 
             var _role = usermodel.rolename;
 
@@ -109,9 +114,11 @@ namespace billservice.Controllers
             {
                 token = jwtToken ,
 
+                rolename = _role ,
+
                 mobile = mobile ,
 
-                rolename = _role
+
             } );
 
             return result;
@@ -128,7 +135,53 @@ namespace billservice.Controllers
 
             users user = this.mapper.Map<UserDto , users>( userDto );
 
-            bool bl = this.Iuser.Save( user );
+            bool bl = this.iuser.Save( user );
+
+            if ( !bl )
+            {
+                result.IsFailed( "保存失败" );
+
+                return result;
+            }
+
+
+            return result;
+        }
+
+
+
+        [HttpPost]
+        [Route( "updateavatar" )]
+        public ServiceResult updateavatar ( [FromBody] string avatar )
+        {
+            var result = new ServiceResult();
+
+            var mobile = base.UserMobile;
+
+            bool bl = this.iuser.UpdateAvatar( mobile , avatar );
+
+            if ( !bl )
+            {
+                result.IsFailed( "保存失败" );
+
+                return result;
+            }
+
+
+            return result;
+        }
+
+
+
+        [HttpPost]
+        [Route( "updatepassword" )]
+        public ServiceResult updatepassword ( [FromBody] string password )
+        {
+            var result = new ServiceResult();
+
+            var mobile = base.UserMobile;
+
+            bool bl = this.iuser.UpdatePassWord( mobile , password );
 
             if ( !bl )
             {

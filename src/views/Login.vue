@@ -117,7 +117,8 @@ export default defineComponent( {
 
                 let status = await userapi.login( modeldata.userinfo.mobile , EncryptPassWord( modeldata.userinfo.password ) );
 
-                // console.log( 'status' , status )
+                console.log( 'login status' , status )
+
                 if ( status.data.Success ) {
 
                     // Toast( "注册成功,请登录" )
