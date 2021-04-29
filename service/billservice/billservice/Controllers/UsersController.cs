@@ -68,7 +68,7 @@ namespace billservice.Controllers
             else
             {
                 // 修改一下,登录信息
-                await this.iuser.UpdateLoginInfo( mobile , usermodel.logintimes + 1 );
+                await this.iuser.UpdateLoginInfoAsync( mobile , usermodel.logintimes + 1 );
             }
 
 

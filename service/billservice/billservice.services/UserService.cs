@@ -59,6 +59,9 @@ namespace billservice.services
 
 
 
+
+
+
         public bool Save ( users user )
         {
             var ids = db.Insertable( user ).ExecuteReturnIdentity();
@@ -84,12 +87,9 @@ namespace billservice.services
 
 
 
-        public async Task<bool> UpdateLoginInfo ( string mobile , int logintimes )
+        public async Task<bool> UpdateLoginInfoAsync ( string mobile , int logintimes )
         {
-            //var result = db.Updateable<users>()
-            //        .SetColumns( it => new users() { logintimes = logintimes , lastlogindate = DateTime.Now } )
-            //        .Where( it => it.mobile == mobile )
-            //        .ExecuteCommand();
+           
 
             var result = await db.Updateable<users>()
                     .SetColumns( it => new users() { logintimes = logintimes , lastlogindate = DateTime.Now } )
@@ -99,7 +99,15 @@ namespace billservice.services
             return result > 0;
         }
 
+        public bool UpdateLoginInfo ( string mobile , int logintimes )
+        {
+            var result = db.Updateable<users>()
+                    .SetColumns( it => new users() { logintimes = logintimes , lastlogindate = DateTime.Now } )
+                    .Where( it => it.mobile == mobile )
+                    .ExecuteCommand();
 
+            return result > 0;
+        }
 
         public bool UpdatePassWord ( string mobile , string pwd )
         {
@@ -111,6 +119,25 @@ namespace billservice.services
             return result > 0;
         }
 
-
+        bool IUser.UpdateLoginInfo ( string mobile , int logintimes )
+        {
+            throw new NotImplementedException();
+        }
     }
 }
+
+
+/**
+
+        public async Task<bool> IsExistUser ( string mobile )
+        {
+            var isAny = await db.Queryable<users>().Where( it => it.mobile == mobile ).AnyAsync();
+
+            if ( isAny )
+            {
+                return true;
+            }
+
+            return false;
+        }
+*/

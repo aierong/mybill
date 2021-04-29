@@ -15,6 +15,8 @@ namespace billservice.interfaces
         /// <returns></returns>
         bool IsExistUser ( string mobile );
 
+        
+
         bool IsExistEmail ( string email );
 
         bool Save ( users user );
@@ -25,7 +27,9 @@ namespace billservice.interfaces
 
         bool UpdatePassWord ( string mobile , string pwd );
 
-        Task<bool> UpdateLoginInfo ( string mobile ,int logintimes );
+        bool UpdateLoginInfo ( string mobile , int logintimes );
+
+        Task<bool> UpdateLoginInfoAsync ( string mobile ,int logintimes );
 
     }
 }
