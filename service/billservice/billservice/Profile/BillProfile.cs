@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using billservice.models;
 using billservice.models.Dto;
-using billservice.Profile.Resolver;
+ 
 
 namespace billservice.Profile
 {
@@ -13,8 +13,8 @@ namespace billservice.Profile
         public BillProfile ()
         {
             CreateMap<BillDto , bills>()
-                .ForMember( destination => destination.mobile , opt => opt.MapFrom<BillMobileResolver>() )
-                .AfterMap( ( src , dest ) =>
+                //.ForMember( destination => destination.mobile , opt => opt.MapFrom<BillMobileResolver>() )
+                .AfterMap( ( src , dest , context ) =>
                 {
                     DateTime now = DateTime.Now;
 
@@ -32,6 +32,8 @@ namespace billservice.Profile
                     {
                         dest.updatedate = now;
                     }
+
+                    dest.mobile = context.Items["mobile"] != null ? context.Items["mobile"].ToString() : string.Empty;
                 } );
 
 

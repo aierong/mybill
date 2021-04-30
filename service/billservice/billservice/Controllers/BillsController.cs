@@ -7,6 +7,7 @@ using billservice.Helpers.Result;
 using billservice.interfaces;
 using billservice.models;
 using billservice.models.Dto;
+using billservice.Utils;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -36,7 +37,7 @@ namespace billservice.Controllers
         {
             var result = new ServiceResult();
 
-            bills _bill = this.mapper.Map<BillDto , bills>( billDto );
+            bills _bill = this.mapper.Map<BillDto , bills>( billDto , opt => opt.Items[Constant.mobilename] = base.UserMobile );
 
             bool bl = this.Ibill.Save( _bill );
 
