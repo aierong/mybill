@@ -44,7 +44,7 @@ namespace billservice.Controllers
 
             var mobile = base.UserMobile;
 
-            //先取系统类型回来
+            //先取系统类型回来,这个类型可以从缓存中取
             List<billtype> systemlist = null;
             string cacheallname = "AllSystemType";
 
@@ -65,13 +65,17 @@ namespace billservice.Controllers
             }
 
 
-            //先取系统类型回来
+            //再取用户类型回来 ,判断一下:如果是刷新就取数据库,如果不是就取缓存
             List<billtype> usertypelist = null;
             string cacheusername = "AllUserType";
+            var cacheUserEntryOptions = new MemoryCacheEntryOptions().SetAbsoluteExpiration( TimeSpan.FromMinutes( 60 ) );
 
             if ( isrefresh )
             {
                 usertypelist = await this.Ibilltype.GetAllUserTypeAsync( mobile );
+
+                // 记录一下,要不下次取,不是最新
+                this.memoryCache.Set( cacheusername , usertypelist , cacheUserEntryOptions );
             }
             else
             {
@@ -79,11 +83,8 @@ namespace billservice.Controllers
                 {
                     usertypelist = await this.Ibilltype.GetAllUserTypeAsync( mobile ); //计算出cache的值
 
-                    //设置过期cache时间
-                    var cacheEntryOptions = new MemoryCacheEntryOptions().SetAbsoluteExpiration( TimeSpan.FromMinutes( 60 ) );
-
                     // cache加入
-                    this.memoryCache.Set( cacheusername , usertypelist , cacheEntryOptions );
+                    this.memoryCache.Set( cacheusername , usertypelist , cacheUserEntryOptions );
                 }
 
             }
