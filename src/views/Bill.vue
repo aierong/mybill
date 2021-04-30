@@ -2,7 +2,7 @@
 
 作者: chenghao
 Date: 2021/4/30
-Time: 17:40
+Time: 17:52
 功能: TypeScript版本vue文件
 
 -->
@@ -11,7 +11,7 @@ Time: 17:40
 <template>
 
     <div>
-
+        billbillbillbillbillbillbillbillbill
     </div>
 
 </template>

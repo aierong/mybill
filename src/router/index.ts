@@ -9,11 +9,36 @@ const routes : Array<RouteRecordRaw> = [
         component : Home ,
         children : [
             {
-                path : '/medata' ,
-                name : 'medata' ,
+                path : '' ,
+                redirect : '/bill'
+            } ,
+            {
+                path : '/bill' ,
+                name : 'bill' ,
+                component : () => import('@views/Bill.vue') ,
+                meta : {
+                    //
+                    tabbarindex : 0
+                }
 
-                component : () => import('@views/MeData.vue') ,
-
+            } ,
+            {
+                path : '/stat' ,
+                name : 'stat' ,
+                component : () => import('@views/Stat.vue') ,
+                meta : {
+                    //
+                    tabbarindex : 1
+                }
+            } ,
+            {
+                path : '/me' ,
+                name : 'me' ,
+                component : () => import('@views/Me.vue') ,
+                meta : {
+                    //
+                    tabbarindex : 2
+                }
             } ,
         ]
     } ,

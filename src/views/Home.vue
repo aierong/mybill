@@ -1,6 +1,6 @@
 <template>
     <div class="home">
-
+        <router-view/>
         <tabbars></tabbars>
     </div>
 </template>

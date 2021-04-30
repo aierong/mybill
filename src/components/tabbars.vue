@@ -14,7 +14,8 @@ Time: 17:27
                 @change="onchange"
                 active-color="#ee0a24"
                 inactive-color="#000">
-        <van-tabbar-item icon="balance-list-o">记账</van-tabbar-item>
+
+        <van-tabbar-item icon="orders-o">明细</van-tabbar-item>
         <van-tabbar-item icon="points">统计</van-tabbar-item>
         <van-tabbar-item icon="setting-o">我</van-tabbar-item>
     </van-tabbar>
@@ -27,40 +28,74 @@ Time: 17:27
 // 导入
 import {
     defineComponent ,
-
     ref ,
     reactive ,
     toRefs ,
-    computed
+    computed ,
+    onMounted ,
 } from "vue";
 
 import { useRouter , useRoute } from 'vue-router'
 
 export default defineComponent( {
-    // 子组件
-    components : {} ,
     // 声明 props
     props : {} ,
     setup () {
         const router = useRouter()
+        const route = useRoute()
 
         const active = ref<number>( 0 );
 
-        const onchange = ( index : number ) => {
+        const onchange = ( index : number ) : void => {
             // console.log( 'index' , index )
 
             if ( index == 0 ) {
                 // 页面跳转
-                router.push( "/chats" )
+                router.push( "/bill" )
             }
             else if ( index == 1 ) {
-
-                router.push( "/contacts" );
+                // 页面跳转
+                router.push( "/stat" );
             }
             else if ( index == 2 ) {
+                // 页面跳转
                 router.push( "/me" )
             }
         }
+
+        // const setuptab = ( path : string ) : void => {
+        //     if ( path == "/bill" ) {
+        //         active.value = 0;
+        //
+        //         return;
+        //     }
+        //     else if ( path == '/stat' ) {
+        //         active.value = 1;
+        //
+        //         return;
+        //     }
+        //     else if ( path == '/me' ) {
+        //         active.value = 2;
+        //
+        //         return;
+        //     }
+        //     else {
+        //         active.value = 0;
+        //
+        //         return;
+        //     }
+        // }
+
+        onMounted( () => {
+            // var path = route.path;
+
+            // console.log( 'path' , path )
+
+            // 从新设置一下tab,要不刷新页面,会丢失tab
+            // setuptab( path );
+            var meta : any = route.meta;
+            active.value = parseInt( meta.tabbarindex );
+        } )
 
         return {
             active ,
