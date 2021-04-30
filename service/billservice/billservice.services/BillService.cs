@@ -40,6 +40,15 @@ namespace billservice.services
 
 
 
+        public async Task<bool> SaveAsync ( bills bill )
+        {
+            var ids = await db.Insertable( bill ).ExecuteReturnIdentityAsync();
+
+            return ids > 0;
+        }
+
+
+
         public bool Update ( bills bill )
         {
             var result = db.Updateable( bill ).UpdateColumns( it => new { it.billtypeid , it.isout , it.moneys , it.moneydate , it.memo , it.updatedate } ).ExecuteCommand();
@@ -47,6 +56,14 @@ namespace billservice.services
             return result > 0;
         }
 
+
+
+        public async Task<bool> UpdateAsync ( bills bill )
+        {
+            var result = await db.Updateable( bill ).UpdateColumns( it => new { it.billtypeid , it.isout , it.moneys , it.moneydate , it.memo , it.updatedate } ).ExecuteCommandAsync();
+
+            return result > 0;
+        }
 
 
     }

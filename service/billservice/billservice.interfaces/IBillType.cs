@@ -17,5 +17,7 @@ namespace billservice.interfaces
         bool IsExistUserType ( int billtypeid , string mobile );
 
         bool Save ( billtype _billtype );
+
+        Task<bool> SaveAsync ( billtype _billtype );
     }
 }

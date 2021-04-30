@@ -87,5 +87,11 @@ namespace billservice.services
 
 
 
+        public async Task<bool> SaveAsync ( billtype _billtype )
+        {
+            var ids = await db.Insertable( _billtype ).ExecuteReturnIdentityAsync();
+
+            return ids > 0;
+        }
     }
 }

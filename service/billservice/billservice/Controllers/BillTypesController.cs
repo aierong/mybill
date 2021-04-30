@@ -35,13 +35,13 @@ namespace billservice.Controllers
 
 
         [HttpPost]
-        public ServiceResult add ( [FromBody] BillTypeDto billTypeDto )
+        public async Task<ServiceResult> add ( [FromBody] BillTypeDto billTypeDto )
         {
             var result = new ServiceResult();
 
             billtype _billtype = this.mapper.Map<BillTypeDto , billtype>( billTypeDto , opt => opt.Items[Constant.mobilename] = base.UserMobile );
 
-            bool bl = this.Ibilltype.Save( _billtype );
+            bool bl = await this.Ibilltype.SaveAsync( _billtype );
 
             if ( !bl )
             {

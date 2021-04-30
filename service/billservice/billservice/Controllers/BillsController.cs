@@ -8,7 +8,7 @@ using billservice.Helpers.Result;
 using billservice.interfaces;
 using billservice.models;
 using billservice.models.Dto;
- 
+
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -34,13 +34,13 @@ namespace billservice.Controllers
 
 
         [HttpPost]
-        public ServiceResult add ( [FromBody] BillDto billDto )
+        public async Task<ServiceResult> add ( [FromBody] BillDto billDto )
         {
             var result = new ServiceResult();
 
             bills _bill = this.mapper.Map<BillDto , bills>( billDto , opt => opt.Items[Constant.mobilename] = base.UserMobile );
 
-            bool bl = this.Ibill.Save( _bill );
+            bool bl = await this.Ibill.SaveAsync( _bill );
 
             if ( !bl )
             {
@@ -55,13 +55,13 @@ namespace billservice.Controllers
 
 
         [HttpPut]
-        public ServiceResult update ( [FromBody] BillDto billDto )
+        public async Task<ServiceResult> update ( [FromBody] BillDto billDto )
         {
             var result = new ServiceResult();
 
-            bills _bill = this.mapper.Map<BillDto , bills>( billDto );
+            bills _bill = this.mapper.Map<BillDto , bills>( billDto , opt => opt.Items[Constant.mobilename] = base.UserMobile );
 
-            bool bl = this.Ibill.Update( _bill );
+            bool bl = await this.Ibill.UpdateAsync( _bill );
 
             if ( !bl )
             {

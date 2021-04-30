@@ -10,10 +10,18 @@ namespace billservice.interfaces
 {
     public interface IBill
     {
-        bool Save ( bills bill );
 
-        bool Update ( bills bill );
+
+        
 
         bool IsExistId ( int id , string mobile );
+
+
+        bool Save ( bills bill );
+        Task<bool> SaveAsync ( bills bill );
+
+        bool Update ( bills bill );
+        Task<bool> UpdateAsync ( bills bill );
+
     }
 }
