@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using billservice.Helpers;
 using billservice.models;
 using billservice.models.Dto;
- 
+
 
 namespace billservice.Profile
 {
@@ -13,7 +14,7 @@ namespace billservice.Profile
         public BillProfile ()
         {
             CreateMap<BillDto , bills>()
-                //.ForMember( destination => destination.mobile , opt => opt.MapFrom<BillMobileResolver>() )
+                
                 .AfterMap( ( src , dest , context ) =>
                 {
                     DateTime now = DateTime.Now;
@@ -33,7 +34,7 @@ namespace billservice.Profile
                         dest.updatedate = now;
                     }
 
-                    dest.mobile = context.Items["mobile"] != null ? context.Items["mobile"].ToString() : string.Empty;
+                    dest.mobile = context.Items[Constant.mobilename] != null ? context.Items[Constant.mobilename].ToString() : string.Empty;
                 } );
 
 

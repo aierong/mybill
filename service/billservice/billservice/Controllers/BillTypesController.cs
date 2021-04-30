@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using billservice.Helpers;
 using billservice.Helpers.Result;
 using billservice.interfaces;
 using billservice.models;
 using billservice.models.Dto;
-using billservice.Utils;
+
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
