@@ -67,6 +67,10 @@ namespace billservice
 
 
 
+            //注册cache服务
+            services.AddMemoryCache();  
+
+
             services.AddMvc().AddJsonOptions( ( options ) =>
             {
                 options.JsonSerializerOptions.Converters.Add( new DatetimeJsonConverter() );

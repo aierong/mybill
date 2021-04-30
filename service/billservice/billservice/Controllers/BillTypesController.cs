@@ -11,8 +11,7 @@ using billservice.models.Dto;
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-
-
+using Microsoft.Extensions.Caching.Memory;
 
 namespace billservice.Controllers
 {
@@ -23,14 +22,87 @@ namespace billservice.Controllers
     {
         readonly IMapper mapper;
         readonly IBillType Ibilltype;
+        readonly IMemoryCache memoryCache;
 
-
-        public BillTypesController ( IBillType Ibilltype , IMapper mapper )
+        public BillTypesController ( IBillType Ibilltype , IMapper mapper , IMemoryCache memoryCache )
         {
             this.Ibilltype = Ibilltype;
+
             this.mapper = mapper;
+
+            this.memoryCache = memoryCache;
         }
 
+
+
+        [HttpGet]
+        [Route( "getallbilltype/{isout}/{isrefresh}" )]
+        public async Task<ServiceResult> getallbilltype ( bool isout = true , bool isrefresh = false )
+        {
+
+            var result = new ServiceResult<List<BillTypeReturnDto>>();
+
+            var mobile = base.UserMobile;
+
+            //先取系统类型回来
+            List<billtype> systemlist = null;
+            string cacheallname = "AllSystemType";
+
+            if ( !this.memoryCache.TryGetValue( cacheallname , out systemlist ) )
+            {
+                systemlist = await this.Ibilltype.GetAllSystemTypeAsync(); //计算出cache的值
+
+                //设置过期cache时间
+                var cacheEntryOptions = new MemoryCacheEntryOptions().SetAbsoluteExpiration( TimeSpan.FromMinutes( 60 ) );
+
+                // cache加入
+                this.memoryCache.Set( cacheallname , systemlist , cacheEntryOptions );
+            }
+
+            if ( systemlist != null && systemlist.Count > 0 )
+            {
+                systemlist.RemoveAll( item => isout ? !item.isout : item.isout );
+            }
+
+
+            //先取系统类型回来
+            List<billtype> usertypelist = null;
+            string cacheusername = "AllUserType";
+
+            if ( isrefresh )
+            {
+                usertypelist = await this.Ibilltype.GetAllUserTypeAsync( mobile );
+            }
+            else
+            {
+                if ( !this.memoryCache.TryGetValue( cacheusername , out usertypelist ) )
+                {
+                    usertypelist = await this.Ibilltype.GetAllUserTypeAsync( mobile ); //计算出cache的值
+
+                    //设置过期cache时间
+                    var cacheEntryOptions = new MemoryCacheEntryOptions().SetAbsoluteExpiration( TimeSpan.FromMinutes( 60 ) );
+
+                    // cache加入
+                    this.memoryCache.Set( cacheusername , usertypelist , cacheEntryOptions );
+                }
+
+            }
+
+            if ( usertypelist != null && usertypelist.Count > 0 )
+            {
+                usertypelist.RemoveAll( item => isout ? !item.isout : item.isout );
+            }
+
+            List<billtype> list = new List<billtype>() { };
+            list.AddRange( systemlist );
+            list.AddRange( usertypelist );
+
+            List<BillTypeReturnDto> listDto = this.mapper.Map<List<billtype> , List<BillTypeReturnDto>>( list );
+
+            result.IsSuccess( listDto );
+
+            return result;
+        }
 
 
 

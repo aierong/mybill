@@ -93,5 +93,26 @@ namespace billservice.services
 
             return ids > 0;
         }
+
+
+
+        public async Task<List<billtype>> GetAllSystemTypeAsync ()
+        {
+            var list = await db.Queryable<billtype>().Where( it => it.issystemtype == true ).ToListAsync();
+
+            return list;
+        }
+
+
+
+        public async Task<List<billtype>> GetAllUserTypeAsync ( string mobile )
+        {
+            var list = await db.Queryable<billtype>().Where( it => it.issystemtype == false && it.mobile == mobile ).ToListAsync();
+
+            return list;
+        }
+
+
+
     }
 }

@@ -34,6 +34,9 @@ namespace billservice.Profile
 
 
 
+            CreateMap<billtype , BillTypeReturnDto>();
+
+
         }
     }
 }

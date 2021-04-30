@@ -19,5 +19,9 @@ namespace billservice.interfaces
         bool Save ( billtype _billtype );
 
         Task<bool> SaveAsync ( billtype _billtype );
+
+
+        Task<List<billtype>> GetAllSystemTypeAsync ();
+        Task<List<billtype>> GetAllUserTypeAsync ( string mobile );
     }
 }
