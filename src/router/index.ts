@@ -1,12 +1,21 @@
 import { createRouter , createWebHistory , RouteRecordRaw } from 'vue-router'
 
-import Home from '../views/Home.vue'
+import Home from '@views/Home.vue'
 
 const routes : Array<RouteRecordRaw> = [
     {
         path : '/' ,
         name : 'Home' ,
-        component : Home
+        component : Home ,
+        children : [
+            {
+                path : '/medata' ,
+                name : 'medata' ,
+
+                component : () => import('@views/MeData.vue') ,
+
+            } ,
+        ]
     } ,
     {
         path : '/login' ,
@@ -38,3 +47,5 @@ const router = createRouter( {
 } )
 
 export default router
+
+
