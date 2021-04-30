@@ -15,21 +15,39 @@ namespace billservice.interfaces
         /// <returns></returns>
         bool IsExistUser ( string mobile );
 
-        
+
 
         bool IsExistEmail ( string email );
 
+
+
         bool Save ( users user );
+
+        Task<bool> SaveAsync ( users user );
+
+
 
         users GetUser ( string mobile );
 
+        Task<users> GetUserAsync ( string mobile );
+
+
+
         bool UpdateAvatar ( string mobile , string avatar );
+
+        Task<bool> UpdateAvatarAsync ( string mobile , string avatar );
+
+
 
         bool UpdatePassWord ( string mobile , string pwd );
 
+        Task<bool> UpdatePassWordAsync ( string mobile , string pwd );
+
+
+
         bool UpdateLoginInfo ( string mobile , int logintimes );
 
-        Task<bool> UpdateLoginInfoAsync ( string mobile ,int logintimes );
+        Task<bool> UpdateLoginInfoAsync ( string mobile , int logintimes );
 
     }
 }

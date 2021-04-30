@@ -22,12 +22,11 @@ namespace billservice.Helpers
 
 
 
-
-
         /// <summary>
         /// 日期格式
         /// </summary>
         public const string DateLongFormat = "yyyy-MM-dd";
+
 
 
         /// <summary>
@@ -44,7 +43,12 @@ namespace billservice.Helpers
 
 
 
-
+        /// <summary>
+        /// mobile名字
+        /// </summary>
         public const string mobilename = "mobile";
+
+
+
     }
 }

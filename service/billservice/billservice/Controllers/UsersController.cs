@@ -54,13 +54,10 @@ namespace billservice.Controllers
 
             var result = new ServiceResult<UserTokenDto>();
 
-            // 一些验证
-
-            users usermodel = this.iuser.GetUser( mobile );
+            users usermodel = await this.iuser.GetUserAsync( mobile );
 
             if ( usermodel == null )
             {
-                // 
                 result.IsFailed( "手机号错误" );
 
                 return result;
@@ -86,7 +83,8 @@ namespace billservice.Controllers
                 new Claim( System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames.Email, usermodel.email ),
                 
                 //3.自定义名称
-                //new Claim( "avatar",usermodel.avatar ),
+                new Claim( "mobile",mobile ), //其实没有啥用,先记录着吧
+                new Claim( "avatar",usermodel.avatar ),
 
                 // 角色               
                 new Claim( System.Security.Claims.ClaimTypes.Role, _role),
@@ -129,13 +127,13 @@ namespace billservice.Controllers
         [AllowAnonymous]
         [HttpPost]
         [Route( "" )]
-        public ServiceResult add ( [FromBody] UserDto userDto )
+        public async Task<ServiceResult> add ( [FromBody] UserDto userDto )
         {
             var result = new ServiceResult();
 
             users user = this.mapper.Map<UserDto , users>( userDto );
 
-            bool bl = this.iuser.Save( user );
+            bool bl = await this.iuser.SaveAsync( user );
 
             if ( !bl )
             {
@@ -144,7 +142,6 @@ namespace billservice.Controllers
                 return result;
             }
 
-
             return result;
         }
 
@@ -152,13 +149,13 @@ namespace billservice.Controllers
 
         [HttpPost]
         [Route( "updateavatar" )]
-        public ServiceResult updateavatar ( [FromBody] string avatar )
+        public async Task<ServiceResult> updateavatar ( [FromBody] string avatar )
         {
             var result = new ServiceResult();
 
             var mobile = base.UserMobile;
 
-            bool bl = this.iuser.UpdateAvatar( mobile , avatar );
+            bool bl = await this.iuser.UpdateAvatarAsync( mobile , avatar );
 
             if ( !bl )
             {
@@ -175,13 +172,13 @@ namespace billservice.Controllers
 
         [HttpPost]
         [Route( "updatepassword" )]
-        public ServiceResult updatepassword ( [FromBody] string password )
+        public async Task<ServiceResult> updatepassword ( [FromBody] string password )
         {
             var result = new ServiceResult();
 
             var mobile = base.UserMobile;
 
-            bool bl = this.iuser.UpdatePassWord( mobile , password );
+            bool bl = await this.iuser.UpdatePassWordAsync( mobile , password );
 
             if ( !bl )
             {
