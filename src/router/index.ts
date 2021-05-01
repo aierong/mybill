@@ -16,29 +16,29 @@ const routes : Array<RouteRecordRaw> = [
                 path : '/bill' ,
                 name : 'bill' ,
                 component : () => import('@views/Bill.vue') ,
-                meta : {
-                    //
-                    tabbarindex : 0
-                }
+                // meta : {
+                //     //
+                //     tabbarindex : 0
+                // }
 
             } ,
             {
                 path : '/stat' ,
                 name : 'stat' ,
                 component : () => import('@views/Stat.vue') ,
-                meta : {
-                    //
-                    tabbarindex : 1
-                }
+                // meta : {
+                //     //
+                //     tabbarindex : 1
+                // }
             } ,
             {
                 path : '/me' ,
                 name : 'me' ,
                 component : () => import('@views/Me.vue') ,
-                meta : {
-                    //
-                    tabbarindex : 2
-                }
+                // meta : {
+                //     //
+                //     tabbarindex : 2
+                // }
             } ,
         ]
     } ,
