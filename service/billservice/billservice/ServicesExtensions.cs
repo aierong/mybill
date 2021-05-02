@@ -167,7 +167,7 @@ namespace billservice
 
             services.AddMvc().AddFluentValidation();
 
-            services.AddTransient<IValidator<UserAddDto> , UserDtoValidator>();
+            services.AddTransient<IValidator<UserAddDto> , UserAddDtoValidator>();
             services.AddTransient<IValidator<UserLoginDto> , UserLoginDtoValidator>();
             services.AddTransient<IValidator<BillTypeDto> , BillTypeDtoValidator>();
             services.AddTransient<IValidator<BillDto> , BillDtoValidator>();

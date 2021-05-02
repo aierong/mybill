@@ -8,13 +8,13 @@ using FluentValidation;
 
 namespace billservice.Validator
 {
-    public class UserDtoValidator : AbstractValidator<UserAddDto>
+    public class UserAddDtoValidator : AbstractValidator<UserAddDto>
     {
         readonly IUser user;
 
 
 
-        public UserDtoValidator ( IUser user )
+        public UserAddDtoValidator ( IUser user )
         {
             this.user = user;
 
