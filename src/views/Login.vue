@@ -58,6 +58,8 @@ import {
 } from "vue";
 
 import { useRouter , useRoute } from 'vue-router'
+import { useStore } from 'vuex'
+import { key } from '@store/index'
 
 //引入一下
 import { Toast } from 'vant';
@@ -71,6 +73,8 @@ interface UserObj {
 
 import { EncryptPassWord , ValidatorMobile , ValidatorPassword } from '@common/util.ts'
 
+import * as constant from '@common/constant.ts'
+
 import * as userapi from '@/http/api/user'
 
 export default defineComponent( {
@@ -83,6 +87,7 @@ export default defineComponent( {
     } ,
     setup ( props ) {
         const router = useRouter()
+        const store = useStore( key )
 
         const modeldata = reactive<UserObj>( {
             userinfo : {
@@ -114,14 +119,29 @@ export default defineComponent( {
             // console.log( 'submit' , values );
 
             ( async () => {
+                var mobile = modeldata.userinfo.mobile;
 
-                let status = await userapi.login( modeldata.userinfo.mobile , EncryptPassWord( modeldata.userinfo.password ) );
+                let status = await userapi.login( mobile , EncryptPassWord( modeldata.userinfo.password ) );
 
                 console.log( 'login status' , status )
 
                 if ( status.data.Success ) {
 
                     // Toast( "注册成功,请登录" )
+
+                    //     // 存储token
+                    let tokendata = status.data.Result.token;
+
+                    //返回的token是可以用的
+                    localStorage.setItem( constant.tokenname , tokendata );
+
+                    // 登录账号记录vuex
+                    store.commit( "user/updateloginuser" , mobile + '__test' );
+
+                    //@ts-ignore
+                    console.log( store.state.user.loginusermobile );
+
+                    console.log( store.getters[ "user/usermobile" ] );
 
                     return;
                 }

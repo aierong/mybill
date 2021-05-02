@@ -11,8 +11,8 @@ import { createStore , Store } from 'vuex'
 
 import { IState } from '@store/user/types'
 
-
-import mutations from '@store//user/mutations'
+import getters from '@store/user/getters'
+import mutations from '@store/user/mutations'
 
 const state : IState = {
     //登录用户帐号
@@ -26,7 +26,7 @@ const state : IState = {
 export default {
     state : state ,
 
-    // getters : getters ,
+    getters : getters ,
     mutations : mutations ,
 
     //打开 命名空间

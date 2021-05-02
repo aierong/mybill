@@ -8,7 +8,7 @@ import { IState } from "@store/user/types";
 // define injection key
 export const key : InjectionKey<Store<IState>> = Symbol()
 
-export default createStore( {
+export const store = createStore<IState>( {
     modules : {
         user : user ,
     } ,
