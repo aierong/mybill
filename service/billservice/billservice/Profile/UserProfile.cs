@@ -13,7 +13,7 @@ namespace billservice.Profile
     {
         public UserProfile ()
         {
-            CreateMap<UserDto , users>()
+            CreateMap<UserAddDto , users>()
                .ForMember( destination => destination.password , opt => opt.MapFrom( src => new MD5Security().Encrypt( src.password ) ) )
                .AfterMap( ( src , dest ) =>
                {

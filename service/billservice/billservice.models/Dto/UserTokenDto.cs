@@ -12,14 +12,18 @@ namespace billservice.models.Dto
             get;set;
         }
 
+
+
         public string mobile
         {
             get; set;
         }
 
-        public string rolename
-        {
-            get; set;
-        }
+
+
+        //public string rolename
+        //{
+        //    get; set;
+        //}
     }
 }

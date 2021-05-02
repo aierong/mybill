@@ -34,12 +34,12 @@ namespace billservice.Controllers
 
 
 
-        public UsersController ( IUser user , IMapper mapper , IOptionsMonitor<TokenConfigData> _TokenConfigDataOptions )
+        public UsersController ( IUser user ,
+                                    IMapper mapper ,
+                                    IOptionsMonitor<TokenConfigData> _TokenConfigDataOptions )
         {
             this.iuser = user;
-
             this.mapper = mapper;
-
             this.tokenConfigData = _TokenConfigDataOptions.CurrentValue;
         }
 
@@ -110,9 +110,10 @@ namespace billservice.Controllers
             // 把自己的数据带回去
             result.IsSuccess( new UserTokenDto()
             {
+
                 token = jwtToken ,
 
-                rolename = _role ,
+                //rolename = _role ,
 
                 mobile = mobile ,
 
@@ -127,11 +128,11 @@ namespace billservice.Controllers
         [AllowAnonymous]
         [HttpPost]
         [Route( "" )]
-        public async Task<ServiceResult> add ( [FromBody] UserDto userDto )
+        public async Task<ServiceResult> add ( [FromBody] UserAddDto userDto )
         {
             var result = new ServiceResult();
 
-            users user = this.mapper.Map<UserDto , users>( userDto );
+            users user = this.mapper.Map<UserAddDto , users>( userDto );
 
             bool bl = await this.iuser.SaveAsync( user );
 

@@ -19,6 +19,7 @@ Time: 17:27
     <!--        <van-tabbar-item icon="points">统计</van-tabbar-item>-->
     <!--        <van-tabbar-item icon="setting-o">我</van-tabbar-item>-->
     <!--    </van-tabbar>-->
+
     <van-tabbar route
                 active-color="#ee0a24"
                 inactive-color="#000">
