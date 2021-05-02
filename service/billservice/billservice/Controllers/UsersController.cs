@@ -125,6 +125,24 @@ namespace billservice.Controllers
 
 
 
+        [HttpGet]
+        public async Task<ServiceResult> get ()
+        {
+            var result = new ServiceResult<UserDto>();
+
+            var mobile = base.UserMobile;
+
+            var user = await this.iuser.GetUserAsync( mobile );
+
+            UserDto _UserDto = this.mapper.Map<users , UserDto>( user );
+
+            result.IsSuccess( _UserDto );
+
+            return result;
+        }
+
+
+
         [AllowAnonymous]
         [HttpPost]
         [Route( "" )]

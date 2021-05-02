@@ -31,7 +31,7 @@ namespace billservice.Profile
                    dest.rolename = userrole.user.ToString();
                } );
 
-
+            CreateMap<users , UserDto>();
 
         }
     }
