@@ -6,13 +6,20 @@
  功能: TypeScript脚本
 
  */
+import { InjectionKey } from 'vue'
+import { createStore , Store } from 'vuex'
 
-const state = {
+import { IState } from '@store/user/types'
+
+
+import mutations from '@store//user/mutations'
+
+const state : IState = {
     //登录用户帐号
     loginusermobile : '' ,
 
     //登录用户信息
-    loginuser : null ,
+    // loginuser : null ,
 
 }
 
@@ -20,7 +27,7 @@ export default {
     state : state ,
 
     // getters : getters ,
-    // mutations : mutations ,
+    mutations : mutations ,
 
     //打开 命名空间
     namespaced : true

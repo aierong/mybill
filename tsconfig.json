@@ -30,6 +30,9 @@
       ],
       "@https/*": [
         "src/https/*"
+      ],
+      "@store/*": [
+        "src/store/*"
       ]
     },
     "lib": [
