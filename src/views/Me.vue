@@ -17,7 +17,7 @@ Time: 17:40
             <template #title>
                 <van-icon name="smile-o"
                           size="58"/>
-
+                <span class="cellspantitleclass">{{ userinfo.name + '(' + userinfo.mobile + ')' }}</span>
             </template>
         </van-cell>
         <br>
@@ -25,7 +25,6 @@ Time: 17:40
                   title="修改密码"
                   is-link/>
         <br>
-
         <van-cell icon="user-o"
                   title="关于我们"
                   @click="AboutClick"
@@ -50,11 +49,11 @@ Time: 17:40
 // 导入
 import {
     defineComponent ,
-
     ref ,
     reactive ,
     toRefs ,
-    computed
+    computed ,
+    onMounted ,
 } from "vue";
 
 import { useRouter , useRoute } from 'vue-router'
@@ -64,6 +63,14 @@ import * as UserMutationType from '@store/mutations/mutation-types'
 
 import { Dialog } from 'vant';
 import * as constant from "@common/constant";
+import * as userapi from '@/http/api/user'
+
+interface IUserObj {
+    userinfo : {
+        mobile : string,
+        name : string
+    }
+}
 
 export default defineComponent( {
     // 子组件
@@ -72,6 +79,13 @@ export default defineComponent( {
     setup () {
         const router = useRouter()
         const store = useStore( key )
+
+        const modeldata = reactive<IUserObj>( {
+            userinfo : {
+                mobile : store.state.loginusermobile ,
+                name : ''
+            } ,
+        } );
 
         const SetupAvatarClick = () => {
         }
@@ -115,7 +129,20 @@ export default defineComponent( {
             return;
         }
 
+        onMounted( async () => {
+            let status = await userapi.getuser();
+
+            // console.log( 'me status' , status )
+
+            if ( status.data.Success ) {
+                var userDto = status.data.Result;
+
+                modeldata.userinfo.name = userDto.name;
+            }
+        } );
+
         return {
+            ...toRefs( modeldata ) ,
             SetupAvatarClick , exitClick , AboutClick ,
         };
     } ,
@@ -124,6 +151,6 @@ export default defineComponent( {
 </script>
 
 <!-- 样式代码片段  scoped -->
-<style>
-
+<style scoped
+       src="./Me.css">
 </style>

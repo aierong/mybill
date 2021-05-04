@@ -65,7 +65,7 @@ import * as UserMutationType from '@store/mutations/mutation-types'
 //引入一下
 import { Toast } from 'vant';
 
-interface UserObj {
+interface IUserObj {
     userinfo : {
         mobile : string,
         password : string
@@ -90,7 +90,7 @@ export default defineComponent( {
         const router = useRouter()
         const store = useStore( key )
 
-        const modeldata = reactive<UserObj>( {
+        const modeldata = reactive<IUserObj>( {
             userinfo : {
                 mobile : props.returnmobile ,
                 password : ''

@@ -18,3 +18,7 @@ export function add ( registerUser ) {
 export function login ( mobile : string , password : string ) {
     return axios.post( `${ prefix }/login` , { mobile : mobile , password : password } );
 }
+
+export function getuser () {
+    return axios.get( `${ prefix }` );
+}
