@@ -16,7 +16,8 @@ Time: 17:40
                   @click="SetupAvatarClick">
             <template #title>
                 <van-icon name="smile-o"
-                          size="58"/>
+                          size="58"
+                          @click="avatarclick"/>
                 <span class="cellspantitleclass">{{ userinfo.name + '(' + userinfo.mobile + ')' }}</span>
             </template>
         </van-cell>
@@ -129,6 +130,9 @@ export default defineComponent( {
             return;
         }
 
+        const avatarclick = () => {
+        }
+
         onMounted( async () => {
             let status = await userapi.getuser();
 
@@ -143,7 +147,7 @@ export default defineComponent( {
 
         return {
             ...toRefs( modeldata ) ,
-            SetupAvatarClick , exitClick , AboutClick ,
+            SetupAvatarClick , exitClick , AboutClick , avatarclick ,
         };
     } ,
 

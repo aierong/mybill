@@ -167,8 +167,8 @@ namespace billservice.Controllers
 
 
         [HttpPost]
-        [Route( "updateavatar" )]
-        public async Task<ServiceResult> updateavatar ( [FromBody] string avatar )
+        [Route( "updateavatar/{avatar}" )]
+        public async Task<ServiceResult> updateavatar ( string avatar )
         {
             var result = new ServiceResult();
 
@@ -190,8 +190,8 @@ namespace billservice.Controllers
 
 
         [HttpPost]
-        [Route( "updatepassword" )]
-        public async Task<ServiceResult> updatepassword ( [FromBody] string password )
+        [Route( "updatepassword/{password}" )]
+        public async Task<ServiceResult> updatepassword ( string password )
         {
             var result = new ServiceResult();
 
