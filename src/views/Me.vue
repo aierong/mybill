@@ -203,13 +203,24 @@ export default defineComponent( {
         }
 
         const pwdconfirm = () => {
-            console.log( 'pwdconfirm' )
+            // console.log( 'pwdconfirm' )
+            if ( modeldata.pwdinfo.pwd == '' || modeldata.pwdinfo.pwd2 == '' ) {
+                Toast( "请填写密码" )
+
+                return;
+            }
+
+            if ( modeldata.pwdinfo.pwd != modeldata.pwdinfo.pwd2 ) {
+                Toast( "2次密码不一致" )
+
+                return;
+            }
 
             pwddialog( false );
         }
 
         const pwdcancel = () => {
-            console.log( 'cancel' )
+            // console.log( 'cancel' )
 
             pwddialog( false );
         }
