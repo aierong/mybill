@@ -145,16 +145,29 @@ export default defineComponent( {
             return;
         }
 
-        const gotologin = ( mobile : string = '' ) => {
+        const gotologin = ( mobile : string = '' ) : void => {
             router.push( `/login?mobile=${ mobile }` )
 
             return;
         }
 
-        const avatarclick = () => {
+        const avatarclick = () : void => {
+            modeldata.showdialog = true;
         }
 
-        const userselectavatar = ( avatar : string ) => {
+        const userselectavatar = async ( avatar : string ) => {
+            modeldata.showdialog = false;
+
+            if ( avatar != '' ) {
+                let status = await userapi.updateavatar( avatar );
+
+                if ( status.data.Success ) {
+                    modeldata.userinfo.avatar = avatar;
+                }
+
+            }
+
+            return;
         }
 
         onMounted( async () => {
