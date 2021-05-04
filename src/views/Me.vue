@@ -40,6 +40,11 @@ Time: 17:40
                     type="warning">退出
 
         </van-button>
+
+        <br>
+        <selectavatar :avatarobj="avatarobj"
+                      @userselectavatar="userselectavatar"
+                      v-if="avatarobj.showdialog"></selectavatar>
     </div>
 
 </template>
@@ -149,6 +154,9 @@ export default defineComponent( {
         const avatarclick = () => {
         }
 
+        const userselectavatar = ( avatar : string ) => {
+        }
+
         onMounted( async () => {
             let status = await userapi.getuser();
 
@@ -165,7 +173,8 @@ export default defineComponent( {
         return {
             ...toRefs( modeldata ) ,
             avatarobj ,
-            SetupAvatarClick , exitClick , AboutClick , avatarclick ,
+            SetupAvatarClick , exitClick , AboutClick ,
+            avatarclick , userselectavatar ,
         };
     } ,
 

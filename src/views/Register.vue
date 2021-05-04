@@ -247,12 +247,12 @@ export default defineComponent( {
 
         }
 
-        const userselectavatar = ( val : string ) : void => {
+        const userselectavatar = ( avatar : string ) : void => {
 
             modeldata.showdialog = false;
 
-            if ( val != '' ) {
-                modeldata.userinfo.avatar = val;
+            if ( avatar != '' ) {
+                modeldata.userinfo.avatar = avatar;
             }
 
             return;
