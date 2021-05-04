@@ -15,7 +15,7 @@ Time: 17:40
         <van-cell size="large"
                   @click="SetupAvatarClick">
             <template #title>
-                <van-icon name="smile-o"
+                <van-icon :name="userinfo.avatar"
                           size="58"
                           @click="avatarclick"/>
                 <span class="cellspantitleclass">{{ userinfo.name + '(' + userinfo.mobile + ')' }}</span>
@@ -49,8 +49,10 @@ Time: 17:40
 interface IUserObj {
     userinfo : {
         mobile : string,
-        name : string
-    }
+        name : string,
+        avatar : string
+    },
+    showdialog : boolean
 }
 
 // 导入
@@ -73,6 +75,7 @@ import * as constant from "@common/constant";
 import * as userapi from '@/http/api/user'
 
 import selectavatar from "@comp/selectavatar.vue";
+import { IAvatarObj } from '@comp/types'
 
 export default defineComponent( {
     // 子组件
@@ -86,8 +89,19 @@ export default defineComponent( {
         const modeldata = reactive<IUserObj>( {
             userinfo : {
                 mobile : store.state.loginusermobile ,
-                name : ''
+                name : '' ,
+                avatar : ''
             } ,
+            showdialog : false
+        } );
+
+        const avatarobj = computed( () => {
+            var obj : IAvatarObj = {
+                showdialog : modeldata.showdialog ,
+                avatar : modeldata.userinfo.avatar
+            };
+
+            return obj;
         } );
 
         const SetupAvatarClick = () => {
@@ -144,11 +158,13 @@ export default defineComponent( {
                 var userDto = status.data.Result;
 
                 modeldata.userinfo.name = userDto.name;
+                modeldata.userinfo.avatar = userDto.avatar;
             }
         } );
 
         return {
             ...toRefs( modeldata ) ,
+            avatarobj ,
             SetupAvatarClick , exitClick , AboutClick , avatarclick ,
         };
     } ,
