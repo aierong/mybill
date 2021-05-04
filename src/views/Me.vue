@@ -46,6 +46,12 @@ Time: 17:40
 
 <!-- TypeScript脚本代码片段 -->
 <script lang="ts">
+interface IUserObj {
+    userinfo : {
+        mobile : string,
+        name : string
+    }
+}
 
 // 导入
 import {
@@ -66,17 +72,13 @@ import { Dialog } from 'vant';
 import * as constant from "@common/constant";
 import * as userapi from '@/http/api/user'
 
-interface IUserObj {
-    userinfo : {
-        mobile : string,
-        name : string
-    }
-}
+import selectavatar from "@comp/selectavatar.vue";
 
 export default defineComponent( {
     // 子组件
-    components : {} ,
-
+    components : {
+        selectavatar ,
+    } ,
     setup () {
         const router = useRouter()
         const store = useStore( key )

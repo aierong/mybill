@@ -78,6 +78,18 @@ Time: 16:39
 
 <!-- TypeScript脚本代码片段 -->
 <script lang="ts">
+interface UserObj {
+    userinfo : {
+        mobile : string,
+        password : string,
+        password2 : string,
+        name : string,
+        email : string,
+        avatar : string
+    },
+    showdialog : boolean
+    // avatarobj : IAvatarObj
+}
 
 // 导入
 import {
@@ -100,19 +112,6 @@ import { ValidatorMobile , ValidatorPassword , IsEmail , EncryptPassWord } from 
 import { avatariconlist } from '@common/constant.ts'
 import { IAvatarObj } from '@comp/types'
 import * as userapi from '@/http/api/user'
-
-interface UserObj {
-    userinfo : {
-        mobile : string,
-        password : string,
-        password2 : string,
-        name : string,
-        email : string,
-        avatar : string
-    },
-    showdialog : boolean
-    // avatarobj : IAvatarObj
-}
 
 export default defineComponent( {
     // 子组件
