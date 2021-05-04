@@ -90,7 +90,7 @@ router.beforeEach( ( to , from ) => {
             }
         }
 
-        console.log( 'beforeEach isLogin' , isLogin )
+        // console.log( 'beforeEach isLogin' , isLogin )
 
         // 没有登录,要处理一下
         if ( !isLogin ) {

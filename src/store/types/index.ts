@@ -9,6 +9,9 @@
 
 export interface IUserState {
 
+    /**
+     * 登录用户帐号
+     */
     loginusermobile : string
 }
 

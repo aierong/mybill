@@ -9,6 +9,8 @@
 import { IUserState } from '@store/types'
 
 export const userstate : IUserState = {
-    //登录用户帐号
+    /**
+     * 登录用户帐号
+     */
     loginusermobile : '' ,
 };

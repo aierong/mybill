@@ -28,6 +28,7 @@ Time: 17:40
 
         <van-cell icon="user-o"
                   title="关于我们"
+                  @click="AboutClick"
                   is-link/>
         <br><br>
         <van-button size="large"
@@ -56,21 +57,66 @@ import {
     computed
 } from "vue";
 
+import { useRouter , useRoute } from 'vue-router'
+import { useStore } from 'vuex'
+import { key } from '@store/index.ts'
+import * as UserMutationType from '@store/mutations/mutation-types'
+
+import { Dialog } from 'vant';
+import * as constant from "@common/constant";
+
 export default defineComponent( {
     // 子组件
     components : {} ,
-    // 声明 props
-    props : {} ,
+
     setup () {
+        const router = useRouter()
+        const store = useStore( key )
 
         const SetupAvatarClick = () => {
         }
 
         const exitClick = () => {
+            Dialog.confirm( {
+                // title : "退出" ,
+                message : "确定退出?"
+            } )
+            .then( () => {
+                // on confirm
+                // console.log( "点确定按钮" )
+
+                exitsystem( store.state.loginusermobile );
+            } )
+            .catch( () => {
+                // on cancel
+                // console.log( "点取消按钮" )
+            } )
+        }
+
+        const AboutClick = () => {
+            console.log( 'AboutClick' )
+        }
+
+        const exitsystem = ( mobile : string = '' ) => {
+
+            store.commit( UserMutationType.clearloginuser );
+
+            //返回的token也清空一下
+            localStorage.setItem( constant.tokenname , '' );
+
+            gotologin( mobile );
+
+            return;
+        }
+
+        const gotologin = ( mobile : string = '' ) => {
+            router.push( `/login?mobile=${ mobile }` )
+
+            return;
         }
 
         return {
-            SetupAvatarClick , exitClick ,
+            SetupAvatarClick , exitClick , AboutClick ,
         };
     } ,
 
