@@ -6,7 +6,12 @@
  功能: TypeScript脚本
 
  */
-export interface IState {
+
+export interface IUserState {
 
     loginusermobile : string
+}
+
+export interface IState extends IUserState {
+
 }

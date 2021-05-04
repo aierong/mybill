@@ -13,4 +13,7 @@ import 'vant/lib/index.css';
 const app = createApp( App )
 //引入vant
 app.use( Vant )
+// 注入key
 app.use( store , key ).use( router ).mount( '#app' )
+
+

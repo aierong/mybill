@@ -59,7 +59,8 @@ import {
 
 import { useRouter , useRoute } from 'vue-router'
 import { useStore } from 'vuex'
-import { key } from '@store/index'
+import { key } from '@store/index.ts'
+import * as UserMutationType from '@store/mutations/mutation-types'
 
 //引入一下
 import { Toast } from 'vant';
@@ -136,12 +137,11 @@ export default defineComponent( {
                     localStorage.setItem( constant.tokenname , tokendata );
 
                     // 登录账号记录vuex
-                    store.commit( "user/updateloginuser" , mobile + '__test' );
+                    store.commit( UserMutationType.updateloginuser , mobile + '__test' );
 
-                    //@ts-ignore
-                    console.log( store.state.user.loginusermobile );
+                    console.log( store.state.loginusermobile );
 
-                    console.log( store.getters[ "user/usermobile" ] );
+                    console.log( store.getters.usermobile );
 
                     return;
                 }
