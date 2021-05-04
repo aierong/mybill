@@ -12,8 +12,7 @@ Time: 17:40
 
     <div>
 
-        <van-cell size="large"
-                  @click="SetupAvatarClick">
+        <van-cell size="large">
             <template #title>
                 <van-icon :name="userinfo.avatar"
                           size="58"
@@ -24,6 +23,7 @@ Time: 17:40
         <br>
         <van-cell icon="setting-o"
                   title="修改密码"
+                  @click="PwdClick"
                   is-link/>
         <br>
         <van-cell icon="user-o"
@@ -45,6 +45,19 @@ Time: 17:40
         <selectavatar :avatarobj="avatarobj"
                       @userselectavatar="userselectavatar"
                       v-if="avatarobj.showdialog"></selectavatar>
+        <br>
+        <van-dialog v-model:show="pwdinfo.showdialog"
+                    title="请输入密码"
+                    show-cancel-button
+                    @confirm="pwdconfirm"
+                    @cancel="pwdcancel">
+            <van-field v-model="pwdinfo.pwd"
+                       label="密码"
+                       placeholder="请输入密码"/>
+            <van-field v-model="pwdinfo.pwd2"
+                       label="密码"
+                       placeholder="请输入密码"/>
+        </van-dialog>
     </div>
 
 </template>
@@ -57,7 +70,12 @@ interface IUserObj {
         name : string,
         avatar : string
     },
-    showdialog : boolean
+    showdialog : boolean,
+    pwdinfo : {
+        showdialog : boolean,
+        pwd : string,
+        pwd2 : string
+    }
 }
 
 // 导入
@@ -75,7 +93,7 @@ import { useStore } from 'vuex'
 import { key } from '@store/index.ts'
 import * as UserMutationType from '@store/mutations/mutation-types'
 
-import { Dialog } from 'vant';
+import { Dialog , Toast } from 'vant';
 import * as constant from "@common/constant";
 import * as userapi from '@/http/api/user'
 
@@ -97,7 +115,12 @@ export default defineComponent( {
                 name : '' ,
                 avatar : ''
             } ,
-            showdialog : false
+            showdialog : false ,
+            pwdinfo : {
+                showdialog : false ,
+                pwd : '' ,
+                pwd2 : ''
+            }
         } );
 
         const avatarobj = computed( () => {
@@ -108,9 +131,6 @@ export default defineComponent( {
 
             return obj;
         } );
-
-        const SetupAvatarClick = () => {
-        }
 
         const exitClick = () => {
             Dialog.confirm( {
@@ -130,7 +150,11 @@ export default defineComponent( {
         }
 
         const AboutClick = () => {
-            console.log( 'AboutClick' )
+            // console.log( 'AboutClick' )
+
+            Toast( "我的记账本" )
+
+            return;
         }
 
         const exitsystem = ( mobile : string = '' ) => {
@@ -170,6 +194,30 @@ export default defineComponent( {
             return;
         }
 
+        const PwdClick = () => {
+            //初始化一下
+            modeldata.pwdinfo.pwd = ''
+            modeldata.pwdinfo.pwd2 = ''
+
+            pwddialog( true );
+        }
+
+        const pwdconfirm = () => {
+            console.log( 'pwdconfirm' )
+
+            pwddialog( false );
+        }
+
+        const pwdcancel = () => {
+            console.log( 'cancel' )
+
+            pwddialog( false );
+        }
+
+        const pwddialog = ( isopen : boolean = false ) => {
+            modeldata.pwdinfo.showdialog = isopen;
+        }
+
         onMounted( async () => {
             let status = await userapi.getuser();
 
@@ -186,7 +234,8 @@ export default defineComponent( {
         return {
             ...toRefs( modeldata ) ,
             avatarobj ,
-            SetupAvatarClick , exitClick , AboutClick ,
+            pwdconfirm , pwdcancel , PwdClick ,
+            exitClick , AboutClick ,
             avatarclick , userselectavatar ,
         };
     } ,
