@@ -20,3 +20,10 @@ export const avatariconlist = [
  * token名称
  */
 export const tokenname = 'billloginusertoken'
+
+/**
+ *
+ */
+export const PersistedName = {
+    LoginUserMobile : 'MyBillLoginUserId'
+}

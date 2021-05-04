@@ -124,7 +124,7 @@ export default defineComponent( {
 
                 let status = await userapi.login( mobile , EncryptPassWord( modeldata.userinfo.password ) );
 
-                console.log( 'login status' , status )
+                // console.log( 'login status' , status )
 
                 if ( status.data.Success ) {
 
@@ -137,11 +137,14 @@ export default defineComponent( {
                     localStorage.setItem( constant.tokenname , tokendata );
 
                     // 登录账号记录vuex
-                    store.commit( UserMutationType.updateloginuser , mobile + '__test' );
+                    store.commit( UserMutationType.updateloginuser , mobile );
 
-                    console.log( store.state.loginusermobile );
+                    // console.log( store.state.loginusermobile );
 
-                    console.log( store.getters.usermobile );
+                    // console.log( store.getters.usermobile );
+
+                    // 页面跳转
+                    router.push( "/bill" )
 
                     return;
                 }

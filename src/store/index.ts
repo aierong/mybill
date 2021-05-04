@@ -1,7 +1,8 @@
 import { createStore , Store } from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
 
-// import user from '@store/user'
+import { PersistedName } from '@common/constant'
+
 import { InjectionKey } from "vue";
 import { IState } from "@store/types";
 
@@ -30,10 +31,31 @@ const mutations = {
     ...usermutations ,
 };
 
+const vuexPersisted = createPersistedState( {
+    //key是给持久化状态起个名字，默认:vuex
+    key : PersistedName.LoginUserMobile ,
+
+    // window.sessionStorage 是存储在会话
+    // window.localStorage   是本地存储
+    storage : window.localStorage ,
+
+    //reducer是设置要持久化的变量,不设置就是默认是全部变量
+    reducer ( val : any ) {
+        return {
+            // 只储存state中的loginusermobile
+            loginusermobile : val.loginusermobile ,
+
+        }
+    }
+} );
+
 export const store = createStore<IState>( {
     state ,
     getters ,
 
     mutations ,
     // actions
+    plugins : [
+        vuexPersisted ,
+    ] ,
 } )
