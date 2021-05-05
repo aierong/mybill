@@ -10,10 +10,7 @@ namespace billservice.interfaces
 {
     public interface IBill
     {
-
-
         
-
         bool IsExistId ( int id , string mobile );
 
 
