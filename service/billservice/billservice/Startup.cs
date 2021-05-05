@@ -5,8 +5,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using billservice.Helpers;
 using billservice.Helpers.ConfigData;
+using billservice.Helpers.Result;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -42,13 +44,10 @@ namespace billservice
 
 
 
-
-
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices ( IServiceCollection services )
         {
             services.AddControllers();
-            
+
             // 可以把服务注册的代码放在静态扩展方法里，使得 ConfigureServices 更加简洁
             // 可以分模块分别写不同的静态扩展方法
             services.AddDBService( Configuration );
@@ -62,13 +61,40 @@ namespace billservice
 
 
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure ( IApplicationBuilder app , IWebHostEnvironment env )
         {
             if ( env.IsDevelopment() )
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            // 全局异常处理
+            app.UseExceptionHandler( config =>
+            {
+                config.Run( async context =>
+                {
+                    var error = context.Features.Get<Microsoft.AspNetCore.Diagnostics.IExceptionHandlerFeature>();
+
+                    if ( error != null )
+                    {
+                        var ex = error.Error;
+                        string errormsg = ex.Message;
+                        string errorStackTrace = ex.StackTrace != null ? ex.StackTrace : string.Empty;
+                        string errpath = context.Request.Path;
+
+                        ServiceResult result = new ServiceResult();
+                        result.IsFailed( errormsg );
+
+                        string jsonerror = System.Text.Json.JsonSerializer.Serialize( result );
+
+                        // 设置类型和状态码
+                        context.Response.StatusCode = StatusCodes.Status200OK;
+                        context.Response.ContentType = "application/json";
+
+                        await context.Response.WriteAsync( jsonerror );
+                    }
+                } );
+            } );
 
             CorsConfigData _CorsConfigData = this.Configuration.GetSection( "CorsInfo" ).Get<CorsConfigData>();
             //定义名称
