@@ -162,7 +162,7 @@ export default defineComponent( {
             store.commit( UserMutationType.clearloginuser );
 
             //返回的token也清空一下
-            localStorage.setItem( constant.tokenname , '' );
+            localStorage.removeItem( constant.tokenname );
 
             gotologin( mobile );
 

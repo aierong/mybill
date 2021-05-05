@@ -1,4 +1,5 @@
 import { createRouter , createWebHistory , RouteRecordRaw } from 'vue-router'
+import * as Cookies from 'js-cookie'
 
 import Home from '@views/Home.vue'
 
@@ -77,17 +78,18 @@ router.beforeEach( ( to , from ) => {
         let loginusertoken = localStorage.getItem( constant.tokenname );
         // console.log( 'beforeEach token' , loginusertoken )
 
-        let data : string | null = localStorage.getItem( constant.PersistedName.LoginUserMobile );
-        // console.log( 'beforeEach data' , data )
-        if ( data && loginusertoken ) {
-            var obj : any = JSON.parse( data );
+        // let data : string | null = localStorage.getItem( constant.PersistedName.LoginUserMobile );
+        //是存的一个对象,这里我们取对象
+        let data = Cookies.getJSON( constant.PersistedName.LoginUserMobile );
 
-            // console.log( 'beforeEach data obj' , obj )
+        // console.log( 'beforeEach data' , data )
+
+        if ( data && loginusertoken && data.loginusermobile ) {
 
             // 这里判断了Cookies中的用户数据和token都存在，才可以
-            if ( obj.loginusermobile ) {
-                isLogin = true;
-            }
+
+            isLogin = true;
+
         }
 
         // console.log( 'beforeEach isLogin' , isLogin )

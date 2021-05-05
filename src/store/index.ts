@@ -1,7 +1,8 @@
 import { createStore , Store } from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
+import * as Cookies from 'js-cookie'
 
-import { PersistedName } from '@common/constant'
+import * as constant from '@common/constant.ts'
 
 import { InjectionKey } from "vue";
 import { IState } from "@store/types";
@@ -33,11 +34,20 @@ const mutations = {
 
 const vuexPersisted = createPersistedState( {
     //key是给持久化状态起个名字，默认:vuex
-    key : PersistedName.LoginUserMobile ,
+    key : constant.PersistedName.LoginUserMobile ,
 
     // window.sessionStorage 是存储在会话
     // window.localStorage   是本地存储
-    storage : window.localStorage ,
+    // storage : window.localStorage ,
+    storage : {
+        getItem : key => Cookies.get( key ) ,
+
+        setItem : ( key , value ) => Cookies.set( key , value , {
+            expires : constant.CookieExpires
+        } ) ,
+
+        removeItem : key => Cookies.remove( key ) ,
+    } ,
 
     //reducer是设置要持久化的变量,不设置就是默认是全部变量
     reducer ( val : any ) {

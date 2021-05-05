@@ -98,7 +98,7 @@ export default defineComponent( {
             } ,
         } );
 
-        const day = constant.CookieExpires;
+        const days = constant.CookieExpires;
 
         //转向注册页面
         const onClickRight = () => {
@@ -161,7 +161,7 @@ export default defineComponent( {
 
         return {
             ...toRefs( modeldata ) ,
-            day ,
+            days ,
             onClickRight ,
             validatorMobileMessage , validatorPwdMessage ,
             onSubmit ,
@@ -173,6 +173,6 @@ export default defineComponent( {
 </script>
 
 <!-- 样式代码片段  scoped -->
-<style>
-
+<style scoped
+       src="./Login.css">
 </style>
