@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using billservice.models;
+using billservice.models.Dto;
 
 // billservice.services
 
@@ -19,6 +20,9 @@ namespace billservice.interfaces
 
         bool Update ( bills bill );
         Task<bool> UpdateAsync ( bills bill );
+
+
+        Task<List<BillReturnDto>> GetListAsync ( string mobile , string moneydate , int billtypeid );
 
     }
 }
