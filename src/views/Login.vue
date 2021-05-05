@@ -33,6 +33,7 @@ Time: 16:40
                        required
                        :rules="[{ required: true, message: '请填写密码' },{ validator: validatorPwdMessage } ]"/>
             <div style="margin: 16px;">
+                <div class="mytxt">{{ '保持登录状态' + days + '天' }}</div>
                 <van-button round
                             block
                             type="primary"
@@ -97,6 +98,8 @@ export default defineComponent( {
             } ,
         } );
 
+        const day = constant.CookieExpires;
+
         //转向注册页面
         const onClickRight = () => {
             router.push( '/register' )
@@ -128,8 +131,6 @@ export default defineComponent( {
 
                 if ( status.data.Success ) {
 
-                    // Toast( "注册成功,请登录" )
-
                     //     // 存储token
                     let tokendata = status.data.Result.token;
 
@@ -138,10 +139,6 @@ export default defineComponent( {
 
                     // 登录账号记录vuex
                     store.commit( UserMutationType.updateloginuser , mobile );
-
-                    // console.log( store.state.loginusermobile );
-
-                    // console.log( store.getters.usermobile );
 
                     // 页面跳转
                     router.push( "/bill" )
@@ -164,6 +161,7 @@ export default defineComponent( {
 
         return {
             ...toRefs( modeldata ) ,
+            day ,
             onClickRight ,
             validatorMobileMessage , validatorPwdMessage ,
             onSubmit ,

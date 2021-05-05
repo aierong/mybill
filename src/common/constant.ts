@@ -27,3 +27,5 @@ export const tokenname = 'billloginusertoken'
 export const PersistedName = {
     LoginUserMobile : 'MyBillLoginUserId'
 }
+
+export const CookieExpires = 7;
