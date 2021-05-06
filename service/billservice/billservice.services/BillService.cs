@@ -75,6 +75,7 @@ namespace billservice.services
             ) )
                 .Where( b => b.mobile == mobile && b.moneydate == moneydate )
                 .WhereIF( billtypeid > 0 , b => b.billtypeid == billtypeid )
+                .OrderBy( b => b.moneydate , OrderByType.Desc )
                 .Select( ( o , bt ) => new BillReturnDto// 是一个新类
                 {
 

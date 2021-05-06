@@ -166,9 +166,32 @@ namespace billservice.Controllers
 
 
 
+        //////[HttpPost]
+        //////[Route( "updateavatar/{avatar}" )]
+        //////public async Task<ServiceResult> updateavatar ( string avatar )
+        //////{
+        //////    var result = new ServiceResult();
+
+        //////    var mobile = base.UserMobile;
+
+        //////    bool bl = await this.iuser.UpdateAvatarAsync( mobile , avatar );
+
+        //////    if ( !bl )
+        //////    {
+        //////        result.IsFailed( "保存失败" );
+
+        //////        return result;
+        //////    }
+
+
+        //////    return result;
+        //////}
+
+
+
         [HttpPost]
-        [Route( "updateavatar/{avatar}" )]
-        public async Task<ServiceResult> updateavatar ( string avatar )
+        [Route( "updateavatar" )]
+        public async Task<ServiceResult> updateavatar ( [FromForm] string avatar )
         {
             var result = new ServiceResult();
 
@@ -190,8 +213,8 @@ namespace billservice.Controllers
 
 
         [HttpPost]
-        [Route( "updatepassword/{password}" )]
-        public async Task<ServiceResult> updatepassword ( string password )
+        [Route( "updatepassword" )]
+        public async Task<ServiceResult> updatepassword ( [FromForm] string password )
         {
             var result = new ServiceResult();
 

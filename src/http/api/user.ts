@@ -24,7 +24,12 @@ export function login ( mobile : string , password : string ) {
  * @param avatar
  */
 export function updateavatar ( avatar : string ) {
-    return axios.post( `${ prefix }/updateavatar/${ avatar }` );
+    // return axios.post( `${ prefix }/updateavatar` , avatar );
+
+    var params = new URLSearchParams()
+    params.append( "avatar" , avatar )
+
+    return axios.post( `${ prefix }/updateavatar` , params );
 }
 
 /**
@@ -32,7 +37,10 @@ export function updateavatar ( avatar : string ) {
  * @param password
  */
 export function updatepassword ( password : string ) {
-    return axios.post( `${ prefix }/updatepassword/${ password }` );
+    var params = new URLSearchParams()
+    params.append( "password" , password )
+
+    return axios.post( `${ prefix }/updatepassword` , params );
 }
 
 export function getuser () {
