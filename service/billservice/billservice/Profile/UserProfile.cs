@@ -14,7 +14,7 @@ namespace billservice.Profile
         public UserProfile ()
         {
             CreateMap<UserAddDto , users>()
-               .ForMember( destination => destination.password , opt => opt.MapFrom( src => new MD5Security().Encrypt( src.password ) ) )
+               .ForMember( destination => destination.password , opt => opt.MapFrom( src => MD5Security.Encrypt( src.password ) ) )
                .AfterMap( ( src , dest ) =>
                {
                    DateTime now = DateTime.Now;

@@ -220,7 +220,7 @@ namespace billservice.Controllers
 
             var mobile = base.UserMobile;
 
-            bool bl = await this.iuser.UpdatePassWordAsync( mobile , password );
+            bool bl = await this.iuser.UpdatePassWordAsync( mobile , MD5Security.Encrypt( password ) );
 
             if ( !bl )
             {

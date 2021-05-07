@@ -49,12 +49,13 @@ Time: 17:40
         <van-dialog v-model:show="pwdinfo.showdialog"
                     title="请输入密码"
                     show-cancel-button
-                    @confirm="pwdconfirm"
-                    @cancel="pwdcancel">
+                    :before-close="pwdbeforeclose">
             <van-field v-model="pwdinfo.pwd"
+                       type="password"
                        label="密码"
                        placeholder="请输入密码"/>
             <van-field v-model="pwdinfo.pwd2"
+                       type="password"
                        label="密码"
                        placeholder="请输入密码"/>
         </van-dialog>
@@ -99,6 +100,8 @@ import * as userapi from '@/http/api/user'
 
 import selectavatar from "@comp/selectavatar.vue";
 import { IAvatarObj } from '@comp/types'
+
+import { EncryptPassWord , ValidatorPassword } from '@common/util.ts'
 
 export default defineComponent( {
     // 子组件
@@ -150,7 +153,6 @@ export default defineComponent( {
         }
 
         const AboutClick = () => {
-            // console.log( 'AboutClick' )
 
             Toast( "我的记账本" )
 
@@ -202,27 +204,79 @@ export default defineComponent( {
             pwddialog( true );
         }
 
-        const pwdconfirm = () => {
-            // console.log( 'pwdconfirm' )
-            if ( modeldata.pwdinfo.pwd == '' || modeldata.pwdinfo.pwd2 == '' ) {
-                Toast( "请填写密码" )
+        // const pwdconfirm = async () => {
+        //     console.log( 'pwdconfirm' )
+        //
+        //     // return;
+        //
+        //     let status = await userapi.updatepassword( EncryptPassWord( modeldata.pwdinfo.pwd ) );
+        //
+        //     var isok : boolean = false;
+        //     if ( status.data.Success ) {
+        //         isok = true;
+        //     }
+        //
+        //     // pwddialog( false );
+        //
+        //     if ( isok ) {
+        //         Toast( "修改成功!请重新登录!" )
+        //
+        //         exitsystem( store.state.loginusermobile );
+        //
+        //         return;
+        //     }
+        // }
 
-                return;
+        // const pwdcancel = () => {
+        //     // console.log( 'cancel' )
+        //
+        //     // 不用代码控制关闭状态
+        //     // pwddialog( false );
+        // }
+
+        const pwdbeforeclose = async ( action : string ) => {
+            // console.log( 'pwdbeforeclose' , action )
+
+            if ( action === 'confirm' ) {
+                // 开始验证密码有效
+
+                if ( modeldata.pwdinfo.pwd == '' || modeldata.pwdinfo.pwd2 == '' ) {
+                    Toast( "请填写密码" )
+
+                    return false;
+                }
+
+                if ( modeldata.pwdinfo.pwd != modeldata.pwdinfo.pwd2 ) {
+                    Toast( "2次密码不一致" )
+
+                    return false;
+                }
+
+                let msg = ValidatorPassword( modeldata.pwdinfo.pwd );
+                // console.log( 'ValidatorPassword' , msg )
+                if ( msg != '' ) {
+                    Toast.fail( msg )
+
+                    return false;
+                }
+
+                let status = await userapi.updatepassword( EncryptPassWord( modeldata.pwdinfo.pwd ) );
+
+                var isok : boolean = false;
+                if ( status.data.Success ) {
+                    isok = true;
+                }
+
+                if ( isok ) {
+                    Toast( "修改成功!请重新登录!" )
+
+                    exitsystem( store.state.loginusermobile );
+
+                    return true;
+                }
             }
 
-            if ( modeldata.pwdinfo.pwd != modeldata.pwdinfo.pwd2 ) {
-                Toast( "2次密码不一致" )
-
-                return;
-            }
-
-            pwddialog( false );
-        }
-
-        const pwdcancel = () => {
-            // console.log( 'cancel' )
-
-            pwddialog( false );
+            return true;
         }
 
         const pwddialog = ( isopen : boolean = false ) => {
@@ -245,7 +299,7 @@ export default defineComponent( {
         return {
             ...toRefs( modeldata ) ,
             avatarobj ,
-            pwdconfirm , pwdcancel , PwdClick ,
+            PwdClick , pwdbeforeclose ,
             exitClick , AboutClick ,
             avatarclick , userselectavatar ,
         };

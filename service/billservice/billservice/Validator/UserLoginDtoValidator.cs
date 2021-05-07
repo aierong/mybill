@@ -41,13 +41,12 @@ namespace billservice.Validator
                 .NotEmpty().WithMessage( "{PropertyName}为空" )
                 .Must( ( item , password ) =>
                 {
-                    var pwd = new MD5Security().Encrypt( password );
 
                     users usermodel = this.user.GetUser( item.mobile );
 
                     if ( usermodel != null
                     && !string.IsNullOrWhiteSpace( usermodel.password )
-                    && usermodel.password.Equals( pwd ) )
+                    && usermodel.password.Equals( MD5Security.Encrypt( password ) ) )
                     {
                         return true;
                     }
