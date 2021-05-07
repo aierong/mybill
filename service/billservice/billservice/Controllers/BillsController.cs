@@ -76,5 +76,24 @@ namespace billservice.Controllers
 
 
 
+        [HttpGet]
+        [Route( "get/{year}/{month}/{billtypeid}" )]
+        public async Task<ServiceResult<List<BillReturnDto>>> get ( int year = 2020 , int month = 1 , int billtypeid = 0 )
+        {
+            var result = new ServiceResult<List<BillReturnDto>>();
+
+            var mobile = base.UserMobile;
+
+            // billtypeid=0 代表全部
+            var list = await this.Ibill.GetListAsync( mobile , year , month , billtypeid );
+
+            result.IsSuccess( list );
+
+            return result;
+        }
+
+
+
+
     }
 }

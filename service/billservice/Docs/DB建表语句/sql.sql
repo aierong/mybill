@@ -122,6 +122,10 @@ CREATE TABLE bills
     moneys MONEY NOT NULL DEFAULT ( 0 ) ,
     -- 金额发生日期 2020-01-01
     moneydate NVARCHAR(168) NOT NULL DEFAULT ( '' ) ,
+	
+	moneyyear INT NOT NULL DEFAULT(0),
+	moneymonth INT NOT NULL DEFAULT(0) ,
+	moneyday INT NOT NULL DEFAULT(0),
 
     --备注
     memo NVARCHAR(168) DEFAULT ( '' ) ,

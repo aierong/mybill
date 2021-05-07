@@ -28,6 +28,12 @@ namespace billservice.Profile
                         dest.deletedate = null;
 
                         dest.delmark = Helpers.Constant.N;
+
+                        DateTime date = Convert.ToDateTime( src.moneydate )  ;
+
+                        dest.moneyyear = date.Year;
+                        dest.moneymonth = date.Month;
+                        dest.moneyday = date.Day;
                     }
                     else
                     {

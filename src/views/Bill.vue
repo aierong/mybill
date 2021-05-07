@@ -11,7 +11,7 @@ Time: 17:52
 <template>
 
     <div>
-        billbillbillbillbillbillbillbillbill
+
     </div>
 
 </template>
@@ -22,19 +22,26 @@ Time: 17:52
 // 导入
 import {
     defineComponent ,
-
     ref ,
     reactive ,
     toRefs ,
-    computed
+    computed ,
+    onMounted ,
 } from "vue";
+
+import * as billapi from '@/http/api/bill'
 
 export default defineComponent( {
     // 子组件
     components : {} ,
-    // 声明 props
-    props : {} ,
+
     setup () {
+
+        onMounted( async () => {
+            var result = await billapi.getlist( 2021 , 1 , 0 );
+
+            console.log( 'result' , result )
+        } )
 
         return {};
     } ,

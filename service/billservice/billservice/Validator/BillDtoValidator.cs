@@ -81,6 +81,19 @@ namespace billservice.Validator
                .NotNull().WithMessage( "{PropertyName}没有传递或者空" )
                .NotEmpty().WithMessage( "{PropertyName}为空" )
                .Length( 10 , 10 ).WithMessage( "{PropertyName}长度不对!(格式:xxxx-xx-xx)" )
+               .Must( ( item , moneydate ) =>
+               {
+                   try
+                   {
+                       Convert.ToDateTime( moneydate );
+                   }
+                   catch ( Exception )
+                   {
+                       return false;
+                   }
+
+                   return true;
+               } ).WithMessage( "{PropertyName}不是正确日期格式(格式:xxxx-xx-xx)" )
                .WithName( "账目日期" );
 
             RuleFor( item => item.moneys )
@@ -108,10 +121,13 @@ namespace billservice.Validator
                    }
 
                    return true;
-               } ).When( item => !item.isadd ).WithMessage( "" )
+               } ).When( item => !item.isadd ).WithMessage( "{PropertyName}错误" )
                .WithName( "记录ID" );
 
         }
+
+
+
 
     }
 }

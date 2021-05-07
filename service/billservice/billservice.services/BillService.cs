@@ -68,32 +68,36 @@ namespace billservice.services
 
 
 
-        public async Task<List<BillReturnDto>> GetListAsync ( string mobile , string moneydate , int billtypeid )
+        public async Task<List<BillReturnDto>> GetListAsync ( string mobile , int year , int month , int billtypeid )
         {
             var oneClass = await db.Queryable<bills , billtype>( ( b , bt ) => new JoinQueryInfos(
        JoinType.Inner , b.billtypeid == bt.ids
             ) )
-                .Where( b => b.mobile == mobile && b.moneydate == moneydate )
+                .Where( b => b.mobile == mobile && b.moneyyear == year && b.moneymonth == month )
                 .WhereIF( billtypeid > 0 , b => b.billtypeid == billtypeid )
                 .OrderBy( b => b.moneydate , OrderByType.Desc )
-                .Select( ( o , bt ) => new BillReturnDto// 是一个新类
+                .Select( ( b , bt ) => new BillReturnDto// 是一个新类
                 {
-
                     typename = bt.typename ,
                     avatar = bt.avatar ,
 
-                    ids = o.ids ,
-                    billtypeid = o.billtypeid ,
-                    isout = o.isout ,
-                    memo = o.memo ,
-                    mobile = o.mobile ,
-                    moneys = o.moneys ,
-                    delmark = o.delmark ,
-                    sources = o.sources ,
-                    adddate = o.adddate ,
-                    deletedate = o.deletedate ,
-                    moneydate = o.moneydate ,
-                    updatedate = o.updatedate
+                    ids = b.ids ,
+                    billtypeid = b.billtypeid ,
+                    isout = b.isout ,
+                    memo = b.memo ,
+                    mobile = b.mobile ,
+                    moneys = b.moneys ,
+                    delmark = b.delmark ,
+                    sources = b.sources ,
+                    adddate = b.adddate ,
+                    deletedate = b.deletedate ,
+
+                    moneydate = b.moneydate ,
+                    moneyyear = b.moneyyear ,
+                    moneymonth = b.moneymonth ,
+                    moneyday = b.moneyday ,
+
+                    updatedate = b.updatedate
                 } ).ToListAsync();
 
             return oneClass;

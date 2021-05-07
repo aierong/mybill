@@ -11,7 +11,7 @@ namespace billservice.interfaces
 {
     public interface IBill
     {
-        
+
         bool IsExistId ( int id , string mobile );
 
 
@@ -22,7 +22,7 @@ namespace billservice.interfaces
         Task<bool> UpdateAsync ( bills bill );
 
 
-        Task<List<BillReturnDto>> GetListAsync ( string mobile , string moneydate , int billtypeid );
+        Task<List<BillReturnDto>> GetListAsync ( string mobile , int year , int month , int billtypeid );
 
     }
 }

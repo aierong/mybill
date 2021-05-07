@@ -37,7 +37,7 @@ namespace billservice.Controllers
 
         [HttpGet]
         [Route( "getallbilltype/{isout}/{isrefresh}" )]
-        public async Task<ServiceResult> getallbilltype ( bool isout = true , bool isrefresh = false )
+        public async Task<ServiceResult<List<BillTypeReturnDto>>> getallbilltype ( bool isout = true , bool isrefresh = false )
         {
 
             var result = new ServiceResult<List<BillTypeReturnDto>>();

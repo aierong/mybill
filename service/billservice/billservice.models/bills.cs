@@ -75,6 +75,24 @@ namespace billservice.models
             get; set;
         }
 
+
+        public int moneyyear
+        {
+            get; set;
+        }
+
+
+        public int moneymonth
+        {
+            get; set;
+        }
+
+
+        public int moneyday
+        {
+            get; set;
+        }
+
         /// <summary>
         /// Desc:
         /// Default:

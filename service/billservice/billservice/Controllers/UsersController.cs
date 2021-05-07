@@ -34,9 +34,7 @@ namespace billservice.Controllers
 
 
 
-        public UsersController ( IUser user ,
-                                    IMapper mapper ,
-                                    IOptionsMonitor<TokenConfigData> _TokenConfigDataOptions )
+        public UsersController ( IUser user , IMapper mapper , IOptionsMonitor<TokenConfigData> _TokenConfigDataOptions )
         {
             this.iuser = user;
             this.mapper = mapper;
@@ -126,7 +124,7 @@ namespace billservice.Controllers
 
 
         [HttpGet]
-        public async Task<ServiceResult> get ()
+        public async Task<ServiceResult<UserDto>> get ()
         {
             var result = new ServiceResult<UserDto>();
 
@@ -164,28 +162,6 @@ namespace billservice.Controllers
             return result;
         }
 
-
-
-        //////[HttpPost]
-        //////[Route( "updateavatar/{avatar}" )]
-        //////public async Task<ServiceResult> updateavatar ( string avatar )
-        //////{
-        //////    var result = new ServiceResult();
-
-        //////    var mobile = base.UserMobile;
-
-        //////    bool bl = await this.iuser.UpdateAvatarAsync( mobile , avatar );
-
-        //////    if ( !bl )
-        //////    {
-        //////        result.IsFailed( "保存失败" );
-
-        //////        return result;
-        //////    }
-
-
-        //////    return result;
-        //////}
 
 
 
