@@ -10,8 +10,23 @@ Time: 17:52
 <!-- html代码片段 -->
 <template>
 
-    <div>
-
+    <div :key="index"
+         v-for="(item,index) in displaylist">
+        <van-cell-group>
+            <template #title>
+                <span>{{ item.moneydate }}</span><span>{{ getweekstring( item.week ) }}</span>
+                <span>收入:{{ item.sumin }}</span>
+                <span>支出:{{ item.sumout }}</span>
+            </template>
+            <van-cell v-for="(mxitem,mxindex) in item.list"
+                      :key="mxindex">
+                <template #title>
+                    <van-icon :name="mxitem.avatar"/>
+                    <aliicon/>
+                    <span>{{ mxitem.typename }}</span>
+                </template>
+            </van-cell>
+        </van-cell-group>
     </div>
 
 </template>
@@ -70,9 +85,15 @@ import * as billapi from '@/http/api/bill'
 import * as _ from "lodash"
 import dayjs from 'dayjs'
 
+// import '@assets/ali/iconfont/iconfont.css'
+
+import aliicon from "@comp/aliicon.vue";
+
 export default defineComponent( {
     // 子组件
-    components : {} ,
+    components : {
+        aliicon ,
+    } ,
 
     setup () {
         const modeldata = reactive<IBillList>( {
@@ -162,9 +183,39 @@ export default defineComponent( {
             return []
         } )
 
+        const getweekstring = ( week : number ) : string => {
+            var str = '天'
+
+            switch ( week ) {
+                case 1:
+                    str = '一'
+                    break;
+                case 2:
+                    str = '二'
+                    break;
+                case 3:
+                    str = '三'
+                    break;
+                case 4:
+                    str = '四'
+                    break;
+                case 5:
+                    str = '五'
+                    break;
+                case 6:
+                    str = '六'
+                    break;
+                default:
+                    str = '天'
+            }
+
+            return '星期' + str;
+        }
+
         return {
             ...toRefs( modeldata ) ,
             displaylist , sumoutmoney , suminmoney ,
+            getweekstring ,
         };
     } ,
 

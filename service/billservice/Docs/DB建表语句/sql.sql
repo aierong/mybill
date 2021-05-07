@@ -89,22 +89,22 @@ CREATE TABLE billtype
 INSERT INTO [dbo].[billtype]
            ([isout]
            ,[issystemtype]
-           ,[typename])
-SELECT 1,1,'餐饮'  
+           ,[typename],avatar)
+SELECT 1,1,'餐饮','icon-canyin'  
 UNION ALL
-SELECT 1,1,'娱乐'  
+SELECT 1,1,'娱乐','icon-canyin'  
 UNION ALL
-SELECT 1,1,'住房'  
+SELECT 1,1,'住房' ,'icon-canyin' 
 UNION ALL
-SELECT 1,1,'购物'  
+SELECT 1,1,'购物'  ,'icon-canyin'
 UNION ALL
-SELECT 0,1,'工资'  
+SELECT 0,1,'工资'  ,'icon-canyin'
 UNION ALL
-SELECT 0,1,'奖金'  
+SELECT 0,1,'奖金'  ,'icon-canyin'
 UNION ALL
-SELECT 0,1,'红包'  
+SELECT 0,1,'红包'  ,'icon-canyin'
 UNION ALL
-SELECT 0,1,'转账'  
+SELECT 0,1,'转账'  ,'icon-canyin'
 
 
 

@@ -22,6 +22,7 @@ module.exports = {
         .set( '@common' , resolve( 'src/common' ) )
         .set( '@https' , resolve( 'src/https' ) )
         .set( '@store' , resolve( 'src/store' ) )
+        .set( '@assets' , resolve( 'src/assets' ) )
 
     } ,
     devServer : {
