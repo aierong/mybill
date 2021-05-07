@@ -76,6 +76,7 @@ namespace billservice.services
                 .Where( b => b.mobile == mobile && b.moneyyear == year && b.moneymonth == month )
                 .WhereIF( billtypeid > 0 , b => b.billtypeid == billtypeid )
                 .OrderBy( b => b.moneydate , OrderByType.Desc )
+                .OrderBy( b => b.adddate , OrderByType.Desc )
                 .Select( ( b , bt ) => new BillReturnDto// 是一个新类
                 {
                     typename = bt.typename ,
