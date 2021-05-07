@@ -49,6 +49,7 @@ interface IDisplayDayBill {
     moneydate : string,
     sumout : number,
     sumin : number,
+    week : number,
 
     list : IBillObj[]
     // list : any
@@ -67,6 +68,7 @@ import {
 import * as billapi from '@/http/api/bill'
 // 引入lodash
 import * as _ from "lodash"
+import dayjs from 'dayjs'
 
 export default defineComponent( {
     // 子组件
@@ -89,6 +91,30 @@ export default defineComponent( {
 
         } )
 
+        const sumoutmoney = computed( () => {
+            if ( displaylist.value != null && displaylist.value.length > 0 ) {
+                var sum : number = _.sumBy( displaylist.value , ( item : IDisplayDayBill ) => {
+                    return item.sumout;
+                } );
+
+                return sum;
+            }
+
+            return 0;
+        } )
+
+        const suminmoney = computed( () => {
+            if ( displaylist.value != null && displaylist.value.length > 0 ) {
+                var sum : number = _.sumBy( displaylist.value , ( item : IDisplayDayBill ) => {
+                    return item.sumin;
+                } );
+
+                return sum;
+            }
+
+            return 0;
+        } )
+
         const displaylist = computed<IDisplayDayBill[]>( () => {
             if ( modeldata.list != null && modeldata.list.length > 0 ) {
                 //groupBy返回的是对象
@@ -99,27 +125,29 @@ export default defineComponent( {
                 let all = Object.entries( gr );
                 // console.log( 'arr3' , arr3 )
 
-                all.forEach( ( item , index , array ) => {
+                all.forEach( ( item : any[] , index : number ) => {
                     //item是一个数组,只存放2个元素
                     var billlist : IBillObj[] = item[ 1 ] as IBillObj[];
 
-                    var sumin : number = _.sumBy( billlist , ( item ) => {
+                    var sumin : number = _.sumBy( billlist , ( item : IBillObj ) => {
                         if ( item.isout ) {
                             return 0;
                         }
                         return item.moneys;
                     } );
 
-                    var sumout : number = _.sumBy( billlist , ( item ) => {
+                    var sumout : number = _.sumBy( billlist , ( item : IBillObj ) => {
                         if ( item.isout ) {
                             return item.moneys;
                         }
                         return 0;
                     } );
 
+                    var _moneydate : string = item[ 0 ];
                     var dayobj : IDisplayDayBill = {
-                        moneydate : item[ 0 ] ,
+                        moneydate : _moneydate ,
                         list : billlist ,
+                        week : dayjs( _moneydate ).day() ,
                         sumin ,
                         sumout
                     }
@@ -136,7 +164,7 @@ export default defineComponent( {
 
         return {
             ...toRefs( modeldata ) ,
-            displaylist ,
+            displaylist , sumoutmoney , suminmoney ,
         };
     } ,
 
