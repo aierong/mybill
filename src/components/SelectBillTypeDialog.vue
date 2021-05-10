@@ -21,7 +21,8 @@ Time: 15:30
                @click-close-icon="closedlg">
         <br><br><br>
         <!--        <span style="color: #222222;background-color: white;">全部</span>-->
-        <span :style="gettxtstyle(0)">全部</span>
+        <span :style="gettxtstyle(0)"
+              @click="onAllClick">全部</span>
         <br><br>
         <div style="margin-left: 10px;">支出</div>
         <van-grid>
@@ -170,6 +171,16 @@ export default defineComponent( {
             }
         }
 
+        const onAllClick = () => {
+            let payload : ISelectBillTypeObj = {
+                id : 0 ,
+                name : '全部'
+            }
+
+            emit( "selectbilltype" , payload )
+            emit( "dialogclose" )
+        }
+
         const onItemClick = ( item : IList ) : void => {
             // console.log( 'item' , item )
 
@@ -190,7 +201,7 @@ export default defineComponent( {
         return {
             ...toRefs( listmodeldata ) ,
             show , billtypeid , gettxtstyle ,
-            onItemClick , closedlg ,
+            onAllClick , onItemClick , closedlg ,
         };
     } ,
 
