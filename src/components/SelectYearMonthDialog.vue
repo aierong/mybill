@@ -38,7 +38,7 @@ import {
 import { ISelectDateObj } from "@comp/types";
 
 export default defineComponent( {
-    //
+    // 定义是事件
     emits : {
         selectdate : ( val : ISelectDateObj ) => {
 
@@ -71,7 +71,7 @@ export default defineComponent( {
         watch(
             () => props.dialogshow ,
             ( newval ) => {
-                // console.log( '子组件：监听props中num' , newval , old )
+
                 show.value = newval;
             } ,
             {
@@ -83,7 +83,7 @@ export default defineComponent( {
         watch(
             [ () => props.year , () => props.month ] ,
             ( [ newyaer , newmonth ] ) => {
-                //console.log( '子组件：监听 year month' , newyaer , newmonth )
+
                 currentDate.value = new Date( newyaer , newmonth - 1 , 1 )
             } ,
             {

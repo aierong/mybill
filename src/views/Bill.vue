@@ -11,20 +11,29 @@ Time: 17:52
 <template>
     <div>
         <div style="background-color: #3EB575;">
-            <div>
-                1
+            <div style="padding-top: 8px;">
+                <!--                <span style="margin-left: 10px;color: white;">{{ userselectbilltypetxt }}</span>-->
+                <!--                <van-icon name="apps-o"-->
+                <!--                          color="white"/>-->
+
+                <van-button hairline
+                            color="#3EB575"
+                            size="small">{{ userselectbilltypetxt }} |
+                    <van-icon name="apps-o"/>
+                </van-button>
             </div>
-            <div>
+            <div style="padding-top: 8px;">
                 <span style="margin-left: 10px;color: white;"
                       @click="SelectYearMonth">{{ selectymtxt }}</span>
                 <van-icon name="arrow-down"
+                          color="white"
                           @click="SelectYearMonth"/>
-                <span style="margin-left: 10px;color: white;font-size: small;">总收入¥{{ FormatNumber( suminmoney ) }}</span>
-                <span style="margin-left: 10px;color: white;font-size: small;">总支出¥{{ FormatNumber( sumoutmoney ) }}</span>
+                <span class="summoneytxt">总收入¥{{ FormatNumber( suminmoney ) }}</span>
+                <span class="summoneytxt">总支出¥{{ FormatNumber( sumoutmoney ) }}</span>
                 <SelectYearMonthDialog @selectdate="userselectdate"
                                        @dialogclose="userclosedate"
-                                       :year="selectyear"
-                                       :month="selectmonth"
+                                       :year="userselectyear"
+                                       :month="userselectmonth"
                                        :dialogshow="dateselectdialogshow"></SelectYearMonthDialog>
             </div>
         </div>
@@ -109,9 +118,10 @@ interface IDisplayDayBill {
 }
 
 interface IQuery {
-    selectyear : number,
-    selectmonth : number,
-    billtypeid : number,
+    userselectyear : number,
+    userselectmonth : number,
+    userselectbilltypeid : number,
+    userselectbilltypetxt : string,
     querytype : QueryType
 }
 
@@ -155,16 +165,17 @@ export default defineComponent( {
             querytype : "all" ,
 
             // 默认当月
-            selectyear : now.getFullYear() ,
-            selectmonth : 1 + now.getMonth() ,
+            userselectyear : now.getFullYear() ,
+            userselectmonth : 1 + now.getMonth() ,
 
             // 默认所有类型
-            billtypeid : 0
+            userselectbilltypeid : 0 ,
+            userselectbilltypetxt : '全部'
         } )
 
         const selectymtxt = computed( () => {
 
-            return `${ querymodeldata.selectyear }年${ querymodeldata.selectmonth }月`
+            return `${ querymodeldata.userselectyear }年${ querymodeldata.userselectmonth }月`
         } )
 
         const isqueryall = computed( () => {
@@ -310,7 +321,7 @@ export default defineComponent( {
         }
 
         const SelectYearMonth = () => {
-            console.log( 'SelectYearMonth' )
+            // console.log( 'SelectYearMonth' )
 
             dateselectdialogshow.value = true;
         }
@@ -320,8 +331,8 @@ export default defineComponent( {
         }
 
         const userselectdate = ( val : ISelectDateObj ) => {
-            querymodeldata.selectyear = val.year;
-            querymodeldata.selectmonth = val.month;
+            querymodeldata.userselectyear = val.year;
+            querymodeldata.userselectmonth = val.month;
 
             dateselectdialogshow.value = false;
 
@@ -345,6 +356,6 @@ export default defineComponent( {
 </script>
 
 <!-- 样式代码片段  scoped -->
-<style>
-
+<style scoped
+       src="./Bill.css">
 </style>
