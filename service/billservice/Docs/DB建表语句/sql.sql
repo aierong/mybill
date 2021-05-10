@@ -92,19 +92,19 @@ INSERT INTO [dbo].[billtype]
            ,[typename],avatar)
 SELECT 1,1,'餐饮','icon-canyin'  
 UNION ALL
-SELECT 1,1,'娱乐','icon-canyin'  
+SELECT 1,1,'娱乐','icon-yule'  
 UNION ALL
-SELECT 1,1,'住房' ,'icon-canyin' 
+SELECT 1,1,'住房' ,'icon-zhufang' 
 UNION ALL
-SELECT 1,1,'购物'  ,'icon-canyin'
+SELECT 1,1,'购物'  ,'icon-gouwu'
 UNION ALL
-SELECT 0,1,'工资'  ,'icon-canyin'
+SELECT 0,1,'工资'  ,'icon-gongzitiao'
 UNION ALL
-SELECT 0,1,'奖金'  ,'icon-canyin'
+SELECT 0,1,'奖金'  ,'icon-jiangjinguize'
 UNION ALL
-SELECT 0,1,'红包'  ,'icon-canyin'
+SELECT 0,1,'红包'  ,'icon-hongbao'
 UNION ALL
-SELECT 0,1,'转账'  ,'icon-canyin'
+SELECT 0,1,'转账'  ,'icon-weibiaoti5'
 
 
 

@@ -14,18 +14,33 @@ Time: 17:52
          v-for="(item,index) in displaylist">
         <van-cell-group>
             <template #title>
-                <span>{{ item.moneydate }}</span><span>{{ getweekstring( item.week ) }}</span>
-                <span>收入:{{ item.sumin }}</span>
-                <span>支出:{{ item.sumout }}</span>
+                <span>{{ item.moneydate }}</span><span style="margin-left: 5px;">{{ getweekstring( item.week ) }}</span>
+                <span style="position: absolute;right: 28px;"
+                      v-show="isdisplayin">
+                  <span>
+                     <span style="background-color: #f5f0f0;">收</span>
+                  <span>{{ FormatNumber( item.sumin ) }}</span>
+                  </span>
+                  <span style="margin-left: 10px;"
+                        v-show="isdisplayout">
+                      <span style="background-color: #f5f0f0;">支</span>
+                      <span>{{ FormatNumber( item.sumout ) }}</span>
+                  </span>
+
+                </span>
+
             </template>
             <van-cell v-for="(mxitem,mxindex) in item.list"
                       :key="mxindex">
                 <template #title>
-
                     <aliicon :iconname="mxitem.avatar"
-                             :iconsize="28"
-                             iconcolor="red"/>
-                    <span>{{ mxitem.typename }}</span>
+                             :iconsize="22"
+                             :iconcolor="getcolor(mxitem.isout)"/>
+                    <span style="margin-left: 5px;">{{ mxitem.typename }}</span>
+
+                    <span style="position: absolute;right: 28px;">
+                    <span :style="getcolorobject(mxitem.isout)">{{ mxitem.moneys }}</span>
+                    </span>
                 </template>
             </van-cell>
         </van-cell-group>
@@ -35,6 +50,11 @@ Time: 17:52
 
 <!-- TypeScript脚本代码片段 -->
 <script lang="ts">
+/**
+ * 查询类型
+ */
+type QueryType = "all" | "out" | "in";
+
 interface IBillObj {
     ids : number,
 
@@ -69,7 +89,13 @@ interface IDisplayDayBill {
     week : number,
 
     list : IBillObj[]
-    // list : any
+}
+
+interface IQuery {
+    year : number,
+    month : number,
+    billtypeid : number,
+    querytype : QueryType
 }
 
 // 导入
@@ -87,22 +113,59 @@ import * as billapi from '@/http/api/bill'
 import * as _ from "lodash"
 import dayjs from 'dayjs'
 
+import { FormatNumber } from '@common/util'
+
 export default defineComponent( {
     // 子组件
     components : {} ,
     setup () {
-        const modeldata = reactive<IBillList>( {
+        var now = new Date();
+        const incolor : string = '#63e945'
+        const outcolor : string = '#E98545'
+
+        const billmodeldata = reactive<IBillList>( {
             list : []
         } );
+
+        const querymodeldata = reactive<IQuery>( {
+            querytype : "all" ,
+
+            // 默认当月
+            year : now.getFullYear() ,
+            month : 1 + now.getMonth() ,
+
+            // 默认所有类型
+            billtypeid : 0
+        } )
+
+        const isqueryall = computed( () => {
+            return querymodeldata.querytype == 'all';
+        } )
+
+        const isqueryout = computed( () => {
+            return querymodeldata.querytype == 'out';
+        } )
+
+        const isqueryin = computed( () => {
+            return querymodeldata.querytype == 'in';
+        } )
+
+        const isdisplayout = computed( () => {
+            return isqueryout.value || isqueryall.value;
+        } )
+
+        const isdisplayin = computed( () => {
+            return isqueryin.value || isqueryall.value;
+        } )
 
         onMounted( async () => {
             let status = await billapi.getlist( 2021 , 1 , 0 );
             // console.log( 'result' , status )
             if ( status.data.Success ) {
-                modeldata.list = status.data.Result;
+                billmodeldata.list = status.data.Result;
             }
             else {
-                modeldata.list = [];
+                billmodeldata.list = [];
             }
 
         } )
@@ -132,9 +195,9 @@ export default defineComponent( {
         } )
 
         const displaylist = computed<IDisplayDayBill[]>( () => {
-            if ( modeldata.list != null && modeldata.list.length > 0 ) {
+            if ( billmodeldata.list != null && billmodeldata.list.length > 0 ) {
                 //groupBy返回的是对象
-                var gr = _.groupBy( modeldata.list , "moneydate" );
+                var gr = _.groupBy( billmodeldata.list , "moneydate" );
 
                 var daylist : IDisplayDayBill[] = [];
 
@@ -207,10 +270,25 @@ export default defineComponent( {
             return '星期' + str;
         }
 
+        const getcolor = ( isout : boolean ) : string => {
+            return isout ? outcolor : incolor;
+        }
+
+        const getcolorobject = ( isout : boolean ) : any => {
+            return {
+                color : getcolor( isout )
+            };
+        }
+
         return {
-            ...toRefs( modeldata ) ,
+            ...toRefs( billmodeldata ) ,
+            ...toRefs( querymodeldata ) ,
+            // isqueryall , isqueryout , isqueryin ,  这3个暂时无用,暂时不导出
+            isdisplayout , isdisplayin ,
             displaylist , sumoutmoney , suminmoney ,
             getweekstring ,
+
+            FormatNumber , getcolor , getcolorobject ,
         };
     } ,
 

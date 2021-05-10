@@ -21,8 +21,16 @@ namespace billservice.Profile
 
                    dest.issystemtype = false;
 
-                   dest.avatar = ""; // 用户加的类型,有一个固定头像
-
+                   // 用户加的类型,有一个固定头像
+                   if ( src.isout )
+                   {
+                       dest.avatar = "icon-hanhan-01-011";
+                   }
+                   else
+                   {
+                       // 进的 头像  
+                       dest.avatar = "icon-hanhan-01-01";
+                   }
 
                    dest.adddate = now;
                    dest.updatedate = null;
