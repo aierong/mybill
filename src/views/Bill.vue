@@ -187,18 +187,6 @@ export default defineComponent( {
             return `${ querymodeldata.userselectyear }年${ querymodeldata.userselectmonth }月`
         } )
 
-        // const isqueryall = computed( () => {
-        //     return querymodeldata.querytype == 'all';
-        // } )
-
-        // const isqueryout = computed( () => {
-        //     return querymodeldata.querytype == 'out';
-        // } )
-
-        // const isqueryin = computed( () => {
-        //     return querymodeldata.querytype == 'in';
-        // } )
-
         const isdisplayout = computed( () => {
             return querymodeldata.querytype == 'out' || querymodeldata.querytype == 'all';
         } )
@@ -347,7 +335,6 @@ export default defineComponent( {
         }
 
         const SelectYearMonth = () => {
-            // console.log( 'SelectYearMonth' )
 
             dateselectdialogshow.value = true;
         }
@@ -387,8 +374,7 @@ export default defineComponent( {
             ...toRefs( billmodeldata ) ,
             ...toRefs( querymodeldata ) ,
             dateselectdialogshow , billtypeselectdialogshow ,
-            //这3个暂时无用,暂时不导出
-            // isqueryall , isqueryout , isqueryin ,
+
             isdisplayout , isdisplayin ,
             displaylist , sumoutmoney , suminmoney ,
             getweekstring , selectymtxt ,
