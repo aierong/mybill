@@ -207,8 +207,26 @@ export default defineComponent( {
             return isqueryin.value || isqueryall.value;
         } )
 
-        onMounted( async () => {
-            let status = await billapi.getlist( 2021 , 1 , 0 );
+        onMounted( () => {
+            // let status = await billapi.getlist( 2021 , 1 , 0 );
+            // // console.log( 'result' , status )
+            // if ( status.data.Success ) {
+            //     billmodeldata.list = status.data.Result;
+            // }
+            // else {
+            //     billmodeldata.list = [];
+            // }
+
+            getlist();
+
+        } )
+
+        const getlist = async () => {
+            // let status = await billapi.getlist( 2021 , 1 , 0 );
+            let status = await billapi.getlist( querymodeldata.userselectyear ,
+                querymodeldata.userselectmonth ,
+                querymodeldata.userselectbilltypeid );
+
             // console.log( 'result' , status )
             if ( status.data.Success ) {
                 billmodeldata.list = status.data.Result;
@@ -216,8 +234,7 @@ export default defineComponent( {
             else {
                 billmodeldata.list = [];
             }
-
-        } )
+        }
 
         const sumoutmoney = computed( () => {
             if ( displaylist.value != null && displaylist.value.length > 0 ) {
@@ -346,6 +363,7 @@ export default defineComponent( {
             dateselectdialogshow.value = false;
 
             //再从新请求 服务器
+            getlist();
         }
 
         const onBillTypeSelect = () => {
@@ -359,6 +377,9 @@ export default defineComponent( {
         const userselectbilltype = ( val : ISelectBillTypeObj ) => {
             querymodeldata.userselectbilltypeid = val.id;
             querymodeldata.userselectbilltypetxt = val.name;
+
+            //再从新请求 服务器
+            getlist();
         }
 
         return {
