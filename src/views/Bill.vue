@@ -187,24 +187,24 @@ export default defineComponent( {
             return `${ querymodeldata.userselectyear }年${ querymodeldata.userselectmonth }月`
         } )
 
-        const isqueryall = computed( () => {
-            return querymodeldata.querytype == 'all';
-        } )
+        // const isqueryall = computed( () => {
+        //     return querymodeldata.querytype == 'all';
+        // } )
 
-        const isqueryout = computed( () => {
-            return querymodeldata.querytype == 'out';
-        } )
+        // const isqueryout = computed( () => {
+        //     return querymodeldata.querytype == 'out';
+        // } )
 
-        const isqueryin = computed( () => {
-            return querymodeldata.querytype == 'in';
-        } )
+        // const isqueryin = computed( () => {
+        //     return querymodeldata.querytype == 'in';
+        // } )
 
         const isdisplayout = computed( () => {
-            return isqueryout.value || isqueryall.value;
+            return querymodeldata.querytype == 'out' || querymodeldata.querytype == 'all';
         } )
 
         const isdisplayin = computed( () => {
-            return isqueryin.value || isqueryall.value;
+            return querymodeldata.querytype == 'in' || querymodeldata.querytype == 'all';
         } )
 
         onMounted( async () => {
@@ -388,7 +388,7 @@ export default defineComponent( {
             ...toRefs( querymodeldata ) ,
             dateselectdialogshow , billtypeselectdialogshow ,
             //这3个暂时无用,暂时不导出
-            isqueryall , isqueryout , isqueryin ,
+            // isqueryall , isqueryout , isqueryin ,
             isdisplayout , isdisplayin ,
             displaylist , sumoutmoney , suminmoney ,
             getweekstring , selectymtxt ,
