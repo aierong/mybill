@@ -63,7 +63,7 @@ namespace billservice.Controllers
             if ( systemlist != null && systemlist.Count > 0 )
             {
                 resultsystemlist = systemlist.FindAll( item => item.isout == isout );
-                //systemlist.RemoveAll( item => isout ? !item.isout : item.isout );
+                
             }
 
 
@@ -95,7 +95,7 @@ namespace billservice.Controllers
             if ( usertypelist != null && usertypelist.Count > 0 )
             {
                 resultusertypelist = usertypelist.FindAll( item => item.isout == isout );
-                //usertypelist.RemoveAll( item => isout ? !item.isout : item.isout );
+                
             }
 
             List<billtype> list = new List<billtype>() { };
