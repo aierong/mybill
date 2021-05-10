@@ -9,7 +9,9 @@ Time: 18:55
 
 <!-- html代码片段 -->
 <template>
-    <i class="iconfont icon-canyin"></i>
+    <!--    class="iconfont icon-canyin"-->
+    <i :class="[iconfont, iconname]"
+       :style="{ color: iconcolor, fontSize: iconsize + 'px' }"></i>
 </template>
 
 <!-- TypeScript脚本代码片段 -->
@@ -29,11 +31,25 @@ import '@assets/ali/iconfont/iconfont.css'
 export default defineComponent( {
     // 声明 props
     props : {
-
+        iconname : {
+            type : String ,
+            required : true
+        } ,
+        iconsize : {
+            type : Number ,
+            required : true
+        } ,
+        iconcolor : {
+            type : String ,
+            default : ''
+        } ,
     } ,
     setup () {
+        const iconfont : string = 'iconfont'
 
-        return {};
+        return {
+            iconfont ,
+        };
     } ,
 
 } )

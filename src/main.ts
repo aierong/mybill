@@ -10,9 +10,19 @@ import '@/http/http.ts';
 import Vant from 'vant';
 import 'vant/lib/index.css';
 
+import components from "@comp/globalcomponent";
+
 const app = createApp( App )
 //引入vant
 app.use( Vant )
+
+//循环注册全局组件
+Object.keys(components).forEach((key) => {
+
+    //注册全局组件
+    app.component(`${key}`, components[key])
+})
+
 // 注入key
 app.use( store , key ).use( router ).mount( '#app' )
 

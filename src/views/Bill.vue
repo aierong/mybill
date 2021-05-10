@@ -21,8 +21,10 @@ Time: 17:52
             <van-cell v-for="(mxitem,mxindex) in item.list"
                       :key="mxindex">
                 <template #title>
-                    <van-icon :name="mxitem.avatar"/>
-                    <aliicon/>
+
+                    <aliicon :iconname="mxitem.avatar"
+                             :iconsize="28"
+                             iconcolor="red"/>
                     <span>{{ mxitem.typename }}</span>
                 </template>
             </van-cell>
@@ -85,16 +87,9 @@ import * as billapi from '@/http/api/bill'
 import * as _ from "lodash"
 import dayjs from 'dayjs'
 
-// import '@assets/ali/iconfont/iconfont.css'
-
-import aliicon from "@comp/aliicon.vue";
-
 export default defineComponent( {
     // 子组件
-    components : {
-        aliicon ,
-    } ,
-
+    components : {} ,
     setup () {
         const modeldata = reactive<IBillList>( {
             list : []
