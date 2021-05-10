@@ -23,10 +23,10 @@ Time: 17:52
                     <van-icon name="apps-o"/>
                 </van-button>
 
-                <SelectBillType @selectbilltype="userselectbilltype"
+                <SelectBillTypeDialog @selectbilltype="userselectbilltype"
                                 @dialogclose="userclosebilltype"
                                 :selectbilltypeid="userselectbilltypeid"
-                                :dialogshow="billtypeselectdialogshow"></SelectBillType>
+                                :dialogshow="billtypeselectdialogshow"></SelectBillTypeDialog>
             </div>
             <div style="padding-top: 8px;">
                 <span style="margin-left: 10px;color: white;"
@@ -151,12 +151,12 @@ import { FormatNumber } from '@common/util'
 import SelectYearMonthDialog from "@comp/SelectYearMonthDialog.vue";
 import { ISelectDateObj , ISelectBillTypeObj } from "@comp/types";
 
-import SelectBillType from "@comp/SelectBillType.vue";
+import SelectBillTypeDialog from "@comp/SelectBillTypeDialog.vue";
 
 export default defineComponent( {
     // 子组件
     components : {
-        SelectYearMonthDialog , SelectBillType ,
+        SelectYearMonthDialog , SelectBillTypeDialog ,
     } ,
     setup () {
         var now = new Date();
