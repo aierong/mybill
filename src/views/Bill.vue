@@ -24,18 +24,20 @@ Time: 17:52
                 </van-button>
 
                 <SelectBillTypeDialog @selectbilltype="userselectbilltype"
-                                @dialogclose="userclosebilltype"
-                                :selectbilltypeid="userselectbilltypeid"
-                                :dialogshow="billtypeselectdialogshow"></SelectBillTypeDialog>
+                                      @dialogclose="userclosebilltype"
+                                      :selectbilltypeid="userselectbilltypeid"
+                                      :dialogshow="billtypeselectdialogshow"></SelectBillTypeDialog>
             </div>
-            <div style="padding-top: 8px;">
+            <div style="padding-top: 8px;padding-bottom: 8px;">
                 <span style="margin-left: 10px;color: white;"
                       @click="SelectYearMonth">{{ selectymtxt }}</span>
                 <van-icon name="arrow-down"
                           color="white"
                           @click="SelectYearMonth"/>
-                <span class="summoneytxt">总收入¥{{ FormatNumber( suminmoney ) }}</span>
-                <span class="summoneytxt">总支出¥{{ FormatNumber( sumoutmoney ) }}</span>
+                <span v-show="isdisplayin"
+                      class="summoneytxt">总收入¥{{ FormatNumber( suminmoney ) }}</span>
+                <span v-show="isdisplayout"
+                      class="summoneytxt">总支出¥{{ FormatNumber( sumoutmoney ) }}</span>
                 <SelectYearMonthDialog @selectdate="userselectdate"
                                        @dialogclose="userclosedate"
                                        :year="userselectyear"
@@ -48,11 +50,10 @@ Time: 17:52
             <van-cell-group>
                 <template #title>
                     <span>{{ item.moneydate }}</span><span style="margin-left: 5px;">{{ getweekstring( item.week ) }}</span>
-                    <span style="position: absolute;right: 28px;"
-                          v-show="isdisplayin">
-                  <span>
+                    <span style="position: absolute;right: 28px;">
+                  <span v-show="isdisplayin">
                      <span style="background-color: #f5f0f0;">收</span>
-                  <span>{{ FormatNumber( item.sumin ) }}</span>
+                     <span>{{ FormatNumber( item.sumin ) }}</span>
                   </span>
                   <span style="margin-left: 10px;"
                         v-show="isdisplayout">
@@ -183,7 +184,6 @@ export default defineComponent( {
         } )
 
         const selectymtxt = computed( () => {
-
             return `${ querymodeldata.userselectyear }年${ querymodeldata.userselectmonth }月`
         } )
 
@@ -377,6 +377,7 @@ export default defineComponent( {
         const userselectbilltype = ( val : ISelectBillTypeObj ) => {
             querymodeldata.userselectbilltypeid = val.id;
             querymodeldata.userselectbilltypetxt = val.name;
+            querymodeldata.querytype = val.id == 0 ? "all" : ( val.isout ? "out" : "in" );
 
             //再从新请求 服务器
             getlist();
@@ -386,7 +387,8 @@ export default defineComponent( {
             ...toRefs( billmodeldata ) ,
             ...toRefs( querymodeldata ) ,
             dateselectdialogshow , billtypeselectdialogshow ,
-            // isqueryall , isqueryout , isqueryin ,  这3个暂时无用,暂时不导出
+            //这3个暂时无用,暂时不导出
+            isqueryall , isqueryout , isqueryin ,
             isdisplayout , isdisplayin ,
             displaylist , sumoutmoney , suminmoney ,
             getweekstring , selectymtxt ,

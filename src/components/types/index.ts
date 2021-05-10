@@ -19,5 +19,6 @@ export interface ISelectDateObj {
 
 export interface ISelectBillTypeObj {
     id : number,
-    name : string
+    name : string,
+    isout : boolean
 }

@@ -174,7 +174,9 @@ export default defineComponent( {
         const onAllClick = () => {
             let payload : ISelectBillTypeObj = {
                 id : 0 ,
-                name : '全部'
+                name : '全部' ,
+                // 这个值,无用,随便搞一个
+                isout : false
             }
 
             emit( "selectbilltype" , payload )
@@ -186,7 +188,8 @@ export default defineComponent( {
 
             let payload : ISelectBillTypeObj = {
                 id : item.ids ,
-                name : item.typename
+                name : item.typename ,
+                isout : item.isout
             }
 
             emit( "selectbilltype" , payload )
