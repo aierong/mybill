@@ -11,3 +11,9 @@ export interface IAvatarObj {
     showdialog : boolean,
     avatar : string
 }
+
+export interface ISelectDateObj {
+    year : number,
+    month : number
+}
+

@@ -9,14 +9,32 @@ Time: 17:52
 
 <!-- html代码片段 -->
 <template>
-
-    <div :key="index"
-         v-for="(item,index) in displaylist">
-        <van-cell-group>
-            <template #title>
-                <span>{{ item.moneydate }}</span><span style="margin-left: 5px;">{{ getweekstring( item.week ) }}</span>
-                <span style="position: absolute;right: 28px;"
-                      v-show="isdisplayin">
+    <div>
+        <div style="background-color: #3EB575;">
+            <div>
+                1
+            </div>
+            <div>
+                <span style="margin-left: 10px;color: white;"
+                      @click="SelectYearMonth">{{ selectymtxt }}</span>
+                <van-icon name="arrow-down"
+                          @click="SelectYearMonth"/>
+                <span style="margin-left: 10px;color: white;font-size: small;">总收入¥{{ FormatNumber( suminmoney ) }}</span>
+                <span style="margin-left: 10px;color: white;font-size: small;">总支出¥{{ FormatNumber( sumoutmoney ) }}</span>
+                <SelectYearMonthDialog @selectdate="userselectdate"
+                                       @dialogclose="userclosedate"
+                                       :year="selectyear"
+                                       :month="selectmonth"
+                                       :dialogshow="dateselectdialogshow"></SelectYearMonthDialog>
+            </div>
+        </div>
+        <div :key="index"
+             v-for="(item,index) in displaylist">
+            <van-cell-group>
+                <template #title>
+                    <span>{{ item.moneydate }}</span><span style="margin-left: 5px;">{{ getweekstring( item.week ) }}</span>
+                    <span style="position: absolute;right: 28px;"
+                          v-show="isdisplayin">
                   <span>
                      <span style="background-color: #f5f0f0;">收</span>
                   <span>{{ FormatNumber( item.sumin ) }}</span>
@@ -29,28 +47,27 @@ Time: 17:52
 
                 </span>
 
-            </template>
-            <van-cell v-for="(mxitem,mxindex) in item.list"
-                      :key="mxindex">
-                <template #title>
-                    <aliicon :iconname="mxitem.avatar"
-                             :iconsize="22"
-                             :iconcolor="getcolor(mxitem.isout)"/>
-                    <span style="margin-left: 5px;">{{ mxitem.typename }}</span>
+                </template>
+                <van-cell v-for="(mxitem,mxindex) in item.list"
+                          :key="mxindex">
+                    <template #title>
+                        <aliicon :iconname="mxitem.avatar"
+                                 :iconsize="22"
+                                 :iconcolor="getcolor(mxitem.isout)"/>
+                        <span style="margin-left: 5px;">{{ mxitem.typename }}</span>
 
-                    <span style="position: absolute;right: 28px;">
+                        <span style="position: absolute;right: 28px;">
                     <span :style="getcolorobject(mxitem.isout)">{{ mxitem.moneys }}</span>
                     </span>
-                </template>
-            </van-cell>
-        </van-cell-group>
+                    </template>
+                </van-cell>
+            </van-cell-group>
+        </div>
     </div>
-
 </template>
 
 <!-- TypeScript脚本代码片段 -->
-<script lang="ts">
-/**
+<script lang="ts">/**
  * 查询类型
  */
 type QueryType = "all" | "out" | "in";
@@ -92,8 +109,8 @@ interface IDisplayDayBill {
 }
 
 interface IQuery {
-    year : number,
-    month : number,
+    selectyear : number,
+    selectmonth : number,
     billtypeid : number,
     querytype : QueryType
 }
@@ -115,13 +132,20 @@ import dayjs from 'dayjs'
 
 import { FormatNumber } from '@common/util'
 
+import SelectYearMonthDialog from "@comp/SelectYearMonthDialog.vue";
+import { ISelectDateObj } from "@comp/types";
+
 export default defineComponent( {
     // 子组件
-    components : {} ,
+    components : {
+        SelectYearMonthDialog ,
+    } ,
     setup () {
         var now = new Date();
         const incolor : string = '#63e945'
         const outcolor : string = '#E98545'
+
+        const dateselectdialogshow = ref( false )
 
         const billmodeldata = reactive<IBillList>( {
             list : []
@@ -131,11 +155,16 @@ export default defineComponent( {
             querytype : "all" ,
 
             // 默认当月
-            year : now.getFullYear() ,
-            month : 1 + now.getMonth() ,
+            selectyear : now.getFullYear() ,
+            selectmonth : 1 + now.getMonth() ,
 
             // 默认所有类型
             billtypeid : 0
+        } )
+
+        const selectymtxt = computed( () => {
+
+            return `${ querymodeldata.selectyear }年${ querymodeldata.selectmonth }月`
         } )
 
         const isqueryall = computed( () => {
@@ -280,14 +309,34 @@ export default defineComponent( {
             };
         }
 
+        const SelectYearMonth = () => {
+            console.log( 'SelectYearMonth' )
+
+            dateselectdialogshow.value = true;
+        }
+
+        const userclosedate = () => {
+            dateselectdialogshow.value = false;
+        }
+
+        const userselectdate = ( val : ISelectDateObj ) => {
+            querymodeldata.selectyear = val.year;
+            querymodeldata.selectmonth = val.month;
+
+            dateselectdialogshow.value = false;
+
+            //再从新请求 服务器
+        }
+
         return {
             ...toRefs( billmodeldata ) ,
             ...toRefs( querymodeldata ) ,
+            dateselectdialogshow ,
             // isqueryall , isqueryout , isqueryin ,  这3个暂时无用,暂时不导出
             isdisplayout , isdisplayin ,
             displaylist , sumoutmoney , suminmoney ,
-            getweekstring ,
-
+            getweekstring , selectymtxt ,
+            SelectYearMonth , userselectdate , userclosedate ,
             FormatNumber , getcolor , getcolorobject ,
         };
     } ,
