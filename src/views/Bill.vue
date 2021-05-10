@@ -17,10 +17,14 @@ Time: 17:52
                 <!--                          color="white"/>-->
 
                 <van-button hairline
+                            @click="onBillTypeSelect"
                             color="#3EB575"
                             size="small">{{ userselectbilltypetxt }} |
                     <van-icon name="apps-o"/>
                 </van-button>
+
+                <SelectBillType :selectbilltypeid="0"
+                                :dialogshow="billtypeselectdialogshow"></SelectBillType>
             </div>
             <div style="padding-top: 8px;">
                 <span style="margin-left: 10px;color: white;"
@@ -145,10 +149,12 @@ import { FormatNumber } from '@common/util'
 import SelectYearMonthDialog from "@comp/SelectYearMonthDialog.vue";
 import { ISelectDateObj } from "@comp/types";
 
+import SelectBillType from "@comp/SelectBillType.vue";
+
 export default defineComponent( {
     // 子组件
     components : {
-        SelectYearMonthDialog ,
+        SelectYearMonthDialog , SelectBillType ,
     } ,
     setup () {
         var now = new Date();
@@ -156,6 +162,7 @@ export default defineComponent( {
         const outcolor : string = '#E98545'
 
         const dateselectdialogshow = ref( false )
+        const billtypeselectdialogshow = ref( false )
 
         const billmodeldata = reactive<IBillList>( {
             list : []
@@ -339,15 +346,20 @@ export default defineComponent( {
             //再从新请求 服务器
         }
 
+        const onBillTypeSelect = () => {
+            billtypeselectdialogshow.value = true;
+        }
+
         return {
             ...toRefs( billmodeldata ) ,
             ...toRefs( querymodeldata ) ,
-            dateselectdialogshow ,
+            dateselectdialogshow , billtypeselectdialogshow ,
             // isqueryall , isqueryout , isqueryin ,  这3个暂时无用,暂时不导出
             isdisplayout , isdisplayin ,
             displaylist , sumoutmoney , suminmoney ,
             getweekstring , selectymtxt ,
             SelectYearMonth , userselectdate , userclosedate ,
+            onBillTypeSelect ,
             FormatNumber , getcolor , getcolorobject ,
         };
     } ,

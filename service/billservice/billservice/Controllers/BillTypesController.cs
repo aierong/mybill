@@ -46,6 +46,7 @@ namespace billservice.Controllers
 
             //先取系统类型回来,这个类型可以从缓存中取
             List<billtype> systemlist = null;
+            List<billtype> resultsystemlist = null;
             string cacheallname = "AllSystemType";
 
             if ( !this.memoryCache.TryGetValue( cacheallname , out systemlist ) )
@@ -61,12 +62,14 @@ namespace billservice.Controllers
 
             if ( systemlist != null && systemlist.Count > 0 )
             {
-                systemlist.RemoveAll( item => isout ? !item.isout : item.isout );
+                resultsystemlist = systemlist.FindAll( item => item.isout == isout );
+                //systemlist.RemoveAll( item => isout ? !item.isout : item.isout );
             }
 
 
             //再取用户类型回来 ,判断一下:如果是刷新就取数据库,如果不是就取缓存
             List<billtype> usertypelist = null;
+            List<billtype> resultusertypelist = null;
             string cacheusername = "AllUserType";
             var cacheUserEntryOptions = new MemoryCacheEntryOptions().SetAbsoluteExpiration( TimeSpan.FromMinutes( 60 ) );
 
@@ -91,12 +94,20 @@ namespace billservice.Controllers
 
             if ( usertypelist != null && usertypelist.Count > 0 )
             {
-                usertypelist.RemoveAll( item => isout ? !item.isout : item.isout );
+                resultusertypelist = usertypelist.FindAll( item => item.isout == isout );
+                //usertypelist.RemoveAll( item => isout ? !item.isout : item.isout );
             }
 
             List<billtype> list = new List<billtype>() { };
-            list.AddRange( systemlist );
-            list.AddRange( usertypelist );
+            if ( resultsystemlist != null )
+            {
+                list.AddRange( resultsystemlist );
+            }
+            if ( resultusertypelist != null )
+            {
+                list.AddRange( resultusertypelist );
+            }
+
 
             List<BillTypeReturnDto> listDto = this.mapper.Map<List<billtype> , List<BillTypeReturnDto>>( list );
 
