@@ -207,7 +207,7 @@ export default defineComponent( {
             return isqueryin.value || isqueryall.value;
         } )
 
-        onMounted( () => {
+        onMounted( async () => {
             // let status = await billapi.getlist( 2021 , 1 , 0 );
             // // console.log( 'result' , status )
             // if ( status.data.Success ) {
@@ -217,7 +217,7 @@ export default defineComponent( {
             //     billmodeldata.list = [];
             // }
 
-            getlist();
+            await getlist();
 
         } )
 
@@ -356,14 +356,14 @@ export default defineComponent( {
             dateselectdialogshow.value = false;
         }
 
-        const userselectdate = ( val : ISelectDateObj ) => {
+        const userselectdate = async ( val : ISelectDateObj ) => {
             querymodeldata.userselectyear = val.year;
             querymodeldata.userselectmonth = val.month;
 
             dateselectdialogshow.value = false;
 
             //再从新请求 服务器
-            getlist();
+            await getlist();
         }
 
         const onBillTypeSelect = () => {
@@ -374,13 +374,13 @@ export default defineComponent( {
             billtypeselectdialogshow.value = false;
         }
 
-        const userselectbilltype = ( val : ISelectBillTypeObj ) => {
+        const userselectbilltype = async ( val : ISelectBillTypeObj ) => {
             querymodeldata.userselectbilltypeid = val.id;
             querymodeldata.userselectbilltypetxt = val.name;
             querymodeldata.querytype = val.id == 0 ? "all" : ( val.isout ? "out" : "in" );
 
             //再从新请求 服务器
-            getlist();
+            await getlist();
         }
 
         return {

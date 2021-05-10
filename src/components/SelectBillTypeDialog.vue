@@ -125,12 +125,14 @@ export default defineComponent( {
 
         watch(
             () => props.dialogshow ,
-            ( newval ) => {
+            async ( newval ) => {
                 show.value = newval;
 
                 if ( newval ) {
                     //重新获取一下,列表
-                    getlist();
+                    await getlist();
+
+                    // console.log( 'newval' )
                 }
             } ,
             {
@@ -157,6 +159,8 @@ export default defineComponent( {
             else {
                 listmodeldata.inlist = [];
             }
+
+            // console.log( 'getlist' )
         }
 
         const isbilltype = ( id : number ) => {
