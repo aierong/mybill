@@ -10,13 +10,40 @@ Time: 15:30
 <!-- html代码片段 -->
 <template>
 
-    <van-popup :close-on-click-overlay="false"
+    <!-- 可以指定弹窗高度   :style="{ height: '60%' }"
+    -->
+    <van-popup :style="{ height: '60%' }"
+               :close-on-click-overlay="false"
                v-model:show="show"
-               position="bottom">
-        <span style="color: #222222;background-color: white;">全部</span>
-        <div>支出</div>
-
-        <div>收入</div>
+               closeable
+               close-icon-position="top-left"
+               position="bottom"
+               @click-close-icon="closedlg">
+        <br><br><br>
+        <!--        <span style="color: #222222;background-color: white;">全部</span>-->
+        <span :style="gettxtstyle(0)">全部</span>
+        <br><br>
+        <div style="margin-left: 10px;">支出</div>
+        <van-grid>
+            <van-grid-item v-for="(item,index) in outlist"
+                           :key="index"
+                           @click="onItemClick(item)">
+                <template #text>
+                    <span :style="gettxtstyle(item.ids)">{{ item.typename }}</span>
+                </template>
+            </van-grid-item>
+        </van-grid>
+        <br><br>
+        <div style="margin-left: 10px;">收入</div>
+        <van-grid>
+            <van-grid-item v-for="(item,index) in inlist"
+                           :key="index"
+                           @click="onItemClick(item)">
+                <template #text>
+                    <span :style="gettxtstyle(item.ids)">{{ item.typename }}</span>
+                </template>
+            </van-grid-item>
+        </van-grid>
     </van-popup>
 
 </template>
@@ -47,13 +74,21 @@ import {
     watch ,
 } from "vue";
 
-import { ISelectDateObj } from "@comp/types";
+import { ISelectBillTypeObj } from "@comp/types";
 
 import * as billtypeapi from '@/http/api/billtype'
 
 export default defineComponent( {
     // 定义是事件
-    emits : {} ,
+    emits : {
+        dialogclose : null ,
+        selectbilltype : ( val : ISelectBillTypeObj ) => {
+
+            //上面已经定义了参数类型,系统会验证的参数类型
+
+            return true
+        } ,
+    } ,
     // 声明 props
     props : {
         selectbilltypeid : {
@@ -123,9 +158,39 @@ export default defineComponent( {
             }
         }
 
+        const isbilltype = ( id : number ) => {
+            return billtypeid.value == id;
+        }
+
+        const gettxtstyle = ( id : number ) => {
+            var _isbilltype = isbilltype( id );
+
+            return {
+                color : _isbilltype ? '#55a532' : '#0A0A0AFF'
+            }
+        }
+
+        const onItemClick = ( item : IList ) : void => {
+            // console.log( 'item' , item )
+
+            let payload : ISelectBillTypeObj = {
+                id : item.ids ,
+                name : item.typename
+            }
+
+            emit( "selectbilltype" , payload )
+            emit( "dialogclose" )
+        }
+
+        const closedlg = () => {
+            // console.log( 'click-close-icon' )
+            emit( "dialogclose" )
+        }
+
         return {
             ...toRefs( listmodeldata ) ,
-            show , billtypeid ,
+            show , billtypeid , gettxtstyle ,
+            onItemClick , closedlg ,
         };
     } ,
 

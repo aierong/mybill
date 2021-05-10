@@ -17,3 +17,7 @@ export interface ISelectDateObj {
     month : number
 }
 
+export interface ISelectBillTypeObj {
+    id : number,
+    name : string
+}

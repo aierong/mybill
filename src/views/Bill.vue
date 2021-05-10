@@ -23,7 +23,9 @@ Time: 17:52
                     <van-icon name="apps-o"/>
                 </van-button>
 
-                <SelectBillType :selectbilltypeid="0"
+                <SelectBillType @selectbilltype="userselectbilltype"
+                                @dialogclose="userclosebilltype"
+                                :selectbilltypeid="userselectbilltypeid"
                                 :dialogshow="billtypeselectdialogshow"></SelectBillType>
             </div>
             <div style="padding-top: 8px;">
@@ -147,7 +149,7 @@ import dayjs from 'dayjs'
 import { FormatNumber } from '@common/util'
 
 import SelectYearMonthDialog from "@comp/SelectYearMonthDialog.vue";
-import { ISelectDateObj } from "@comp/types";
+import { ISelectDateObj , ISelectBillTypeObj } from "@comp/types";
 
 import SelectBillType from "@comp/SelectBillType.vue";
 
@@ -350,6 +352,15 @@ export default defineComponent( {
             billtypeselectdialogshow.value = true;
         }
 
+        const userclosebilltype = () => {
+            billtypeselectdialogshow.value = false;
+        }
+
+        const userselectbilltype = ( val : ISelectBillTypeObj ) => {
+            querymodeldata.userselectbilltypeid = val.id;
+            querymodeldata.userselectbilltypetxt = val.name;
+        }
+
         return {
             ...toRefs( billmodeldata ) ,
             ...toRefs( querymodeldata ) ,
@@ -359,7 +370,7 @@ export default defineComponent( {
             displaylist , sumoutmoney , suminmoney ,
             getweekstring , selectymtxt ,
             SelectYearMonth , userselectdate , userclosedate ,
-            onBillTypeSelect ,
+            onBillTypeSelect , userclosebilltype , userselectbilltype ,
             FormatNumber , getcolor , getcolorobject ,
         };
     } ,
