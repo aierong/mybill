@@ -80,7 +80,6 @@ export default defineComponent( {
                 // console.log( '子组件：监听props中num' , newval , old )
                 billtypeid.value = newval;
 
-
             } ,
             {
                 // 这里如果不设置immediate = true,那么最初绑定的时候是不会执行的,要等到num改变时才执行监听计算
@@ -105,8 +104,23 @@ export default defineComponent( {
         )
 
         const getlist = async () => {
-            var listout = await billtypeapi.getlist( true , true );
-            var listin = await billtypeapi.getlist( false , true );
+            var outstatus = await billtypeapi.getlist( true , true );
+
+            if ( outstatus.data.Success ) {
+                listmodeldata.outlist = outstatus.data.Result;
+            }
+            else {
+                listmodeldata.outlist = [];
+            }
+
+            var instatus = await billtypeapi.getlist( false , true );
+
+            if ( instatus.data.Success ) {
+                listmodeldata.inlist = instatus.data.Result;
+            }
+            else {
+                listmodeldata.inlist = [];
+            }
         }
 
         return {
