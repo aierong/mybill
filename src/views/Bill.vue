@@ -196,21 +196,11 @@ export default defineComponent( {
         } )
 
         onMounted( async () => {
-            // let status = await billapi.getlist( 2021 , 1 , 0 );
-            // // console.log( 'result' , status )
-            // if ( status.data.Success ) {
-            //     billmodeldata.list = status.data.Result;
-            // }
-            // else {
-            //     billmodeldata.list = [];
-            // }
-
             await getlist();
-
         } )
 
         const getlist = async () => {
-            // let status = await billapi.getlist( 2021 , 1 , 0 );
+
             let status = await billapi.getlist( querymodeldata.userselectyear ,
                 querymodeldata.userselectmonth ,
                 querymodeldata.userselectbilltypeid );
@@ -343,14 +333,27 @@ export default defineComponent( {
             dateselectdialogshow.value = false;
         }
 
+        /**
+         * 选择日期后,确定
+         * @param val
+         */
         const userselectdate = async ( val : ISelectDateObj ) => {
-            querymodeldata.userselectyear = val.year;
-            querymodeldata.userselectmonth = val.month;
 
-            dateselectdialogshow.value = false;
+            var isrefresh = false;
 
-            //再从新请求 服务器
-            await getlist();
+            //有可能选择的和之前一样的,这里判断一下
+            if ( querymodeldata.userselectmonth != val.month || querymodeldata.userselectyear != val.year ) {
+                querymodeldata.userselectyear = val.year;
+                querymodeldata.userselectmonth = val.month;
+
+                isrefresh = true;
+            }
+
+            if ( isrefresh ) {
+                //再从新请求 服务器
+                await getlist();
+            }
+
         }
 
         const onBillTypeSelect = () => {
@@ -361,13 +364,27 @@ export default defineComponent( {
             billtypeselectdialogshow.value = false;
         }
 
+        /**
+         * 选择类型后,确定
+         * @param val
+         */
         const userselectbilltype = async ( val : ISelectBillTypeObj ) => {
-            querymodeldata.userselectbilltypeid = val.id;
-            querymodeldata.userselectbilltypetxt = val.name;
-            querymodeldata.querytype = val.id == 0 ? "all" : ( val.isout ? "out" : "in" );
+            var isrefresh = false;
 
-            //再从新请求 服务器
-            await getlist();
+            //有可能选择的和之前一样的,这里判断一下
+            if ( querymodeldata.userselectbilltypeid != val.id ) {
+                querymodeldata.userselectbilltypeid = val.id;
+                querymodeldata.userselectbilltypetxt = val.name;
+                querymodeldata.querytype = val.id == 0 ? "all" : ( val.isout ? "out" : "in" );
+
+                isrefresh = true; 
+            }
+
+            if ( isrefresh ) {
+                //再从新请求 服务器
+                await getlist();
+            }
+
         }
 
         return {

@@ -73,7 +73,9 @@ namespace billservice.services
             var oneClass = await db.Queryable<bills , billtype>( ( b , bt ) => new JoinQueryInfos(
        JoinType.Inner , b.billtypeid == bt.ids
             ) )
-                .Where( b => b.mobile == mobile && b.moneyyear == year && b.moneymonth == month )
+                .Where( b => b.mobile == mobile
+                                    && b.moneyyear == year && b.moneymonth == month
+                                    && b.delmark == "N" )
                 .WhereIF( billtypeid > 0 , b => b.billtypeid == billtypeid )
                 .OrderBy( b => b.moneydate , OrderByType.Desc )
                 .OrderBy( b => b.adddate , OrderByType.Desc )

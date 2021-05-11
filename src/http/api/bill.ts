@@ -11,5 +11,5 @@ import axios from 'axios'
 const prefix = '/bills';
 
 export function getlist ( year : number , month : number , billtypeid : number ) {
-    return axios.get( `${ prefix }/get/${ year }/${ month }/${ billtypeid }` );
+    return axios.get( `${ prefix }/getlist/${ year }/${ month }/${ billtypeid }` );
 }
