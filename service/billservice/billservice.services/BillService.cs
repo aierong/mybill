@@ -106,6 +106,13 @@ namespace billservice.services
         }
 
 
+        //public async Task<bills> GetAsync ( int id )
+        //{
+        //    var model = await db.Queryable<bills>().FirstAsync( it => it.ids == id );
+
+        //    return model;
+        //}
+
 
     }
 }

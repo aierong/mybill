@@ -77,8 +77,8 @@ namespace billservice.Controllers
 
 
         [HttpGet]
-        [Route( "get/{year}/{month}/{billtypeid}" )]
-        public async Task<ServiceResult<List<BillReturnDto>>> get ( int year = 2020 , int month = 1 , int billtypeid = 0 )
+        [Route( "getlist/{year}/{month}/{billtypeid}" )]
+        public async Task<ServiceResult<List<BillReturnDto>>> getlist ( int year = 2020 , int month = 1 , int billtypeid = 0 )
         {
             var result = new ServiceResult<List<BillReturnDto>>();
 
@@ -91,6 +91,29 @@ namespace billservice.Controllers
 
             return result;
         }
+
+
+
+        //[HttpGet]
+        //[Route( "get/{id}" )]
+        //public async Task<ServiceResult<BillReturnDto>> get ( int id = 0 )
+        //{
+        //    var result = new ServiceResult<BillReturnDto>();
+
+
+
+        //    // billtypeid=0 代表全部
+        //    var model = await this.Ibill.GetAsync( id );
+
+        //    if ( model != null )
+        //    {
+
+        //    }
+
+        //    result.IsSuccess( list );
+
+        //    return result;
+        //}
 
 
 

@@ -68,9 +68,6 @@ namespace billservice.services
 
 
 
-
-
-
         public bool Save ( users user )
         {
             var ids = db.Insertable( user ).ExecuteReturnIdentity();
@@ -131,8 +128,6 @@ namespace billservice.services
 
         public async Task<bool> UpdateLoginInfoAsync ( string mobile , int logintimes )
         {
-
-
             var result = await db.Updateable<users>()
                     .SetColumns( it => new users() { logintimes = logintimes , lastlogindate = DateTime.Now } )
                     .Where( it => it.mobile == mobile )
