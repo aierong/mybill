@@ -70,7 +70,7 @@ namespace billservice.services
 
         public async Task<List<BillReturnDto>> GetListAsync ( string mobile , int year , int month , int billtypeid )
         {
-            var oneClass = await db.Queryable<bills , billtype>( ( b , bt ) => new JoinQueryInfos(
+            var list = await db.Queryable<bills , billtype>( ( b , bt ) => new JoinQueryInfos(
        JoinType.Inner , b.billtypeid == bt.ids
             ) )
                 .Where( b => b.mobile == mobile
@@ -103,7 +103,47 @@ namespace billservice.services
                     updatedate = b.updatedate
                 } ).ToListAsync();
 
-            return oneClass;
+            return list;
+
+        }
+
+
+        public List<BillReturnDto> GetList ( string mobile , int year , int month , int billtypeid )
+        {
+            var list = db.Queryable<bills , billtype>( ( b , bt ) => new JoinQueryInfos(
+     JoinType.Inner , b.billtypeid == bt.ids
+          ) )
+                .Where( b => b.mobile == mobile
+                                    && b.moneyyear == year && b.moneymonth == month
+                                    && b.delmark == "N" )
+                .WhereIF( billtypeid > 0 , b => b.billtypeid == billtypeid )
+                .OrderBy( b => b.moneydate , OrderByType.Desc )
+                .OrderBy( b => b.adddate , OrderByType.Desc )
+                .Select( ( b , bt ) => new BillReturnDto// 是一个新类
+                {
+                    typename = bt.typename ,
+                    avatar = bt.avatar ,
+
+                    ids = b.ids ,
+                    billtypeid = b.billtypeid ,
+                    isout = b.isout ,
+                    memo = b.memo ,
+                    mobile = b.mobile ,
+                    moneys = b.moneys ,
+                    delmark = b.delmark ,
+                    sources = b.sources ,
+                    adddate = b.adddate ,
+                    deletedate = b.deletedate ,
+
+                    moneydate = b.moneydate ,
+                    moneyyear = b.moneyyear ,
+                    moneymonth = b.moneymonth ,
+                    moneyday = b.moneyday ,
+
+                    updatedate = b.updatedate
+                } ).ToList();
+
+            return list;
 
         }
 

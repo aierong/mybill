@@ -41,12 +41,11 @@ export default defineComponent( {
     // 定义是事件
     emits : {
         selectdate : ( val : ISelectDateObj ) => {
-
             //上面已经定义了参数类型,系统会验证的参数类型
 
             return true
         } ,
-        dialogclose : null
+
     } ,
     // 声明 props
     props : {
@@ -58,10 +57,6 @@ export default defineComponent( {
             type : Number ,
             required : true
         } ,
-        dialogshow : {
-            type : Boolean ,
-            required : true
-        }
     } ,
     setup ( props , { emit } ) {
         const show = ref( false )
@@ -69,21 +64,8 @@ export default defineComponent( {
         const currentDate = ref( new Date() );
 
         watch(
-            () => props.dialogshow ,
-            ( newval ) => {
-
-                show.value = newval;
-            } ,
-            {
-                // 这里如果不设置immediate = true,那么最初绑定的时候是不会执行的,要等到num改变时才执行监听计算
-                immediate : true
-            }
-        )
-
-        watch(
             [ () => props.year , () => props.month ] ,
             ( [ newyaer , newmonth ] ) => {
-
                 currentDate.value = new Date( newyaer , newmonth - 1 , 1 )
             } ,
             {
@@ -116,18 +98,29 @@ export default defineComponent( {
 
             // 通知父窗体
             emit( "selectdate" , payload );
-            emit( "dialogclose" )
 
+            show.value = false;
         }
 
         const onCancel = () => {
 
-            emit( "dialogclose" )
+            //取消时,发现2个值不相等了,还是重置一下
+            if ( currentDate.value.getFullYear() != props.year
+                || currentDate.value.getMonth() + 1 != props.month ) {
+                currentDate.value = new Date( props.year , props.month - 1 , 1 )
+            }
+
+            show.value = false;
+        }
+
+        const toggle = () => {
+
+            show.value = !show.value
         }
 
         return {
             show , currentDate , formatter ,
-            onConfirm , onCancel ,
+            onConfirm , onCancel , toggle ,
         };
     } ,
 

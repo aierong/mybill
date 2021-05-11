@@ -30,7 +30,7 @@ Time: 17:52
 
                 <SelectBillTypeDialog @selectbilltype="userselectbilltype"
                                       :selectbilltypeid="userselectbilltypeid"
-                                      ref="selectbilltypedialog"/>
+                                      ref="selectbilltypedialogRef"/>
             </div>
             <div style="padding-top: 8px;padding-bottom: 8px;">
                 <span style="margin-left: 10px;color: white;"
@@ -42,11 +42,17 @@ Time: 17:52
                       class="summoneytxt">总收入¥{{ FormatNumber( suminmoney ) }}</span>
                 <span v-show="isdisplayout"
                       class="summoneytxt">总支出¥{{ FormatNumber( sumoutmoney ) }}</span>
-                <SelectYearMonthDialog @selectdate="userselectdate"
-                                       @dialogclose="userclosedate"
+
+                <!--                <SelectYearMonthDialog @selectdate="userselectdate"-->
+                <!--                                       @dialogclose="userclosedate"-->
+                <!--                                       :year="userselectyear"-->
+                <!--                                       :month="userselectmonth"-->
+                <!--                                       :dialogshow="dateselectdialogshow"></SelectYearMonthDialog>-->
+
+                <SelectYearMonthDialog ref="selectdateRef"
+                                       @selectdate="userselectdate"
                                        :year="userselectyear"
-                                       :month="userselectmonth"
-                                       :dialogshow="dateselectdialogshow"></SelectYearMonthDialog>
+                                       :month="userselectmonth"/>
             </div>
         </div>
         <div :key="index"
@@ -162,15 +168,13 @@ export default defineComponent( {
         SelectYearMonthDialog , SelectBillTypeDialog ,
     } ,
     setup () {
-        //selectbilltypedialog
-        const selectbilltypedialog = ref<typeof SelectBillTypeDialog | null>( null )
+
+        const selectbilltypedialogRef = ref<typeof SelectBillTypeDialog | null>( null )
+        const selectdateRef = ref<typeof SelectYearMonthDialog | null>( null )
 
         var now = new Date();
         const outcolor : string = '#63e945'
         const incolor : string = '#E98545'
-
-        const dateselectdialogshow = ref( false )
-
 
         const billmodeldata = reactive<IBillList>( {
             list : []
@@ -329,12 +333,9 @@ export default defineComponent( {
         }
 
         const SelectYearMonth = () => {
-
-            dateselectdialogshow.value = true;
-        }
-
-        const userclosedate = () => {
-            dateselectdialogshow.value = false;
+            if ( selectdateRef.value != null ) {
+                selectdateRef.value.toggle();
+            }
         }
 
         /**
@@ -361,13 +362,9 @@ export default defineComponent( {
         }
 
         const onBillTypeSelect = () => {
-
-            // console.log( 'onBillTypeSelect' )
-            // console.log( 'selectbilltypedialog' , selectbilltypedialog )
-            // console.log( 'selectbilltypedialog' , selectbilltypedialog.value )
-
-            if ( selectbilltypedialog.value != null )
-                selectbilltypedialog.value.toggle();
+            if ( selectbilltypedialogRef.value != null ) {
+                selectbilltypedialogRef.value.toggle();
+            }
         }
 
         /**
@@ -401,15 +398,14 @@ export default defineComponent( {
         return {
             ...toRefs( billmodeldata ) ,
             ...toRefs( querymodeldata ) ,
-            selectbilltypedialog ,
-            dateselectdialogshow ,
+            selectbilltypedialogRef , selectdateRef ,
 
             isdisplayout , isdisplayin ,
             displaylist , sumoutmoney , suminmoney ,
             getweekstring , selectymtxt ,
-            SelectYearMonth , userselectdate , userclosedate ,
-            onBillTypeSelect , userselectbilltype ,
+            SelectYearMonth , userselectdate ,
 
+            onBillTypeSelect , userselectbilltype ,
             FormatNumber , getcolor , getcolorobject , getdiaplaymoneytxt ,
 
         };
