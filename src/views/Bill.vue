@@ -71,18 +71,11 @@ Time: 17:52
                                  :iconsize="22"
                                  :iconcolor="getcolor(mxitem.isout)"/>
                         <span style="margin-left: 5px;">{{ mxitem.typename }}</span>
-
-                        <!--                        <span style="position: absolute;right: 28px;">-->
-                        <!--                        <span :style="getcolorobject(mxitem.isout)">{{ mxitem.moneys }}</span>-->
-                        <!--                        </span>-->
-
                     </template>
                     <template #default>
-                        <span :style="getcolorobject(mxitem.isout)">{{ mxitem.moneys }}</span>
+                        <span :style="getcolorobject(mxitem.isout)">{{ getdiaplaymoneytxt( mxitem.moneys , mxitem.isout ) }}</span>
                     </template>
-
                 </van-cell>
-
             </van-cell-group>
         </div>
     </div>
@@ -167,8 +160,8 @@ export default defineComponent( {
     } ,
     setup () {
         var now = new Date();
-        const incolor : string = '#63e945'
-        const outcolor : string = '#E98545'
+        const outcolor : string = '#63e945'
+        const incolor : string = '#E98545'
 
         const dateselectdialogshow = ref( false )
         const billtypeselectdialogshow = ref( false )
@@ -393,6 +386,11 @@ export default defineComponent( {
 
         }
 
+        const getdiaplaymoneytxt = ( money : number , isout : boolean ) : string => {
+
+            return ( isout ? '-' : '+' ) + FormatNumber( money , 2 );
+        }
+
         return {
             ...toRefs( billmodeldata ) ,
             ...toRefs( querymodeldata ) ,
@@ -403,7 +401,8 @@ export default defineComponent( {
             getweekstring , selectymtxt ,
             SelectYearMonth , userselectdate , userclosedate ,
             onBillTypeSelect , userclosebilltype , userselectbilltype ,
-            FormatNumber , getcolor , getcolorobject ,
+            FormatNumber , getcolor , getcolorobject , getdiaplaymoneytxt ,
+
         };
     } ,
 
