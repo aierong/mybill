@@ -72,11 +72,17 @@ Time: 17:52
                                  :iconcolor="getcolor(mxitem.isout)"/>
                         <span style="margin-left: 5px;">{{ mxitem.typename }}</span>
 
-                        <span style="position: absolute;right: 28px;">
-                    <span :style="getcolorobject(mxitem.isout)">{{ mxitem.moneys }}</span>
-                    </span>
+                        <!--                        <span style="position: absolute;right: 28px;">-->
+                        <!--                        <span :style="getcolorobject(mxitem.isout)">{{ mxitem.moneys }}</span>-->
+                        <!--                        </span>-->
+
                     </template>
+                    <template #default>
+                        <span :style="getcolorobject(mxitem.isout)">{{ mxitem.moneys }}</span>
+                    </template>
+
                 </van-cell>
+
             </van-cell-group>
         </div>
     </div>
@@ -377,7 +383,7 @@ export default defineComponent( {
                 querymodeldata.userselectbilltypetxt = val.name;
                 querymodeldata.querytype = val.id == 0 ? "all" : ( val.isout ? "out" : "in" );
 
-                isrefresh = true; 
+                isrefresh = true;
             }
 
             if ( isrefresh ) {
