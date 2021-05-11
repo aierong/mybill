@@ -12,7 +12,7 @@ Time: 15:30
 
     <!-- 可以指定弹窗高度   :style="{ height: '60%' }"
     -->
-    <van-popup :style="{ height: '60%' }"
+    <van-popup :style="{ height: '40%' }"
                :close-on-click-overlay="false"
                v-model:show="show"
                closeable
@@ -21,10 +21,12 @@ Time: 15:30
                @click-close-icon="closedlg">
         <br><br><br>
         <!--        <span style="color: #222222;background-color: white;">全部</span>-->
-        <span :style="gettxtstyle(0)"
+        <span class="allbor"
+              :style="gettxtstyle(0)"
               @click="onAllClick">全部</span>
-        <br><br>
-        <div style="margin-left: 10px;">支出</div>
+        <br>
+        <!--        <div style="margin-left: 10px;">支出</div>-->
+        <van-divider content-position="left">支出类型</van-divider>
         <van-grid>
             <van-grid-item v-for="(item,index) in outlist"
                            :key="index"
@@ -34,8 +36,9 @@ Time: 15:30
                 </template>
             </van-grid-item>
         </van-grid>
-        <br><br>
-        <div style="margin-left: 10px;">收入</div>
+        <br>
+        <!--        <div style="margin-left: 10px;">收入</div>-->
+        <van-divider content-position="left">收入类型</van-divider>
         <van-grid>
             <van-grid-item v-for="(item,index) in inlist"
                            :key="index"
@@ -216,6 +219,8 @@ export default defineComponent( {
 </script>
 
 <!-- 样式代码片段  scoped -->
-<style>
-
+<style scoped>
+.allbor {
+    border: 1px solid black;
+}
 </style>
