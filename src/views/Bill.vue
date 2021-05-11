@@ -10,7 +10,7 @@ Time: 17:52
 <!-- html代码片段 -->
 <template>
     <div>
-        <div style="background-color: #3EB575;">
+        <div style="background-color: #39be77;">
             <div style="padding-top: 8px;">
                 <!--                <span style="margin-left: 10px;color: white;">{{ userselectbilltypetxt }}</span>-->
                 <!--                <van-icon name="apps-o"-->
@@ -55,6 +55,7 @@ Time: 17:52
                                        :month="userselectmonth"/>
             </div>
         </div>
+
         <div :key="index"
              v-for="(item,index) in displaylist">
             <van-cell-group>
@@ -86,6 +87,13 @@ Time: 17:52
                     </template>
                 </van-cell>
             </van-cell-group>
+        </div>
+
+        <div class="addd"
+             @click="onAdd">
+            <van-icon size="25"
+                      name="records"
+                      color="#39be77"/>
         </div>
     </div>
 </template>
@@ -173,7 +181,7 @@ export default defineComponent( {
         const selectdateRef = ref<typeof SelectYearMonthDialog | null>( null )
 
         var now = new Date();
-        const outcolor : string = '#63e945'
+        const outcolor : string = '#39be77'
         const incolor : string = '#E98545'
 
         const billmodeldata = reactive<IBillList>( {
@@ -395,10 +403,16 @@ export default defineComponent( {
             return ( isout ? '-' : '+' ) + FormatNumber( money , 2 );
         }
 
+        const onAdd = () => {
+            console.log( 'onAdd' )
+        }
+
         return {
             ...toRefs( billmodeldata ) ,
             ...toRefs( querymodeldata ) ,
             selectbilltypedialogRef , selectdateRef ,
+
+            onAdd ,
 
             isdisplayout , isdisplayin ,
             displaylist , sumoutmoney , suminmoney ,
