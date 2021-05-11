@@ -13,19 +13,16 @@ Time: 15:30
     <!-- 可以指定弹窗高度   :style="{ height: '60%' }"
     -->
     <van-popup :style="{ height: '40%' }"
-               :close-on-click-overlay="false"
                v-model:show="show"
                closeable
-               close-icon-position="top-left"
-               position="bottom"
-               @click-close-icon="closedlg">
+               position="bottom">
         <br><br><br>
-        <!--        <span style="color: #222222;background-color: white;">全部</span>-->
+
         <span class="allbor"
               :style="gettxtstyle(0)"
               @click="onAllClick">全部</span>
         <br>
-        <!--        <div style="margin-left: 10px;">支出</div>-->
+
         <van-divider content-position="left">支出类型</van-divider>
         <van-grid>
             <van-grid-item v-for="(item,index) in outlist"
@@ -37,7 +34,7 @@ Time: 15:30
             </van-grid-item>
         </van-grid>
         <br>
-        <!--        <div style="margin-left: 10px;">收入</div>-->
+
         <van-divider content-position="left">收入类型</van-divider>
         <van-grid>
             <van-grid-item v-for="(item,index) in inlist"
@@ -85,11 +82,8 @@ import * as billtypeapi from '@/http/api/billtype'
 export default defineComponent( {
     // 定义是事件
     emits : {
-        dialogclose : null ,
         selectbilltype : ( val : ISelectBillTypeObj ) => {
-
             //上面已经定义了参数类型,系统会验证的参数类型
-
             return true
         } ,
     } ,
@@ -99,50 +93,14 @@ export default defineComponent( {
             type : Number ,
             required : true
         } ,
-        dialogshow : {
-            type : Boolean ,
-            required : true
-        }
     } ,
     setup ( props , { emit } ) {
-        const show = ref( false )
-        const billtypeid = ref<number>( 0 )
+        const show = ref<boolean>( false )
 
         const listmodeldata = reactive<IAllList>( {
             outlist : [] ,
             inlist : []
         } );
-
-        watch(
-            () => props.selectbilltypeid ,
-            ( newval ) => {
-                // console.log( '子组件：监听props中num' , newval , old )
-                billtypeid.value = newval;
-
-            } ,
-            {
-                // 这里如果不设置immediate = true,那么最初绑定的时候是不会执行的,要等到num改变时才执行监听计算
-                immediate : true
-            }
-        )
-
-        watch(
-            () => props.dialogshow ,
-            async ( newval ) => {
-                show.value = newval;
-
-                if ( newval ) {
-                    //重新获取一下,列表
-                    await getlist();
-
-                    // console.log( 'newval' )
-                }
-            } ,
-            {
-                // 这里如果不设置immediate = true,那么最初绑定的时候是不会执行的,要等到num改变时才执行监听计算
-                immediate : true
-            }
-        )
 
         const getlist = async () => {
             var outstatus = await billtypeapi.getlist( true , true );
@@ -167,7 +125,7 @@ export default defineComponent( {
         }
 
         const isbilltype = ( id : number ) => {
-            return billtypeid.value == id;
+            return props.selectbilltypeid == id;
         }
 
         const gettxtstyle = ( id : number ) => {
@@ -187,11 +145,11 @@ export default defineComponent( {
             }
 
             emit( "selectbilltype" , payload )
-            emit( "dialogclose" )
+
+            show.value = false;
         }
 
         const onItemClick = ( item : IList ) : void => {
-            // console.log( 'item' , item )
 
             let payload : ISelectBillTypeObj = {
                 id : item.ids ,
@@ -200,18 +158,23 @@ export default defineComponent( {
             }
 
             emit( "selectbilltype" , payload )
-            emit( "dialogclose" )
+
+            show.value = false;
         }
 
-        const closedlg = () => {
-            // console.log( 'click-close-icon' )
-            emit( "dialogclose" )
+        const toggle = () => {
+            console.log( 'toggle' )
+            show.value = !show.value
         }
+
+        onMounted( async () => {
+            await getlist();
+        } )
 
         return {
             ...toRefs( listmodeldata ) ,
-            show , billtypeid , gettxtstyle ,
-            onAllClick , onItemClick , closedlg ,
+            show , gettxtstyle ,
+            onAllClick , onItemClick , toggle ,
         };
     } ,
 

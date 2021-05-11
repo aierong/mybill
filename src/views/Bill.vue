@@ -23,10 +23,14 @@ Time: 17:52
                     <van-icon name="apps-o"/>
                 </van-button>
 
+                <!--                <SelectBillTypeDialog @selectbilltype="userselectbilltype"-->
+                <!--                                      @dialogclose="userclosebilltype"-->
+                <!--                                      :selectbilltypeid="userselectbilltypeid"-->
+                <!--                                      :dialogshow="billtypeselectdialogshow"></SelectBillTypeDialog>-->
+
                 <SelectBillTypeDialog @selectbilltype="userselectbilltype"
-                                      @dialogclose="userclosebilltype"
                                       :selectbilltypeid="userselectbilltypeid"
-                                      :dialogshow="billtypeselectdialogshow"></SelectBillTypeDialog>
+                                      ref="selectbilltypedialog"/>
             </div>
             <div style="padding-top: 8px;padding-bottom: 8px;">
                 <span style="margin-left: 10px;color: white;"
@@ -158,12 +162,15 @@ export default defineComponent( {
         SelectYearMonthDialog , SelectBillTypeDialog ,
     } ,
     setup () {
+        //selectbilltypedialog
+        const selectbilltypedialog = ref<typeof SelectBillTypeDialog | null>( null )
+
         var now = new Date();
         const outcolor : string = '#63e945'
         const incolor : string = '#E98545'
 
         const dateselectdialogshow = ref( false )
-        const billtypeselectdialogshow = ref( false )
+
 
         const billmodeldata = reactive<IBillList>( {
             list : []
@@ -276,7 +283,6 @@ export default defineComponent( {
                     daylist.push( dayobj )
                 } )
 
-                // return _.groupBy( modeldata.list , "moneydate" );
                 return daylist;
             }
 
@@ -355,11 +361,13 @@ export default defineComponent( {
         }
 
         const onBillTypeSelect = () => {
-            billtypeselectdialogshow.value = true;
-        }
 
-        const userclosebilltype = () => {
-            billtypeselectdialogshow.value = false;
+            // console.log( 'onBillTypeSelect' )
+            // console.log( 'selectbilltypedialog' , selectbilltypedialog )
+            // console.log( 'selectbilltypedialog' , selectbilltypedialog.value )
+
+            if ( selectbilltypedialog.value != null )
+                selectbilltypedialog.value.toggle();
         }
 
         /**
@@ -393,13 +401,15 @@ export default defineComponent( {
         return {
             ...toRefs( billmodeldata ) ,
             ...toRefs( querymodeldata ) ,
-            dateselectdialogshow , billtypeselectdialogshow ,
+            selectbilltypedialog ,
+            dateselectdialogshow ,
 
             isdisplayout , isdisplayin ,
             displaylist , sumoutmoney , suminmoney ,
             getweekstring , selectymtxt ,
             SelectYearMonth , userselectdate , userclosedate ,
-            onBillTypeSelect , userclosebilltype , userselectbilltype ,
+            onBillTypeSelect , userselectbilltype ,
+
             FormatNumber , getcolor , getcolorobject , getdiaplaymoneytxt ,
 
         };
