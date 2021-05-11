@@ -21,6 +21,7 @@ Time: 17:27
     <!--    </van-tabbar>-->
 
     <van-tabbar route
+                :fixed="true"
                 active-color="#ee0a24"
                 inactive-color="#000">
         <van-tabbar-item replace

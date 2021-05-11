@@ -51,17 +51,16 @@ Time: 17:52
                 <template #title>
                     <span>{{ item.moneydate }}</span><span style="margin-left: 5px;">{{ getweekstring( item.week ) }}</span>
                     <span style="position: absolute;right: 28px;">
-                  <span v-show="isdisplayin">
-                     <span style="background-color: #f5f0f0;">收</span>
-                     <span>{{ FormatNumber( item.sumin ) }}</span>
-                  </span>
-                  <span style="margin-left: 10px;"
-                        v-show="isdisplayout">
-                      <span style="background-color: #f5f0f0;">支</span>
-                      <span>{{ FormatNumber( item.sumout ) }}</span>
-                  </span>
-
-                </span>
+                      <span v-show="isdisplayin">
+                         <span style="background-color: #f5f0f0;">收</span>
+                         <span>{{ FormatNumber( item.sumin ) }}</span>
+                      </span>
+                      <span style="margin-left: 10px;"
+                            v-show="isdisplayout">
+                          <span style="background-color: #f5f0f0;">支</span>
+                          <span>{{ FormatNumber( item.sumout ) }}</span>
+                      </span>
+                    </span>
 
                 </template>
                 <van-cell v-for="(mxitem,mxindex) in item.list"
