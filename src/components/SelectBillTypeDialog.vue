@@ -19,7 +19,7 @@ Time: 15:30
         <br><br><br>
 
         <span :class="{ active:isactive(0)  }"
-              style="margin-left: 20px;"
+              style="margin-left: 20px;font-size: 20px;"
               @click="onAllClick">全部</span>
         <br>
 
@@ -29,7 +29,7 @@ Time: 15:30
                            :key="index"
                            @click="onItemClick(item)">
                 <template #text>
-                    <span :class="{ active:isactive(item.ids)  }">{{ item.typename }}</span>
+                    <span style="font-size: 20px;" :class="{ active:isactive(item.ids)  }">{{ item.typename }}</span>
                 </template>
             </van-grid-item>
         </van-grid>
@@ -41,8 +41,7 @@ Time: 15:30
                            :key="index"
                            @click="onItemClick(item)">
                 <template #text>
-
-                    <span :class="{ active:isactive(item.ids)  }">{{ item.typename }}</span>
+                    <span style="font-size: 20px;" :class="{ active:isactive(item.ids)  }">{{ item.typename }}</span>
                 </template>
             </van-grid-item>
         </van-grid>

@@ -11,7 +11,7 @@ Time: 17:52
 <template>
     <div>
         <div style="background-color: #39be77;">
-            <div style="padding-top: 8px;">
+            <div style="padding-top: 10px;margin-left: 10px;">
                 <!--                <span style="margin-left: 10px;color: white;">{{ userselectbilltypetxt }}</span>-->
                 <!--                <van-icon name="apps-o"-->
                 <!--                          color="white"/>-->
@@ -32,7 +32,7 @@ Time: 17:52
                                       :selectbilltypeid="userselectbilltypeid"
                                       ref="selectbilltypedialogRef"/>
             </div>
-            <div style="padding-top: 8px;padding-bottom: 8px;">
+            <div style="margin-top: 5px;margin-left: 4px;padding-bottom: 10px;">
                 <span style="margin-left: 10px;color: white;"
                       @click="SelectYearMonth">{{ selectymtxt }}</span>
                 <van-icon name="arrow-down"
