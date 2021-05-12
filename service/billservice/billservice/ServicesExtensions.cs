@@ -139,7 +139,7 @@ namespace billservice
 
                 ConnectionString = constr ,//连接符字串
                 DbType = DbType.SqlServer ,
-                IsAutoCloseConnection = true
+                IsAutoCloseConnection = false
 
             } );
 

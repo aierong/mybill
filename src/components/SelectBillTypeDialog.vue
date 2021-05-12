@@ -18,8 +18,8 @@ Time: 15:30
                position="bottom">
         <br><br><br>
 
-        <span class="allbor"
-              :style="gettxtstyle(0)"
+        <span :class="{ active:isactive(0)  }"
+              style="margin-left: 20px;"
               @click="onAllClick">全部</span>
         <br>
 
@@ -29,7 +29,7 @@ Time: 15:30
                            :key="index"
                            @click="onItemClick(item)">
                 <template #text>
-                    <span :style="gettxtstyle(item.ids)">{{ item.typename }}</span>
+                    <span :class="{ active:isactive(item.ids)  }">{{ item.typename }}</span>
                 </template>
             </van-grid-item>
         </van-grid>
@@ -41,7 +41,8 @@ Time: 15:30
                            :key="index"
                            @click="onItemClick(item)">
                 <template #text>
-                    <span :style="gettxtstyle(item.ids)">{{ item.typename }}</span>
+
+                    <span :class="{ active:isactive(item.ids)  }">{{ item.typename }}</span>
                 </template>
             </van-grid-item>
         </van-grid>
@@ -65,8 +66,8 @@ import {
     ref ,
     reactive ,
     toRefs ,
-    computed , onMounted ,
-    watch ,
+    computed ,
+    onMounted ,
 } from "vue";
 
 import * as billtypeapi from '@/http/api/billtype'
@@ -94,15 +95,7 @@ export default defineComponent( {
             inlist : []
         } );
 
-        const getlist = async () => {
-            var outstatus = await billtypeapi.getlist( true , true );
-
-            if ( outstatus.data.Success ) {
-                listmodeldata.outlist = outstatus.data.Result;
-            }
-            else {
-                listmodeldata.outlist = [];
-            }
+        const getinlist = async () => {
 
             var instatus = await billtypeapi.getlist( false , true );
 
@@ -113,19 +106,25 @@ export default defineComponent( {
                 listmodeldata.inlist = [];
             }
 
-            // console.log( 'getlist' )
         }
 
-        const isbilltype = ( id : number ) => {
-            return props.selectbilltypeid == id;
-        }
+        const getoutlist = async () => {
+            var outstatus = await billtypeapi.getlist( true , true );
 
-        const gettxtstyle = ( id : number ) => {
-            var _isbilltype = isbilltype( id );
-
-            return {
-                color : _isbilltype ? '#55a532' : '#0A0A0AFF'
+            if ( outstatus.data.Success ) {
+                listmodeldata.outlist = outstatus.data.Result;
             }
+            else {
+                listmodeldata.outlist = [];
+            }
+
+        }
+
+
+
+
+        const isactive = ( id : number ) => {
+            return props.selectbilltypeid == id;
         }
 
         const onAllClick = () => {
@@ -155,17 +154,17 @@ export default defineComponent( {
         }
 
         const toggle = () => {
-            // console.log( 'toggle' )
             show.value = !show.value
         }
 
         onMounted( async () => {
-            await getlist();
+            await getoutlist();
+            await getinlist();
         } )
 
         return {
             ...toRefs( listmodeldata ) ,
-            show , gettxtstyle ,
+            show , isactive ,
             onAllClick , onItemClick , toggle ,
         };
     } ,
@@ -174,8 +173,6 @@ export default defineComponent( {
 </script>
 
 <!-- 样式代码片段  scoped -->
-<style scoped>
-.allbor {
-    border: 1px solid black;
-}
+<style scoped
+       src="./SelectBillTypeDialog.css">
 </style>

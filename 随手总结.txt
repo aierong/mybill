@@ -1,0 +1,8 @@
+
+popup组件弹窗
+父窗体给组件定义ref，然后调用组件的方法控制弹出
+
+
+
+class 绑定
+<span   :class="{ expense: true, active: payType == 'expense' }">支出</span>
