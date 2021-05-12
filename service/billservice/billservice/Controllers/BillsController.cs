@@ -76,39 +76,39 @@ namespace billservice.Controllers
 
 
 
-        //[HttpGet]
-        //[Route( "getlist/{year}/{month}/{billtypeid}" )]
-        //public async Task<ServiceResult<List<BillReturnDto>>> getlist ( int year = 2020 , int month = 1 , int billtypeid = 0 )
-        //{
-        //    var result = new ServiceResult<List<BillReturnDto>>();
-
-        //    var mobile = base.UserMobile;
-
-        //    // billtypeid=0 代表全部
-        //    var list = await this.Ibill.GetListAsync( mobile , year , month , billtypeid );
-
-        //    result.IsSuccess( list );
-
-        //    return result;
-        //}
-
-
-
         [HttpGet]
         [Route( "getlist/{year}/{month}/{billtypeid}" )]
-        public ServiceResult<List<BillReturnDto>> getlist ( int year = 2020 , int month = 1 , int billtypeid = 0 )
+        public async Task<ServiceResult<List<BillReturnDto>>> getlist ( int year = 2020 , int month = 1 , int billtypeid = 0 )
         {
             var result = new ServiceResult<List<BillReturnDto>>();
 
             var mobile = base.UserMobile;
 
             // billtypeid=0 代表全部
-            var list = this.Ibill.GetList( mobile , year , month , billtypeid );
+            var list = await this.Ibill.GetListAsync( mobile , year , month , billtypeid );
 
             result.IsSuccess( list );
 
             return result;
         }
+
+
+
+        //[HttpGet]
+        //[Route( "getlist/{year}/{month}/{billtypeid}" )]
+        //public ServiceResult<List<BillReturnDto>> getlist ( int year = 2020 , int month = 1 , int billtypeid = 0 )
+        //{
+        //    var result = new ServiceResult<List<BillReturnDto>>();
+
+        //    var mobile = base.UserMobile;
+
+        //    // billtypeid=0 代表全部
+        //    var list = this.Ibill.GetList( mobile , year , month , billtypeid );
+
+        //    result.IsSuccess( list );
+
+        //    return result;
+        //}
 
 
 

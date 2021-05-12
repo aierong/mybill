@@ -13,3 +13,9 @@ const prefix = '/billtypes';
 export function getlist ( isout : boolean , isrefresh : boolean = true ) {
     return axios.get( `${ prefix }/getallbilltype/${ isout }/${ isrefresh }` );
 }
+
+export function add ( isout : boolean , typename : string = '' ) {
+    return axios.post( `${ prefix }` , { isout , typename } );
+}
+
+

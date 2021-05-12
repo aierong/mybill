@@ -89,12 +89,14 @@ Time: 17:52
             </van-cell-group>
         </div>
 
-        <div class="addd"
+        <div class="navplus"
              @click="onAdd">
             <van-icon size="25"
                       name="records"
                       color="#39be77"/>
         </div>
+
+        <BillOperation ref="operationRef"/>
     </div>
 </template>
 
@@ -164,21 +166,22 @@ import * as _ from "lodash"
 import dayjs from 'dayjs'
 
 import { FormatNumber } from '@common/util'
-
-import SelectYearMonthDialog from "@comp/SelectYearMonthDialog.vue";
 import { ISelectDateObj , ISelectBillTypeObj } from "@comp/types";
 
+import SelectYearMonthDialog from "@comp/SelectYearMonthDialog.vue";
 import SelectBillTypeDialog from "@comp/SelectBillTypeDialog.vue";
+import BillOperation from "@comp/BillOperation.vue";
 
 export default defineComponent( {
     // 子组件
     components : {
-        SelectYearMonthDialog , SelectBillTypeDialog ,
+        SelectYearMonthDialog , SelectBillTypeDialog , BillOperation ,
     } ,
     setup () {
 
         const selectbilltypedialogRef = ref<typeof SelectBillTypeDialog | null>( null )
         const selectdateRef = ref<typeof SelectYearMonthDialog | null>( null )
+        const operationRef = ref<typeof BillOperation | null>( null );
 
         var now = new Date();
         const outcolor : string = '#39be77'
@@ -405,12 +408,16 @@ export default defineComponent( {
 
         const onAdd = () => {
             console.log( 'onAdd' )
+
+            if ( operationRef.value != null ) {
+                operationRef.value.toggle();
+            }
         }
 
         return {
             ...toRefs( billmodeldata ) ,
             ...toRefs( querymodeldata ) ,
-            selectbilltypedialogRef , selectdateRef ,
+            selectbilltypedialogRef , selectdateRef , operationRef ,
 
             onAdd ,
 

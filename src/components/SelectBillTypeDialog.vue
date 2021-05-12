@@ -52,17 +52,11 @@ Time: 15:30
 <!-- TypeScript脚本代码片段 -->
 <script lang="ts">
 
-interface IList {
-    ids : number,
-    isout : boolean,
-    issystemtype : boolean,
-    typename : string,
-    avatar : string,
-}
+import { IBillType , ISelectBillTypeObj } from "@comp/types";
 
 interface IAllList {
-    outlist : IList[],
-    inlist : IList[]
+    outlist : IBillType[],
+    inlist : IBillType[]
 }
 
 // 导入
@@ -74,8 +68,6 @@ import {
     computed , onMounted ,
     watch ,
 } from "vue";
-
-import { ISelectBillTypeObj } from "@comp/types";
 
 import * as billtypeapi from '@/http/api/billtype'
 
@@ -149,7 +141,7 @@ export default defineComponent( {
             show.value = false;
         }
 
-        const onItemClick = ( item : IList ) : void => {
+        const onItemClick = ( item : IBillType ) : void => {
 
             let payload : ISelectBillTypeObj = {
                 id : item.ids ,

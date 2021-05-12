@@ -8,17 +8,13 @@
 .nav {
     width: 50px;
     height: 40px;
-    /*border: 1px solid #D4CD49;*/
     position: fixed;
-
-
     right: 2%;
     bottom: 20%;
-    /*left: 90%;*/
-    /*top: 90%;*/
+
 }
 
-.addd {
+.navplus {
     position: fixed;
     bottom: 100px;
     right: 30px;

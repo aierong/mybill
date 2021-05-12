@@ -70,40 +70,80 @@ namespace billservice.services
 
         public async Task<List<BillReturnDto>> GetListAsync ( string mobile , int year , int month , int billtypeid )
         {
-            var list = await db.Queryable<bills , billtype>( ( b , bt ) => new JoinQueryInfos(
-       JoinType.Inner , b.billtypeid == bt.ids
-            ) )
-                .Where( b => b.mobile == mobile
-                                    && b.moneyyear == year && b.moneymonth == month
-                                    && b.delmark == "N" )
-                .WhereIF( billtypeid > 0 , b => b.billtypeid == billtypeid )
-                .OrderBy( b => b.moneydate , OrderByType.Desc )
-                .OrderBy( b => b.adddate , OrderByType.Desc )
-                .Select( ( b , bt ) => new BillReturnDto// 是一个新类
-                {
-                    typename = bt.typename ,
-                    avatar = bt.avatar ,
+            //     var list = await db.Queryable<bills , billtype>( ( b , bt ) => new JoinQueryInfos(
+            //JoinType.Inner , b.billtypeid == bt.ids
+            //     ) )
+            //         .Where( b => b.mobile == mobile
+            //                             && b.moneyyear == year && b.moneymonth == month
+            //                             && b.delmark == "N" )
+            //         .WhereIF( billtypeid > 0 , b => b.billtypeid == billtypeid )
+            //         .OrderBy( b => b.moneydate , OrderByType.Desc )
+            //         .OrderBy( b => b.adddate , OrderByType.Desc )
+            //         .Select( ( b , bt ) => new BillReturnDto// 是一个新类
+            //         {
+            //             typename = bt.typename ,
+            //             avatar = bt.avatar ,
 
-                    ids = b.ids ,
-                    billtypeid = b.billtypeid ,
-                    isout = b.isout ,
-                    memo = b.memo ,
-                    mobile = b.mobile ,
-                    moneys = b.moneys ,
-                    delmark = b.delmark ,
-                    sources = b.sources ,
-                    adddate = b.adddate ,
-                    deletedate = b.deletedate ,
+            //             ids = b.ids ,
+            //             billtypeid = b.billtypeid ,
+            //             isout = b.isout ,
+            //             memo = b.memo ,
+            //             mobile = b.mobile ,
+            //             moneys = b.moneys ,
+            //             delmark = b.delmark ,
+            //             sources = b.sources ,
+            //             adddate = b.adddate ,
+            //             deletedate = b.deletedate ,
 
-                    moneydate = b.moneydate ,
-                    moneyyear = b.moneyyear ,
-                    moneymonth = b.moneymonth ,
-                    moneyday = b.moneyday ,
+            //             moneydate = b.moneydate ,
+            //             moneyyear = b.moneyyear ,
+            //             moneymonth = b.moneymonth ,
+            //             moneyday = b.moneyday ,
 
-                    updatedate = b.updatedate
-                } ).ToListAsync();
+            //             updatedate = b.updatedate
+            //         } ).ToListAsync();
 
-            return list;
+            //     return list;
+
+            string sql = @"SELECT      bt.typename ,
+                                    bt.avatar ,
+                                    b.ids ,
+                                    b.mobile ,
+                                    b.billtypeid ,
+                                    b.isout ,
+                                    b.moneys ,
+                                    b.moneydate ,
+                                    b.moneyyear ,
+                                    b.moneymonth ,
+                                    b.moneyday ,
+                                    b.memo ,
+                                    b.sources ,
+                                    b.adddate ,
+                                    b.updatedate ,
+                                    b.deletedate ,
+                                    b.delmark
+                        FROM        dbo.bills AS b
+                        JOIN   dbo.billtype AS bt
+                        ON  b.billtypeid = bt.ids 
+                        WHERE b.mobile=@mobile 
+                            AND b.moneyyear =@moneyyear AND b.moneymonth=@moneymonth 
+                            AND b.delmark='N'
+                            {0}
+                        ORDER BY b.moneydate DESC,b.adddate desc
+                        ";
+
+            sql = string.Format( sql , billtypeid > 0 ? string.Format( " and b.billtypeid={0}" , billtypeid ) : string.Empty );
+
+            var dt = await db.Ado.SqlQueryAsync<BillReturnDto>( sql ,
+                      new
+                      {
+                          mobile = mobile ,
+                          moneyyear = year ,
+                          moneymonth = month ,
+
+                      } );
+
+            return dt;
 
         }
 

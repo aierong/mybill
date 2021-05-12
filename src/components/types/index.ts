@@ -22,3 +22,11 @@ export interface ISelectBillTypeObj {
     name : string,
     isout : boolean
 }
+
+export interface IBillType {
+    ids : number,
+    isout : boolean,
+    issystemtype : boolean,
+    typename : string,
+    avatar : string,
+}

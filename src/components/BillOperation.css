@@ -1,0 +1,10 @@
+.divhx {
+    /*不会换行*/
+    white-space: nowrap;
+    overflow-x: auto;
+
+    /* 把边框显示出来,可以看到效果 */
+    /*border: 1px solid #F00;*/
+
+    height: 30px;
+}
