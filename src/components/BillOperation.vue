@@ -38,19 +38,39 @@ Time: 17:35
                     <span>{{ mxitem.typename }}</span>
                 </template>
             </div>
-
         </div>
-
+        <br>
+        <div>
+            <div class="remarktip"
+                 @click="openmomedlg"
+                 v-if="isdisplaymometip">添加备注
+            </div>
+            <div v-else>
+                <span class="remark">{{ mometxt }}</span><span @click="openmomedlg"
+                                                               class="remarkupdate">修改</span>
+            </div>
+        </div>
     </van-popup>
     <van-dialog v-model:show="showtypedlg"
                 title="填写类型"
-                show-cancel-button>
+                show-cancel-button
+                :before-close="typebeforeClose">
         <van-field v-model="typetxt"
                    autosize
                    maxlength="6"
                    placeholder="请输入类型"
-                   show-word-limit
-                   @confirm="typeconfirm"/>
+                   show-word-limit/>
+    </van-dialog>
+    <van-dialog v-model:show="showmomedlg"
+                title="填写备注"
+                show-cancel-button>
+        <van-field v-model="mometxt"
+                   autosize
+                   rows="2"
+                   type="textarea"
+                   maxlength="10"
+                   placeholder="请输入备注"
+                   show-word-limit/>
     </van-dialog>
 </template>
 
@@ -73,7 +93,12 @@ import {
     computed ,
     onMounted ,
 } from "vue";
+
+//引入一下
+import { Toast } from 'vant';
+
 import * as billtypeapi from "@/http/api/billtype";
+import { EncryptPassWord } from "@common/util";
 
 export default defineComponent( {
     // 子组件
@@ -86,11 +111,22 @@ export default defineComponent( {
         const showtypedlg = ref<boolean>( false )
         const typetxt = ref<string>( '' )
 
+        const showmomedlg = ref<boolean>( false )
+        const mometxt = ref<string>( '' )
+
         const listmodeldata = reactive<IAllList>( {
             outlist : [] ,
             inlist : [] ,
             isout : true
         } );
+
+        const isdisplaymometip = computed( () => {
+            if ( mometxt.value == '' ) {
+                return true;
+            }
+
+            return false;
+        } )
 
         const toggle = () => {
             // console.log( 'toggle' )
@@ -98,18 +134,11 @@ export default defineComponent( {
         }
 
         onMounted( async () => {
-            await getlist();
+            await getoutlist();
+            await getinlist();
         } );
 
-        const getlist = async () => {
-            var outstatus = await billtypeapi.getlist( true , true );
-
-            if ( outstatus.data.Success ) {
-                listmodeldata.outlist = outstatus.data.Result;
-            }
-            else {
-                listmodeldata.outlist = [];
-            }
+        const getinlist = async () => {
 
             var instatus = await billtypeapi.getlist( false , true );
 
@@ -120,21 +149,73 @@ export default defineComponent( {
                 listmodeldata.inlist = [];
             }
 
-            // console.log( 'getlist' )
+        }
+
+        const getoutlist = async () => {
+            var outstatus = await billtypeapi.getlist( true , true );
+
+            if ( outstatus.data.Success ) {
+                listmodeldata.outlist = outstatus.data.Result;
+            }
+            else {
+                listmodeldata.outlist = [];
+            }
+
         }
 
         const onAddType = () => {
             showtypedlg.value = true;
         }
 
-        const typeconfirm = () => {
+        const typebeforeClose = async ( action : string ) => {
+            console.log( 'typebeforeClose' )
+
+            if ( action === "confirm" ) {
+                if ( typetxt.value != '' ) {
+                    let status = await billtypeapi.add( listmodeldata.isout , typetxt.value );
+
+                    if ( status.data.Success ) {
+                        // 成功了,刷新一下
+                        if ( listmodeldata.isout ) {
+                            await getoutlist();
+                        }
+                        else {
+                            await getinlist();
+                        }
+
+                        return true;
+                    }
+                    else {
+                        Toast.fail( status.data.Message )
+
+                        return false;
+                    }
+                }
+                else {
+                    Toast( '请填写类型' );
+
+                    return false;
+                }
+            }
+            else {
+                // 点击了取消按钮
+
+                // return true;
+            }
+
+            return true;
+        }
+
+        const openmomedlg = () => {
+            showmomedlg.value = true;
         }
 
         return {
             ...toRefs( listmodeldata ) ,
             show , toggle ,
             showtypedlg , typetxt ,
-            onAddType , typeconfirm ,
+            showmomedlg , mometxt , isdisplaymometip , openmomedlg ,
+            onAddType , typebeforeClose ,
         };
     } ,
 

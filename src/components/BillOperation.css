@@ -8,3 +8,21 @@
 
     height: 30px;
 }
+
+.remarktip {
+    margin-left: 10px;
+    color: #4b67e2;
+    font-size: small;
+}
+
+.remark {
+    margin-left: 10px;
+    color: #4b67e2;
+    font-size: small;
+}
+
+.remarkupdate {
+    margin-left: 10px;
+    color: #4b67e2;
+    font-size: small;
+}
