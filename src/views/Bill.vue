@@ -12,9 +12,7 @@ Time: 17:52
     <div>
         <div style="background-color: #39be77;">
             <div style="padding-top: 10px;margin-left: 10px;">
-                <!--                <span style="margin-left: 10px;color: white;">{{ userselectbilltypetxt }}</span>-->
-                <!--                <van-icon name="apps-o"-->
-                <!--                          color="white"/>-->
+
 
                 <van-button hairline
                             @click="onBillTypeSelect"
@@ -23,11 +21,7 @@ Time: 17:52
                     <van-icon name="apps-o"/>
                 </van-button>
 
-                <!--                <SelectBillTypeDialog @selectbilltype="userselectbilltype"-->
-                <!--                                      @dialogclose="userclosebilltype"-->
-                <!--                                      :selectbilltypeid="userselectbilltypeid"-->
-                <!--                                      :dialogshow="billtypeselectdialogshow"></SelectBillTypeDialog>-->
-
+                <!--    选择类型弹窗   -->
                 <SelectBillTypeDialog @selectbilltype="userselectbilltype"
                                       :selectbilltypeid="userselectbilltypeid"
                                       ref="selectbilltypedialogRef"/>
@@ -43,12 +37,7 @@ Time: 17:52
                 <span v-show="isdisplayout"
                       class="summoneytxt">总支出¥{{ FormatNumber( sumoutmoney ) }}</span>
 
-                <!--                <SelectYearMonthDialog @selectdate="userselectdate"-->
-                <!--                                       @dialogclose="userclosedate"-->
-                <!--                                       :year="userselectyear"-->
-                <!--                                       :month="userselectmonth"-->
-                <!--                                       :dialogshow="dateselectdialogshow"></SelectYearMonthDialog>-->
-
+                <!--    选择日期弹窗   -->
                 <SelectYearMonthDialog ref="selectdateRef"
                                        @selectdate="userselectdate"
                                        :year="userselectyear"
@@ -89,6 +78,7 @@ Time: 17:52
             </van-cell-group>
         </div>
 
+        <!--     悬浮添加按钮   -->
         <div class="navplus"
              @click="onAdd">
             <van-icon size="25"
@@ -96,6 +86,7 @@ Time: 17:52
                       color="#39be77"/>
         </div>
 
+        <!--    填写账单弹窗   -->
         <BillOperation ref="operationRef"/>
     </div>
 </template>
