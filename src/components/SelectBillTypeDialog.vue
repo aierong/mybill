@@ -12,7 +12,7 @@ Time: 15:30
 
     <!-- 可以指定弹窗高度   :style="{ height: '60%' }"
     -->
-    <van-popup :style="{ height: '40%' }"
+    <van-popup :style="{ height: '58%' }"
                v-model:show="show"
                closeable
                position="bottom">
@@ -29,7 +29,8 @@ Time: 15:30
                            :key="index"
                            @click="onItemClick(item)">
                 <template #text>
-                    <span style="font-size: 20px;" :class="{ active:isactive(item.ids)  }">{{ item.typename }}</span>
+                    <span style="font-size: 20px;"
+                          :class="{ active:isactive(item.ids)  }">{{ item.typename }}</span>
                 </template>
             </van-grid-item>
         </van-grid>
@@ -41,7 +42,8 @@ Time: 15:30
                            :key="index"
                            @click="onItemClick(item)">
                 <template #text>
-                    <span style="font-size: 20px;" :class="{ active:isactive(item.ids)  }">{{ item.typename }}</span>
+                    <span style="font-size: 20px;"
+                          :class="{ active:isactive(item.ids)  }">{{ item.typename }}</span>
                 </template>
             </van-grid-item>
         </van-grid>
@@ -67,6 +69,7 @@ import {
     toRefs ,
     computed ,
     onMounted ,
+    watch ,
 } from "vue";
 
 import * as billtypeapi from '@/http/api/billtype'
@@ -95,7 +98,6 @@ export default defineComponent( {
         } );
 
         const getinlist = async () => {
-
             var instatus = await billtypeapi.getlist( false , true );
 
             if ( instatus.data.Success ) {
@@ -104,7 +106,6 @@ export default defineComponent( {
             else {
                 listmodeldata.inlist = [];
             }
-
         }
 
         const getoutlist = async () => {
@@ -116,11 +117,7 @@ export default defineComponent( {
             else {
                 listmodeldata.outlist = [];
             }
-
         }
-
-
-
 
         const isactive = ( id : number ) => {
             return props.selectbilltypeid == id;
@@ -156,10 +153,29 @@ export default defineComponent( {
             show.value = !show.value
         }
 
-        onMounted( async () => {
-            await getoutlist();
-            await getinlist();
-        } )
+        // // 不要在这里获取列表，因为添加账单那可以增加类型，再打开这个弹窗时，需要重新获取列表
+        // onMounted( async () => {
+
+        //     // await getoutlist();
+        //     // await getinlist();
+        // } )
+
+        watch(
+            show ,
+            async ( newval : boolean ) => {
+                // console.log( '子组件：监听props中num' , newval , old )
+
+                if ( newval ) {
+                    // 弹窗打开，我们就获取列表
+                    await getoutlist();
+                    await getinlist();
+                }
+            } ,
+            {
+                // 这里如果不设置immediate = true,那么最初绑定的时候是不会执行的,要等到num改变时才执行监听计算
+                immediate : true
+            }
+        )
 
         return {
             ...toRefs( listmodeldata ) ,

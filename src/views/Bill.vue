@@ -12,8 +12,6 @@ Time: 17:52
     <div>
         <div style="background-color: #39be77;">
             <div style="padding-top: 10px;margin-left: 10px;">
-
-
                 <van-button hairline
                             @click="onBillTypeSelect"
                             color="#3EB575"

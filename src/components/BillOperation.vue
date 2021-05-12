@@ -57,7 +57,7 @@ Time: 17:35
                 :before-close="typebeforeClose">
         <van-field v-model="typetxt"
                    autosize
-                   maxlength="6"
+                   maxlength="4"
                    placeholder="请输入类型"
                    show-word-limit/>
     </van-dialog>
