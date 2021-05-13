@@ -164,7 +164,6 @@ namespace billservice
         /// <returns></returns>
         public static IServiceCollection AddFluentValidationService ( this IServiceCollection services , IConfiguration configuration )
         {
-
             services.AddMvc().AddFluentValidation();
 
             services.AddTransient<IValidator<UserAddDto> , UserAddDtoValidator>();
