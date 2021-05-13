@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FreeSql.Provider.SqlServer" Version="2.5.100" />
     <PackageReference Include="SqlSugarCore" Version="5.0.2.8" />
   </ItemGroup>
 
