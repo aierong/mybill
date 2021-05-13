@@ -48,7 +48,7 @@ import {
     reactive ,
     toRefs ,
     toRef ,
-    computed
+    computed ,
 } from "vue";
 
 import { avatariconlist } from '@common/constant.ts'
@@ -89,9 +89,7 @@ export default defineComponent( {
 
         return {
             selectavatar ,
-
             avatariconlist ,
-
             beforeClose ,
         };
     } ,

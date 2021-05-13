@@ -114,7 +114,6 @@ export default defineComponent( {
         }
 
         const toggle = () => {
-
             show.value = !show.value
         }
 

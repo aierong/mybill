@@ -157,7 +157,7 @@ import dayjs from 'dayjs'
 import { FormatNumber } from '@common/util'
 import { ISelectDateObj , ISelectBillTypeObj } from "@comp/types";
 
-import SelectYearMonthDialog from "@comp/SelectYearMonthDialog.vue";
+import SelectYearMonthDialog from "@comp/popup/SelectYearMonthDialog.vue";
 import SelectBillTypeDialog from "@comp/popup/SelectBillTypeDialog.vue";
 import BillOperation from "@comp/popup/BillOperation.vue";
 
