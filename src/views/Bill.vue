@@ -158,8 +158,8 @@ import { FormatNumber } from '@common/util'
 import { ISelectDateObj , ISelectBillTypeObj } from "@comp/types";
 
 import SelectYearMonthDialog from "@comp/SelectYearMonthDialog.vue";
-import SelectBillTypeDialog from "@comp/SelectBillTypeDialog.vue";
-import BillOperation from "@comp/BillOperation.vue";
+import SelectBillTypeDialog from "@comp/popup/SelectBillTypeDialog.vue";
+import BillOperation from "@comp/popup/BillOperation.vue";
 
 export default defineComponent( {
     // 子组件

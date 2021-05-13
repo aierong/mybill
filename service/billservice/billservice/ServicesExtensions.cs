@@ -17,7 +17,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using SqlSugar;
+
 
 namespace billservice
 {
@@ -68,7 +68,7 @@ namespace billservice
 
 
             //注册cache服务
-            services.AddMemoryCache();  
+            services.AddMemoryCache();
 
 
             services.AddMvc().AddJsonOptions( ( options ) =>
@@ -134,18 +134,18 @@ namespace billservice
             ////连接符字串
             string constr = configuration["DbConnectionString"];
 
-            SqlSugarClient db = new SqlSugarClient( new ConnectionConfig()
-            {
 
-                ConnectionString = constr ,//连接符字串
-                DbType = DbType.SqlServer ,
-                IsAutoCloseConnection = false
 
-            } );
+            IFreeSql fsql = new FreeSql.FreeSqlBuilder()
+                       .UseConnectionString( FreeSql.DataType.SqlServer , constr )
+                       //.UseAutoSyncStructure( true ) //自动同步实体结构到数据库，FreeSql不会扫描程序集，只有CRUD时才会生成表。
+                       .Build(); //请务必定义成 Singleton 单例模式
 
-            services.AddSingleton<SqlSugarClient>( db );
+            services.AddSingleton<IFreeSql>( fsql );
 
             #endregion
+
+
 
             services.AddSingleton<IUser , UserService>();
             services.AddSingleton<IBillType , BillTypeService>();

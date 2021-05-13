@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Linq;
 using System.Text;
-using SqlSugar;
+using FreeSql.DataAnnotations;
 
 namespace billservice.models
 {
     ///<summary>
     ///
     ///</summary>
-    [SugarTable( "billtype" )]
     public partial class billtype
     {
 
@@ -17,7 +16,7 @@ namespace billservice.models
         /// Default:
         /// Nullable:False
         /// </summary>           
-        [SugarColumn( IsPrimaryKey = true , IsIdentity = true )]
+        [Column( IsPrimary = true , IsIdentity = true )]
         public int ids
         {
             get; set;
