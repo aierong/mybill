@@ -174,7 +174,7 @@ export default defineComponent( {
 
         var now = new Date();
         const outcolor : string = '#39be77'
-        const incolor : string = '#E98545'
+        const incolor : string = '#ECBE25FF'
 
         const billmodeldata = reactive<IBillList>( {
             list : []

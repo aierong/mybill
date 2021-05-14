@@ -16,7 +16,10 @@ Time: 17:35
                position="bottom">
         <br><br><br>
         <div>
-            <span>支出</span><span>收入</span>
+            <span @click="changeType(true)"
+                  :class="{filterspan:true,outactive:isout}">支出</span>
+            <span @click="changeType(false)"
+                  :class="{filterspan:true,inactive:!isout}">收入</span>
         </div>
         <br>
         <div>
@@ -81,7 +84,6 @@ import { IBillType } from "@comp/types";
 interface IAllList {
     outlist : IBillType[],
     inlist : IBillType[],
-    isout : boolean
 }
 
 // 导入
@@ -114,10 +116,11 @@ export default defineComponent( {
         const showmomedlg = ref<boolean>( false )
         const mometxt = ref<string>( '' )
 
+        const isout = ref<boolean>( true );
+
         const listmodeldata = reactive<IAllList>( {
             outlist : [] ,
-            inlist : [] ,
-            isout : true
+            inlist : []
         } );
 
         const isdisplaymometip = computed( () => {
@@ -172,11 +175,13 @@ export default defineComponent( {
 
             if ( action === "confirm" ) {
                 if ( typetxt.value != '' ) {
-                    let status = await billtypeapi.add( listmodeldata.isout , typetxt.value );
+                    let status = await billtypeapi.add( isout.value , typetxt.value );
 
                     if ( status.data.Success ) {
+                        typetxt.value = '';  //清空一下
+
                         // 成功了,刷新一下
-                        if ( listmodeldata.isout ) {
+                        if ( isout.value ) {
                             await getoutlist();
                         }
                         else {
@@ -210,12 +215,17 @@ export default defineComponent( {
             showmomedlg.value = true;
         }
 
+        const changeType = ( _isout : boolean ) => {
+            isout.value = _isout;
+        }
+
         return {
             ...toRefs( listmodeldata ) ,
-            show , toggle ,
+            isout , show , toggle ,
             showtypedlg , typetxt ,
             showmomedlg , mometxt , isdisplaymometip , openmomedlg ,
             onAddType , typebeforeClose ,
+            changeType ,
         };
     } ,
 
