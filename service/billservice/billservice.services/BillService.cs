@@ -24,7 +24,6 @@ namespace billservice.services
         public bool IsExistId ( int id , string mobile )
         {
 
-
             var isAny = fsql.Select<bills>().Where( it => it.ids == id
                                                                                  && it.mobile == mobile ).Any();
             return isAny;
@@ -34,7 +33,6 @@ namespace billservice.services
 
         public bool Save ( bills bill )
         {
-
 
             var ids = fsql.Insert( bill ).ExecuteAffrows();
 
@@ -46,7 +44,6 @@ namespace billservice.services
         public async Task<bool> SaveAsync ( bills bill )
         {
 
-
             var ids = await fsql.Insert( bill ).ExecuteAffrowsAsync();
 
             return ids > 0;
@@ -56,7 +53,6 @@ namespace billservice.services
 
         public bool Update ( bills bill )
         {
-
 
             var result = fsql.Update<bills>()
                          .Set( a => a.billtypeid , bill.billtypeid )
@@ -76,7 +72,6 @@ namespace billservice.services
         public async Task<bool> UpdateAsync ( bills bill )
         {
 
-
             var result = await fsql.Update<bills>()
                          .Set( a => a.billtypeid , bill.billtypeid )
                          .Set( a => a.isout , bill.isout )
@@ -94,7 +89,6 @@ namespace billservice.services
 
         public async Task<List<BillReturnDto>> GetListAsync ( string mobile , int year , int month , int billtypeid )
         {
-
 
             string sql = @"SELECT      bt.typename ,
                                     bt.avatar ,
@@ -140,11 +134,6 @@ namespace billservice.services
             return dt;
 
         }
-
-
-
-
-
 
 
 
