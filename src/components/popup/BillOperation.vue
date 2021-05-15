@@ -22,6 +22,12 @@ Time: 17:35
                   :class="{filterspan:true,inactive:!isout}">收入</span>
             <span @click="opendate"
                   class="dateselect">{{ displaydate }}<van-icon name="arrow-down"/></span>
+
+            <van-button hairline
+                        @click="onAddBill"
+                        color="#3EB575"
+                        size="small">确定
+            </van-button>
         </div>
         <br>
         <!--        金额-->
@@ -313,10 +319,12 @@ export default defineComponent( {
         watch(
             amount ,
             ( newval : string ) => {
-                // console.log( '子组件：监听props中num' , newval , old )
 
                 if ( newval ) {
                     moneys.value = parseFloat( newval );
+                }
+                else {
+                    moneys.value = 0.00;
                 }
             } ,
             {
@@ -324,6 +332,10 @@ export default defineComponent( {
                 immediate : true
             }
         )
+
+        const onAddBill = () => {
+
+        }
 
         return {
             ...toRefs( listmodeldata ) ,
@@ -352,6 +364,7 @@ export default defineComponent( {
             opendate ,
             inputChange ,
             remove ,
+            onAddBill ,
         };
     } ,
 

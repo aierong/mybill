@@ -35,6 +35,7 @@ namespace billservice.Controllers
 
 
         [HttpPost]
+        [Route( "add" )]
         public async Task<ServiceResult> add ( [FromBody] BillDto billDto )
         {
             var result = new ServiceResult();
@@ -55,7 +56,8 @@ namespace billservice.Controllers
 
 
 
-        [HttpPut]
+        [HttpPost]
+        [Route( "update" )]
         public async Task<ServiceResult> update ( [FromBody] BillDto billDto )
         {
             var result = new ServiceResult();

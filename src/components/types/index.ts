@@ -30,3 +30,25 @@ export interface IBillType {
     typename : string,
     avatar : string,
 }
+
+export interface IBillDto {
+    /**
+     * 是添加
+     */
+    isadd : boolean,
+
+    /**
+     * 记录id
+     */
+    ids : number,
+
+    /**
+     * 类型id
+     */
+    billtypeid : number,
+    isout : boolean,
+    moneys : number,
+    moneydate : string,
+    memo : string,
+
+}

@@ -10,6 +10,16 @@ import axios from 'axios'
 
 const prefix = '/bills';
 
+import { IBillDto } from '@comp/types'
+
 export function getlist ( year : number , month : number , billtypeid : number ) {
     return axios.get( `${ prefix }/getlist/${ year }/${ month }/${ billtypeid }` );
+}
+
+export function add ( BillDto : IBillDto ) {
+    return axios.post( `${ prefix }/add` , BillDto );
+}
+
+export function update ( BillDto : IBillDto ) {
+    return axios.post( `${ prefix }/update` , BillDto );
 }
