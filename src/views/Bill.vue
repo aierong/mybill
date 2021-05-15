@@ -65,16 +65,14 @@ Time: 17:52
                 <van-cell v-for="(mxitem,mxindex) in item.list"
                           :key="mxindex">
                     <template #title>
-                        <!--                        <aliicon :iconname="mxitem.avatar"-->
-                        <!--                                 :iconsize="22"-->
-                        <!--                                 :iconcolor="getcolor(mxitem.isout)"/>-->
                         <aliicon :iconname="mxitem.avatar"
                                  :iconsize="22"
                                  :isout="mxitem.isout"/>
                         <span style="margin-left: 5px;">{{ mxitem.typename }}</span>
                     </template>
                     <template #default>
-                        <span :style="getcolorobject(mxitem.isout)">{{ mxitem.isout ? '-' : '+' }}{{ $FormarMoney( mxitem.moneys ) }}</span>
+
+                        <span :class="{ inmoney:!mxitem.isout,outmoney:mxitem.isout }">{{ mxitem.isout ? '-' : '+' }}{{ $FormarMoney( mxitem.moneys ) }}</span>
                     </template>
                 </van-cell>
             </van-cell-group>
@@ -167,7 +165,9 @@ import BillOperation from "@comp/popup/BillOperation.vue";
 export default defineComponent( {
     // 子组件
     components : {
-        SelectYearMonthDialog , SelectBillTypeDialog , BillOperation ,
+        SelectYearMonthDialog ,
+        SelectBillTypeDialog ,
+        BillOperation ,
     } ,
     setup () {
 
@@ -176,8 +176,6 @@ export default defineComponent( {
         const operationRef = ref<typeof BillOperation | null>( null );
 
         var now = new Date();
-        const outcolor : string = '#39be77'
-        const incolor : string = '#ECBE25FF'
 
         const billmodeldata = reactive<IBillList>( {
             list : []
@@ -325,16 +323,6 @@ export default defineComponent( {
             return '星期' + str;
         }
 
-        const getcolor = ( isout : boolean ) : string => {
-            return isout ? outcolor : incolor;
-        }
-
-        const getcolorobject = ( isout : boolean ) : any => {
-            return {
-                color : getcolor( isout )
-            };
-        }
-
         const SelectYearMonth = () => {
             if ( selectdateRef.value != null ) {
                 selectdateRef.value.toggle();
@@ -414,8 +402,6 @@ export default defineComponent( {
             SelectYearMonth , userselectdate ,
 
             onBillTypeSelect , userselectbilltype ,
-
-            getcolor , getcolorobject ,
 
         };
     } ,
