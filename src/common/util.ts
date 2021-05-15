@@ -73,21 +73,9 @@ function EncryptPassWord ( pwd = '' ) {
     return EncryptString( pwd );
 }
 
-/**
- * 格式化小数
- * @param num
- * @param digits
- * @constructor
- */
-function FormatNumber ( num : number , digits : number = 2 ) {
-    return num.toFixed( digits );
-}
-
 export {
-
     ValidatorMobile ,
     ValidatorPassword ,
     IsEmail ,
     EncryptPassWord ,
-    FormatNumber,
 }

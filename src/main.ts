@@ -12,16 +12,20 @@ import 'vant/lib/index.css';
 
 import components from "@comp/globalcomponent";
 
+import common from "@plugins/common";
+
 const app = createApp( App )
 //引入vant
 app.use( Vant )
 
 //循环注册全局组件
-Object.keys(components).forEach((key) => {
+Object.keys( components ).forEach( ( key ) => {
 
     //注册全局组件
-    app.component(`${key}`, components[key])
-})
+    app.component( `${ key }` , components[ key ] )
+} )
+
+app.use( common )
 
 // 注入key
 app.use( store , key ).use( router ).mount( '#app' )

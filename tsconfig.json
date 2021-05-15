@@ -36,6 +36,9 @@
       ],
       "@assets/*": [
         "src/assets/*"
+      ],
+      "@plugins/*": [
+        "src/plugins/*"
       ]
     },
     "lib": [

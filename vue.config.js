@@ -2,10 +2,10 @@
  作者: chenghao
  功能: 配置文件
  */
-const path = require('path');
+const path = require( 'path' );
 
-function resolve(dir) {
-    return path.join(__dirname, dir)
+function resolve ( dir ) {
+    return path.join( __dirname , dir )
 }
 
 module.exports = {
@@ -23,13 +23,11 @@ module.exports = {
         .set( '@https' , resolve( 'src/https' ) )
         .set( '@store' , resolve( 'src/store' ) )
         .set( '@assets' , resolve( 'src/assets' ) )
-
+        .set( '@plugins' , resolve( 'src/plugins' ) )
     } ,
     devServer : {
         //配置端口
         port : 8338
     } ,
-
-
 
 };

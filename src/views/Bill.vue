@@ -10,7 +10,8 @@ Time: 17:52
 <!-- html代码片段 -->
 <template>
     <div>
-        <div style="background-color: #39be77;">
+        <!--     头部   -->
+        <div class="header">
             <div style="padding-top: 10px;margin-left: 10px;">
                 <van-button hairline
                             @click="onBillTypeSelect"
@@ -31,9 +32,9 @@ Time: 17:52
                           color="white"
                           @click="SelectYearMonth"/>
                 <span v-show="isdisplayin"
-                      class="summoneytxt">总收入¥{{ FormatNumber( suminmoney ) }}</span>
+                      class="summoneytxt">总收入¥{{ $FormarMoney( suminmoney ) }}</span>
                 <span v-show="isdisplayout"
-                      class="summoneytxt">总支出¥{{ FormatNumber( sumoutmoney ) }}</span>
+                      class="summoneytxt">总支出¥{{ $FormarMoney( sumoutmoney ) }}</span>
 
                 <!--    选择日期弹窗   -->
                 <SelectYearMonthDialog ref="selectdateRef"
@@ -43,23 +44,23 @@ Time: 17:52
             </div>
         </div>
 
+        <!--     列表,循环   -->
         <div :key="index"
              v-for="(item,index) in displaylist">
             <van-cell-group>
                 <template #title>
                     <span>{{ item.moneydate }}</span><span style="margin-left: 5px;">{{ getweekstring( item.week ) }}</span>
-                    <span style="position: absolute;right: 28px;">
+                    <span class="itemmoney">
                       <span v-show="isdisplayin">
-                         <span style="background-color: #f5f0f0;">收</span>
-                         <span>{{ FormatNumber( item.sumin ) }}</span>
+                         <span class="iteminout">收</span>
+                         <span>{{ $FormarMoney( item.sumin ) }}</span>
                       </span>
                       <span style="margin-left: 10px;"
                             v-show="isdisplayout">
-                          <span style="background-color: #f5f0f0;">支</span>
-                          <span>{{ FormatNumber( item.sumout ) }}</span>
+                          <span class="iteminout">支</span>
+                          <span>{{ $FormarMoney( item.sumout ) }}</span>
                       </span>
                     </span>
-
                 </template>
                 <van-cell v-for="(mxitem,mxindex) in item.list"
                           :key="mxindex">
@@ -70,7 +71,7 @@ Time: 17:52
                         <span style="margin-left: 5px;">{{ mxitem.typename }}</span>
                     </template>
                     <template #default>
-                        <span :style="getcolorobject(mxitem.isout)">{{ getdiaplaymoneytxt( mxitem.moneys , mxitem.isout ) }}</span>
+                        <span :style="getcolorobject(mxitem.isout)">{{ mxitem.isout ? '-' : '+' }}{{ $FormarMoney( mxitem.moneys ) }}</span>
                     </template>
                 </van-cell>
             </van-cell-group>
@@ -154,7 +155,6 @@ import * as billapi from '@/http/api/bill'
 import * as _ from "lodash"
 import dayjs from 'dayjs'
 
-import { FormatNumber } from '@common/util'
 import { ISelectDateObj , ISelectBillTypeObj } from "@comp/types";
 
 import SelectYearMonthDialog from "@comp/popup/SelectYearMonthDialog.vue";
@@ -390,11 +390,6 @@ export default defineComponent( {
 
         }
 
-        const getdiaplaymoneytxt = ( money : number , isout : boolean ) : string => {
-
-            return ( isout ? '-' : '+' ) + FormatNumber( money , 2 );
-        }
-
         const onAdd = () => {
             console.log( 'onAdd' )
 
@@ -416,7 +411,8 @@ export default defineComponent( {
             SelectYearMonth , userselectdate ,
 
             onBillTypeSelect , userselectbilltype ,
-            FormatNumber , getcolor , getcolorobject , getdiaplaymoneytxt ,
+
+            getcolor , getcolorobject ,
 
         };
     } ,
