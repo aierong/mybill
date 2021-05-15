@@ -23,7 +23,7 @@ Time: 17:35
             <span @click="opendate"
                   class="dateselect">{{ displaydate }}<van-icon name="arrow-down"/></span>
 
-            <van-button hairline
+            <van-button class="savebtn" hairline
                         @click="onAddBill"
                         color="#3EB575"
                         size="small">确定
