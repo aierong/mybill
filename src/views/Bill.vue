@@ -65,9 +65,12 @@ Time: 17:52
                 <van-cell v-for="(mxitem,mxindex) in item.list"
                           :key="mxindex">
                     <template #title>
+                        <!--                        <aliicon :iconname="mxitem.avatar"-->
+                        <!--                                 :iconsize="22"-->
+                        <!--                                 :iconcolor="getcolor(mxitem.isout)"/>-->
                         <aliicon :iconname="mxitem.avatar"
                                  :iconsize="22"
-                                 :iconcolor="getcolor(mxitem.isout)"/>
+                                 :isout="mxitem.isout"/>
                         <span style="margin-left: 5px;">{{ mxitem.typename }}</span>
                     </template>
                     <template #default>

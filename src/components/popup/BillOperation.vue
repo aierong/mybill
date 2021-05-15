@@ -26,8 +26,10 @@ Time: 17:35
             <div class="divhx"
                  v-if="isout">
                 <template v-for="(mxitem,mxindex) in outlist">
-                    <span style="margin-left: 5px;"><aliicon :iconname="mxitem.avatar"
-                                                             :iconsize="26"/>{{ mxitem.typename }}</span>
+                    <span style="margin-left: 5px;">
+                        <aliicon :iconname="mxitem.avatar"
+                                 :iconsize="26"
+                                 :isout="isout"/>{{ mxitem.typename }}</span>
                 </template>
                 <span style="margin-left: 15px;margin-right: 15px;"><van-icon @click="onAddType"
                                                                               name="add-o"
@@ -37,7 +39,8 @@ Time: 17:35
                  v-else>
                 <template v-for="(mxitem,mxindex) in inlist">
                     <aliicon :iconname="mxitem.avatar"
-                             :iconsize="22"/>
+                             :iconsize="26"
+                             :isout="isout"/>
                     <span>{{ mxitem.typename }}</span>
                 </template>
             </div>

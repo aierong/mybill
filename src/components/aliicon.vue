@@ -9,9 +9,8 @@ Time: 18:55
 
 <!-- html代码片段 -->
 <template>
-    <!--    class="iconfont icon-canyin"-->
-    <i :class="[iconfont, iconname]"
-       :style="{ color: iconcolor, fontSize: iconsize + 'px' }"></i>
+    <i :class="[{ iniconcolor:!isout,outiconcolor:isout  },iconfont, iconname]"
+       :style="{  fontSize: iconsize + 'px' }"></i>
 </template>
 
 <!-- TypeScript脚本代码片段 -->
@@ -39,9 +38,9 @@ export default defineComponent( {
             type : Number ,
             required : true
         } ,
-        iconcolor : {
-            type : String ,
-            default : ''
+        isout : {
+            type : Boolean ,
+            required : true
         } ,
     } ,
     setup () {
@@ -56,6 +55,7 @@ export default defineComponent( {
 </script>
 
 <!-- 样式代码片段  scoped -->
-<style>
-
+<style lang="less"
+       scoped
+       src="./aliicon.less">
 </style>
