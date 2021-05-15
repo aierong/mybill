@@ -50,5 +50,6 @@ export interface IBillDto {
     moneys : number,
     moneydate : string,
     memo : string,
-
 }
+
+

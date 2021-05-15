@@ -41,7 +41,8 @@ Time: 17:35
             <div class="divitem"
                  v-if="isout">
                 <template v-for="(mxitem,mxindex) in outlist">
-                    <span style="margin-left: 5px;">
+                    <span @click="outitemselect(mxitem.ids)"
+                          style="margin-left: 5px;">
                         <aliicon :iconname="mxitem.avatar"
                                  :iconsize="26"
                                  :isout="isout"/>{{ mxitem.typename }}</span>
@@ -53,10 +54,11 @@ Time: 17:35
             <div class="divitem"
                  v-else>
                 <template v-for="(mxitem,mxindex) in inlist">
-                    <aliicon :iconname="mxitem.avatar"
-                             :iconsize="26"
-                             :isout="isout"/>
-                    <span>{{ mxitem.typename }}</span>
+                    <span @click="initemselect(mxitem.ids)"
+                          style="margin-left: 5px;">
+                        <aliicon :iconname="mxitem.avatar"
+                                 :iconsize="26"
+                                 :isout="isout"/>{{ mxitem.typename }}</span>
                 </template>
                 <span style="margin-left: 15px;margin-right: 15px;"><van-icon @click="onAddType"
                                                                               name="add-o"
@@ -117,7 +119,7 @@ Time: 17:35
 
 <!-- TypeScript脚本代码片段 -->
 <script lang="ts">
-import { IBillType } from "@comp/types";
+import { IBillType , IBillDto } from "@comp/types";
 
 interface IAllList {
     outlist : IBillType[],
@@ -160,6 +162,7 @@ export default defineComponent( {
         const showdatedlg = ref( false );
 
         const isout = ref<boolean>( true );
+        const billtypeid = ref<number>( 0 );
 
         const year = ref<number>( now.getFullYear() );
         const month = ref( 1 + now.getMonth() );
@@ -192,7 +195,6 @@ export default defineComponent( {
         } )
 
         const toggle = () => {
-            // console.log( 'toggle' )
             show.value = !show.value
         }
 
@@ -231,7 +233,7 @@ export default defineComponent( {
         }
 
         const typebeforeClose = async ( action : string ) => {
-            console.log( 'typebeforeClose' )
+            // console.log( 'typebeforeClose' )
 
             if ( action === "confirm" ) {
                 if ( typetxt.value != '' ) {
@@ -309,7 +311,6 @@ export default defineComponent( {
             }
 
             amount.value = amount.value + value;
-
         }
 
         const remove = () => {
@@ -333,7 +334,24 @@ export default defineComponent( {
             }
         )
 
+        const outitemselect = ( id : number ) => {
+            billtypeid.value = id;
+        }
+
+        const initemselect = ( id : number ) => {
+            billtypeid.value = id;
+        }
+
         const onAddBill = () => {
+            var savedata : IBillDto = {
+                isadd : true ,
+                ids : 0 ,
+                billtypeid : billtypeid.value ,
+                isout : isout.value ,
+                moneys : moneys.value ,
+                moneydate : '' ,
+                memo : mometxt.value
+            };
 
         }
 
@@ -365,6 +383,7 @@ export default defineComponent( {
             inputChange ,
             remove ,
             onAddBill ,
+            outitemselect , initemselect ,
         };
     } ,
 
