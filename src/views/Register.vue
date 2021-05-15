@@ -60,7 +60,7 @@ Time: 16:39
                               @click="avatarclick"/>
                 </template>
             </van-field>
-            <div style="margin: 16px;">
+            <div class="btndiv">
                 <van-button round
                             block
                             type="primary"
@@ -281,5 +281,4 @@ export default defineComponent( {
 <style scoped
        lang="less"
        src="./Register.less">
-
 </style>

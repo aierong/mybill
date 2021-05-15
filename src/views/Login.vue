@@ -32,8 +32,8 @@ Time: 16:40
                        placeholder="请输入密码"
                        required
                        :rules="[{ required: true, message: '请填写密码' },{ validator: validatorPwdMessage } ]"/>
-            <div style="margin: 16px;">
-                <div class="mytxt">{{ '保持登录状态' + days + '天' }}</div>
+            <div class="btndiv">
+                <div class="logintxt">{{ '保持登录状态' + days + '天' }}</div>
                 <van-button round
                             block
                             type="primary"
