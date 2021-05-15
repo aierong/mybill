@@ -174,5 +174,6 @@ export default defineComponent( {
 
 <!-- 样式代码片段  scoped -->
 <style scoped
-       src="./Login.css">
+       lang="less"
+       src="./Login.less">
 </style>

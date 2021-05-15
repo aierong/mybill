@@ -189,5 +189,6 @@ export default defineComponent( {
 
 <!-- 样式代码片段  scoped -->
 <style scoped
-       src="./SelectBillTypeDialog.css">
+       lang="less"
+       src="./SelectBillTypeDialog.less">
 </style>

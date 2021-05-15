@@ -88,7 +88,7 @@ interface UserObj {
         avatar : string
     },
     showdialog : boolean
-    // avatarobj : IAvatarObj
+
 }
 
 // 导入
@@ -278,6 +278,8 @@ export default defineComponent( {
 </script>
 
 <!-- 样式代码片段  scoped -->
-<style>
+<style scoped
+       lang="less"
+       src="./Register.less">
 
 </style>

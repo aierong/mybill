@@ -5,7 +5,7 @@
     <router-view/>
 </template>
 
-<style>
+<style lang="less">
 
 html,
 body,
@@ -13,6 +13,5 @@ body,
     width: 100%;
     height: 100%;
     background-color: #FAFAFA;
-
 }
 </style>

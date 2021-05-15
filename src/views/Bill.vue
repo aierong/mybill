@@ -426,5 +426,6 @@ export default defineComponent( {
 
 <!-- 样式代码片段  scoped -->
 <style scoped
-       src="./Bill.css">
+       lang="less"
+       src="./Bill.less">
 </style>
