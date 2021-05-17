@@ -10,7 +10,7 @@ Time: 17:35
 <!-- html代码片段 -->
 <template>
 
-    <van-popup :style="{ height: '55%' }"
+    <van-popup :style="{ height: '70%' }"
                v-model:show="show"
                closeable
                position="bottom">
@@ -23,7 +23,8 @@ Time: 17:35
             <span @click="opendate"
                   class="dateselect">{{ displaydate }}<van-icon name="arrow-down"/></span>
 
-            <van-button class="savebtn" hairline
+            <van-button class="savebtn"
+                        hairline
                         @click="onAddBill"
                         color="#3EB575"
                         size="small">确定
@@ -141,13 +142,22 @@ import {
 import { Toast } from 'vant';
 
 import * as billtypeapi from "@/http/api/billtype";
+import * as billapi from '@/http/api/bill'
+
 import { EncryptPassWord } from "@common/util";
 
 export default defineComponent( {
-    // 子组件
-    components : {} ,
+
     // 声明 props
-    props : {} ,
+    props : {
+        isadddata : {
+            type : Boolean ,
+            required : true
+        } ,
+        updatedata : {
+            type : Object
+        }
+    } ,
     setup ( props , { emit } ) {
         var now = new Date();
 
@@ -181,6 +191,13 @@ export default defineComponent( {
             return `${ monthtxt }月${ daytxt }日`;
         } )
 
+        const datetxt = computed( () => {
+            var monthtxt = month.value <= 9 ? '0' + month.value.toString() : month.value.toString();
+            var daytxt = day.value <= 9 ? '0' + day.value.toString() : day.value.toString();
+
+            return `${ year.value }-${ monthtxt }-${ daytxt }`;
+        } )
+
         const listmodeldata = reactive<IAllList>( {
             outlist : [] ,
             inlist : []
@@ -201,6 +218,17 @@ export default defineComponent( {
         onMounted( async () => {
             await getoutlist();
             await getinlist();
+
+            if ( isout.value ) {
+                if ( listmodeldata.outlist != null && listmodeldata.outlist.length > 0 ) {
+                    billtypeid.value = listmodeldata.outlist[ 0 ].ids;
+                }
+            }
+            else {
+                if ( listmodeldata.inlist != null && listmodeldata.inlist.length > 0 ) {
+                    billtypeid.value = listmodeldata.inlist[ 0 ].ids;
+                }
+            }
         } );
 
         const getinlist = async () => {
@@ -243,11 +271,24 @@ export default defineComponent( {
                         typetxt.value = '';  //清空一下
 
                         // 成功了,刷新一下
-                        if ( isout.value ) {
+                        var _isout = isout.value;
+                        if ( _isout ) {
                             await getoutlist();
                         }
                         else {
                             await getinlist();
+                        }
+
+                        // 默认添加成功的那个项目,也就是最后一个
+                        if ( _isout ) {
+                            if ( listmodeldata.outlist != null && listmodeldata.outlist.length > 0 ) {
+                                billtypeid.value = listmodeldata.outlist[ listmodeldata.outlist.length - 1 ].ids;
+                            }
+                        }
+                        else {
+                            if ( listmodeldata.inlist != null && listmodeldata.inlist.length > 0 ) {
+                                billtypeid.value = listmodeldata.inlist[ listmodeldata.inlist.length - 1 ].ids;
+                            }
                         }
 
                         return true;
@@ -279,6 +320,18 @@ export default defineComponent( {
 
         const changeType = ( _isout : boolean ) => {
             isout.value = _isout;
+
+            //默认选择第1个
+            if ( _isout ) {
+                if ( listmodeldata.outlist != null && listmodeldata.outlist.length > 0 ) {
+                    billtypeid.value = listmodeldata.outlist[ 0 ].ids;
+                }
+            }
+            else {
+                if ( listmodeldata.inlist != null && listmodeldata.inlist.length > 0 ) {
+                    billtypeid.value = listmodeldata.inlist[ 0 ].ids;
+                }
+            }
         }
 
         const opendate = () => {
@@ -342,17 +395,19 @@ export default defineComponent( {
             billtypeid.value = id;
         }
 
-        const onAddBill = () => {
+        const onAddBill = async () => {
             var savedata : IBillDto = {
-                isadd : true ,
-                ids : 0 ,
+                isadd : props.isadddata ,
+                ids : props.isadddata ? 0 : 0 ,
                 billtypeid : billtypeid.value ,
                 isout : isout.value ,
                 moneys : moneys.value ,
-                moneydate : '' ,
+                moneydate : datetxt.value ,
                 memo : mometxt.value
             };
 
+            let status = await billapi.add( savedata );
+            console.log( status )
         }
 
         return {
@@ -362,12 +417,13 @@ export default defineComponent( {
             year ,
             month ,
             day ,
-            displaydate ,
+            displaydate , datetxt ,
             showdatedlg ,
             CurrentSelectDate ,
             onCancelDate ,
             onConfirmDate ,
-            isout ,
+            isout , billtypeid ,
+
             show ,
             toggle ,
             showtypedlg ,
