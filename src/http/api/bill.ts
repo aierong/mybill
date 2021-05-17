@@ -6,7 +6,8 @@
  功能: TypeScript脚本
 
  */
-import axios from 'axios'
+// import axios from 'axios'
+import axios from '@/http/http.ts';
 
 const prefix = '/bills';
 

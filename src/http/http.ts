@@ -7,7 +7,7 @@
 
  */
 
-import axios from 'axios';
+import Axios from 'axios';
 import { tokenname } from '@common/constant'
 
 import { useRouter , useRoute } from 'vue-router'
@@ -16,8 +16,11 @@ import { useRouter , useRoute } from 'vue-router'
 
 let _url = process.env.VUE_APP_serverurl;
 // console.log( '_url' , _url )
-axios.defaults.baseURL = `${ _url }/api`
-
+// axios.defaults.baseURL = `${ _url }/api`
+const axios = Axios.create( {
+    baseURL : `${ _url }/api` ,
+    timeout : 50000  // 超时50秒
+} );
 // 请求拦截
 axios.interceptors.request.use(
     config => {

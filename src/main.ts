@@ -3,8 +3,9 @@ import App from './App.vue'
 import router from './router'
 import { store , key } from '@store/index'
 
+// 这里不要引用，使用时再引用
 // import axios from '@https/http.ts';
-import '@/http/http.ts';
+// import '@/http/http.ts';
 
 //导入vant
 import Vant from 'vant';
