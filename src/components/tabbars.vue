@@ -52,8 +52,6 @@ import {
     onMounted ,
 } from "vue";
 
-// import { useRouter , useRoute } from 'vue-router'
-
 export default defineComponent( {
     // 声明 props
     props : {} ,
