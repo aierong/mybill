@@ -51,6 +51,7 @@ Time: 17:35
                                  :iconsize="26"
                                  :isout="isout"/>{{ mxitem.typename }}</span>
                     </template>
+                    <!--                    这里带一个添加按钮-->
                     <span style="margin-left: 15px;margin-right: 15px;"><van-icon @click="onAddType"
                                                                                   name="add-o"
                                                                                   size="26"/></span>
@@ -64,6 +65,7 @@ Time: 17:35
                                  :iconsize="26"
                                  :isout="isout"/>{{ mxitem.typename }}</span>
                     </template>
+                    <!--                    这里带一个添加按钮-->
                     <span style="margin-left: 15px;margin-right: 15px;"><van-icon @click="onAddType"
                                                                                   name="add-o"
                                                                                   size="26"/></span>
