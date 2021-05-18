@@ -45,9 +45,9 @@ Time: 17:35
                 <div class="divitem"
                      v-if="isout">
                     <template v-for="(mxitem,mxindex) in outlist">
-                    <span @click="outitemselect(mxitem.ids)"
+                    <span :class="{bgout:billtypeid==mxitem.ids}"
+                          @click="outitemselect(mxitem.ids)"
                           style="margin-left: 5px;">
-<!--                        :isout="isout"-->
                         <aliicon :iconname="mxitem.avatar"
                                  :iconsize="26"
                                  colortypes="no"
@@ -61,9 +61,9 @@ Time: 17:35
                 <div class="divitem"
                      v-else>
                     <template v-for="(mxitem,mxindex) in inlist">
-                    <span @click="initemselect(mxitem.ids)"
+                    <span :class="{bgin:billtypeid==mxitem.ids}"
+                          @click="initemselect(mxitem.ids)"
                           style="margin-left: 5px;">
-<!--                        :colortypes="no"-->
                         <aliicon :iconname="mxitem.avatar"
                                  :iconsize="26"
                                  colortypes="no"
