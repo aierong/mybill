@@ -41,10 +41,6 @@ export default defineComponent( {
             type : Number ,
             required : true
         } ,
-        // isout : {
-        //     type : Boolean ,
-        //     required : true
-        // } ,
         colortypes : {
             type : String as PropType<colortype> ,
             required : true ,
