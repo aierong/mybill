@@ -58,3 +58,9 @@ export default defineComponent( {
     }
 } );
 </script>
+
+<!-- 样式代码片段  scoped -->
+<style scoped
+       src="./Home.less"
+       lang="less">
+</style>
