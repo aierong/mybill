@@ -7,20 +7,15 @@
 
  */
 
-import Axios from 'axios';
+import axios from 'axios';
 import { tokenname } from '@common/constant'
-
-import { useRouter , useRoute } from 'vue-router'
-
-// console.log( 'http.ts' )
+import router from '@/router'
 
 let _url = process.env.VUE_APP_serverurl;
 // console.log( '_url' , _url )
-// axios.defaults.baseURL = `${ _url }/api`
-const axios = Axios.create( {
-    baseURL : `${ _url }/api` ,
-    timeout : 50000  // 超时50秒
-} );
+axios.defaults.baseURL = `${ _url }/api`
+axios.defaults.timeout = 50000;
+
 // 请求拦截
 axios.interceptors.request.use(
     config => {
@@ -55,7 +50,6 @@ axios.interceptors.response.use(
             // 清楚token
             localStorage.removeItem( tokenname );
             // 页面跳转
-            const router = useRouter()
             router.push( '/login' );
         }
         if ( status == 403 ) {
@@ -63,7 +57,6 @@ axios.interceptors.response.use(
             // 清楚token
             localStorage.removeItem( tokenname );
             // 页面跳转
-            const router = useRouter()
             router.push( '/login' );
         }
         else {

@@ -7,6 +7,8 @@ import { store , key } from '@store/index'
 // import axios from '@https/http.ts';
 // import '@/http/http.ts';
 
+
+
 //导入vant
 import Vant from 'vant';
 import 'vant/lib/index.css';
