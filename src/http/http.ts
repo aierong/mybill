@@ -11,6 +11,9 @@ import axios from 'axios';
 import { tokenname } from '@common/constant'
 import router from '@/router'
 
+//引入一下
+import { Toast } from 'vant';
+
 let _url = process.env.VUE_APP_serverurl;
 // console.log( '_url' , _url )
 axios.defaults.baseURL = `${ _url }/api`
@@ -46,14 +49,16 @@ axios.interceptors.response.use(
         const { status } = error.response;
 
         if ( status == 401 ) {
-            alert( 'token过期, 请重新登录!' );
+            // alert( 'token过期, 请重新登录!' );
+            Toast.fail( 'token过期,请重新登录' )
             // 清楚token
             localStorage.removeItem( tokenname );
             // 页面跳转
             router.push( '/login' );
         }
         if ( status == 403 ) {
-            alert( '无权限,请重新登录!' );
+            // alert( '无权限,请重新登录!' );
+            Toast.fail( '无权限,请重新登录' )
             // 清楚token
             localStorage.removeItem( tokenname );
             // 页面跳转
