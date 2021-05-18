@@ -14,14 +14,14 @@ namespace billservice.Profile
         public BillProfile ()
         {
             CreateMap<BillDto , bills>()
-                
+
                 .AfterMap( ( src , dest , context ) =>
                 {
                     DateTime now = DateTime.Now;
 
                     if ( src.isadd )
                     {
-                        dest.sources = string.Empty;
+                        dest.sources = "手动记账";
 
                         dest.adddate = now;
                         dest.updatedate = null;
@@ -29,7 +29,7 @@ namespace billservice.Profile
 
                         dest.delmark = Helpers.Constant.N;
 
-                        DateTime date = Convert.ToDateTime( src.moneydate )  ;
+                        DateTime date = Convert.ToDateTime( src.moneydate );
 
                         dest.moneyyear = date.Year;
                         dest.moneymonth = date.Month;

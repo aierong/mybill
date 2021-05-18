@@ -63,12 +63,13 @@ Time: 17:35
                      v-else>
                     <template v-for="(mxitem,mxindex) in inlist">
                         <div :class="{bgin:billtypeid==mxitem.ids}"
-                              @click="initemselect(mxitem.ids)"
-                              style="margin-left: 5px;display: inline-block;height: 30px;">
+                             @click="initemselect(mxitem.ids)"
+                             style="margin-left: 5px;display: inline-block;height: 30px;">
                             <aliicon :iconname="mxitem.avatar"
                                      :iconsize="26"
                                      colortypes="no"
-                            />{{ mxitem.typename }}
+                            />
+                            {{ mxitem.typename }}
                         </div>
                     </template>
                     <!--                    这里带一个添加按钮-->
@@ -162,7 +163,7 @@ export default defineComponent( {
 
     // 声明 props
     props : {
-        isadddata : {
+        isrunadd : {
             type : Boolean ,
             required : true
         } ,
@@ -194,7 +195,7 @@ export default defineComponent( {
 
         const moneys = ref<number>( 0.00 );
 
-        const amount = ref( '0.00' )
+        const amount = ref( '' )
 
         const displaydate = computed( () => {
             var monthtxt = month.value <= 9 ? '0' + month.value.toString() : month.value.toString();
@@ -364,6 +365,7 @@ export default defineComponent( {
 
         // 监听输入框改变值
         const inputChange = ( value : string ) => {
+            console.log( 'inputChange' , value )
 
             // 当输入的值为 '.' 且 已经存在 '.'，则不让其继续字符串相加。
             if ( value == '.' && amount.value.includes( '.' ) ) {
@@ -385,13 +387,20 @@ export default defineComponent( {
         watch(
             amount ,
             ( newval : string ) => {
+                if ( newval == '' ) {
+                    moneys.value = 0.00;
 
-                if ( newval ) {
-                    moneys.value = parseFloat( newval );
+                    return;
                 }
                 else {
-                    moneys.value = 0.00;
+                    if ( newval ) {
+                        moneys.value = parseFloat( newval );
+                    }
+                    else {
+                        moneys.value = 0.00;
+                    }
                 }
+
             } ,
             {
                 // 这里如果不设置immediate = true,那么最初绑定的时候是不会执行的,要等到num改变时才执行监听计算
@@ -409,8 +418,8 @@ export default defineComponent( {
 
         const onAddBill = async () => {
             var savedata : IBillDto = {
-                isadd : props.isadddata ,
-                ids : props.isadddata ? 0 : 0 ,
+                isadd : props.isrunadd ,
+                ids : props.isrunadd ? 0 : 0 ,
                 billtypeid : billtypeid.value ,
                 isout : isout.value ,
                 moneys : moneys.value ,
@@ -418,8 +427,11 @@ export default defineComponent( {
                 memo : mometxt.value
             };
 
+            // console.log( 'savedata' , savedata )
+
             let status = await billapi.add( savedata );
-            console.log( status )
+
+            // console.log( status )
         }
 
         return {

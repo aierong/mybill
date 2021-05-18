@@ -66,8 +66,7 @@ Time: 17:52
                         <!--                                 :isout="mxitem.isout"-->
                         <aliicon :iconname="mxitem.avatar"
                                  :iconsize="22"
-                                 :colortypes="mxitem.isout?'out':'in'"
-                        />
+                                 :colortypes="mxitem.isout?'out':'in'"/>
                         <span style="margin-left: 5px;">{{ mxitem.typename }}</span>
                     </template>
                     <template #default>
@@ -87,7 +86,8 @@ Time: 17:52
         </div>
 
         <!--    填写账单弹窗   -->
-        <BillOperation ref="operationRef"/>
+        <BillOperation :isrunadd="true"
+                       ref="operationRef"/>
     </div>
 </template>
 
