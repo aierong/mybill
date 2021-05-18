@@ -60,17 +60,16 @@ Time: 17:52
                       </span>
                     </span>
                 </template>
-                <van-cell v-for="(mxitem,mxindex) in item.list"
+                <van-cell @click="itemClick(mxitem.ids)"
+                          v-for="(mxitem,mxindex) in item.list"
                           :key="mxindex">
                     <template #title>
-                        <!--                                 :isout="mxitem.isout"-->
                         <aliicon :iconname="mxitem.avatar"
                                  :iconsize="22"
                                  :colortypes="mxitem.isout?'out':'in'"/>
                         <span style="margin-left: 5px;">{{ mxitem.typename }}</span>
                     </template>
                     <template #default>
-
                         <span :class="{ inmoney:!mxitem.isout,outmoney:mxitem.isout }">{{ mxitem.isout ? '-' : '+' }}{{ $FormarMoney( mxitem.moneys ) }}</span>
                     </template>
                 </van-cell>
@@ -152,6 +151,8 @@ import {
     onMounted ,
 } from "vue";
 
+import { useRouter , useRoute } from 'vue-router'
+
 import * as billapi from '@/http/api/bill'
 // 引入lodash
 import * as _ from "lodash"
@@ -171,6 +172,7 @@ export default defineComponent( {
         BillOperation ,
     } ,
     setup () {
+        const router = useRouter()
 
         const selectbilltypedialogRef = ref<typeof SelectBillTypeDialog | null>( null )
         const selectdateRef = ref<typeof SelectYearMonthDialog | null>( null )
@@ -404,6 +406,14 @@ export default defineComponent( {
             }
         }
 
+        const itemClick = ( ids : number ) : void => {
+            // console.log( 'itemClick' , ids )
+
+            router.push( `/detail?ids=${ ids }` )
+
+            return;
+        }
+
         return {
             ...toRefs( billmodeldata ) ,
             ...toRefs( querymodeldata ) ,
@@ -418,6 +428,7 @@ export default defineComponent( {
 
             onBillTypeSelect , userselectbilltype ,
             billrunresult ,
+            itemClick ,
         };
     } ,
 
