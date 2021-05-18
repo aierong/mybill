@@ -9,81 +9,85 @@ Time: 17:35
 
 <!-- html代码片段 -->
 <template>
-
-    <van-popup :style="{ height: '70%' }"
+    <!--
+    :style="{ height: '70%' }"
+    这里不用百分比,我会指定div的高度
+    -->
+    <van-popup closeable
                v-model:show="show"
-               closeable
                position="bottom">
         <br><br><br>
-        <div>
-            <span @click="changeType(true)"
-                  :class="{filterspan:true,outactive:isout}">支出</span>
-            <span @click="changeType(false)"
-                  :class="{filterspan:true,inactive:!isout}">收入</span>
-            <span @click="opendate"
-                  class="dateselect">{{ displaydate }}<van-icon name="arrow-down"/></span>
-
-            <van-button class="savebtn"
-                        hairline
-                        @click="onAddBill"
-                        color="#3EB575"
-                        size="small">确定
-            </van-button>
-        </div>
-        <br>
-        <!--        金额-->
-        <div class="money">
-            <span class="sufix">¥</span>
-            <span class="amount animation">{{ amount }}</span>
-        </div>
-        <br>
-        <!--        类型选择-->
-        <div>
-            <div class="divitem"
-                 v-if="isout">
-                <template v-for="(mxitem,mxindex) in outlist">
+        <div class="add-wrap">
+            <!--            头部 -->
+            <div>
+                <span @click="changeType(true)"
+                      :class="{filterspan:true,outactive:isout}">支出</span>
+                <span @click="changeType(false)"
+                      :class="{filterspan:true,inactive:!isout}">收入</span>
+                <span @click="opendate"
+                      class="dateselect">{{ displaydate }}<van-icon name="arrow-down"/></span>
+                <van-button class="savebtn"
+                            hairline
+                            @click="onAddBill"
+                            color="#3EB575"
+                            size="small">确定
+                </van-button>
+            </div>
+            <br>
+            <!--        金额-->
+            <div class="money">
+                <span class="sufix">¥</span>
+                <span class="amount animation">{{ amount }}</span>
+            </div>
+            <br>
+            <!--        类型选择-->
+            <div>
+                <div class="divitem"
+                     v-if="isout">
+                    <template v-for="(mxitem,mxindex) in outlist">
                     <span @click="outitemselect(mxitem.ids)"
                           style="margin-left: 5px;">
                         <aliicon :iconname="mxitem.avatar"
                                  :iconsize="26"
                                  :isout="isout"/>{{ mxitem.typename }}</span>
-                </template>
-                <span style="margin-left: 15px;margin-right: 15px;"><van-icon @click="onAddType"
-                                                                              name="add-o"
-                                                                              size="26"/></span>
-            </div>
-            <div class="divitem"
-                 v-else>
-                <template v-for="(mxitem,mxindex) in inlist">
+                    </template>
+                    <span style="margin-left: 15px;margin-right: 15px;"><van-icon @click="onAddType"
+                                                                                  name="add-o"
+                                                                                  size="26"/></span>
+                </div>
+                <div class="divitem"
+                     v-else>
+                    <template v-for="(mxitem,mxindex) in inlist">
                     <span @click="initemselect(mxitem.ids)"
                           style="margin-left: 5px;">
                         <aliicon :iconname="mxitem.avatar"
                                  :iconsize="26"
                                  :isout="isout"/>{{ mxitem.typename }}</span>
-                </template>
-                <span style="margin-left: 15px;margin-right: 15px;"><van-icon @click="onAddType"
-                                                                              name="add-o"
-                                                                              size="26"/></span>
+                    </template>
+                    <span style="margin-left: 15px;margin-right: 15px;"><van-icon @click="onAddType"
+                                                                                  name="add-o"
+                                                                                  size="26"/></span>
+                </div>
             </div>
+            <br>
+            <!--        备注-->
+            <div>
+                <div class="remarktip"
+                     @click="openmomedlg"
+                     v-if="isdisplaymometip">添加备注
+                </div>
+                <div v-else>
+                    <span class="remark">{{ mometxt }}</span><span @click="openmomedlg"
+                                                                   class="remarkupdate">修改</span>
+                </div>
+            </div>
+            <br>
+            <!--        数组键盘-->
+            <van-number-keyboard :show="true"
+                                 @delete="remove"
+                                 @input="inputChange"
+                                 extra-key="."/>
         </div>
-        <br>
-        <!--        备注-->
-        <div>
-            <div class="remarktip"
-                 @click="openmomedlg"
-                 v-if="isdisplaymometip">添加备注
-            </div>
-            <div v-else>
-                <span class="remark">{{ mometxt }}</span><span @click="openmomedlg"
-                                                               class="remarkupdate">修改</span>
-            </div>
-        </div>
-        <br>
-        <!--        数组键盘-->
-        <van-number-keyboard :show="true"
-                             @delete="remove"
-                             @input="inputChange"
-                             extra-key="."/>
     </van-popup>
     <br>
     <van-dialog v-model:show="showtypedlg"
