@@ -40,6 +40,10 @@ const routes : Array<RouteRecordRaw> = [
                 props : ( route ) => ( {
                     queryid : route.query.ids ,
                 } ) ,
+                meta : {
+                    //不需要显示tabbar
+                    notabbar : true
+                }
             } ,
         ]
     } ,
