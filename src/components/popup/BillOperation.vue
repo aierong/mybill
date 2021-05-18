@@ -45,13 +45,14 @@ Time: 17:35
                 <div class="divitem"
                      v-if="isout">
                     <template v-for="(mxitem,mxindex) in outlist">
-                    <span :class="{bgout:billtypeid==mxitem.ids}"
-                          @click="outitemselect(mxitem.ids)"
-                          style="margin-left: 5px;">
-                        <aliicon :iconname="mxitem.avatar"
-                                 :iconsize="26"
-                                 colortypes="no"
-                        />{{ mxitem.typename }}</span>
+                        <div :class="{bgout:billtypeid==mxitem.ids}"
+                             @click="outitemselect(mxitem.ids)"
+                             style="margin-left: 5px;display: inline-block;height: 30px;">
+                            <aliicon :iconname="mxitem.avatar"
+                                     :iconsize="26"
+                                     colortypes="no"/>
+                            {{ mxitem.typename }}
+                        </div>
                     </template>
                     <!--                    这里带一个添加按钮-->
                     <span style="margin-left: 15px;margin-right: 15px;"><van-icon @click="onAddType"
@@ -61,13 +62,14 @@ Time: 17:35
                 <div class="divitem"
                      v-else>
                     <template v-for="(mxitem,mxindex) in inlist">
-                    <span :class="{bgin:billtypeid==mxitem.ids}"
-                          @click="initemselect(mxitem.ids)"
-                          style="margin-left: 5px;">
-                        <aliicon :iconname="mxitem.avatar"
-                                 :iconsize="26"
-                                 colortypes="no"
-                        />{{ mxitem.typename }}</span>
+                        <div :class="{bgin:billtypeid==mxitem.ids}"
+                              @click="initemselect(mxitem.ids)"
+                              style="margin-left: 5px;display: inline-block;height: 30px;">
+                            <aliicon :iconname="mxitem.avatar"
+                                     :iconsize="26"
+                                     colortypes="no"
+                            />{{ mxitem.typename }}
+                        </div>
                     </template>
                     <!--                    这里带一个添加按钮-->
                     <span style="margin-left: 15px;margin-right: 15px;"><van-icon @click="onAddType"
