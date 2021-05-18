@@ -133,7 +133,7 @@ Time: 17:35
 
 <!-- TypeScript脚本代码片段 -->
 <script lang="ts">
-import { IBillType , IBillDto } from "@comp/types";
+import { IBillType , IBillDto , ISelectBillTypeObj } from "@comp/types";
 
 interface IAllList {
     outlist : IBillType[],
@@ -160,7 +160,13 @@ import * as billapi from '@/http/api/bill'
 import { EncryptPassWord } from "@common/util";
 
 export default defineComponent( {
-
+    // 定义是事件
+    emits : {
+        runresult : ( isok : boolean ) => {
+            //上面已经定义了参数类型,系统会验证的参数类型
+            return true
+        } ,
+    } ,
     // 声明 props
     props : {
         isrunadd : {
@@ -197,6 +203,42 @@ export default defineComponent( {
 
         const amount = ref( '' )
 
+        const initval = () => {
+            var now = new Date();
+
+            year.value = now.getFullYear();
+            month.value = 1 + now.getMonth();
+            day.value = now.getDate();
+
+            CurrentSelectDate.value = now;
+
+            moneys.value = 0;
+            amount.value = ''
+
+            mometxt.value = ''
+
+            isout.value = true;
+
+            if ( listmodeldata.outlist.length > 0 ) {
+                billtypeid.value = listmodeldata.outlist[ 0 ].ids;
+            }
+        }
+
+        const selectlistfirst = ( _isout : boolean ) => {
+
+            //默认选择第1个
+            if ( _isout ) {
+                if ( listmodeldata.outlist.length > 0 ) {
+                    billtypeid.value = listmodeldata.outlist[ 0 ].ids;
+                }
+            }
+            else {
+                if ( listmodeldata.inlist.length > 0 ) {
+                    billtypeid.value = listmodeldata.inlist[ 0 ].ids;
+                }
+            }
+        }
+
         const displaydate = computed( () => {
             var monthtxt = month.value <= 9 ? '0' + month.value.toString() : month.value.toString();
             var daytxt = day.value <= 9 ? '0' + day.value.toString() : day.value.toString();
@@ -226,22 +268,21 @@ export default defineComponent( {
 
         const toggle = () => {
             show.value = !show.value
+
+            // 每次打开初始化一下
+            if ( show.value ) {
+                initval();  // 初始化一下
+            }
         }
 
         onMounted( async () => {
+            initval();  // 初始化一下
+
             await getoutlist();
             await getinlist();
 
-            if ( isout.value ) {
-                if ( listmodeldata.outlist != null && listmodeldata.outlist.length > 0 ) {
-                    billtypeid.value = listmodeldata.outlist[ 0 ].ids;
-                }
-            }
-            else {
-                if ( listmodeldata.inlist != null && listmodeldata.inlist.length > 0 ) {
-                    billtypeid.value = listmodeldata.inlist[ 0 ].ids;
-                }
-            }
+            // 选择第1个
+            selectlistfirst( isout.value );
         } );
 
         const getinlist = async () => {
@@ -294,12 +335,12 @@ export default defineComponent( {
 
                         // 默认添加成功的那个项目,也就是最后一个
                         if ( _isout ) {
-                            if ( listmodeldata.outlist != null && listmodeldata.outlist.length > 0 ) {
+                            if ( listmodeldata.outlist.length > 0 ) {
                                 billtypeid.value = listmodeldata.outlist[ listmodeldata.outlist.length - 1 ].ids;
                             }
                         }
                         else {
-                            if ( listmodeldata.inlist != null && listmodeldata.inlist.length > 0 ) {
+                            if ( listmodeldata.inlist.length > 0 ) {
                                 billtypeid.value = listmodeldata.inlist[ listmodeldata.inlist.length - 1 ].ids;
                             }
                         }
@@ -335,16 +376,7 @@ export default defineComponent( {
             isout.value = _isout;
 
             //默认选择第1个
-            if ( _isout ) {
-                if ( listmodeldata.outlist != null && listmodeldata.outlist.length > 0 ) {
-                    billtypeid.value = listmodeldata.outlist[ 0 ].ids;
-                }
-            }
-            else {
-                if ( listmodeldata.inlist != null && listmodeldata.inlist.length > 0 ) {
-                    billtypeid.value = listmodeldata.inlist[ 0 ].ids;
-                }
-            }
+            selectlistfirst( _isout );
         }
 
         const opendate = () => {
@@ -365,7 +397,7 @@ export default defineComponent( {
 
         // 监听输入框改变值
         const inputChange = ( value : string ) => {
-            console.log( 'inputChange' , value )
+            // console.log( 'inputChange' , value )
 
             // 当输入的值为 '.' 且 已经存在 '.'，则不让其继续字符串相加。
             if ( value == '.' && amount.value.includes( '.' ) ) {
@@ -432,6 +464,20 @@ export default defineComponent( {
             let status = await billapi.add( savedata );
 
             // console.log( status )
+            if ( status.data.Success ) {
+                emit( "runresult" , true );
+
+                initval();  // 初始化一下
+                show.value = false;  //关闭对话框
+
+                return;
+            }
+            else {
+                Toast.fail( status.data.Message )
+                emit( "runresult" , false );
+
+                return;
+            }
         }
 
         return {

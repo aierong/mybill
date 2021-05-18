@@ -87,6 +87,7 @@ Time: 17:52
 
         <!--    填写账单弹窗   -->
         <BillOperation :isrunadd="true"
+                       @runresult="billrunresult"
                        ref="operationRef"/>
     </div>
 </template>
@@ -389,6 +390,20 @@ export default defineComponent( {
             }
         }
 
+        const billrunresult = async ( isok : boolean ) => {
+            if ( !isok ) {
+                //  失败,暂时不处理
+
+                return;
+            }
+            else {
+                //再从新请求 服务器
+                await getlist();
+
+                return;
+            }
+        }
+
         return {
             ...toRefs( billmodeldata ) ,
             ...toRefs( querymodeldata ) ,
@@ -402,7 +417,7 @@ export default defineComponent( {
             SelectYearMonth , userselectdate ,
 
             onBillTypeSelect , userselectbilltype ,
-
+            billrunresult ,
         };
     } ,
 
