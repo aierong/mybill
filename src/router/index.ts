@@ -33,6 +33,14 @@ const routes : Array<RouteRecordRaw> = [
                 component : () => import('@views/Me.vue') ,
 
             } ,
+            {
+                path : '/detail' ,
+                name : 'detail' ,
+                component : () => import('@views/Detail.vue') ,
+                props : ( route ) => ( {
+                    queryid : route.query.ids ,
+                } ) ,
+            } ,
         ]
     } ,
     {

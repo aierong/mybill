@@ -449,6 +449,13 @@ export default defineComponent( {
         }
 
         const onAddBill = async () => {
+
+            if ( moneys.value <= 0 ) {
+                Toast.fail( '请输入金额' )
+
+                return;
+            }
+
             var savedata : IBillDto = {
                 isadd : props.isrunadd ,
                 ids : props.isrunadd ? 0 : 0 ,
