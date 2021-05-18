@@ -52,5 +52,5 @@ export interface IBillDto {
     memo : string,
 }
 
-export type colortype = 'in' | 'out' | 'no';
+
 

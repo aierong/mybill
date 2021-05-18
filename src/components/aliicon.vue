@@ -28,7 +28,8 @@ import {
 
 import '@assets/ali/iconfont/iconfont.css'
 
-import { colortype } from '@comp/types'
+// import { colortype } from '@comp/types'
+type colortype = 'in' | 'out' | 'no';
 
 export default defineComponent( {
     // 声明 props
