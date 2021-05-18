@@ -47,9 +47,11 @@ Time: 17:35
                     <template v-for="(mxitem,mxindex) in outlist">
                     <span @click="outitemselect(mxitem.ids)"
                           style="margin-left: 5px;">
+<!--                        :isout="isout"-->
                         <aliicon :iconname="mxitem.avatar"
                                  :iconsize="26"
-                                 :isout="isout"/>{{ mxitem.typename }}</span>
+                                 colortypes="no"
+                        />{{ mxitem.typename }}</span>
                     </template>
                     <!--                    这里带一个添加按钮-->
                     <span style="margin-left: 15px;margin-right: 15px;"><van-icon @click="onAddType"
@@ -61,9 +63,11 @@ Time: 17:35
                     <template v-for="(mxitem,mxindex) in inlist">
                     <span @click="initemselect(mxitem.ids)"
                           style="margin-left: 5px;">
+<!--                        :colortypes="no"-->
                         <aliicon :iconname="mxitem.avatar"
                                  :iconsize="26"
-                                 :isout="isout"/>{{ mxitem.typename }}</span>
+                                 colortypes="no"
+                        />{{ mxitem.typename }}</span>
                     </template>
                     <!--                    这里带一个添加按钮-->
                     <span style="margin-left: 15px;margin-right: 15px;"><van-icon @click="onAddType"
