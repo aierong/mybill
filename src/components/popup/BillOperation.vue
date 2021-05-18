@@ -40,7 +40,7 @@ Time: 17:35
                 <span class="amount animation">{{ amount }}</span>
             </div>
             <br>
-            <!--        类型选择-->
+            <!--        类型列表选择-->
             <div>
                 <div class="divitem"
                      v-if="isout">
