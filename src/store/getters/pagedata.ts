@@ -17,6 +17,15 @@ const getaddpagerefresh = ( state : IState ) => {
     return false;
 };
 
+const getdetailpagesourcepagepath = ( state : IState ) => {
+    if ( state.DetailPageData != null ) {
+        return state.DetailPageData.sourcepagepath;
+    }
+
+    return '';
+};
+
 export const pagedatagetters = {
-    getaddpagerefresh
+    getaddpagerefresh ,
+    getdetailpagesourcepagepath ,
 }

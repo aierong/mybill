@@ -5,6 +5,11 @@ import Home from '@views/Home.vue'
 
 import * as constant from '@common/constant'
 
+// import { useStore } from 'vuex'
+// import { key } from '@store/index.ts'
+import { store ,key } from '@store/index'
+import * as UserMutationType from '@store/mutations/mutation-types.ts'
+
 const routes : Array<RouteRecordRaw> = [
     {
         path : '/' ,
@@ -43,7 +48,17 @@ const routes : Array<RouteRecordRaw> = [
                 meta : {
                     //不需要显示tabbar
                     notabbar : true
-                }
+                } ,
+                //路由独享的守卫
+                beforeEnter : ( to , from ) => {
+
+                    console.log( "beforeEnter 路由独享守卫,进入之前to:" , to );
+                    console.log( "beforeEnter 路由独享守卫,进入之前from:" , from , from.path );
+
+                    // const store = useStore( key )
+                    store.commit( UserMutationType.updatedetailpagedata , from.path );
+
+                } ,
             } ,
         ]
     } ,

@@ -15,5 +15,8 @@ export const pagedatastate : IPageData = {
         month : 1 ,
         billtypeid : 0 ,
         isrefresh : false
+    } ,
+    DetailPageData : {
+        sourcepagepath : ''
     }
 };

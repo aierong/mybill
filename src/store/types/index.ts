@@ -22,12 +22,14 @@ export interface IAddPageData {
     isrefresh : boolean
 }
 
-
+export interface IDetailPageData {
+    sourcepagepath : string,
+}
 
 export interface IPageData {
 
-    AddPageData : IAddPageData
-
+    AddPageData : IAddPageData,
+    DetailPageData : IDetailPageData
 
 }
 

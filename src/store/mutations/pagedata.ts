@@ -23,4 +23,8 @@ export const pagedatamutations = {
         state.AddPageData = payload;
     } ,
 
+    [ types.updatedetailpagedata ] ( state : IState , payload : string ) {
+        state.DetailPageData.sourcepagepath = payload;
+    } ,
+
 }

@@ -22,10 +22,7 @@ export const key : InjectionKey<Store<IState>> = Symbol()
 // 解构出来，构成state
 const state : IState = {
     ...userstate ,
-<<<<<<< HEAD
     ...pagedatastate ,
-=======
->>>>>>> origin/master
 }
 
 // 解构出来，构成getters
@@ -74,13 +71,13 @@ const vuexPersisted = createPersistedState( {
     storage : window.sessionStorage ,
 
     //reducer是设置要持久化的变量,不设置就是默认是全部变量
-    //这里设置:count 和 myname ,所以这2个会持久化
+
     //其它的就不会持久化,页面刷新会丢失值
     reducer ( val : any ) {
         return {
             //只储存
             AddPageData : val.AddPageData ,
-
+            DetailPageData : val.DetailPageData ,
         }
     }
 } );

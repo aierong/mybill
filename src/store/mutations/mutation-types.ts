@@ -26,3 +26,4 @@ export const updateaddpagedatarefresh = "updateaddpagedatarefresh"
 export const updateaddpagedata = "updateaddpagedata"
 
 
+export const updatedetailpagedata = "updatedetailpagedata"
