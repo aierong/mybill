@@ -9,7 +9,6 @@ Time: 11:38
 
 <!-- html代码片段 -->
 <template>
-
     <van-popup :close-on-click-overlay="false"
                v-model:show="show"
                position="bottom">
@@ -20,7 +19,6 @@ Time: 11:38
                              @cancel="onCancel"
                              @confirm="onConfirm"/>
     </van-popup>
-
 </template>
 
 <!-- TypeScript脚本代码片段 -->
@@ -127,6 +125,7 @@ export default defineComponent( {
 </script>
 
 <!-- 样式代码片段  scoped -->
-<style>
-
+<style scoped
+       lang="less"
+       src="./SelectYearMonthDialog.less">
 </style>

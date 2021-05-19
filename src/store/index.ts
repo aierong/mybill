@@ -22,7 +22,10 @@ export const key : InjectionKey<Store<IState>> = Symbol()
 // 解构出来，构成state
 const state : IState = {
     ...userstate ,
+<<<<<<< HEAD
     ...pagedatastate ,
+=======
+>>>>>>> origin/master
 }
 
 // 解构出来，构成getters
@@ -85,7 +88,6 @@ const vuexPersisted = createPersistedState( {
 export const store = createStore<IState>( {
     state ,
     getters ,
-
     mutations ,
     // actions
     plugins : [
