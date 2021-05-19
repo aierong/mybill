@@ -6,3 +6,15 @@ popup组件弹窗
 
 class 绑定
 <span   :class="{ expense: true, active: payType == 'expense' }">支出</span>
+
+
+
+全局导航,可以在页面中单独使用,data带的项目中有使用
+const router = useRouter()
+
+router.afterEach(() => {
+      // menu 内的路径都是需要展示底部导航栏的
+      state.show = state.menu.includes(router.currentRoute.value.path)
+})
+
+

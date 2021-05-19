@@ -15,6 +15,19 @@ export interface IUserState {
     loginusermobile : string
 }
 
-export interface IState extends IUserState {
+export interface IAddPageData {
+    year : number,
+    month : number,
+    billtypeid : number,
+    isrefresh : boolean
+}
+
+export interface IPageData {
+
+    AddPageData : IAddPageData
+
+}
+
+export interface IState extends IUserState , IPageData {
 
 }

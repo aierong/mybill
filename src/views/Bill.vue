@@ -92,7 +92,10 @@ Time: 17:52
 </template>
 
 <!-- TypeScript脚本代码片段 -->
-<script lang="ts">/**
+<script lang="ts">
+
+
+/**
  * 查询类型
  */
 type QueryType = "all" | "out" | "in";
@@ -141,6 +144,8 @@ interface IQuery {
     querytype : QueryType
 }
 
+import { IAddPageData } from "@store/types";
+
 // 导入
 import {
     defineComponent ,
@@ -151,7 +156,11 @@ import {
     onMounted ,
 } from "vue";
 
-import { useRouter , useRoute } from 'vue-router'
+import { useRouter , useRoute , onBeforeRouteLeave } from 'vue-router'
+
+import { useStore } from 'vuex'
+import { key } from '@store/index.ts'
+import * as UserMutationType from '@store/mutations/mutation-types.ts'
 
 import * as billapi from '@/http/api/bill'
 // 引入lodash
@@ -172,6 +181,7 @@ export default defineComponent( {
         BillOperation ,
     } ,
     setup () {
+        const store = useStore( key )
         const router = useRouter()
 
         const selectbilltypedialogRef = ref<typeof SelectBillTypeDialog | null>( null )
@@ -413,6 +423,24 @@ export default defineComponent( {
 
             return;
         }
+
+        onBeforeRouteLeave( ( to , from ) => {
+            // 导航离开该组件的对应路由时调用
+            // 离开时,记录一下,页面参数
+            var payload : IAddPageData = {
+                year : querymodeldata.userselectyear ,
+                month : querymodeldata.userselectmonth ,
+                billtypeid : querymodeldata.userselectbilltypeid ,
+                isrefresh : false
+            };
+
+            // 记录状态数据
+            store.commit( UserMutationType.updateaddpagedata , payload );
+
+            // console.log( "dao1独自守卫onBeforeRouteLeave,进入之前to:" , to );
+            // console.log( "dao1独自守卫onBeforeRouteLeave,进入之前from:" , from );
+
+        } );
 
         return {
             ...toRefs( billmodeldata ) ,
