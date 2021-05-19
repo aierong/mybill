@@ -11,6 +11,10 @@ Time: 17:11
 <template>
 
     <div>
+        <van-nav-bar title="详细数据"
+                     left-text="返回"
+                     left-arrow
+                     @click-left="onClickLeft"/>
         {{ queryid }}
     </div>
 
@@ -19,15 +23,22 @@ Time: 17:11
 <!-- TypeScript脚本代码片段 -->
 <script lang="ts">
 
+interface IState {
+    userselectyear : number,
+
+    sourcepagepath : string,
+}
+
 // 导入
 import {
     defineComponent ,
-
     ref ,
     reactive ,
     toRefs ,
-    computed
+    computed ,
 } from "vue";
+
+import { useRouter , useRoute } from 'vue-router'
 
 export default defineComponent( {
     // 子组件
@@ -40,8 +51,40 @@ export default defineComponent( {
         } ,
     } ,
     setup () {
+        const router = useRouter()
 
-        return {};
+        // const state = reactive<IState>( {
+        //
+        //     sourcepagepath : '' ,
+        //     userselectyear : 0
+        // } )
+
+        // const sourcepagepath = ref<string>( '' )
+
+        // router.afterEach( ( to , from ) => {
+        //     // 进入 和 离开页面都会触发
+        //
+        //     console.log( "afterEach,to:" , to );
+        //     console.log( "afterEach,from:" , from , from.path );
+        //
+        //     if ( from.path != 'detail' ) {
+        //         // sourcepagepath.value = from.path;
+        //         state.sourcepagepath = from.path;
+        //     }
+        //
+        // } )
+
+        const onClickLeft = () => {
+            router.push( `/bill` );
+
+            return;
+        }
+
+        return {
+            // sourcepagepath ,
+            // ...toRefs( state ) ,
+            onClickLeft ,
+        };
     } ,
 
 } )

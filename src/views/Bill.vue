@@ -395,7 +395,7 @@ export default defineComponent( {
         }
 
         const onAdd = () => {
-            console.log( 'onAdd' )
+            // console.log( 'onAdd' )
 
             if ( operationRef.value != null ) {
                 operationRef.value.toggle();

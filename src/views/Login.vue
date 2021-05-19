@@ -141,7 +141,7 @@ export default defineComponent( {
                     store.commit( UserMutationType.updateloginuser , mobile );
 
                     // 页面跳转
-                    router.push( "/bill" )
+                    router.push( { path : "/bill" } )
 
                     return;
                 }

@@ -22,9 +22,12 @@ export interface IAddPageData {
     isrefresh : boolean
 }
 
+
+
 export interface IPageData {
 
     AddPageData : IAddPageData
+
 
 }
 
