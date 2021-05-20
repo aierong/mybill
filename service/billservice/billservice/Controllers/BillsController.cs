@@ -114,6 +114,35 @@ namespace billservice.Controllers
 
 
 
+        [HttpPost]
+        [Route( "delete" )]
+        public async Task<ServiceResult> delete ( [FromForm] int id = 0 )
+        {
+            var result = new ServiceResult();
+
+            var mobile = base.UserMobile;
+
+            bool bl = await this.Ibill.IsExistIdAsync( id , mobile );
+
+            if ( !bl )
+            {
+                result.IsFailed( "id错误" );
+
+                return result;
+            }
+
+            bl = await this.Ibill.DeleteAsync( id );
+
+            if ( !bl )
+            {
+                result.IsFailed( "保存失败" );
+
+                return result;
+            }
+
+            return result;
+        }
+
 
     }
 }

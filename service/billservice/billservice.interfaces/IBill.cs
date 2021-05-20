@@ -13,7 +13,7 @@ namespace billservice.interfaces
     {
 
         bool IsExistId ( int id , string mobile );
-
+        Task<bool> IsExistIdAsync ( int id , string mobile );
 
         bool Save ( bills bill );
         Task<bool> SaveAsync ( bills bill );
@@ -23,10 +23,10 @@ namespace billservice.interfaces
 
 
         Task<List<BillReturnDto>> GetListAsync ( string mobile , int year , int month , int billtypeid );
-
         
 
-
         Task<BillReturnDto> GetAsync ( int id );
+
+        Task<bool> DeleteAsync ( int id  );
     }
 }

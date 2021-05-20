@@ -23,12 +23,20 @@ namespace billservice.services
 
         public bool IsExistId ( int id , string mobile )
         {
-
             var isAny = fsql.Select<bills>().Where( it => it.ids == id
                                                                                  && it.mobile == mobile ).Any();
             return isAny;
         }
 
+
+
+        public async Task<bool> IsExistIdAsync ( int id , string mobile )
+        {
+            var isAny = await fsql.Select<bills>().Where( it => it.ids == id
+                                                                                 && it.mobile == mobile ).AnyAsync();
+
+            return isAny;
+        }
 
 
         public bool Save ( bills bill )
@@ -177,6 +185,19 @@ namespace billservice.services
 
             return null;
 
+        }
+
+
+
+        public async Task<bool> DeleteAsync ( int id )
+        {
+            var result = await fsql.Update<bills>()
+                          .Set( a => a.delmark , "Y" )
+                          .Set( a => a.deletedate , DateTime.Now )
+                          .Where( it => it.ids == id )
+                          .ExecuteAffrowsAsync();
+
+            return result > 0;
         }
 
 
