@@ -25,7 +25,13 @@ const getdetailpagesourcepagepath = ( state : IState ) => {
     return '';
 };
 
+const gettabbarshow = ( state : IState ) => {
+
+    return state.tabbarshow;
+};
+
 export const pagedatagetters = {
     getaddpagerefresh ,
     getdetailpagesourcepagepath ,
+    gettabbarshow ,
 }

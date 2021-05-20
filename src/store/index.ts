@@ -78,6 +78,7 @@ const vuexPersisted = createPersistedState( {
             //只储存
             AddPageData : val.AddPageData ,
             DetailPageData : val.DetailPageData ,
+            tabbarshow : val.tabbarshow
         }
     }
 } );

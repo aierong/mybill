@@ -29,7 +29,8 @@ export interface IDetailPageData {
 export interface IPageData {
 
     AddPageData : IAddPageData,
-    DetailPageData : IDetailPageData
+    DetailPageData : IDetailPageData,
+    tabbarshow:boolean,
 
 }
 

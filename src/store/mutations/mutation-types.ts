@@ -27,3 +27,5 @@ export const updateaddpagedata = "updateaddpagedata"
 
 
 export const updatedetailpagedata = "updatedetailpagedata"
+
+export const updatetabbarshow = "updatetabbarshow"

@@ -7,7 +7,7 @@ import * as constant from '@common/constant'
 
 // import { useStore } from 'vuex'
 // import { key } from '@store/index.ts'
-import { store ,key } from '@store/index'
+import { store } from '@store/index'
 import * as UserMutationType from '@store/mutations/mutation-types.ts'
 
 const routes : Array<RouteRecordRaw> = [
@@ -52,12 +52,16 @@ const routes : Array<RouteRecordRaw> = [
                 //路由独享的守卫
                 beforeEnter : ( to , from ) => {
 
-                    console.log( "beforeEnter 路由独享守卫,进入之前to:" , to );
-                    console.log( "beforeEnter 路由独享守卫,进入之前from:" , from , from.path );
+                    // console.log( "beforeEnter 路由独享守卫,进入之前to:" , to );
+                    // console.log( "beforeEnter 路由独享守卫,进入之前from:" , from , from.path );
 
                     // const store = useStore( key )
-                    store.commit( UserMutationType.updatedetailpagedata , from.path );
-
+                    if ( from != null && from.path != null ) {
+                        // 当前页面手动刷新,from的
+                        if ( from.path != '/' ) {
+                            store.commit( UserMutationType.updatedetailpagedata , from.path );
+                        }
+                    }
                 } ,
             } ,
         ]
@@ -92,6 +96,9 @@ const router = createRouter( {
 } )
 
 router.beforeEach( ( to , from ) => {
+    // console.log( 'beforeEach to' , to )
+    // console.log( 'beforeEach from' , from )
+
     if ( to.meta != null
         && to.meta.requiresAuth != null
         && !to.meta.requiresAuth ) {
@@ -130,6 +137,23 @@ router.beforeEach( ( to , from ) => {
                     redirectTo : to.fullPath ,
                 } ,
             }
+        }
+    }
+} )
+
+router.afterEach( ( to , from ) => {
+    // console.log( 'afterEach to' , to )
+    // console.log( 'afterEach from' , from )
+
+    // 这里做一个判断,判断tabbar是否显示
+    if ( to != null && to.meta != null ) {
+
+        store.commit( UserMutationType.updatetabbarshow , true );
+
+        if ( to.meta.notabbar != null && to.meta.notabbar ) {
+
+            // console.log( 'notabbar' )
+            store.commit( UserMutationType.updatetabbarshow , false );
         }
     }
 } )

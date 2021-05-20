@@ -75,7 +75,7 @@ export default defineComponent( {
         // } )
 
         const onClickLeft = () => {
-            router.push( `/bill` );
+            router.push( { path : `/bill` } );
 
             return;
         }

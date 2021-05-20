@@ -19,7 +19,9 @@ import {
     watch ,
 } from "vue";
 
-import { useRoute } from 'vue-router'
+// import { useRoute } from 'vue-router'
+import { useStore } from 'vuex'
+import { key } from '@store/index.ts'
 
 import tabbars from "@comp/tabbars.vue";
 
@@ -29,28 +31,11 @@ export default defineComponent( {
         tabbars ,
     } ,
     setup () {
-        const route = useRoute()
+        const store = useStore( key )
 
-        const show = ref<boolean>( true );
-
-        // console.log( 'home' , route )
-
-        watch(
-            route ,
-            ( newroute ) => {
-
-                // 重新获取一下参数
-                if ( newroute != null && newroute.meta != null ) {
-                    // console.log( 'newroute' , newroute )
-                    if ( newroute.meta.notabbar != null && newroute.meta.notabbar ) {
-                        // console.log( 'newroute' , newroute )
-
-                        show.value = false;
-                    }
-                }
-
-            }
-        )
+        const show = computed( () => {
+            return store.getters.gettabbarshow;
+        } )
 
         return {
             show ,
