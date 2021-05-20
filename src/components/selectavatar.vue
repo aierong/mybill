@@ -73,8 +73,6 @@ export default defineComponent( {
     setup ( props , { emit } ) {
         const selectavatar = ref<string>( props.avatarobj.avatar );
 
-        // console.log( 'props' , props , props.avatarobj.avatar )
-
         const beforeClose = ( action ) => {
             if ( action === "confirm" ) {
                 emit( "userselectavatar" , selectavatar.value );
@@ -98,6 +96,8 @@ export default defineComponent( {
 </script>
 
 <!-- 样式代码片段  scoped -->
-<style>
+<style lang="less"
+       scoped
+       src="./selectavatar.less">
 
 </style>
