@@ -28,3 +28,10 @@ export function update ( BillDto : IBillDto ) {
 export function get ( id : number ) {
     return axios.get( `${ prefix }/get/${ id }` );
 }
+
+export function deletebyid ( id : number ) {
+    var params = new URLSearchParams()
+    params.append( "id" , id.toString() )
+
+    return axios.post( `${ prefix }/delete` , params );
+}
