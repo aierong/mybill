@@ -88,6 +88,10 @@ Time: 17:52
         <BillOperation :isrunadd="true"
                        @runresult="billrunresult"
                        ref="operationRef"/>
+
+        <!--        tabbar-->
+        <br><br><br>
+        <mytabbar/>
     </div>
 </template>
 

@@ -59,6 +59,9 @@ Time: 17:40
                        label="密码"
                        placeholder="请输入密码"/>
         </van-dialog>
+
+        <!--        tabbar-->
+        <mytabbar/>
     </div>
 
 </template>

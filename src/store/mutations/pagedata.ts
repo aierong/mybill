@@ -27,8 +27,8 @@ export const pagedatamutations = {
         state.DetailPageData.sourcepagepath = payload;
     } ,
 
-    [ types.updatetabbarshow ] ( state : IState , payload : boolean ) {
-        state.tabbarshow = payload;
-    } ,
+    // [ types.updatetabbarshow ] ( state : IState , payload : boolean ) {
+    //     state.tabbarshow = payload;
+    // } ,
 
 }

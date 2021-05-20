@@ -9,9 +9,10 @@
 
 //引入公共组件
 import aliicon from '@comp/aliicon.vue'
+import mytabbar from '@comp/mytabbar.vue'
 
 // 导出
 export default {
     aliicon ,
-
+    mytabbar ,
 }

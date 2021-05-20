@@ -30,7 +30,7 @@ export interface IPageData {
 
     AddPageData : IAddPageData,
     DetailPageData : IDetailPageData,
-    tabbarshow:boolean,
+    // tabbarshow:boolean,
 
 }
 

@@ -53,8 +53,7 @@ import {
 } from "vue";
 
 export default defineComponent( {
-    // 声明 props
-    props : {} ,
+
     setup () {
         // const router = useRouter()
         // const route = useRoute()

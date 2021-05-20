@@ -19,5 +19,5 @@ export const pagedatastate : IPageData = {
     DetailPageData : {
         sourcepagepath : ''
     } ,
-    tabbarshow : true
+    // tabbarshow : true
 };

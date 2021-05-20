@@ -12,6 +12,9 @@ Time: 17:48
 
     <div>
         statstatstat
+
+        <!--        tabbar-->
+        <mytabbar/>
     </div>
 
 </template>

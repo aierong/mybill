@@ -23,6 +23,8 @@ router.afterEach(() => {
 
 
 
+
+
 关于:tabbar的使用
 项目中,有些页面是需要tabbar的,有些不需要
 
