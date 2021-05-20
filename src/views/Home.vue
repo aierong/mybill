@@ -3,7 +3,7 @@
         <router-view/>
         <!--        这里加几个回车,要不上面router-view内容会挡住最下面 -->
         <br> <br> <br><br><br>
-        <tabbars v-show="show"/>
+        <mytabbar v-show="show"/>
     </div>
 </template>
 
@@ -23,12 +23,12 @@ import {
 import { useStore } from 'vuex'
 import { key } from '@store/index.ts'
 
-import tabbars from "@comp/tabbars.vue";
+import mytabbar from "@comp/mytabbar.vue";
 
 export default defineComponent( {
     name : 'Home' ,
     components : {
-        tabbars ,
+        mytabbar ,
     } ,
     setup () {
         const store = useStore( key )

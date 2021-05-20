@@ -122,6 +122,8 @@ export default defineComponent( {
 </script>
 
 <!-- 样式代码片段  scoped -->
-<style>
+<style scoped
+       lang="less"
+       src="./mytabbar.less">
 
 </style>
