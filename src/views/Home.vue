@@ -33,6 +33,7 @@ export default defineComponent( {
     setup () {
         const store = useStore( key )
 
+        //通过vuex计算属性,控制tabbar要不要显示
         const show = computed( () => {
             return store.getters.gettabbarshow;
         } )

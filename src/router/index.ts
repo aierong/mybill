@@ -142,17 +142,13 @@ router.beforeEach( ( to , from ) => {
 } )
 
 router.afterEach( ( to , from ) => {
-    // console.log( 'afterEach to' , to )
-    // console.log( 'afterEach from' , from )
-
     // 这里做一个判断,判断tabbar是否显示
     if ( to != null && to.meta != null ) {
-
+        //先默认是显示
         store.commit( UserMutationType.updatetabbarshow , true );
 
+        //取到路由中配置的meta
         if ( to.meta.notabbar != null && to.meta.notabbar ) {
-
-            // console.log( 'notabbar' )
             store.commit( UserMutationType.updatetabbarshow , false );
         }
     }
