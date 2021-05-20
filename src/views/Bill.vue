@@ -100,28 +100,30 @@ Time: 17:52
  */
 type QueryType = "all" | "out" | "in";
 
-interface IBillObj {
-    ids : number,
+import { IBillObj } from '@/types'
 
-    mobile : string,
-    billtypeid : number,
-    typename : string,
-    avatar : string,
-    isout : boolean,
-    moneys : number,
-    moneydate : string,
-
-    moneyyear : number,
-    moneymonth : number,
-    moneyday : number,
-    memo : string,
-    sources : string,
-    adddate : string,
-    updatedate : string,
-    deletedate : string,
-    delmark : string,
-
-}
+// interface IBillObj {
+//     ids : number,
+//
+//     mobile : string,
+//     billtypeid : number,
+//     typename : string,
+//     avatar : string,
+//     isout : boolean,
+//     moneys : number,
+//     moneydate : string,
+//
+//     moneyyear : number,
+//     moneymonth : number,
+//     moneyday : number,
+//     memo : string,
+//     sources : string,
+//     adddate : string,
+//     updatedate : string,
+//     deletedate : string,
+//     delmark : string,
+//
+// }
 
 interface IBillList {
     list : IBillObj[]

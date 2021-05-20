@@ -24,9 +24,9 @@ namespace billservice.interfaces
 
         Task<List<BillReturnDto>> GetListAsync ( string mobile , int year , int month , int billtypeid );
 
-        //List<BillReturnDto> GetList ( string mobile , int year , int month , int billtypeid );
+        
 
 
-        //Task<bills> GetAsync ( int id );
+        Task<BillReturnDto> GetAsync ( int id );
     }
 }

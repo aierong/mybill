@@ -22,11 +22,10 @@ Time: 17:11
 
 <!-- TypeScript脚本代码片段 -->
 <script lang="ts">
+import { IBillObj } from '@/types'
 
 interface IState {
-    userselectyear : number,
-
-    sourcepagepath : string,
+    model : IBillObj | null,
 }
 
 // 导入
@@ -36,9 +35,14 @@ import {
     reactive ,
     toRefs ,
     computed ,
+    onMounted ,
 } from "vue";
 
 import { useRouter , useRoute } from 'vue-router'
+import { useStore } from 'vuex'
+import { key } from '@store/index.ts'
+
+import * as billapi from '@/http/api/bill'
 
 export default defineComponent( {
     // 子组件
@@ -46,43 +50,52 @@ export default defineComponent( {
     // 声明 props
     props : {
         queryid : {
-            type : String ,
-            default : ''
+            type : Number ,
+            default : 0
         } ,
     } ,
-    setup () {
+    setup ( props , { emit } ) {
         const router = useRouter()
+        const store = useStore( key )
 
-        // const state = reactive<IState>( {
-        //
-        //     sourcepagepath : '' ,
-        //     userselectyear : 0
-        // } )
+        const state = reactive<IState>( {
+            model : null
+        } );
 
-        // const sourcepagepath = ref<string>( '' )
-
-        // router.afterEach( ( to , from ) => {
-        //     // 进入 和 离开页面都会触发
-        //
-        //     console.log( "afterEach,to:" , to );
-        //     console.log( "afterEach,from:" , from , from.path );
-        //
-        //     if ( from.path != 'detail' ) {
-        //         // sourcepagepath.value = from.path;
-        //         state.sourcepagepath = from.path;
-        //     }
-        //
-        // } )
+        const sourcepagepath = computed( () => {
+            return store.getters.getdetailpagesourcepagepath;
+        } )
 
         const onClickLeft = () => {
-            router.push( { path : `/bill` } );
+            // 可能有几个页面到这个详细页面,所以要返回之前页面
+            router.push( { path : sourcepagepath.value } );
 
             return;
         }
 
+        onMounted( async () => {
+            await getmodel()
+        } )
+
+        const getmodel = async () => {
+
+            var status = await billapi.get( props.queryid );
+
+            console.log( 'status' , status )
+
+            if ( status.data.Success ) {
+
+                state.model = status.data.Result;
+            }
+            else {
+                state.model = null;
+            }
+
+        }
+
         return {
-            // sourcepagepath ,
-            // ...toRefs( state ) ,
+            ...toRefs( state ) ,
+            sourcepagepath ,
             onClickLeft ,
         };
     } ,

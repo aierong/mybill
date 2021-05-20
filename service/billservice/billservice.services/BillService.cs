@@ -137,5 +137,49 @@ namespace billservice.services
 
 
 
+        public async Task<BillReturnDto> GetAsync ( int id )
+        {
+            string sql = @"SELECT  top 1    bt.typename ,
+                                    bt.avatar ,
+                                    b.ids ,
+                                    b.mobile ,
+                                    b.billtypeid ,
+                                    b.isout ,
+                                    b.moneys ,
+                                    b.moneydate ,
+                                    b.moneyyear ,
+                                    b.moneymonth ,
+                                    b.moneyday ,
+                                    b.memo ,
+                                    b.sources ,
+                                    b.adddate ,
+                                    b.updatedate ,
+                                    b.deletedate ,
+                                    b.delmark
+                        FROM        bills AS b
+                        JOIN   billtype AS bt
+                        ON  b.billtypeid = bt.ids 
+
+                        WHERE  b.ids = @ids                                                 ";
+
+            List<BillReturnDto> dt = await fsql.Ado.QueryAsync<BillReturnDto>( sql ,
+                new
+                {
+
+                    ids = id ,
+
+                } );
+
+            if ( dt != null && dt.Count > 0 )
+            {
+                return dt[0];  //取第1个回去
+            }
+
+            return null;
+
+        }
+
+
+
     }
 }

@@ -24,3 +24,7 @@ export function add ( BillDto : IBillDto ) {
 export function update ( BillDto : IBillDto ) {
     return axios.post( `${ prefix }/update` , BillDto );
 }
+
+export function get ( id : number ) {
+    return axios.get( `${ prefix }/get/${ id }` );
+}
