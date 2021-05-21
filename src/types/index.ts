@@ -29,3 +29,11 @@ export interface IBillObj {
     delmark : string,
 
 }
+
+/**
+ * 查询类型
+ */
+export type QueryType = "all" | "out" | "in";
+
+
+

@@ -9,13 +9,13 @@
 
 import { IState } from '@store/types'
 
-const getaddpagerefresh = ( state : IState ) => {
-    if ( state.AddPageData != null ) {
-        return state.AddPageData.isrefresh;
-    }
-
-    return false;
-};
+// const getaddpagerefresh = ( state : IState ) => {
+//     if ( state.AddPageData != null ) {
+//         return state.AddPageData.isrefresh;
+//     }
+//
+//     return false;
+// };
 
 const getdetailpagesourcepagepath = ( state : IState ) => {
     if ( state.DetailPageData != null ) {
@@ -31,7 +31,7 @@ const getdetailpagesourcepagepath = ( state : IState ) => {
 // };
 
 export const pagedatagetters = {
-    getaddpagerefresh ,
+    // getaddpagerefresh ,
     getdetailpagesourcepagepath ,
     // gettabbarshow ,
 }

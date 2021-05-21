@@ -20,7 +20,7 @@ export const clearloginuser = "clearloginuser"
 /**
  *修改添加页面刷新状态
  */
-export const updateaddpagedatarefresh = "updateaddpagedatarefresh"
+// export const updateaddpagedatarefresh = "updateaddpagedatarefresh"
 
 
 export const updateaddpagedata = "updateaddpagedata"

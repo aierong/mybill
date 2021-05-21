@@ -99,12 +99,12 @@ Time: 17:52
 <script lang="ts">
 
 
-/**
- * 查询类型
- */
-type QueryType = "all" | "out" | "in";
+// /**
+//  * 查询类型
+//  */
+// type QueryType = "all" | "out" | "in";
 
-import { IBillObj } from '@/types'
+import { IBillObj , QueryType } from '@/types'
 
 // interface IBillObj {
 //     ids : number,
@@ -224,7 +224,26 @@ export default defineComponent( {
             return querymodeldata.querytype == 'in' || querymodeldata.querytype == 'all';
         } )
 
+        const initdata = () => {
+            //有可能vuex中记录了,上次的记录,取回来用
+
+            if ( store.state.AddPageData != null ) {
+                // var datas = store.state.AddPageData;
+
+                querymodeldata.querytype = store.state.AddPageData.querytype;
+                querymodeldata.userselectyear = store.state.AddPageData.year;
+                querymodeldata.userselectmonth = store.state.AddPageData.month;
+
+                querymodeldata.userselectbilltypeid = store.state.AddPageData.billtypeid;
+                querymodeldata.userselectbilltypetxt = store.state.AddPageData.billtypetxt;
+
+            }
+        }
+
         onMounted( async () => {
+            // console.log( 'onMounted bill' )
+            initdata();
+
             await getlist();
         } )
 
@@ -437,7 +456,10 @@ export default defineComponent( {
                 year : querymodeldata.userselectyear ,
                 month : querymodeldata.userselectmonth ,
                 billtypeid : querymodeldata.userselectbilltypeid ,
-                isrefresh : false
+                billtypetxt : querymodeldata.userselectbilltypetxt ,
+                querytype : querymodeldata.querytype ,
+
+                // isrefresh : false
             };
 
             // 记录状态数据

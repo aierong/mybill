@@ -16,6 +16,27 @@ Time: 17:11
                      left-arrow
                      @click-left="onClickLeft"/>
         {{ queryid }}
+        <div v-if="modeldata!=null">
+
+            {{ modeldata.typename }}
+            <br>
+            {{ modeldata.moneys }}
+            <br>
+            {{ modeldata.moneydate }}
+
+            <!--            这里先搞一个删除按钮-->
+            <van-button round
+                        block
+                        @click="onDelete"
+                        type="primary">删除
+            </van-button>
+            <br><br>
+            <van-button round
+                        block
+                        @click="onUpdate"
+                        type="primary">修改
+            </van-button>
+        </div>
     </div>
 
 </template>
@@ -25,7 +46,7 @@ Time: 17:11
 import { IBillObj } from '@/types'
 
 interface IState {
-    model : IBillObj | null,
+    modeldata : IBillObj | null,
 }
 
 // 导入
@@ -37,6 +58,9 @@ import {
     computed ,
     onMounted ,
 } from "vue";
+
+//引入一下
+import { Toast , Dialog } from 'vant';
 
 import { useRouter , useRoute } from 'vue-router'
 import { useStore } from 'vuex'
@@ -59,14 +83,21 @@ export default defineComponent( {
         const store = useStore( key )
 
         const state = reactive<IState>( {
-            model : null
+            modeldata : null
         } );
+
+        // //数据是否变动
+        // const isdatachange = ref<boolean>( false );
 
         const sourcepagepath = computed( () => {
             return store.getters.getdetailpagesourcepagepath;
         } )
 
         const onClickLeft = () => {
+            gotoback();
+        }
+
+        const gotoback = () => {
             // 可能有几个页面到这个详细页面,所以要返回之前页面
             router.push( { path : sourcepagepath.value } );
 
@@ -81,15 +112,57 @@ export default defineComponent( {
 
             var status = await billapi.get( props.queryid );
 
-            console.log( 'status' , status )
+            // console.log( 'status' , status )
 
             if ( status.data.Success ) {
 
-                state.model = status.data.Result;
+                state.modeldata = status.data.Result;
             }
             else {
-                state.model = null;
+                state.modeldata = null;
             }
+
+        }
+
+        const onDelete = async () => {
+            // 删除
+
+            if ( props.queryid <= 0 ) {
+                Toast.fail( 'id错误' )
+
+                return;
+            }
+
+            Dialog.confirm( {
+                // title : "退出" ,
+                message : "确定删除?"
+            } ).then( async () => {
+                // on confirm
+                // console.log( "点确定按钮" )
+
+                var status = await billapi.deletebyid( props.queryid )
+
+                if ( status.data.Success ) {
+                    //成功不用刷新模型了,直接跳回之前页面
+                    Toast.success( "成功删除" )
+
+                    gotoback();
+                }
+                else {
+                    Toast.fail( status.data.Message )
+
+                    return;
+                }
+
+            } ).catch( () => {
+                // on cancel
+                // console.log( "点取消按钮" )
+            } )
+
+        }
+
+        const onUpdate = () => {
+            // 修改
 
         }
 
@@ -97,6 +170,8 @@ export default defineComponent( {
             ...toRefs( state ) ,
             sourcepagepath ,
             onClickLeft ,
+            onDelete , onUpdate ,
+            // isdatachange ,
         };
     } ,
 

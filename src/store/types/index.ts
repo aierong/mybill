@@ -7,6 +7,8 @@
 
  */
 
+import { QueryType } from '@/types'
+
 export interface IUserState {
 
     /**
@@ -19,7 +21,9 @@ export interface IAddPageData {
     year : number,
     month : number,
     billtypeid : number,
-    isrefresh : boolean
+    billtypetxt : string,
+    querytype : QueryType,
+    // isrefresh : boolean
 }
 
 export interface IDetailPageData {
@@ -27,11 +31,9 @@ export interface IDetailPageData {
 }
 
 export interface IPageData {
-
-    AddPageData : IAddPageData,
+    AddPageData : IAddPageData | null,
     DetailPageData : IDetailPageData,
     // tabbarshow:boolean,
-
 }
 
 export interface IState extends IUserState , IPageData {
