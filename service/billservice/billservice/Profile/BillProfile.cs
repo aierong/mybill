@@ -38,6 +38,12 @@ namespace billservice.Profile
                     else
                     {
                         dest.updatedate = now;
+
+                        DateTime date = Convert.ToDateTime( src.moneydate );
+
+                        dest.moneyyear = date.Year;
+                        dest.moneymonth = date.Month;
+                        dest.moneyday = date.Day;
                     }
 
                     dest.mobile = context.Items[Constant.mobilename] != null ? context.Items[Constant.mobilename].ToString() : string.Empty;

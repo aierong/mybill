@@ -135,6 +135,8 @@ Time: 17:35
 <script lang="ts">
 import { IBillType , IBillDto , ISelectBillTypeObj } from "@comp/types";
 
+import { IBillObj } from '@/types'
+
 interface IAllList {
     outlist : IBillType[],
     inlist : IBillType[],
@@ -149,6 +151,7 @@ import {
     computed ,
     onMounted ,
     watch ,
+    PropType ,
 } from "vue";
 
 //引入一下
@@ -158,6 +161,7 @@ import * as billtypeapi from "@/http/api/billtype";
 import * as billapi from '@/http/api/bill'
 
 import { EncryptPassWord } from "@common/util";
+import { AxiosResponse } from "axios";
 
 export default defineComponent( {
     // 定义是事件
@@ -174,7 +178,7 @@ export default defineComponent( {
             required : true
         } ,
         updatedata : {
-            type : Object
+            type : Object as PropType<IBillObj>
         }
     } ,
     setup ( props , { emit } ) {
@@ -204,6 +208,8 @@ export default defineComponent( {
         const amount = ref( '' )
 
         const initval = () => {
+            console.log( 'initval' )
+
             var now = new Date();
 
             year.value = now.getFullYear();
@@ -223,6 +229,36 @@ export default defineComponent( {
                 billtypeid.value = listmodeldata.outlist[ 0 ].ids;
             }
         }
+
+        watch(
+            () => props.updatedata ,
+            ( newval ) => {
+                // console.log( '子组件：监听props' , newval , props.isrunadd )
+
+                // 修改模式
+                if ( newval != null && !props.isrunadd ) {
+                    // console.log( '子组件' , newval , props.isrunadd )
+
+                    year.value = newval.moneyyear;
+                    month.value = newval.moneymonth;
+                    day.value = newval.moneyday;
+
+                    CurrentSelectDate.value = new Date( newval.moneyyear , newval.moneymonth - 1 , newval.moneyday );
+                    moneys.value = newval.moneys;
+                    amount.value = newval.moneys.toFixed( 2 );
+
+                    mometxt.value = newval.memo;
+
+                    isout.value = newval.isout;
+
+                    billtypeid.value = newval.billtypeid;
+                }
+            } ,
+            {
+                // 这里如果不设置immediate = true,那么最初绑定的时候是不会执行的,要等到num改变时才执行监听计算
+                immediate : true
+            }
+        )
 
         const selectlistfirst = ( _isout : boolean ) => {
 
@@ -271,18 +307,26 @@ export default defineComponent( {
 
             // 每次打开初始化一下
             if ( show.value ) {
-                initval();  // 初始化一下
+                if ( props.isrunadd ) {
+                    initval();  // 添加模式, 初始化一下
+                }
+
             }
         }
 
         onMounted( async () => {
-            initval();  // 初始化一下
+            if ( props.isrunadd ) {
+                initval();  // 初始化一下
+            }
 
             await getoutlist();
             await getinlist();
 
             // 选择第1个
-            selectlistfirst( isout.value );
+            if ( props.isrunadd ) {
+                selectlistfirst( isout.value );
+            }
+
         } );
 
         const getinlist = async () => {
@@ -458,7 +502,7 @@ export default defineComponent( {
 
             var savedata : IBillDto = {
                 isadd : props.isrunadd ,
-                ids : props.isrunadd ? 0 : 0 ,
+                ids : props.isrunadd ? 0 : props.updatedata != null ? props.updatedata.ids : 0 ,
                 billtypeid : billtypeid.value ,
                 isout : isout.value ,
                 moneys : moneys.value ,
@@ -466,11 +510,19 @@ export default defineComponent( {
                 memo : mometxt.value
             };
 
-            // console.log( 'savedata' , savedata )
+            console.log( 'savedata' , savedata )
 
-            let status = await billapi.add( savedata );
+            let status : AxiosResponse<any>;
+
+            if ( props.isrunadd ) {
+                status = await billapi.add( savedata );
+            }
+            else {
+                status = await billapi.update( savedata );
+            }
 
             // console.log( status )
+
             if ( status.data.Success ) {
                 emit( "runresult" , true );
 

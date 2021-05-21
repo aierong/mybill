@@ -36,6 +36,12 @@ Time: 17:11
                         @click="onUpdate"
                         type="primary">修改
             </van-button>
+
+            <!--    修改账单弹窗   -->
+            <BillOperation :isrunadd="false"
+                           :updatedata="modeldata"
+                           @runresult="billrunresult"
+                           ref="operationRef"/>
         </div>
     </div>
 
@@ -68,9 +74,13 @@ import { key } from '@store/index.ts'
 
 import * as billapi from '@/http/api/bill'
 
+import BillOperation from "@comp/popup/BillOperation.vue";
+
 export default defineComponent( {
     // 子组件
-    components : {} ,
+    components : {
+        BillOperation ,
+    } ,
     // 声明 props
     props : {
         queryid : {
@@ -81,6 +91,8 @@ export default defineComponent( {
     setup ( props , { emit } ) {
         const router = useRouter()
         const store = useStore( key )
+
+        const operationRef = ref<typeof BillOperation | null>( null );
 
         const state = reactive<IState>( {
             modeldata : null
@@ -158,12 +170,28 @@ export default defineComponent( {
                 // on cancel
                 // console.log( "点取消按钮" )
             } )
-
         }
 
         const onUpdate = () => {
             // 修改
 
+            if ( operationRef.value != null ) {
+                operationRef.value.toggle();
+            }
+        }
+
+        const billrunresult = async ( isok : boolean ) => {
+            if ( !isok ) {
+                //  失败,暂时不处理
+
+                return;
+            }
+            else {
+                //再从新请求 服务器
+                await getmodel();
+
+                return;
+            }
         }
 
         return {
@@ -172,6 +200,7 @@ export default defineComponent( {
             onClickLeft ,
             onDelete , onUpdate ,
             // isdatachange ,
+            operationRef , billrunresult ,
         };
     } ,
 

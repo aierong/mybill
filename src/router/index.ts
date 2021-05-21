@@ -43,7 +43,7 @@ const routes : Array<RouteRecordRaw> = [
                 name : 'detail' ,
                 component : () => import('@views/Detail.vue') ,
                 props : ( route ) => ( {
-                    queryid : route.query.ids ,
+                    queryid : ( route.query.ids != null && route.query.ids != '' ) ? parseInt( route.query.ids.toString() ) : 0 ,
                 } ) ,
                 // meta : {
                 //     //不需要显示tabbar
