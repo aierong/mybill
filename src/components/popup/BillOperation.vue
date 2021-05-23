@@ -510,7 +510,7 @@ export default defineComponent( {
                 memo : mometxt.value
             };
 
-            console.log( 'savedata' , savedata )
+            // console.log( 'savedata' , savedata )
 
             let status : AxiosResponse<any>;
 

@@ -43,7 +43,8 @@ Time: 17:52
         </div>
 
         <!--     列表,循环   -->
-        <div :key="index"
+        <div v-if="isdisplaylist"
+             :key="index"
              v-for="(item,index) in displaylist">
             <van-cell-group>
                 <template #title>
@@ -74,6 +75,9 @@ Time: 17:52
                     </template>
                 </van-cell>
             </van-cell-group>
+        </div>
+        <div v-else>
+            <van-empty description="无记录,赶紧添加吧"/>
         </div>
 
         <!--     悬浮添加按钮   -->
@@ -304,6 +308,14 @@ export default defineComponent( {
             return []
         } )
 
+        const isdisplaylist = computed( () => {
+            if ( displaylist.value != null ) {
+                return displaylist.value.length > 0;
+            }
+
+            return false;
+        } )
+
         const getweekstring = ( week : number ) : string => {
             var str = '天'
 
@@ -450,7 +462,7 @@ export default defineComponent( {
             onAdd ,
 
             isdisplayout , isdisplayin ,
-            displaylist , sumoutmoney , suminmoney ,
+            displaylist , isdisplaylist , sumoutmoney , suminmoney ,
             getweekstring , selectymtxt ,
             SelectYearMonth , userselectdate ,
 
