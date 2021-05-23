@@ -18,19 +18,16 @@ Time: 15:30
                position="bottom">
         <br><br><br>
 
-        <span :class="{ active:isactive(0)  }"
-              style="margin-left: 20px;font-size: 20px;"
+        <span :class="{ alltype:true, active:isactive(0)  }"
               @click="onAllClick">全部</span>
         <br>
-
         <van-divider content-position="left">支出类型</van-divider>
         <van-grid>
             <van-grid-item v-for="(item,index) in outlist"
                            :key="index"
                            @click="onItemClick(item)">
                 <template #text>
-                    <span style="font-size: 20px;"
-                          :class="{ active:isactive(item.ids)  }">{{ item.typename }}</span>
+                    <span :class="{ outtxt:true, active:isactive(item.ids)  }">{{ item.typename }}</span>
                 </template>
             </van-grid-item>
         </van-grid>
@@ -42,8 +39,7 @@ Time: 15:30
                            :key="index"
                            @click="onItemClick(item)">
                 <template #text>
-                    <span style="font-size: 20px;"
-                          :class="{ active:isactive(item.ids)  }">{{ item.typename }}</span>
+                    <span :class="{ intxt:true, active:isactive(item.ids)  }">{{ item.typename }}</span>
                 </template>
             </van-grid-item>
         </van-grid>
