@@ -6,6 +6,7 @@ popup组件弹窗
 
 class 绑定
 <span   :class="{ expense: true, active: payType == 'expense' }">支出</span>
+一些固定直接返回true,后面再跟一些动态的
 
 
 
