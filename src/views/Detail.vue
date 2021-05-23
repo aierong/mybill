@@ -15,28 +15,44 @@ Time: 17:11
                      left-text="返回"
                      left-arrow
                      @click-left="onClickLeft"/>
-        {{ queryid }}
-        <div v-if="modeldata!=null">
+        <!--        {{ queryid }}-->
+        <div class="detail"
+             v-if="modeldata!=null">
+            <div class="card">
+                <div style="text-align: center;padding-top: 19px;">
+                    <aliicon :iconname="modeldata.avatar"
+                             :iconsize="28"
+                             :colortypes="modeldata.isout?'out':'in'"/>
+                    <span style="margin-left: 5px;font-size: 20px;">{{ modeldata.typename }}</span></div>
+                <div class="amount">
+                    <span>{{ modeldata.isout ? '-' : '+' }}{{ modeldata.moneys }}</span>
+                </div>
 
-            {{ modeldata.typename }}
-            <br>
-            {{ modeldata.moneys }}
-            <br>
-            {{ modeldata.moneydate }}
+                <div class="times">
+                    记录时间:{{ modeldata.moneydate }}
+                </div>
+                <div class="sources">
+                    来源:{{ modeldata.sources }}
+                </div>
+                <div class="memo">
+                    备注:{{ modeldata.memo }}
+                </div>
+                <van-divider/>
+                <div class="cz">
+                    <van-icon color="red"
+                              name="delete"
+                              size="25"
+                              @click="onDelete"/>
+                    <span style="font-size: 30px;">删除</span>
+                    &nbsp;&nbsp;&nbsp;
+                    <van-icon size="25"
+                              name="edit"
+                              @click="onUpdate"/>
+                    <span style="font-size: 30px;">编辑</span>
+                </div>
+                <br>
 
-            <!--            这里先搞一个删除按钮-->
-            <van-button round
-                        block
-                        @click="onDelete"
-                        type="primary">删除
-            </van-button>
-            <br><br>
-            <van-button round
-                        block
-                        @click="onUpdate"
-                        type="primary">修改
-            </van-button>
-
+            </div>
             <!--    修改账单弹窗   -->
             <BillOperation :isrunadd="false"
                            :updatedata="modeldata"
