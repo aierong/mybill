@@ -19,11 +19,12 @@ Time: 17:11
         <div class="detail"
              v-if="modeldata!=null">
             <div class="card">
-                <div style="text-align: center;padding-top: 19px;">
+                <div class="avatar">
                     <aliicon :iconname="modeldata.avatar"
                              :iconsize="28"
                              :colortypes="modeldata.isout?'out':'in'"/>
-                    <span style="margin-left: 5px;font-size: 20px;">{{ modeldata.typename }}</span></div>
+                    <span >{{ modeldata.typename }}</span>
+                </div>
                 <div class="amount">
                     <span>{{ modeldata.isout ? '-' : '+' }}{{ modeldata.moneys }}</span>
                 </div>
@@ -43,12 +44,12 @@ Time: 17:11
                               name="delete"
                               size="25"
                               @click="onDelete"/>
-                    <span style="font-size: 30px;">删除</span>
+                    <span @click="onDelete">删除</span>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <van-icon size="25"
                               name="edit"
                               @click="onUpdate"/>
-                    <span style="font-size: 30px;">编辑</span>
+                    <span @click="onUpdate">编辑</span>
                 </div>
                 <br>
 
