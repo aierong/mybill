@@ -99,35 +99,7 @@ Time: 17:52
 <script lang="ts">
 
 
-// /**
-//  * 查询类型
-//  */
-// type QueryType = "all" | "out" | "in";
-
 import { IBillObj , QueryType } from '@/types'
-
-// interface IBillObj {
-//     ids : number,
-//
-//     mobile : string,
-//     billtypeid : number,
-//     typename : string,
-//     avatar : string,
-//     isout : boolean,
-//     moneys : number,
-//     moneydate : string,
-//
-//     moneyyear : number,
-//     moneymonth : number,
-//     moneyday : number,
-//     memo : string,
-//     sources : string,
-//     adddate : string,
-//     updatedate : string,
-//     deletedate : string,
-//     delmark : string,
-//
-// }
 
 interface IBillList {
     list : IBillObj[]

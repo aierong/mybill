@@ -44,7 +44,7 @@ Time: 17:11
                               size="25"
                               @click="onDelete"/>
                     <span style="font-size: 30px;">删除</span>
-                    &nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <van-icon size="25"
                               name="edit"
                               @click="onUpdate"/>

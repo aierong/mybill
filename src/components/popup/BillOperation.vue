@@ -208,7 +208,7 @@ export default defineComponent( {
         const amount = ref( '' )
 
         const initval = () => {
-            console.log( 'initval' )
+            // console.log( 'initval' )
 
             var now = new Date();
 
