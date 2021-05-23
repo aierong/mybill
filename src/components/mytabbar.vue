@@ -9,17 +9,6 @@ Time: 17:27
 
 <!-- html代码片段 -->
 <template>
-
-    <!--    <van-tabbar v-model="active"-->
-    <!--                @change="onchange"-->
-    <!--                active-color="#ee0a24"-->
-    <!--                inactive-color="#000">-->
-
-    <!--        <van-tabbar-item icon="orders-o">明细</van-tabbar-item>-->
-    <!--        <van-tabbar-item icon="points">统计</van-tabbar-item>-->
-    <!--        <van-tabbar-item icon="setting-o">我</van-tabbar-item>-->
-    <!--    </van-tabbar>-->
-
     <van-tabbar route
                 :fixed="true"
                 active-color="#ee0a24"

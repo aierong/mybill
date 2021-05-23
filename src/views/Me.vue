@@ -9,15 +9,13 @@ Time: 17:40
 
 <!-- html代码片段 -->
 <template>
-
     <div>
-
         <van-cell size="large">
             <template #title>
                 <van-icon :name="userinfo.avatar"
                           size="58"
                           @click="avatarclick"/>
-                <span class="cellspantitleclass">{{ userinfo.name + '(' + userinfo.mobile + ')' }}</span>
+                <span class="userinfo">{{ userinfo.name + '(' + userinfo.mobile + ')' }}</span>
             </template>
         </van-cell>
         <br>
@@ -38,9 +36,7 @@ Time: 17:40
                     round
                     @click="exitClick"
                     type="warning">退出
-
         </van-button>
-
         <br>
         <selectavatar :avatarobj="avatarobj"
                       @userselectavatar="userselectavatar"
@@ -59,8 +55,7 @@ Time: 17:40
                        label="密码"
                        placeholder="请输入密码"/>
         </van-dialog>
-
-        <!--        tabbar-->
+        <!--        tabbar -->
         <mytabbar/>
     </div>
 

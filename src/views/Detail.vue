@@ -23,7 +23,7 @@ Time: 17:11
                     <aliicon :iconname="modeldata.avatar"
                              :iconsize="28"
                              :colortypes="modeldata.isout?'out':'in'"/>
-                    <span >{{ modeldata.typename }}</span>
+                    <span>{{ modeldata.typename }}</span>
                 </div>
                 <div class="amount">
                     <span>{{ modeldata.isout ? '-' : '+' }}{{ modeldata.moneys }}</span>
