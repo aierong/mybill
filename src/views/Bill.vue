@@ -239,7 +239,7 @@ export default defineComponent( {
         }
 
         const sumoutmoney = computed( () => {
-            if ( displaylist.value != null && displaylist.value.length > 0 ) {
+            if ( displaylist.value.length > 0 ) {
                 var sum : number = _.sumBy( displaylist.value , ( item : IDisplayDayBill ) => {
                     return item.sumout;
                 } );
@@ -251,7 +251,7 @@ export default defineComponent( {
         } )
 
         const suminmoney = computed( () => {
-            if ( displaylist.value != null && displaylist.value.length > 0 ) {
+            if ( displaylist.value.length > 0 ) {
                 var sum : number = _.sumBy( displaylist.value , ( item : IDisplayDayBill ) => {
                     return item.sumin;
                 } );
@@ -309,11 +309,13 @@ export default defineComponent( {
         } )
 
         const isdisplaylist = computed( () => {
-            if ( displaylist.value != null ) {
-                return displaylist.value.length > 0;
-            }
+            // if ( displaylist.value != null ) {
+            //     return displaylist.value.length > 0;
+            // }
+            //
+            // return false;
 
-            return false;
+            return displaylist.value.length > 0;
         } )
 
         const getweekstring = ( week : number ) : string => {
