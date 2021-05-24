@@ -263,7 +263,7 @@ export default defineComponent( {
         } )
 
         const displaylist = computed<IDisplayDayBill[]>( () => {
-            if ( billmodeldata.list != null && billmodeldata.list.length > 0 ) {
+            if ( billmodeldata.list.length > 0 ) {
                 //groupBy返回的是对象
                 var gr = _.groupBy( billmodeldata.list , "moneydate" );
 
