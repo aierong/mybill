@@ -15,7 +15,7 @@ import router from '@/router'
 import { Toast } from 'vant';
 
 let _url = process.env.VUE_APP_serverurl;
-// console.log( '_url' , _url )
+
 axios.defaults.baseURL = `${ _url }/api`
 axios.defaults.timeout = 50000;
 

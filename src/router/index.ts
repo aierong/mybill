@@ -5,8 +5,6 @@ import Home from '@views/Home.vue'
 
 import * as constant from '@common/constant'
 
-// import { useStore } from 'vuex'
-// import { key } from '@store/index.ts'
 import { store } from '@store/index'
 import * as UserMutationType from '@store/mutations/mutation-types.ts'
 
@@ -42,13 +40,11 @@ const routes : Array<RouteRecordRaw> = [
                 path : '/detail' ,
                 name : 'detail' ,
                 component : () => import('@views/Detail.vue') ,
+
                 props : ( route ) => ( {
                     queryid : ( route.query.ids != null && route.query.ids != '' ) ? parseInt( route.query.ids.toString() ) : 0 ,
                 } ) ,
-                // meta : {
-                //     //不需要显示tabbar
-                //     notabbar : true
-                // } ,
+
                 //路由独享的守卫
                 beforeEnter : ( to , from ) => {
 
@@ -141,18 +137,7 @@ router.beforeEach( ( to , from ) => {
     }
 } )
 
-// router.afterEach( ( to , from ) => {
-//     // 这里做一个判断,判断tabbar是否显示
-//     if ( to != null && to.meta != null ) {
-//         //先默认是显示
-//         store.commit( UserMutationType.updatetabbarshow , true );
-//
-//         //取到路由中配置的meta
-//         if ( to.meta.notabbar != null && to.meta.notabbar ) {
-//             store.commit( UserMutationType.updatetabbarshow , false );
-//         }
-//     }
-// } )
+
 
 export default router
 
