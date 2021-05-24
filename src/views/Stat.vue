@@ -11,7 +11,21 @@ Time: 17:48
 <template>
 
     <div>
-        statstatstat
+        <!--        一些汇总栏目-->
+        <div>
+            <span>总收入¥{{ $FormarMoney( suminmoney ) }}</span>
+            <br>
+            <span>总支出¥{{ $FormarMoney( sumoutmoney ) }}</span>
+        </div>
+        <!--        按类型得统计图表-->
+        <div>
+            <div>
+                <span>收支构成</span>
+                <span class="itemmoney">
+                <span>支出</span> <span>收入</span>
+                </span>
+            </div>
+        </div>
 
         <!--        tabbar-->
         <mytabbar/>
@@ -22,7 +36,7 @@ Time: 17:48
 <!-- TypeScript脚本代码片段 -->
 <script lang="ts">
 
-import { IBillObj } from "@/types";
+import { IBillObj , QueryType } from "@/types";
 
 interface IStatBillObj {
 
@@ -36,6 +50,13 @@ interface IStatBillObj {
 interface IStatBillList {
     inlist : IStatBillObj[],
     oulist : IStatBillObj[],
+}
+
+interface IQuery {
+    userselectyear : number,
+    userselectmonth : number,
+
+    isout : boolean
 }
 
 // 引入lodash
@@ -58,6 +79,17 @@ export default defineComponent( {
     // 声明 props
     props : {} ,
     setup () {
+
+        var now = new Date();
+
+        const querymodeldata = reactive<IQuery>( {
+            isout : true ,
+
+            // 默认当月
+            userselectyear : now.getFullYear() ,
+            userselectmonth : 1 + now.getMonth() ,
+
+        } )
 
         const billmodeldata = reactive<IStatBillList>( {
             inlist : [] ,
@@ -88,7 +120,7 @@ export default defineComponent( {
         } )
 
         const getlist = async ( isout : boolean ) => {
-            let status = await billapi.getstatlist( 2021 , 5 , isout );
+            let status = await billapi.getstatlist( querymodeldata.userselectyear , querymodeldata.userselectmonth , isout );
 
             if ( status.data.Success ) {
                 if ( isout ) {
@@ -110,7 +142,7 @@ export default defineComponent( {
         }
 
         return {
-            ...toRefs( billmodeldata ) ,
+            ...toRefs( billmodeldata ) , ...toRefs( querymodeldata ) ,
             suminmoney , sumoutmoney ,
         };
     } ,
@@ -119,6 +151,8 @@ export default defineComponent( {
 </script>
 
 <!-- 样式代码片段  scoped -->
-<style>
+<style lang="less"
+       scoped
+       src="./Stat.less">
 
 </style>
