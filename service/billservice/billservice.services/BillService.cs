@@ -101,6 +101,7 @@ namespace billservice.services
 
 
 
+
         public async Task<List<BillReturnDto>> GetListAsync ( string mobile , int year , int month , int billtypeid )
         {
 
@@ -207,6 +208,48 @@ namespace billservice.services
         }
 
 
+        public async Task<List<BillMapReturnDto>> GetStatListAsync ( string mobile , int year , int month , bool isout )
+        {
+            string sql = @"
+
+SELECT      b.billtypeid ,
+            MAX ( t.typename ) AS typename ,
+            MAX ( t.avatar ) AS avatar ,
+            SUM ( b.moneys ) AS moneys
+INTO        #tem
+FROM        dbo.bills AS b
+JOIN        [dbo].[billtype] AS t
+ON  b.billtypeid = t.ids
+WHERE       b.moneyyear = @moneyyear
+            AND b.moneymonth = @moneymonth
+            AND b.[delmark] = 'N'
+            AND t.isout = @isout
+            AND b.mobile= @mobile
+GROUP BY    b.billtypeid
+
+SELECT      billtypeid ,
+            typename ,
+            avatar ,
+            moneys ,
+            --SUM(moneys) over() as sum,
+            CONVERT ( MONEY, moneys / SUM ( moneys ) OVER ()) AS ratio
+FROM        #tem
+ORDER BY    moneys DESC
+
+DROP TABLE #tem";
+
+            List<BillMapReturnDto> dt = await fsql.Ado.QueryAsync<BillMapReturnDto>( sql ,
+                new
+                {
+                    mobile = mobile ,
+                    moneyyear = year ,
+                    moneymonth = month ,
+                    isout=isout
+                } );
+
+            return dt;
+
+        }
 
     }
 }

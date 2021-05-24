@@ -96,6 +96,21 @@ namespace billservice.Controllers
 
 
 
+        [HttpGet]
+        [Route( "getstatlist/{year}/{month}/{isout}" )]
+        public async Task<ServiceResult<List<BillMapReturnDto>>> getstatlist ( int year = 2020 , int month = 1 , bool isout = false )
+        {
+            var result = new ServiceResult<List<BillMapReturnDto>>();
+
+            var mobile = base.UserMobile;
+
+            // billtypeid=0 代表全部
+            var list = await this.Ibill.GetStatListAsync( mobile , year , month , isout );
+
+            result.IsSuccess( list );
+
+            return result;
+        }
 
 
 

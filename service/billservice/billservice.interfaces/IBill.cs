@@ -28,5 +28,8 @@ namespace billservice.interfaces
         Task<BillReturnDto> GetAsync ( int id );
 
         Task<bool> DeleteAsync ( int id  );
+
+
+        Task<List<BillMapReturnDto>> GetStatListAsync ( string mobile , int year , int month , bool isout );
     }
 }

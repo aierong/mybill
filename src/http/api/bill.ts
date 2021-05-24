@@ -17,6 +17,10 @@ export function getlist ( year : number , month : number , billtypeid : number )
     return axios.get( `${ prefix }/getlist/${ year }/${ month }/${ billtypeid }` );
 }
 
+export function getstatlist ( year : number , month : number , isout : boolean ) {
+    return axios.get( `${ prefix }/getstatlist/${ year }/${ month }/${ isout }` );
+}
+
 export function add ( BillDto : IBillDto ) {
     return axios.post( `${ prefix }/add` , BillDto );
 }
