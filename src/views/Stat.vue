@@ -99,7 +99,6 @@ export default defineComponent( {
 
         const modeldata = reactive<IState>( {
 
-
             // 默认当月
             userselectyear : now.getFullYear() ,
             userselectmonth : 1 + now.getMonth() ,
@@ -108,8 +107,15 @@ export default defineComponent( {
             oulist : [] ,
             isout : true ,
 
-
             top5outlist : []
+        } )
+
+        const list = computed<IStatBillObj[]>( () => {
+            if ( modeldata.isout ) {
+                return modeldata.oulist;
+            }
+
+            return modeldata.inlist;
         } )
 
         const suminmoney = computed<number>( () => {
@@ -182,7 +188,7 @@ export default defineComponent( {
 
         return {
             ...toRefs( modeldata ) , topnum ,
-            suminmoney , sumoutmoney ,
+            suminmoney , sumoutmoney , list ,
         };
     } ,
 

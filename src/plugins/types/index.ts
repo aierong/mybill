@@ -10,3 +10,7 @@
 export interface IFormarMoney {
     ( num : number , digits : number ) : string;
 }
+
+export interface IFormatPercent {
+    ( num : number , digits : number ) : string;
+}
