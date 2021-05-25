@@ -60,7 +60,7 @@ interface IState {
     isout : boolean,
 
     inlist : IStatBillObj[],
-    oulist : IStatBillObj[],
+    outlist : IStatBillObj[],
 
     topoutlist : IBillObj[],
     outlistcounts : number,
@@ -86,11 +86,14 @@ import * as UserMutationType from '@store/mutations/mutation-types.ts'
 import * as billapi from '@/http/api/bill'
 
 import { IStatPageData } from "@store/types";
-import { gettopoutlist } from "@/http/api/bill";
+
+import outitemlist from "@comp/outitemlist.vue";
 
 export default defineComponent( {
     // 子组件
-    components : {} ,
+    components : {
+        outitemlist ,
+    } ,
     // 声明 props
     props : {} ,
     setup () {
@@ -107,7 +110,7 @@ export default defineComponent( {
             userselectmonth : 1 + now.getMonth() ,
 
             inlist : [] ,
-            oulist : [] ,
+            outlist : [] ,
             isout : true ,
 
             topoutlist : [] ,
@@ -120,7 +123,7 @@ export default defineComponent( {
 
         const list = computed<IStatBillObj[]>( () => {
             if ( modeldata.isout ) {
-                return modeldata.oulist;
+                return modeldata.outlist;
             }
 
             return modeldata.inlist;
@@ -133,7 +136,7 @@ export default defineComponent( {
         } )
 
         const sumoutmoney = computed<number>( () => {
-            return _.sumBy( modeldata.oulist , function ( item : IStatBillObj ) {
+            return _.sumBy( modeldata.outlist , function ( item : IStatBillObj ) {
                 return item.moneys
             } )
         } )
@@ -152,7 +155,7 @@ export default defineComponent( {
 
             if ( status.data.Success ) {
                 if ( isout ) {
-                    modeldata.oulist = status.data.Result;
+                    modeldata.outlist = status.data.Result;
                 }
                 else {
                     modeldata.inlist = status.data.Result;
@@ -161,7 +164,7 @@ export default defineComponent( {
             }
             else {
                 if ( isout ) {
-                    modeldata.oulist = [];
+                    modeldata.outlist = [];
                 }
                 else {
                     modeldata.inlist = [];
