@@ -135,6 +135,23 @@ namespace billservice.Controllers
 
 
         [HttpGet]
+        [Route( "getoutlist/{year}/{month}/{mode}" )]
+        public async Task<ServiceResult<List<BillReturnDto>>> getoutlist ( int year = 2020 , int month = 1 , string mode = "m" )
+        {
+            var result = new ServiceResult<List<BillReturnDto>>();
+
+            var mobile = base.UserMobile;
+
+            var list = await this.Ibill.GetOutListAsync( mobile , year , month , mode );
+
+            result.IsSuccess( list );
+
+            return result;
+        }
+
+
+
+        [HttpGet]
         [Route( "get/{id}" )]
         public async Task<ServiceResult<BillReturnDto>> get ( int id = 0 )
         {

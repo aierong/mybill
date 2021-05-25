@@ -12,7 +12,8 @@ Time: 17:30
 
     <div class="item">
         <van-cell v-for="(mxitem,mxindex) in list"
-                  :key="mxindex">
+                  :key="mxindex"
+                  @click="itemClick(mxitem.ids)">
             <template #title>
                 <aliicon :iconname="mxitem.avatar"
                          :iconsize="22"
@@ -42,7 +43,8 @@ import {
     toRefs ,
     computed
 } from "vue";
-import { IAvatarObj } from "@comp/types";
+
+import { useRouter } from 'vue-router'
 
 export default defineComponent( {
     // 声明 props
@@ -54,8 +56,17 @@ export default defineComponent( {
         }
     } ,
     setup () {
+        const router = useRouter()
 
-        return {};
+        const itemClick = ( ids : number ) => {
+            router.push( `/detail?ids=${ ids }` )
+
+            return;
+        }
+
+        return {
+            itemClick ,
+        };
     } ,
 
 } )

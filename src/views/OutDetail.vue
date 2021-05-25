@@ -37,14 +37,14 @@ export default defineComponent( {
     components : {} ,
     // 声明 props
     props : {
-        queryyear : {
-            type : Number ,
-            default : 0
-        } ,
-        querymonth : {
-            type : Number ,
-            default : 0
-        } ,
+        // queryyear : {
+        //     type : Number ,
+        //     default : 0
+        // } ,
+        // querymonth : {
+        //     type : Number ,
+        //     default : 0
+        // } ,
     } ,
     setup () {
 

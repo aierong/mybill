@@ -28,4 +28,10 @@ export const pagedatastate : IPageData = {
         sourcepagepath : ''
     } ,
 
+
+    OutDetailPageData : {
+        year : 0 ,
+        month : 0
+    }
+
 };
