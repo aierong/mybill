@@ -53,17 +53,15 @@ interface IStatBillObj {
     ratio : number,
 }
 
-interface IStatBillList {
-    inlist : IStatBillObj[],
-    oulist : IStatBillObj[],
-    top5outlist : IBillObj[]
-}
-
-interface IQuery {
+interface IState {
     userselectyear : number,
     userselectmonth : number,
 
-    isout : boolean
+    isout : boolean,
+
+    inlist : IStatBillObj[],
+    oulist : IStatBillObj[],
+    top5outlist : IBillObj[]
 }
 
 // 引入lodash
@@ -99,29 +97,29 @@ export default defineComponent( {
 
         var now = new Date();
 
-        const querymodeldata = reactive<IQuery>( {
-            isout : true ,
+        const modeldata = reactive<IState>( {
+
 
             // 默认当月
             userselectyear : now.getFullYear() ,
             userselectmonth : 1 + now.getMonth() ,
 
-        } )
-
-        const billmodeldata = reactive<IStatBillList>( {
             inlist : [] ,
             oulist : [] ,
+            isout : true ,
+
+
             top5outlist : []
-        } );
+        } )
 
         const suminmoney = computed<number>( () => {
-            return _.sumBy( billmodeldata.inlist , function ( item : IStatBillObj ) {
+            return _.sumBy( modeldata.inlist , function ( item : IStatBillObj ) {
                 return item.moneys
             } )
         } )
 
         const sumoutmoney = computed<number>( () => {
-            return _.sumBy( billmodeldata.oulist , function ( item : IStatBillObj ) {
+            return _.sumBy( modeldata.oulist , function ( item : IStatBillObj ) {
                 return item.moneys
             } )
         } )
@@ -136,35 +134,35 @@ export default defineComponent( {
         } )
 
         const getlist = async ( isout : boolean ) => {
-            let status = await billapi.getstatlist( querymodeldata.userselectyear , querymodeldata.userselectmonth , isout );
+            let status = await billapi.getstatlist( modeldata.userselectyear , modeldata.userselectmonth , isout );
 
             if ( status.data.Success ) {
                 if ( isout ) {
-                    billmodeldata.oulist = status.data.Result;
+                    modeldata.oulist = status.data.Result;
                 }
                 else {
-                    billmodeldata.inlist = status.data.Result;
+                    modeldata.inlist = status.data.Result;
                 }
 
             }
             else {
                 if ( isout ) {
-                    billmodeldata.oulist = [];
+                    modeldata.oulist = [];
                 }
                 else {
-                    billmodeldata.inlist = [];
+                    modeldata.inlist = [];
                 }
             }
         }
 
         const gettoplist = async () => {
-            let status = await billapi.gettoplist( querymodeldata.userselectyear , querymodeldata.userselectmonth , topnum , true );
+            let status = await billapi.gettoplist( modeldata.userselectyear , modeldata.userselectmonth , topnum , true );
 
             if ( status.data.Success ) {
-                billmodeldata.top5outlist = status.data.Result;
+                modeldata.top5outlist = status.data.Result;
             }
             else {
-                billmodeldata.top5outlist = []
+                modeldata.top5outlist = []
             }
         }
 
@@ -172,9 +170,9 @@ export default defineComponent( {
             // 导航离开该组件的对应路由时调用
             // 离开时,记录一下,页面参数
             var payload : IStatPageData = {
-                year : querymodeldata.userselectyear ,
-                month : querymodeldata.userselectmonth ,
-                isout : querymodeldata.isout
+                year : modeldata.userselectyear ,
+                month : modeldata.userselectmonth ,
+                isout : modeldata.isout
 
             };
 
@@ -183,7 +181,7 @@ export default defineComponent( {
         } )
 
         return {
-            ...toRefs( billmodeldata ) , ...toRefs( querymodeldata ) , topnum ,
+            ...toRefs( modeldata ) , topnum ,
             suminmoney , sumoutmoney ,
         };
     } ,
