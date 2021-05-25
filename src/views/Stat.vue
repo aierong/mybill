@@ -114,6 +114,10 @@ export default defineComponent( {
             outlistcounts : 0 ,
         } )
 
+        const isdisplayoutmore = computed( () => {
+            return modeldata.outlistcounts > topnum;
+        } )
+
         const list = computed<IStatBillObj[]>( () => {
             if ( modeldata.isout ) {
                 return modeldata.oulist;
@@ -194,7 +198,7 @@ export default defineComponent( {
 
         return {
             ...toRefs( modeldata ) , topnum ,
-            suminmoney , sumoutmoney , list ,
+            suminmoney , sumoutmoney , list , isdisplayoutmore ,
         };
     } ,
 
@@ -205,5 +209,4 @@ export default defineComponent( {
 <style lang="less"
        scoped
        src="./Stat.less">
-
 </style>
