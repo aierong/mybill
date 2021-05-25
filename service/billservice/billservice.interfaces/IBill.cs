@@ -33,6 +33,10 @@ namespace billservice.interfaces
         Task<List<BillMapReturnDto>> GetStatListAsync ( string mobile , int year , int month , bool isout );
 
 
-        Task<List<BillReturnDto>> GetTopListAsync ( string mobile , int year , int month , bool isout , int topnum );
+        Task<List<BillReturnDto>> GetTopOutListAsync ( string mobile , int year , int month , int topnum );
+
+        Task<List<BillReturnDto>> GetOutListAsync ( string mobile , int year , int month , string mode );
+
+        Task<int> GetOutListCountAsync ( string mobile , int year , int month );
     }
 }

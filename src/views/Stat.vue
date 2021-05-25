@@ -61,7 +61,9 @@ interface IState {
 
     inlist : IStatBillObj[],
     oulist : IStatBillObj[],
-    top5outlist : IBillObj[]
+
+    topoutlist : IBillObj[],
+    outlistcounts : number,
 }
 
 // 引入lodash
@@ -82,8 +84,9 @@ import { key } from '@store/index.ts'
 import * as UserMutationType from '@store/mutations/mutation-types.ts'
 
 import * as billapi from '@/http/api/bill'
-import { gettoplist } from "@/http/api/bill";
+
 import { IStatPageData } from "@store/types";
+import { gettopoutlist } from "@/http/api/bill";
 
 export default defineComponent( {
     // 子组件
@@ -93,7 +96,7 @@ export default defineComponent( {
     setup () {
         const store = useStore( key )
 
-        const topnum : number = 5;
+        const topnum : number = 10;
 
         var now = new Date();
 
@@ -107,7 +110,8 @@ export default defineComponent( {
             oulist : [] ,
             isout : true ,
 
-            top5outlist : []
+            topoutlist : [] ,
+            outlistcounts : 0 ,
         } )
 
         const list = computed<IStatBillObj[]>( () => {
@@ -162,13 +166,15 @@ export default defineComponent( {
         }
 
         const gettoplist = async () => {
-            let status = await billapi.gettoplist( modeldata.userselectyear , modeldata.userselectmonth , topnum , true );
+            let status = await billapi.gettopoutlist( modeldata.userselectyear , modeldata.userselectmonth , topnum );
 
             if ( status.data.Success ) {
-                modeldata.top5outlist = status.data.Result;
+                modeldata.topoutlist = status.data.Result.list;
+                modeldata.outlistcounts = status.data.Result.counts;
             }
             else {
-                modeldata.top5outlist = []
+                modeldata.topoutlist = []
+                modeldata.outlistcounts = 0;
             }
         }
 

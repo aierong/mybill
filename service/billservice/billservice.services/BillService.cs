@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Data;
 using billservice.interfaces;
 using billservice.models;
 using billservice.models.Dto;
@@ -253,10 +254,10 @@ DROP TABLE #tem";
 
 
 
-        public async Task<List<BillReturnDto>> GetTopListAsync ( string mobile , int year , int month , bool isout , int topnum )
+        public async Task<List<BillReturnDto>> GetTopOutListAsync ( string mobile , int year , int month , int topnum )
         {
 
-            string sql = @"SELECT  TOP ( @num )   bt.typename ,
+            string sql = @"SELECT  TOP ( @num )  bt.typename ,
                                     bt.avatar ,
                                     b.ids ,
                                     b.mobile ,
@@ -287,6 +288,8 @@ DROP TABLE #tem";
                         ORDER BY b.moneys DESC 
                         ";
 
+
+
             List<BillReturnDto> dt = await fsql.Ado.QueryAsync<BillReturnDto>( sql ,
                 new
                 {
@@ -294,13 +297,109 @@ DROP TABLE #tem";
                     mobile = mobile ,
                     moneyyear = year ,
                     moneymonth = month ,
-                    isout = isout
+                    isout = true
                 } );
 
             return dt;
 
         }
 
+
+
+        public async Task<List<BillReturnDto>> GetOutListAsync ( string mobile , int year , int month , string mode )
+        {
+
+            string sql = @"SELECT    bt.typename ,
+                                    bt.avatar ,
+                                    b.ids ,
+                                    b.mobile ,
+                                    b.billtypeid ,
+                                    b.isout ,
+                                    b.moneys ,
+                                    b.moneydate ,
+                                    b.moneyyear ,
+                                    b.moneymonth ,
+                                    b.moneyday ,
+                                    b.memo ,
+                                    b.sources ,
+                                    b.adddate ,
+                                    b.updatedate ,
+                                    b.deletedate ,
+                                    b.delmark
+                        FROM        bills AS b
+                        JOIN   billtype AS bt
+                        ON  b.billtypeid = bt.ids 
+
+                        WHERE b.mobile = @mobile 
+                            AND b.moneyyear = @moneyyear AND b.moneymonth= @moneymonth 
+                            AND b.delmark='N'
+                            
+                             AND bt.isout=@isout
+
+                        -- 按金额排行
+                        -- ORDER BY b.moneys DESC 
+                            {0}
+                        ";
+
+            // m按金额 d按日期
+            if ( mode == "m" )
+            {
+                sql = string.Format( sql , " ORDER BY b.moneys DESC " );
+            }
+            else
+            {
+                sql = string.Format( sql , " ORDER BY b.moneydate DESC " );
+            }
+
+
+            List<BillReturnDto> dt = await fsql.Ado.QueryAsync<BillReturnDto>( sql ,
+                new
+                {
+
+                    mobile = mobile ,
+                    moneyyear = year ,
+                    moneymonth = month ,
+                    isout = true
+                } );
+
+            return dt;
+
+        }
+
+
+        public async Task<int> GetOutListCountAsync ( string mobile , int year , int month )
+        {
+            string sql = @"SELECT    COUNT ( 1 ) AS counts
+                        FROM        bills AS b
+                        JOIN   billtype AS bt
+                        ON  b.billtypeid = bt.ids 
+
+                        WHERE b.mobile = @mobile 
+                            AND b.moneyyear = @moneyyear AND b.moneymonth= @moneymonth 
+                            AND b.delmark='N'
+                            
+                            AND bt.isout=@isout                                                 ";
+
+
+            DataTable tb = await fsql.Ado.ExecuteDataTableAsync( sql , new
+            {
+
+                mobile = mobile ,
+                moneyyear = year ,
+                moneymonth = month ,
+                isout = true
+            } );
+
+            if ( tb != null && tb.Rows != null && tb.Rows.Count > 0 )
+            {
+                DataRow row = tb.Rows[0];
+
+                return row[0] != System.DBNull.Value ? Convert.ToInt32( row[0] ) : 0;
+            }
+
+            return 0;
+
+        }
 
 
     }
