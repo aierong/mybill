@@ -32,7 +32,7 @@ export interface IStatPageData {
     isout : boolean,
 }
 
-export interface IOutDetailPageData {
+export interface IOutListPageData {
     year : number,
     month : number,
 
@@ -47,7 +47,7 @@ export interface IPageData {
     AddPageData : IAddPageData | null,
     StatPageData : IStatPageData | null,
     DetailPageData : IDetailPageData,
-    OutDetailPageData : IOutDetailPageData,
+    OutListPageData : IOutListPageData,
 }
 
 export interface IState extends IUserState , IPageData {

@@ -77,7 +77,8 @@ const vuexPersisted = createPersistedState( {
         return {
             AddPageData : val.AddPageData ,
             DetailPageData : val.DetailPageData ,
-            StatPageData : val.StatPageData
+            StatPageData : val.StatPageData ,
+            OutListPageData : val.OutListPageData ,
         }
     }
 } );

@@ -22,6 +22,8 @@ Time: 17:37
 <!-- TypeScript脚本代码片段 -->
 <script lang="ts">
 
+type mode = "money" | "date";
+
 // 导入
 import {
     defineComponent ,
@@ -63,6 +65,6 @@ export default defineComponent( {
 <!-- 样式代码片段  scoped -->
 <style lang="less"
        scoped
-       src="./OutDetail.less">
+       src="./OutList.less">
 
 </style>

@@ -136,7 +136,7 @@ namespace billservice.Controllers
 
         [HttpGet]
         [Route( "getoutlist/{year}/{month}/{mode}" )]
-        public async Task<ServiceResult<List<BillReturnDto>>> getoutlist ( int year = 2020 , int month = 1 , string mode = "m" )
+        public async Task<ServiceResult<List<BillReturnDto>>> getoutlist ( int year = 2020 , int month = 1 , string mode = "money" )
         {
             var result = new ServiceResult<List<BillReturnDto>>();
 

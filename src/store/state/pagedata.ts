@@ -29,7 +29,7 @@ export const pagedatastate : IPageData = {
     } ,
 
 
-    OutDetailPageData : {
+    OutListPageData : {
         year : 0 ,
         month : 0
     }

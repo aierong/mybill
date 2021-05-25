@@ -37,9 +37,9 @@ const routes : Array<RouteRecordRaw> = [
 
             } ,
             {
-                path : '/outdetail' ,
-                name : 'outdetail' ,
-                component : () => import('@views/OutDetail.vue') ,
+                path : '/outlist' ,
+                name : 'outlist' ,
+                component : () => import('@views/OutList.vue') ,
 
                 // props : ( route ) => ( {
                 //     queryyear : ( route.query.year != null && route.query.year != '' ) ? parseInt( route.query.year.toString() ) : 0 ,

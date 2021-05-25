@@ -341,14 +341,18 @@ DROP TABLE #tem";
                             {0}
                         ";
 
-            // m按金额 d按日期
-            if ( mode == "m" )
+            // money按金额 date按日期
+            if ( "money".Equals( mode , StringComparison.OrdinalIgnoreCase ) )
             {
                 sql = string.Format( sql , " ORDER BY b.moneys DESC " );
             }
-            else
+            else if ( "date".Equals( mode , StringComparison.OrdinalIgnoreCase ) )
             {
                 sql = string.Format( sql , " ORDER BY b.moneydate DESC " );
+            }
+            else
+            {
+                sql = string.Format( sql , string.Empty );
             }
 
 

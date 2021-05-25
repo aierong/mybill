@@ -12,7 +12,8 @@ import * as types from '@store/mutations/mutation-types'
 import {
     IState ,
     IAddPageData ,
-    IStatPageData
+    IStatPageData ,
+    IOutListPageData ,
 } from '@store/types'
 
 export const pagedatamutations = {
@@ -30,4 +31,7 @@ export const pagedatamutations = {
         state.DetailPageData.sourcepagepath = payload;
     } ,
 
+    [ types.updateoutlistpagedata ] ( state : IState , payload : IOutListPageData ) {
+        state.OutListPageData = payload;
+    } ,
 }
