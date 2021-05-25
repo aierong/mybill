@@ -10,8 +10,19 @@ Time: 17:30
 <!-- html代码片段 -->
 <template>
 
-    <div>
-
+    <div class="item">
+        <van-cell v-for="(mxitem,mxindex) in list"
+                  :key="mxindex">
+            <template #title>
+                <aliicon :iconname="mxitem.avatar"
+                         :iconsize="22"
+                         colortypes="out"/>
+                <span class="itemtxt">{{ mxitem.typename }}</span>
+            </template>
+            <template #default>
+                <span class="outmoney">-{{ $FormarMoney( mxitem.moneys ) }}</span>
+            </template>
+        </van-cell>
     </div>
 
 </template>
