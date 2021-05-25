@@ -17,15 +17,10 @@ export const updateloginuser = "updateloginuser"
  */
 export const clearloginuser = "clearloginuser"
 
-/**
- *修改添加页面刷新状态
- */
-// export const updateaddpagedatarefresh = "updateaddpagedatarefresh"
-
-
 export const updateaddpagedata = "updateaddpagedata"
 
+export const updatestatpagedata = "updatestatpagedata"
 
 export const updatedetailpagedata = "updatedetailpagedata"
 
-// export const updatetabbarshow = "updatetabbarshow"
+

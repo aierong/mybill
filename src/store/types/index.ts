@@ -23,7 +23,13 @@ export interface IAddPageData {
     billtypeid : number,
     billtypetxt : string,
     querytype : QueryType,
-    // isrefresh : boolean
+
+}
+
+export interface IStatPageData {
+    year : number,
+    month : number,
+    isout : boolean,
 }
 
 export interface IDetailPageData {
@@ -31,9 +37,11 @@ export interface IDetailPageData {
 }
 
 export interface IPageData {
+
     AddPageData : IAddPageData | null,
+    StatPageData : IStatPageData | null,
     DetailPageData : IDetailPageData,
-    // tabbarshow:boolean,
+
 }
 
 export interface IState extends IUserState , IPageData {

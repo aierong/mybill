@@ -78,8 +78,14 @@ import {
     computed , onMounted ,
 } from "vue";
 
+import { useRouter , useRoute , onBeforeRouteLeave } from 'vue-router'
+import { useStore } from 'vuex'
+import { key } from '@store/index.ts'
+import * as UserMutationType from '@store/mutations/mutation-types.ts'
+
 import * as billapi from '@/http/api/bill'
 import { gettoplist } from "@/http/api/bill";
+import { IStatPageData } from "@store/types";
 
 export default defineComponent( {
     // 子组件
@@ -87,6 +93,7 @@ export default defineComponent( {
     // 声明 props
     props : {} ,
     setup () {
+        const store = useStore( key )
 
         const topnum : number = 5;
 
@@ -160,6 +167,20 @@ export default defineComponent( {
                 billmodeldata.top5outlist = []
             }
         }
+
+        onBeforeRouteLeave( ( to , from ) => {
+            // 导航离开该组件的对应路由时调用
+            // 离开时,记录一下,页面参数
+            var payload : IStatPageData = {
+                year : querymodeldata.userselectyear ,
+                month : querymodeldata.userselectmonth ,
+                isout : querymodeldata.isout
+
+            };
+
+            store.commit( UserMutationType.updatestatpagedata , payload )
+
+        } )
 
         return {
             ...toRefs( billmodeldata ) , ...toRefs( querymodeldata ) , topnum ,

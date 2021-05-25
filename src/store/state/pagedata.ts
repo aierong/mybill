@@ -10,19 +10,16 @@
 import { IPageData } from "@store/types";
 
 export const pagedatastate : IPageData = {
-    // tabbarshow : true
-
-    // AddPageData : {
-    //     year : 2000 ,
-    //     month : 1 ,
-    //     billtypeid : 0 ,
-    //     // isrefresh : false
-    // } ,
 
     /**
      * 添加页面数据
      */
     AddPageData : null ,
+
+    /**
+     * 统计页面
+     */
+    StatPageData : null ,
 
     /**
      * 详细页面数据

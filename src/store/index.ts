@@ -75,10 +75,9 @@ const vuexPersisted = createPersistedState( {
     //其它的就不会持久化,页面刷新会丢失值
     reducer ( val : any ) {
         return {
-            //只储存
             AddPageData : val.AddPageData ,
             DetailPageData : val.DetailPageData ,
-            // tabbarshow : val.tabbarshow
+            StatPageData : val.StatPageData
         }
     }
 } );
