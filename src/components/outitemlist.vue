@@ -19,21 +19,29 @@ Time: 17:30
 <!-- TypeScript脚本代码片段 -->
 <script lang="ts">
 
+import { IBillObj } from '@/types'
+
 // 导入
 import {
     defineComponent ,
-
+    // 注意导入PropType
+    PropType ,
     ref ,
     reactive ,
     toRefs ,
     computed
 } from "vue";
+import { IAvatarObj } from "@comp/types";
 
 export default defineComponent( {
-    // 子组件
-    components : {} ,
+
     // 声明 props
-    props : {} ,
+    props : {
+        list : {
+            type : Object as PropType<IBillObj[]> ,
+            required : true ,
+        }
+    } ,
     setup () {
 
         return {};

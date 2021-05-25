@@ -37,6 +37,16 @@ const routes : Array<RouteRecordRaw> = [
 
             } ,
             {
+                path : '/outdetail' ,
+                name : 'outdetail' ,
+                component : () => import('@views/OutDetail.vue') ,
+
+                props : ( route ) => ( {
+                    queryyear : ( route.query.year != null && route.query.year != '' ) ? parseInt( route.query.year.toString() ) : 0 ,
+                    querymonth : ( route.query.month != null && route.query.month != '' ) ? parseInt( route.query.month.toString() ) : 0 ,
+                } ) ,
+            } ,
+            {
                 path : '/detail' ,
                 name : 'detail' ,
                 component : () => import('@views/Detail.vue') ,
@@ -136,8 +146,6 @@ router.beforeEach( ( to , from ) => {
         }
     }
 } )
-
-
 
 export default router
 
