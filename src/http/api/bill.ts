@@ -21,6 +21,10 @@ export function getstatlist ( year : number , month : number , isout : boolean )
     return axios.get( `${ prefix }/getstatlist/${ year }/${ month }/${ isout }` );
 }
 
+export function gettoplist ( year : number , month : number , topnum : number , isout : boolean ) {
+    return axios.get( `${ prefix }/gettoplist/${ year }/${ month }/${ topnum }/${ isout }` );
+}
+
 export function add ( BillDto : IBillDto ) {
     return axios.post( `${ prefix }/add` , BillDto );
 }

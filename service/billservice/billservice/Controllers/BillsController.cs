@@ -103,9 +103,25 @@ namespace billservice.Controllers
             var result = new ServiceResult<List<BillMapReturnDto>>();
 
             var mobile = base.UserMobile;
-
-            // billtypeid=0 代表全部
+                        
             var list = await this.Ibill.GetStatListAsync( mobile , year , month , isout );
+
+            result.IsSuccess( list );
+
+            return result;
+        }
+
+
+
+        [HttpGet]
+        [Route( "gettoplist/{year}/{month}/{topnum}/{isout}" )]
+        public async Task<ServiceResult<List<BillReturnDto>>> gettoplist ( int year = 2020 , int month = 1 , int topnum = 1 , bool isout = false )
+        {
+            var result = new ServiceResult<List<BillReturnDto>>();
+
+            var mobile = base.UserMobile;
+                        
+            var list = await this.Ibill.GetTopListAsync( mobile , year , month , isout , topnum );
 
             result.IsSuccess( list );
 

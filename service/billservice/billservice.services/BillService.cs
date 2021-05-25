@@ -101,7 +101,6 @@ namespace billservice.services
 
 
 
-
         public async Task<List<BillReturnDto>> GetListAsync ( string mobile , int year , int month , int billtypeid )
         {
 
@@ -208,6 +207,7 @@ namespace billservice.services
         }
 
 
+
         public async Task<List<BillMapReturnDto>> GetStatListAsync ( string mobile , int year , int month , bool isout )
         {
             string sql = @"
@@ -244,12 +244,64 @@ DROP TABLE #tem";
                     mobile = mobile ,
                     moneyyear = year ,
                     moneymonth = month ,
-                    isout=isout
+                    isout = isout
                 } );
 
             return dt;
 
         }
+
+
+
+        public async Task<List<BillReturnDto>> GetTopListAsync ( string mobile , int year , int month , bool isout , int topnum )
+        {
+
+            string sql = @"SELECT  TOP ( @num )   bt.typename ,
+                                    bt.avatar ,
+                                    b.ids ,
+                                    b.mobile ,
+                                    b.billtypeid ,
+                                    b.isout ,
+                                    b.moneys ,
+                                    b.moneydate ,
+                                    b.moneyyear ,
+                                    b.moneymonth ,
+                                    b.moneyday ,
+                                    b.memo ,
+                                    b.sources ,
+                                    b.adddate ,
+                                    b.updatedate ,
+                                    b.deletedate ,
+                                    b.delmark
+                        FROM        bills AS b
+                        JOIN   billtype AS bt
+                        ON  b.billtypeid = bt.ids 
+
+                        WHERE b.mobile = @mobile 
+                            AND b.moneyyear = @moneyyear AND b.moneymonth= @moneymonth 
+                            AND b.delmark='N'
+                            
+                             AND bt.isout=@isout
+
+                        -- 按金额排行
+                        ORDER BY b.moneys DESC 
+                        ";
+
+            List<BillReturnDto> dt = await fsql.Ado.QueryAsync<BillReturnDto>( sql ,
+                new
+                {
+                    num = topnum ,
+                    mobile = mobile ,
+                    moneyyear = year ,
+                    moneymonth = month ,
+                    isout = isout
+                } );
+
+            return dt;
+
+        }
+
+
 
     }
 }

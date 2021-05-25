@@ -17,6 +17,7 @@ Time: 17:48
             <br>
             <span>总支出¥{{ $FormarMoney( sumoutmoney ) }}</span>
         </div>
+        <br>
         <!--        按类型得统计图表-->
         <div>
             <div>
@@ -25,6 +26,11 @@ Time: 17:48
                 <span>支出</span> <span>收入</span>
                 </span>
             </div>
+        </div>
+        <br>
+        <!--         支出排行-->
+        <div>
+            <div>{{ userselectmonth }}月份支出排行</div>
         </div>
 
         <!--        tabbar-->
@@ -36,7 +42,7 @@ Time: 17:48
 <!-- TypeScript脚本代码片段 -->
 <script lang="ts">
 
-import { IBillObj , QueryType } from "@/types";
+import { IBillObj } from "@/types";
 
 interface IStatBillObj {
 
@@ -50,6 +56,7 @@ interface IStatBillObj {
 interface IStatBillList {
     inlist : IStatBillObj[],
     oulist : IStatBillObj[],
+    top5outlist : IBillObj[]
 }
 
 interface IQuery {
@@ -72,6 +79,7 @@ import {
 } from "vue";
 
 import * as billapi from '@/http/api/bill'
+import { gettoplist } from "@/http/api/bill";
 
 export default defineComponent( {
     // 子组件
@@ -79,6 +87,8 @@ export default defineComponent( {
     // 声明 props
     props : {} ,
     setup () {
+
+        const topnum : number = 5;
 
         var now = new Date();
 
@@ -93,15 +103,14 @@ export default defineComponent( {
 
         const billmodeldata = reactive<IStatBillList>( {
             inlist : [] ,
-            oulist : []
+            oulist : [] ,
+            top5outlist : []
         } );
 
         const suminmoney = computed<number>( () => {
-            let _sum = _.sumBy( billmodeldata.inlist , function ( item : IStatBillObj ) {
+            return _.sumBy( billmodeldata.inlist , function ( item : IStatBillObj ) {
                 return item.moneys
             } )
-
-            return _sum;
         } )
 
         const sumoutmoney = computed<number>( () => {
@@ -114,7 +123,7 @@ export default defineComponent( {
 
             await getlist( true );
             await getlist( false );
-
+            await gettoplist();
             //console.log( 'status' , outstatus , instatus )
 
         } )
@@ -141,8 +150,19 @@ export default defineComponent( {
             }
         }
 
+        const gettoplist = async () => {
+            let status = await billapi.gettoplist( querymodeldata.userselectyear , querymodeldata.userselectmonth , topnum , true );
+
+            if ( status.data.Success ) {
+                billmodeldata.top5outlist = status.data.Result;
+            }
+            else {
+                billmodeldata.top5outlist = []
+            }
+        }
+
         return {
-            ...toRefs( billmodeldata ) , ...toRefs( querymodeldata ) ,
+            ...toRefs( billmodeldata ) , ...toRefs( querymodeldata ) , topnum ,
             suminmoney , sumoutmoney ,
         };
     } ,
