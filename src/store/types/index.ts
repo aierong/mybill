@@ -32,11 +32,11 @@ export interface IStatPageData {
     isout : boolean,
 }
 
-export interface IOutListPageData {
-    year : number,
-    month : number,
-
-}
+// export interface IOutListPageData {
+//     year : number,
+//     month : number,
+//
+// }
 
 export interface IDetailPageData {
     sourcepagepath : string,
@@ -47,7 +47,7 @@ export interface IPageData {
     AddPageData : IAddPageData | null,
     StatPageData : IStatPageData | null,
     DetailPageData : IDetailPageData,
-    OutListPageData : IOutListPageData,
+    // OutListPageData : IOutListPageData,
 }
 
 export interface IState extends IUserState , IPageData {

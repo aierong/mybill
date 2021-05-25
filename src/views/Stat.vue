@@ -32,6 +32,12 @@ Time: 17:48
         <div>
             <div>{{ userselectmonth }}月份支出排行</div>
             <outitemlist :list="topoutlist"/>
+            <br>
+            <van-divider v-if="isdisplayoutmore"
+                         :style="{  padding: '0 16px' }">
+                <span @click="onClickMore"
+                      style="font-weight: bold;">全部排行 &gt;&gt;&gt;</span>
+            </van-divider>
         </div>
 
         <!--        tabbar-->
@@ -99,6 +105,7 @@ export default defineComponent( {
     // 声明 props
     props : {} ,
     setup () {
+        const router = useRouter()
         const store = useStore( key )
 
         const topnum : number = 10;
@@ -187,6 +194,10 @@ export default defineComponent( {
             }
         }
 
+        const onClickMore = () => {
+            router.push( '/outlist' )
+        }
+
         onBeforeRouteLeave( ( to , from ) => {
             // 导航离开该组件的对应路由时调用
             // 离开时,记录一下,页面参数
@@ -204,6 +215,7 @@ export default defineComponent( {
         return {
             ...toRefs( modeldata ) , topnum ,
             suminmoney , sumoutmoney , list , isdisplayoutmore ,
+            onClickMore ,
         };
     } ,
 

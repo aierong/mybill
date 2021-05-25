@@ -29,9 +29,9 @@ export const pagedatastate : IPageData = {
     } ,
 
 
-    OutListPageData : {
-        year : 0 ,
-        month : 0
-    }
+    // OutListPageData : {
+    //     year : 0 ,
+    //     month : 0
+    // }
 
 };
