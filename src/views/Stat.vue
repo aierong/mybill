@@ -31,6 +31,7 @@ Time: 17:48
         <!--         支出排行-->
         <div>
             <div>{{ userselectmonth }}月份支出排行</div>
+            <outitemlist :list="topoutlist"/>
         </div>
 
         <!--        tabbar-->
@@ -75,7 +76,8 @@ import {
     ref ,
     reactive ,
     toRefs ,
-    computed , onMounted ,
+    computed ,
+    onMounted ,
 } from "vue";
 
 import { useRouter , useRoute , onBeforeRouteLeave } from 'vue-router'

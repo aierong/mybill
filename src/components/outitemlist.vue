@@ -34,12 +34,12 @@ import {
 import { IAvatarObj } from "@comp/types";
 
 export default defineComponent( {
-
     // 声明 props
     props : {
         list : {
             type : Object as PropType<IBillObj[]> ,
             required : true ,
+            default : []
         }
     } ,
     setup () {
