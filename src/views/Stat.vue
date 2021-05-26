@@ -13,9 +13,9 @@ Time: 17:48
     <div>
         <!--        一些汇总栏目-->
         <div>
-            <span>总收入¥{{ $FormarMoney( suminmoney ) }}</span>
+            <span>总收入¥{{ $FormatMoney( suminmoney ) }}</span>
             <br>
-            <span>总支出¥{{ $FormarMoney( sumoutmoney ) }}</span>
+            <span>总支出¥{{ $FormatMoney( sumoutmoney ) }}</span>
         </div>
         <br>
         <!--        按类型得统计图表-->
@@ -36,7 +36,7 @@ Time: 17:48
             <van-divider v-if="isdisplayoutmore"
                          :style="{  padding: '0 16px' }">
                 <span @click="onClickMore"
-                      style="font-weight: bold;">全部排行 &gt;&gt;&gt;</span>
+                      style="font-weight: bold;">全部排行 &gt;&gt;</span>
             </van-divider>
         </div>
 

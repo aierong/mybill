@@ -7,7 +7,7 @@
 
  */
 
-export interface IFormarMoney {
+export interface IFormatMoney {
     ( num : number , digits : number ) : string;
 }
 

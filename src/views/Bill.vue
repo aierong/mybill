@@ -30,9 +30,9 @@ Time: 17:52
                           color="white"
                           @click="SelectYearMonth"/>
                 <span v-show="isdisplayin"
-                      class="summoneytxt">总收入¥{{ $FormarMoney( suminmoney ) }}</span>
+                      class="summoneytxt">总收入¥{{ $FormatMoney( suminmoney ) }}</span>
                 <span v-show="isdisplayout"
-                      class="summoneytxt">总支出¥{{ $FormarMoney( sumoutmoney ) }}</span>
+                      class="summoneytxt">总支出¥{{ $FormatMoney( sumoutmoney ) }}</span>
 
                 <!--    选择日期弹窗   -->
                 <SelectYearMonthDialog ref="selectdateRef"
@@ -52,12 +52,12 @@ Time: 17:52
                     <span class="itemmoney">
                       <span v-show="isdisplayin">
                          <span class="iteminout">收</span>
-                         <span>{{ $FormarMoney( item.sumin ) }}</span>
+                         <span>{{ $FormatMoney( item.sumin ) }}</span>
                       </span>
                       <span style="margin-left: 10px;"
                             v-show="isdisplayout">
                           <span class="iteminout">支</span>
-                          <span>{{ $FormarMoney( item.sumout ) }}</span>
+                          <span>{{ $FormatMoney( item.sumout ) }}</span>
                       </span>
                     </span>
                 </template>
@@ -71,7 +71,7 @@ Time: 17:52
                         <span style="margin-left: 5px;">{{ mxitem.typename }}</span>
                     </template>
                     <template #default>
-                        <span :class="{ inmoney:!mxitem.isout,outmoney:mxitem.isout }">{{ mxitem.isout ? '-' : '+' }}{{ $FormarMoney( mxitem.moneys ) }}</span>
+                        <span :class="{ inmoney:!mxitem.isout,outmoney:mxitem.isout }">{{ mxitem.isout ? '-' : '+' }}{{ $FormatMoney( mxitem.moneys ) }}</span>
                     </template>
                 </van-cell>
             </van-cell-group>

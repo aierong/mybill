@@ -16,12 +16,14 @@ Time: 17:30
                   @click="itemClick(mxitem.ids)">
             <template #title>
                 <aliicon :iconname="mxitem.avatar"
-                         :iconsize="22"
+                         :iconsize="33"
                          colortypes="out"/>
                 <span class="itemtxt">{{ mxitem.typename }}</span>
             </template>
             <template #default>
-                <span class="outmoney">-{{ $FormarMoney( mxitem.moneys ) }}</span>
+                <span class="outmoney">-{{ $FormatMoney( mxitem.moneys ) }}</span>
+                <br>
+                <span  >-{{ mxitem.moneydate }}</span>
             </template>
         </van-cell>
     </div>
@@ -63,6 +65,8 @@ export default defineComponent( {
 
             return;
         }
+
+        // const for
 
         return {
             itemClick ,
