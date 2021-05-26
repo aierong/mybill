@@ -51,6 +51,7 @@ import {
 
 import { useStore } from 'vuex'
 import { key } from '@store/index.ts'
+import { useRouter , useRoute } from 'vue-router'
 
 import * as billapi from '@/http/api/bill'
 
@@ -64,6 +65,7 @@ export default defineComponent( {
     // 声明 props
     props : {} ,
     setup () {
+        const router = useRouter()
         const store = useStore( key )
 
         //本页面是从stat页面过来的,所以年月,可以取过来
@@ -79,7 +81,7 @@ export default defineComponent( {
         } );
 
         const onClickLeft = () => {
-            // gotoback();
+            router.push( { path : '/stat' } )
         }
 
         const initval = () => {

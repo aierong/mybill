@@ -11,19 +11,20 @@ Time: 17:30
 <template>
 
     <div class="item">
-        <van-cell v-for="(mxitem,mxindex) in list"
+        <van-cell center
+                  v-for="(mxitem,mxindex) in list"
                   :key="mxindex"
                   @click="itemClick(mxitem.ids)">
             <template #title>
                 <aliicon :iconname="mxitem.avatar"
-                         :iconsize="33"
+                         :iconsize="36"
                          colortypes="out"/>
                 <span class="itemtxt">{{ mxitem.typename }}</span>
             </template>
             <template #default>
                 <span class="outmoney">-{{ $FormatMoney( mxitem.moneys ) }}</span>
                 <br>
-                <span  >-{{ mxitem.moneydate }}</span>
+                <span class="outdate">{{ formatdate( mxitem.moneydate ) }}</span>
             </template>
         </van-cell>
     </div>
@@ -32,6 +33,8 @@ Time: 17:30
 
 <!-- TypeScript脚本代码片段 -->
 <script lang="ts">
+
+import dayjs from 'dayjs'
 
 import { IBillObj } from '@/types'
 
@@ -66,10 +69,13 @@ export default defineComponent( {
             return;
         }
 
-        // const for
+        const formatdate = ( date : string ) => {
+            return dayjs( date ).format( 'MM月DD日' );
+        }
 
         return {
             itemClick ,
+            formatdate ,
         };
     } ,
 
