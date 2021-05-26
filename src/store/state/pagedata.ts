@@ -28,4 +28,7 @@ export const pagedatastate : IPageData = {
         sourcepagepath : ''
     } ,
 
+    OutListPageData : {
+        mode : 'money'
+    }
 };

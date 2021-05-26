@@ -7,7 +7,7 @@
 
  */
 
-import { QueryType } from '@/types'
+import { QueryType , querymode } from '@/types'
 
 export interface IUserState {
 
@@ -32,9 +32,12 @@ export interface IStatPageData {
     isout : boolean,
 }
 
-
 export interface IDetailPageData {
     sourcepagepath : string,
+}
+
+export interface IOutListPageData {
+    mode : querymode,
 }
 
 export interface IPageData {
@@ -42,7 +45,7 @@ export interface IPageData {
     AddPageData : IAddPageData | null,
     StatPageData : IStatPageData | null,
     DetailPageData : IDetailPageData,
-
+    OutListPageData : IOutListPageData,
 }
 
 export interface IState extends IUserState , IPageData {

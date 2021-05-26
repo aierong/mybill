@@ -15,12 +15,20 @@ Time: 17:37
                      left-text="返回"
                      left-arrow
                      @click-left="onClickLeft"/>
+        <div>{{ userselectyear }}</div>
 
-        {{ userselectyear }}
         <br>
-        {{ userselectmonth }}
+        <div>{{ userselectmonth }}</div>
+
         <br>
-        <span>按金额</span><span>按时间</span>
+        <div>
+            <span :class="{ active:isselectmoney ,moneytxt:true }"
+                  @click="onClickMoney">按金额</span>
+            <span :class="{ active:!isselectmoney ,datetxt:true }"
+                  @click="onClickDate">按时间</span>
+        </div>
+
+        <br>
         <outitemlist :list="list"/>
         <br>
     </div>
@@ -30,13 +38,12 @@ Time: 17:37
 <!-- TypeScript脚本代码片段 -->
 <script lang="ts">
 
-type mode = "money" | "date";
 
-import { IBillObj } from '@/types'
+import { IBillObj , querymode } from '@/types'
 
 interface IState {
     list : IBillObj[],
-    querymode : mode
+    querymode : querymode
 }
 
 // 导入
@@ -80,8 +87,14 @@ export default defineComponent( {
             querymode : 'money'
         } );
 
+        const isselectmoney = computed( () => {
+            return state.querymode == 'money'
+        } )
+
         const onClickLeft = () => {
             router.push( { path : '/stat' } )
+
+            return;
         }
 
         const initval = () => {
@@ -108,10 +121,24 @@ export default defineComponent( {
             }
         }
 
+        const onClickMoney = async () => {
+            state.querymode = 'money'
+
+            await getlist();
+        }
+
+        const onClickDate = async () => {
+            state.querymode = 'date'
+
+            await getlist();
+        }
+
         return {
             ...toRefs( state ) ,
-            userselectyear , userselectmonth ,
+            userselectyear , userselectmonth , isselectmoney ,
             onClickLeft ,
+            onClickMoney ,
+            onClickDate ,
         };
     } ,
 

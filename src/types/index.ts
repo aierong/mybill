@@ -36,4 +36,4 @@ export interface IBillObj {
 export type QueryType = "all" | "out" | "in";
 
 
-
+export type querymode = "money" | "date";
