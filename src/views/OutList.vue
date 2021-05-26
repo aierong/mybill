@@ -19,6 +19,10 @@ Time: 17:37
         {{ userselectyear }}
         <br>
         {{ userselectmonth }}
+        <br>
+        <span>按金额</span><span>按时间</span>
+        <outitemlist :list="list"/>
+        <br>
     </div>
 
 </template>
@@ -38,11 +42,11 @@ interface IState {
 // 导入
 import {
     defineComponent ,
-
     ref ,
     reactive ,
     toRefs ,
-    computed , onMounted ,
+    computed ,
+    onMounted ,
 } from "vue";
 
 import { useStore } from 'vuex'
@@ -50,9 +54,13 @@ import { key } from '@store/index.ts'
 
 import * as billapi from '@/http/api/bill'
 
+import outitemlist from "@comp/outitemlist.vue";
+
 export default defineComponent( {
     // 子组件
-    components : {} ,
+    components : {
+        outitemlist ,
+    } ,
     // 声明 props
     props : {} ,
     setup () {

@@ -155,7 +155,6 @@ export default defineComponent( {
             await getlist( true );
             await getlist( false );
             await gettoplist();
-            //console.log( 'status' , outstatus , instatus )
 
         } )
 
@@ -196,6 +195,8 @@ export default defineComponent( {
 
         const onClickMore = () => {
             router.push( '/outlist' )
+
+            return;
         }
 
         onBeforeRouteLeave( ( to , from ) => {
@@ -210,6 +211,7 @@ export default defineComponent( {
 
             store.commit( UserMutationType.updatestatpagedata , payload )
 
+            return;
         } )
 
         return {
