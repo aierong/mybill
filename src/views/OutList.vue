@@ -15,11 +15,9 @@ Time: 17:37
                      left-text="返回"
                      left-arrow
                      @click-left="onClickLeft"/>
-        <div>{{ userselectyear }}</div>
 
-        <br>
-        <div>{{ userselectmonth }}</div>
-
+        <div class="monthsumtxt">{{ userselectmonth }}月共支出</div>
+        <div class="summoneytxt">¥{{ $FormatMoney( summoney ) }}</div>
         <br>
         <div>
             <span :class="{ active:isselectmoney ,moneytxt:true }"
@@ -56,6 +54,9 @@ import {
     onMounted ,
 } from "vue";
 
+// 引入lodash
+import * as _ from "lodash"
+
 import { useStore } from 'vuex'
 import { key } from '@store/index.ts'
 import * as UserMutationType from '@store/mutations/mutation-types.ts'
@@ -91,6 +92,12 @@ export default defineComponent( {
 
         const isselectmoney = computed( () => {
             return state.querymode == 'money'
+        } )
+
+        const summoney = computed( () => {
+            return _.sumBy( state.list , function ( item : IBillObj ) {
+                return item.moneys
+            } )
         } )
 
         const onClickLeft = () => {
@@ -149,7 +156,7 @@ export default defineComponent( {
 
         return {
             ...toRefs( state ) ,
-            userselectyear , userselectmonth , isselectmoney ,
+            userselectyear , userselectmonth , isselectmoney , summoney ,
             onClickLeft ,
             onClickMoney ,
             onClickDate ,
