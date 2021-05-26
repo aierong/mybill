@@ -31,7 +31,5 @@ export const pagedatamutations = {
         state.DetailPageData.sourcepagepath = payload;
     } ,
 
-    // [ types.updateoutlistpagedata ] ( state : IState , payload : IOutListPageData ) {
-    //     state.OutListPageData = payload;
-    // } ,
+
 }

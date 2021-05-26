@@ -23,6 +23,6 @@ export const updatestatpagedata = "updatestatpagedata"
 
 export const updatedetailpagedata = "updatedetailpagedata"
 
-// export const updateoutlistpagedata = "updateoutlistpagedata"
+
 
 
