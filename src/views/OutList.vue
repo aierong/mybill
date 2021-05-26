@@ -58,11 +58,13 @@ import {
 
 import { useStore } from 'vuex'
 import { key } from '@store/index.ts'
-import { useRouter , useRoute } from 'vue-router'
+import * as UserMutationType from '@store/mutations/mutation-types.ts'
+import { useRouter , useRoute , onBeforeRouteLeave } from 'vue-router'
 
 import * as billapi from '@/http/api/bill'
 
 import outitemlist from "@comp/outitemlist.vue";
+import { IStatPageData } from "@store/types";
 
 export default defineComponent( {
     // 子组件
@@ -102,6 +104,10 @@ export default defineComponent( {
                 userselectyear = store.state.StatPageData.year;
                 userselectmonth = store.state.StatPageData.month;
             }
+
+            if ( store.state.OutListPageData != null ) {
+                state.querymode = store.state.OutListPageData.mode;
+            }
         }
 
         onMounted( async () => {
@@ -132,6 +138,14 @@ export default defineComponent( {
 
             await getlist();
         }
+
+        onBeforeRouteLeave( ( to , from ) => {
+            var payload : querymode = state.querymode;
+
+            store.commit( UserMutationType.updateoutlistpagedata , payload )
+
+            return;
+        } )
 
         return {
             ...toRefs( state ) ,
