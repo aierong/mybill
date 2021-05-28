@@ -25,7 +25,7 @@ Time: 17:52
             </div>
             <div style="margin-top: 5px;margin-left: 4px;padding-bottom: 10px;">
                 <span style="margin-left: 10px;color: white;"
-                      @click="SelectYearMonth">{{ selectymtxt }}</span>
+                      @click="SelectYearMonth">{{ selectyyyymm }}</span>
                 <van-icon name="arrow-down"
                           color="white"
                           @click="SelectYearMonth"/>
@@ -188,7 +188,7 @@ export default defineComponent( {
             userselectbilltypetxt : '全部'
         } )
 
-        const selectymtxt = computed( () => {
+        const selectyyyymm = computed( () => {
             return `${ querymodeldata.userselectyear }年${ querymodeldata.userselectmonth }月`
         } )
 
@@ -465,7 +465,7 @@ export default defineComponent( {
 
             isdisplayout , isdisplayin ,
             displaylist , isdisplaylist , sumoutmoney , suminmoney ,
-            getweekstring , selectymtxt ,
+            getweekstring , selectyyyymm ,
             SelectYearMonth , userselectdate ,
 
             onBillTypeSelect , userselectbilltype ,

@@ -11,11 +11,23 @@ Time: 17:48
 <template>
 
     <div>
+        <!--       日期选择-->
+        <div class="selectdate">
+            <span style="font-size: 28px">{{ selectyyyymm }}</span>
+            <van-icon size="25"
+                      name="notes-o"/>
+
+        </div>
+
         <!--        一些汇总栏目-->
-        <div>
-            <span>总收入¥{{ $FormatMoney( suminmoney ) }}</span>
-            <br>
-            <span>总支出¥{{ $FormatMoney( sumoutmoney ) }}</span>
+        <div class="sumouttxt">
+            共支出
+        </div>
+        <div class="sunoutmoney">
+            ¥{{ $FormatMoney( sumoutmoney ) }}
+        </div>
+        <div class="suninmoney">
+            共收入¥{{ $FormatMoney( suminmoney ) }}
         </div>
         <br>
         <!--        按类型得统计图表-->
@@ -127,6 +139,10 @@ export default defineComponent( {
             outlistcounts : 0 ,
         } )
 
+        const selectyyyymm = computed( () => {
+            return `${ modeldata.userselectyear }年${ modeldata.userselectmonth }月`
+        } )
+
         const isdisplayoutmore = computed( () => {
             return modeldata.outlistcounts > topnum;
         } )
@@ -217,7 +233,7 @@ export default defineComponent( {
 
         return {
             ...toRefs( modeldata ) , topnum ,
-            suminmoney , sumoutmoney , list , isdisplayoutmore ,
+            suminmoney , sumoutmoney , list , isdisplayoutmore , selectyyyymm ,
             onClickMore ,
         };
     } ,
