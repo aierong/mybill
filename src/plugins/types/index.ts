@@ -11,6 +11,10 @@ export interface IFormatMoney {
     ( num : number , digits : number ) : string;
 }
 
+export interface IFormatStatMoney {
+    ( num : number , digits : number ) : string;
+}
+
 export interface IFormatPercent {
     ( num : number , digits : number ) : string;
 }

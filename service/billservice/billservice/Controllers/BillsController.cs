@@ -134,14 +134,14 @@ namespace billservice.Controllers
 
 
         [HttpGet]
-        [Route( "getoutlist/{year}/{month}/{mode}" )]
-        public async Task<ServiceResult<List<BillReturnDto>>> getoutlist ( int year = 2020 , int month = 1 , string mode = "money" )
+        [Route( "getoutlist/{year}/{month}/{billtypeid}/{mode}" )]
+        public async Task<ServiceResult<List<BillReturnDto>>> getoutlist ( int year = 2020 , int month = 1 , int billtypeid = 0 , string mode = "money" )
         {
             var result = new ServiceResult<List<BillReturnDto>>();
 
             var mobile = base.UserMobile;
 
-            var list = await this.Ibill.GetOutListAsync( mobile , year , month , mode );
+            var list = await this.Ibill.GetOutListAsync( mobile , year , month , billtypeid , mode );
 
             result.IsSuccess( list );
 

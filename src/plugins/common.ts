@@ -7,12 +7,13 @@
 
  */
 
-import { IFormatMoney , IFormatPercent } from '@plugins/types'
+import { IFormatMoney , IFormatPercent , IFormatStatMoney } from '@plugins/types'
 
 // 定义类型 ，这样并且在vue页面中proxy调用有语法提示的
 declare module '@vue/runtime-core' {
     interface ComponentCustomProperties {
         $FormatMoney : IFormatMoney;
+        $FormatStatMoney : IFormatStatMoney;
         $FormatPercent : IFormatPercent;
     }
 }
@@ -35,6 +36,14 @@ let FormatMoney : IFormatMoney = function ( num , digits ) : string {
     return FormatNumber( num , digits );
 }
 
+let FormatStatMoney : IFormatStatMoney = function ( num , digits ) : string {
+    if ( num >= 10000 ) {
+        return FormatNumber( num / 10000 , digits ) + '万';
+    }
+
+    return FormatNumber( num , digits );
+}
+
 export default {
     install ( app , options ) {
         // 原型上可以绑定挂靠变量,方法：
@@ -44,6 +53,7 @@ export default {
 
         //全局函数
         app.config.globalProperties.$FormatMoney = FormatMoney;
+        app.config.globalProperties.$FormatStatMoney = FormatStatMoney;
         app.config.globalProperties.$FormatPercent = FormatPercent;
 
     }

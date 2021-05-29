@@ -46,6 +46,37 @@ Time: 17:48
                     <span>支出</span> <span>收入</span>
                 </span>
             </div>
+            <div class="typeitem">
+                <!--                list-->
+                <div v-for="(item,index) in list"
+                     :key="index">
+                    <van-row gutter="1">
+                        <van-col span="8">
+                            <aliicon :iconname="item.avatar"
+                                     :iconsize="22"
+                                     :colortypes="isout?'out':'in'"/>
+                            <span style="margin-left: 10px;">{{ item.typename }}</span>
+                            <span style="margin-left: 10px;">{{ $FormatPercent( item.ratio , 2 ) }}</span></van-col>
+                        <van-col span="10">
+                            <div style="margin-top: 8px;">
+                                <van-progress :percentage="item.ratio*100"
+                                              stroke-width="6px"
+                                              :show-pivot="false"
+                                              track-color="#ffffff"
+                                              color="#39be77"></van-progress>
+                            </div>
+                        </van-col>
+                        <van-col span="6">
+                            <div>
+                                <span class="typeitemmoney">¥{{ $FormatStatMoney( item.moneys ) }}</span>
+
+                                <van-icon name="arrow"/>
+                            </div>
+                        </van-col>
+                    </van-row>
+
+                </div>
+            </div>
         </div>
         <br>
         <!--         支出排行-->

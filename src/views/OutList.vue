@@ -124,7 +124,7 @@ export default defineComponent( {
         } )
 
         const getlist = async () => {
-            let status = await billapi.getoutlist( userselectyear.value , userselectmonth.value , state.querymode );
+            let status = await billapi.getoutlist( userselectyear.value , userselectmonth.value , 0 , state.querymode );
 
             if ( status.data.Success ) {
                 state.list = status.data.Result;

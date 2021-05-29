@@ -306,7 +306,7 @@ DROP TABLE #tem";
 
 
 
-        public async Task<List<BillReturnDto>> GetOutListAsync ( string mobile , int year , int month , string mode )
+        public async Task<List<BillReturnDto>> GetOutListAsync ( string mobile , int year , int month , int billtypeid , string mode )
         {
 
             string sql = @"SELECT    bt.typename ,
@@ -336,24 +336,16 @@ DROP TABLE #tem";
                             
                              AND bt.isout=@isout
 
+                            -- 类型筛选
+                            #sx#
+
                         -- 按金额排行
-                        -- ORDER BY b.moneys DESC 
-                            {0}
+                            #or#
                         ";
 
             // money按金额 date按日期
-            if ( "money".Equals( mode , StringComparison.OrdinalIgnoreCase ) )
-            {
-                sql = string.Format( sql , " ORDER BY b.moneys DESC " );
-            }
-            else if ( "date".Equals( mode , StringComparison.OrdinalIgnoreCase ) )
-            {
-                sql = string.Format( sql , " ORDER BY b.moneydate DESC " );
-            }
-            else
-            {
-                sql = string.Format( sql , string.Empty );
-            }
+            sql = sql.Replace( "#or#" , "money".Equals( mode , StringComparison.OrdinalIgnoreCase ) ? " ORDER BY b.moneys DESC " : ( "date".Equals( mode , StringComparison.OrdinalIgnoreCase ) ? " ORDER BY b.moneydate DESC " : string.Empty ) )
+                .Replace( "#sx#" , billtypeid <= 0 ? string.Empty : string.Format( "  and b.billtypeid={0}" , billtypeid ) );
 
 
             List<BillReturnDto> dt = await fsql.Ado.QueryAsync<BillReturnDto>( sql ,

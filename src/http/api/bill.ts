@@ -25,8 +25,8 @@ export function gettopoutlist ( year : number , month : number , topnum : number
     return axios.get( `${ prefix }/gettopoutlist/${ year }/${ month }/${ topnum }` );
 }
 
-export function getoutlist ( year : number , month : number , mode : string ) {
-    return axios.get( `${ prefix }/getoutlist/${ year }/${ month }/${ mode }` );
+export function getoutlist ( year : number , month : number , billtypeid : number , mode : string ) {
+    return axios.get( `${ prefix }/getoutlist/${ year }/${ month }/${ billtypeid }/${ mode }` );
 }
 
 export function add ( BillDto : IBillDto ) {
