@@ -40,21 +40,21 @@ Time: 17:48
         <br>
         <!--        按类型得统计图表-->
         <div>
-            <div>
-                <span>收支构成</span>
+            <div class="typehead">
+                <span style="margin-left: 10px;">收支构成</span>
                 <span class="itemmoney">
-                    <span>支出</span> <span>收入</span>
+                    <span @click="typeClick(true)">支出</span> <span @click="typeClick(false)">收入</span>
                 </span>
             </div>
             <div class="typeitem">
-                <!--                list-->
-                <div v-for="(item,index) in list"
+
+                <div v-for="(item,index) in typedata_list"
                      :key="index">
                     <van-row gutter="1">
                         <van-col span="8">
                             <aliicon :iconname="item.avatar"
                                      :iconsize="22"
-                                     :colortypes="isout?'out':'in'"/>
+                                     :colortypes="typedata_isout?'out':'in'"/>
                             <span style="margin-left: 10px;">{{ item.typename }}</span>
                             <span style="margin-left: 10px;">{{ $FormatPercent( item.ratio , 2 ) }}</span></van-col>
                         <van-col span="10">
@@ -116,10 +116,10 @@ interface IState {
     userselectyear : number,
     userselectmonth : number,
 
-    isout : boolean,
+    typedata_isout : boolean,
 
-    inlist : IStatBillObj[],
-    outlist : IStatBillObj[],
+    typedata_inlist : IStatBillObj[],
+    typedata_outlist : IStatBillObj[],
 
     topoutlist : IBillObj[],
     outlistcounts : number,
@@ -176,9 +176,10 @@ export default defineComponent( {
             userselectyear : now.getFullYear() ,
             userselectmonth : 1 + now.getMonth() ,
 
-            inlist : [] ,
-            outlist : [] ,
-            isout : true ,
+            typedata_inlist : [] ,
+            typedata_outlist : [] ,
+
+            typedata_isout : true ,
 
             topoutlist : [] ,
             outlistcounts : 0 ,
@@ -192,50 +193,50 @@ export default defineComponent( {
             return modeldata.outlistcounts > topnum;
         } )
 
-        const list = computed<IStatBillObj[]>( () => {
-            if ( modeldata.isout ) {
-                return modeldata.outlist;
+        const typedata_list = computed<IStatBillObj[]>( () => {
+            if ( modeldata.typedata_isout ) {
+                return modeldata.typedata_outlist;
             }
 
-            return modeldata.inlist;
+            return modeldata.typedata_inlist;
         } )
 
         const suminmoney = computed<number>( () => {
-            return _.sumBy( modeldata.inlist , function ( item : IStatBillObj ) {
+            return _.sumBy( modeldata.typedata_inlist , function ( item : IStatBillObj ) {
                 return item.moneys
             } )
         } )
 
         const sumoutmoney = computed<number>( () => {
-            return _.sumBy( modeldata.outlist , function ( item : IStatBillObj ) {
+            return _.sumBy( modeldata.typedata_outlist , function ( item : IStatBillObj ) {
                 return item.moneys
             } )
         } )
 
         const RefreshAll = async () => {
-            await getlist( true );
-            await getlist( false );
+            await gettypedatalist( true );
+            await gettypedatalist( false );
             await gettoplist();
         }
 
-        const getlist = async ( isout : boolean ) => {
+        const gettypedatalist = async ( isout : boolean ) => {
             let status = await billapi.getstatlist( modeldata.userselectyear , modeldata.userselectmonth , isout );
 
             if ( status.data.Success ) {
                 if ( isout ) {
-                    modeldata.outlist = status.data.Result;
+                    modeldata.typedata_outlist = status.data.Result;
                 }
                 else {
-                    modeldata.inlist = status.data.Result;
+                    modeldata.typedata_inlist = status.data.Result;
                 }
 
             }
             else {
                 if ( isout ) {
-                    modeldata.outlist = [];
+                    modeldata.typedata_outlist = [];
                 }
                 else {
-                    modeldata.inlist = [];
+                    modeldata.typedata_inlist = [];
                 }
             }
         }
@@ -313,6 +314,9 @@ export default defineComponent( {
             await RefreshAll();
         }
 
+        const typeClick = ( isout : boolean ) => {
+        }
+
         onMounted( async () => {
             await RefreshAll();
         } )
@@ -323,7 +327,7 @@ export default defineComponent( {
             var payload : IStatPageData = {
                 year : modeldata.userselectyear ,
                 month : modeldata.userselectmonth ,
-                isout : modeldata.isout
+                typedata_isout : modeldata.typedata_isout
 
             };
 
@@ -338,10 +342,10 @@ export default defineComponent( {
         return {
             ...toRefs( modeldata ) ,
             selectdateRef , topnum ,
-            suminmoney , sumoutmoney , list , isdisplayoutmore , selectyyyymm ,
+            suminmoney , sumoutmoney , typedata_list , isdisplayoutmore , selectyyyymm ,
             onClickMore ,
             SelectYearMonth , userselectdate ,
-            deleteitemresult , typeitemClick ,
+            deleteitemresult , typeitemClick , typeClick ,
         };
     } ,
 
