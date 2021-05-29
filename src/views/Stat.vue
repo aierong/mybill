@@ -134,7 +134,7 @@ export default defineComponent( {
 
         const selectdateRef = ref<typeof SelectYearMonthDialog | null>( null )
 
-        const topnum : number = 10;
+        const topnum : number = 5;
 
         var now = new Date();
 

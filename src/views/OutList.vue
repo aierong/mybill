@@ -82,8 +82,8 @@ export default defineComponent( {
 
         var now = new Date();
 
-        var userselectyear : number = now.getFullYear();
-        var userselectmonth : number = 1 + now.getMonth();
+        var userselectyear = ref<number>( now.getFullYear() );
+        var userselectmonth = ref<number>( 1 + now.getMonth() );
 
         const state = reactive<IState>( {
             list : [] ,
@@ -108,8 +108,8 @@ export default defineComponent( {
 
         const initval = () => {
             if ( store.state.StatPageData != null ) {
-                userselectyear = store.state.StatPageData.year;
-                userselectmonth = store.state.StatPageData.month;
+                userselectyear.value = store.state.StatPageData.year;
+                userselectmonth.value = store.state.StatPageData.month;
             }
 
             if ( store.state.OutListPageData != null ) {
@@ -124,7 +124,7 @@ export default defineComponent( {
         } )
 
         const getlist = async () => {
-            let status = await billapi.getoutlist( userselectyear , userselectmonth , state.querymode );
+            let status = await billapi.getoutlist( userselectyear.value , userselectmonth.value , state.querymode );
 
             if ( status.data.Success ) {
                 state.list = status.data.Result;
