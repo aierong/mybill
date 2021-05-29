@@ -156,7 +156,8 @@ import { ISelectDateObj , ISelectBillTypeObj } from "@comp/types";
 export default defineComponent( {
     // 子组件
     components : {
-        outitemlist , SelectYearMonthDialog ,
+        outitemlist ,
+        SelectYearMonthDialog ,
     } ,
     // 声明 props
     props : {} ,
