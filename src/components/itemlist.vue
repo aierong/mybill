@@ -19,13 +19,13 @@ Time: 17:30
                     <span>{{ mxindex + 1 }}</span>
                     <aliicon :iconname="mxitem.avatar"
                              :iconsize="36"
-                             colortypes="out"/>
+                             :colortypes="mxitem.isout?'out':'in'"/>
                     <span class="itemtxt">{{ mxitem.typename }}</span>
                 </template>
                 <template #default>
-                    <span class="outmoney">-{{ $FormatMoney( mxitem.moneys ) }}</span>
+                    <span class="money">-{{ $FormatMoney( mxitem.moneys ) }}</span>
                     <br>
-                    <span class="outdate">{{ formatdate( mxitem.moneydate ) }}</span>
+                    <span class="date">{{ formatdate( mxitem.moneydate ) }}</span>
                 </template>
             </van-cell>
             <template #right>
@@ -138,5 +138,5 @@ export default defineComponent( {
 <!-- 样式代码片段  scoped -->
 <style scoped
        lang="less"
-       src="./outitemlist.less">
+       src="./itemlist.less">
 </style>

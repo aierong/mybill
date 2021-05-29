@@ -96,6 +96,23 @@ namespace billservice.Controllers
 
 
         [HttpGet]
+        [Route( "getlist/{year}/{month}/{isout}/{billtypeid}/{mode}" )]
+        public async Task<ServiceResult<List<BillReturnDto>>> getlist ( int year , int month , bool isout , int billtypeid , string mode )
+        {
+            var result = new ServiceResult<List<BillReturnDto>>();
+
+            var mobile = base.UserMobile;
+
+            var list = await this.Ibill.GetListAsync( mobile , year , month , isout , billtypeid , mode );
+
+            result.IsSuccess( list );
+
+            return result;
+        }
+
+
+
+        [HttpGet]
         [Route( "getstatlist/{year}/{month}/{isout}" )]
         public async Task<ServiceResult<List<BillMapReturnDto>>> getstatlist ( int year = 2020 , int month = 1 , bool isout = false )
         {
@@ -133,20 +150,7 @@ namespace billservice.Controllers
 
 
 
-        [HttpGet]
-        [Route( "getoutlist/{year}/{month}/{billtypeid}/{mode}" )]
-        public async Task<ServiceResult<List<BillReturnDto>>> getoutlist ( int year = 2020 , int month = 1 , int billtypeid = 0 , string mode = "money" )
-        {
-            var result = new ServiceResult<List<BillReturnDto>>();
 
-            var mobile = base.UserMobile;
-
-            var list = await this.Ibill.GetOutListAsync( mobile , year , month , billtypeid , mode );
-
-            result.IsSuccess( list );
-
-            return result;
-        }
 
 
 

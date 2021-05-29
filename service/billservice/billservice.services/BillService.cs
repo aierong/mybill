@@ -152,6 +152,67 @@ namespace billservice.services
 
 
 
+        public async Task<List<BillReturnDto>> GetListAsync ( string mobile , int year , int month , bool isout , int billtypeid , string mode )
+        {
+            // billtypeid大于等于0 ,这样就查询所有数据,但是要判断一下类型,看是出还是入
+
+            string sql = @"SELECT    bt.typename ,
+                                    bt.avatar ,
+                                    b.ids ,
+                                    b.mobile ,
+                                    b.billtypeid ,
+                                    b.isout ,
+                                    b.moneys ,
+                                    b.moneydate ,
+                                    b.moneyyear ,
+                                    b.moneymonth ,
+                                    b.moneyday ,
+                                    b.memo ,
+                                    b.sources ,
+                                    b.adddate ,
+                                    b.updatedate ,
+                                    b.deletedate ,
+                                    b.delmark
+                        FROM        bills AS b
+                        JOIN   billtype AS bt
+                        ON  b.billtypeid = bt.ids 
+
+                        WHERE b.mobile = @mobile 
+                            AND b.moneyyear = @moneyyear AND b.moneymonth= @moneymonth 
+                            AND b.delmark='N'
+                            
+                            AND bt.isout=@isout
+                            
+
+                            -- 类型筛选
+                            #sx#
+
+                        -- 按金额排行
+                            #or#
+                        ";
+
+            // money按金额 date按日期
+            sql = sql.Replace( "#or#" , "money".Equals( mode , StringComparison.OrdinalIgnoreCase ) ? " ORDER BY b.moneys DESC " : ( "date".Equals( mode , StringComparison.OrdinalIgnoreCase ) ? " ORDER BY b.moneydate DESC " : string.Empty ) )
+                .Replace( "#sx#" , billtypeid <= 0 ? string.Empty : string.Format( "  and b.billtypeid={0}" , billtypeid ) );
+                
+
+            List <BillReturnDto> dt = await fsql.Ado.QueryAsync<BillReturnDto>( sql ,
+                new
+                {
+
+                    mobile = mobile ,
+                    moneyyear = year ,
+                    moneymonth = month ,
+                    isout = isout
+
+                } );
+
+            return dt;
+
+        }
+
+
+
         public async Task<BillReturnDto> GetAsync ( int id )
         {
             string sql = @"SELECT  top 1    bt.typename ,
@@ -306,62 +367,7 @@ DROP TABLE #tem";
 
 
 
-        public async Task<List<BillReturnDto>> GetOutListAsync ( string mobile , int year , int month , int billtypeid , string mode )
-        {
-
-            string sql = @"SELECT    bt.typename ,
-                                    bt.avatar ,
-                                    b.ids ,
-                                    b.mobile ,
-                                    b.billtypeid ,
-                                    b.isout ,
-                                    b.moneys ,
-                                    b.moneydate ,
-                                    b.moneyyear ,
-                                    b.moneymonth ,
-                                    b.moneyday ,
-                                    b.memo ,
-                                    b.sources ,
-                                    b.adddate ,
-                                    b.updatedate ,
-                                    b.deletedate ,
-                                    b.delmark
-                        FROM        bills AS b
-                        JOIN   billtype AS bt
-                        ON  b.billtypeid = bt.ids 
-
-                        WHERE b.mobile = @mobile 
-                            AND b.moneyyear = @moneyyear AND b.moneymonth= @moneymonth 
-                            AND b.delmark='N'
-                            
-                             AND bt.isout=@isout
-
-                            -- 类型筛选
-                            #sx#
-
-                        -- 按金额排行
-                            #or#
-                        ";
-
-            // money按金额 date按日期
-            sql = sql.Replace( "#or#" , "money".Equals( mode , StringComparison.OrdinalIgnoreCase ) ? " ORDER BY b.moneys DESC " : ( "date".Equals( mode , StringComparison.OrdinalIgnoreCase ) ? " ORDER BY b.moneydate DESC " : string.Empty ) )
-                .Replace( "#sx#" , billtypeid <= 0 ? string.Empty : string.Format( "  and b.billtypeid={0}" , billtypeid ) );
-
-
-            List<BillReturnDto> dt = await fsql.Ado.QueryAsync<BillReturnDto>( sql ,
-                new
-                {
-
-                    mobile = mobile ,
-                    moneyyear = year ,
-                    moneymonth = month ,
-                    isout = true
-                } );
-
-            return dt;
-
-        }
-
+     
 
         public async Task<int> GetOutListCountAsync ( string mobile , int year , int month )
         {

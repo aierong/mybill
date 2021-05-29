@@ -83,7 +83,7 @@ Time: 17:48
         <!--         支出排行-->
         <div>
             <div>{{ userselectmonth }}月份支出排行</div>
-            <outitemlist :list="topoutlist"
+            <itemlist :list="topoutlist"
                          @deleteitemresult="deleteitemresult"/>
             <!--            <br>-->
             <van-divider v-if="isdisplayoutmore"
@@ -149,7 +149,7 @@ import * as billapi from '@/http/api/bill'
 
 import { IStatPageData , IOutListPageData } from "@store/types";
 
-import outitemlist from "@comp/outitemlist.vue";
+import itemlist from "@comp/itemlist.vue";
 
 import SelectYearMonthDialog from "@comp/popup/SelectYearMonthDialog.vue";
 import { ISelectDateObj , ISelectBillTypeObj } from "@comp/types";
@@ -157,7 +157,7 @@ import { ISelectDateObj , ISelectBillTypeObj } from "@comp/types";
 export default defineComponent( {
     // 子组件
     components : {
-        outitemlist ,
+        itemlist ,
         SelectYearMonthDialog ,
     } ,
     // 声明 props

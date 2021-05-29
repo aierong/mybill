@@ -23,6 +23,7 @@ namespace billservice.interfaces
 
 
         Task<List<BillReturnDto>> GetListAsync ( string mobile , int year , int month , int billtypeid );
+        Task<List<BillReturnDto>> GetListAsync ( string mobile , int year , int month , bool isout , int billtypeid , string mode );
 
 
         Task<BillReturnDto> GetAsync ( int id );
@@ -35,7 +36,7 @@ namespace billservice.interfaces
 
         Task<List<BillReturnDto>> GetTopOutListAsync ( string mobile , int year , int month , int topnum );
 
-        Task<List<BillReturnDto>> GetOutListAsync ( string mobile , int year , int month , int billtypeid , string mode );
+      
 
         Task<int> GetOutListCountAsync ( string mobile , int year , int month );
     }

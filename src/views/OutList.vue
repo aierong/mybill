@@ -27,7 +27,7 @@ Time: 17:37
         </div>
 
         <br>
-        <outitemlist :list="list"
+        <itemlist :list="list"
                      @deleteitemresult="deleteitemresult"/>
         <br>
     </div>
@@ -65,13 +65,14 @@ import { useRouter , useRoute , onBeforeRouteLeave } from 'vue-router'
 
 import * as billapi from '@/http/api/bill'
 
-import outitemlist from "@comp/outitemlist.vue";
+import itemlist from "@comp/itemlist.vue";
 import { IStatPageData } from "@store/types";
+import { getdatalist } from "@/http/api/bill";
 
 export default defineComponent( {
     // 子组件
     components : {
-        outitemlist ,
+        itemlist ,
     } ,
     // 声明 props
     props : {} ,
@@ -127,7 +128,7 @@ export default defineComponent( {
         }
 
         const getlist = async () => {
-            let status = await billapi.getoutlist( userselectyear.value ,
+            let status = await billapi.getdatalist( userselectyear.value ,
                 userselectmonth.value ,
                 billtypeid.value ,
                 state.querymode );
