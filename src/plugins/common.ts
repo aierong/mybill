@@ -37,8 +37,15 @@ let FormatMoney : IFormatMoney = function ( num , digits ) : string {
 }
 
 let FormatStatMoney : IFormatStatMoney = function ( num , digits ) : string {
-    if ( num >= 10000 ) {
-        return FormatNumber( num / 10000 , digits ) + '万';
+    var y : number = 100000000;
+
+    if ( num >= y ) {
+        return FormatNumber( num / y , digits ) + '亿';
+    }
+
+    var w : number = 10000;
+    if ( num >= w ) {
+        return FormatNumber( num / w , digits ) + '万';
     }
 
     return FormatNumber( num , digits );
