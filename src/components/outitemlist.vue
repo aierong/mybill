@@ -16,6 +16,7 @@ Time: 17:30
                   :key="mxindex"
                   @click="itemClick(mxitem.ids)">
             <template #title>
+                <span>{{ mxindex + 1 }}</span>
                 <aliicon :iconname="mxitem.avatar"
                          :iconsize="36"
                          colortypes="out"/>

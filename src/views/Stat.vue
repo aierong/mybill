@@ -52,6 +52,7 @@ Time: 17:48
                      :key="index">
                     <van-row gutter="1">
                         <van-col span="8">
+
                             <aliicon :iconname="item.avatar"
                                      :iconsize="22"
                                      :colortypes="isout?'out':'in'"/>
@@ -165,7 +166,7 @@ export default defineComponent( {
 
         const selectdateRef = ref<typeof SelectYearMonthDialog | null>( null )
 
-        const topnum : number = 5;
+        const topnum : number = 10;
 
         var now = new Date();
 
