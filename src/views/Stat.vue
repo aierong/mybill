@@ -70,7 +70,7 @@ Time: 17:48
 <!-- TypeScript脚本代码片段 -->
 <script lang="ts">
 
-import { IBillObj } from "@/types";
+import { IBillObj , querymode } from "@/types";
 
 interface IStatBillObj {
 
@@ -274,6 +274,9 @@ export default defineComponent( {
             };
 
             store.commit( UserMutationType.updatestatpagedata , payload )
+
+            // 这里 默认按金额
+            store.commit( UserMutationType.updateoutlistpagedata , 'money' )
 
             return;
         } )
