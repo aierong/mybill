@@ -83,8 +83,9 @@ Time: 17:48
         <!--         支出排行-->
         <div>
             <div>{{ userselectmonth }}月份支出排行</div>
-            <outitemlist :list="topoutlist"/>
-            <br>
+            <outitemlist :list="topoutlist"
+                         @deleteitemresult="deleteitemresult"/>
+            <!--            <br>-->
             <van-divider v-if="isdisplayoutmore"
                          :style="{  padding: '0 16px' }">
                 <span @click="onClickMore"
@@ -213,10 +214,6 @@ export default defineComponent( {
             } )
         } )
 
-        onMounted( async () => {
-            await RefreshAll();
-        } )
-
         const RefreshAll = async () => {
             await getlist( true );
             await getlist( false );
@@ -296,6 +293,14 @@ export default defineComponent( {
             }
         }
 
+        const deleteitemresult = async ( isok : boolean ) => {
+            await RefreshAll();
+        }
+
+        onMounted( async () => {
+            await RefreshAll();
+        } )
+
         onBeforeRouteLeave( ( to , from ) => {
             // 导航离开该组件的对应路由时调用
             // 离开时,记录一下,页面参数
@@ -315,10 +320,12 @@ export default defineComponent( {
         } )
 
         return {
-            ...toRefs( modeldata ) , selectdateRef , topnum ,
+            ...toRefs( modeldata ) ,
+            selectdateRef , topnum ,
             suminmoney , sumoutmoney , list , isdisplayoutmore , selectyyyymm ,
             onClickMore ,
             SelectYearMonth , userselectdate ,
+            deleteitemresult ,
         };
     } ,
 

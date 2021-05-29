@@ -27,7 +27,8 @@ Time: 17:37
         </div>
 
         <br>
-        <outitemlist :list="list"/>
+        <outitemlist :list="list"
+                     @deleteitemresult="deleteitemresult"/>
         <br>
     </div>
 
@@ -117,12 +118,6 @@ export default defineComponent( {
             }
         }
 
-        onMounted( async () => {
-            initval();
-
-            await getlist();
-        } )
-
         const getlist = async () => {
             let status = await billapi.getoutlist( userselectyear.value , userselectmonth.value , 0 , state.querymode );
 
@@ -146,6 +141,20 @@ export default defineComponent( {
             await getlist();
         }
 
+        const deleteitemresult = async ( isok : boolean ) => {
+            if ( isok ) {
+                await getlist();
+            }
+
+            // console.log('isok',isok)
+        }
+
+        onMounted( async () => {
+            initval();
+
+            await getlist();
+        } )
+
         onBeforeRouteLeave( ( to , from ) => {
             var payload : querymode = state.querymode;
 
@@ -160,6 +169,7 @@ export default defineComponent( {
             onClickLeft ,
             onClickMoney ,
             onClickDate ,
+            deleteitemresult ,
         };
     } ,
 

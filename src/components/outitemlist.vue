@@ -11,23 +11,30 @@ Time: 17:30
 <template>
 
     <div class="item">
-        <van-cell center
-                  v-for="(mxitem,mxindex) in list"
-                  :key="mxindex"
-                  @click="itemClick(mxitem.ids)">
-            <template #title>
-                <span>{{ mxindex + 1 }}</span>
-                <aliicon :iconname="mxitem.avatar"
-                         :iconsize="36"
-                         colortypes="out"/>
-                <span class="itemtxt">{{ mxitem.typename }}</span>
+        <van-swipe-cell v-for="(mxitem,mxindex) in list"
+                        :key="mxindex">
+            <van-cell center
+                      @click="itemClick(mxitem.ids)">
+                <template #title>
+                    <span>{{ mxindex + 1 }}</span>
+                    <aliicon :iconname="mxitem.avatar"
+                             :iconsize="36"
+                             colortypes="out"/>
+                    <span class="itemtxt">{{ mxitem.typename }}</span>
+                </template>
+                <template #default>
+                    <span class="outmoney">-{{ $FormatMoney( mxitem.moneys ) }}</span>
+                    <br>
+                    <span class="outdate">{{ formatdate( mxitem.moneydate ) }}</span>
+                </template>
+            </van-cell>
+            <template #right>
+                <van-button square
+                            @click="deleteitem(mxitem.ids)"
+                            type="danger"
+                            text="删除"/>
             </template>
-            <template #default>
-                <span class="outmoney">-{{ $FormatMoney( mxitem.moneys ) }}</span>
-                <br>
-                <span class="outdate">{{ formatdate( mxitem.moneydate ) }}</span>
-            </template>
-        </van-cell>
+        </van-swipe-cell>
     </div>
 
 </template>
@@ -52,7 +59,21 @@ import {
 
 import { useRouter } from 'vue-router'
 
+//引入一下
+import { Toast , Dialog } from 'vant';
+
+import * as billapi from '@/http/api/bill'
+import { ISelectDateObj } from "@comp/types";
+
 export default defineComponent( {
+    // 定义是事件
+    emits : {
+        deleteitemresult : ( isok : boolean ) => {
+            //上面已经定义了参数类型,系统会验证的参数类型
+
+            return true
+        } ,
+    } ,
     // 声明 props
     props : {
         list : {
@@ -61,7 +82,7 @@ export default defineComponent( {
             default : []
         }
     } ,
-    setup () {
+    setup ( props , { emit } ) {
         const router = useRouter()
 
         const itemClick = ( ids : number ) => {
@@ -74,9 +95,40 @@ export default defineComponent( {
             return dayjs( date ).format( 'MM月DD日' );
         }
 
+        const deleteitem = ( ids : number ) => {
+            Dialog.confirm( {
+                // title : "退出" ,
+                message : "确定删除?"
+            } ).then( async () => {
+                // on confirm
+                // console.log( "点确定按钮" )
+
+                var status = await billapi.deletebyid( ids )
+
+                if ( status.data.Success ) {
+                    //成功不用刷新模型了
+                    Toast.success( "成功删除" )
+
+                    emit( "deleteitemresult" , true );
+                }
+                else {
+                    Toast.fail( status.data.Message )
+
+                    emit( "deleteitemresult" , false );
+
+                    return;
+                }
+
+            } ).catch( () => {
+                // on cancel
+                // console.log( "点取消按钮" )
+            } )
+        }
+
         return {
             itemClick ,
             formatdate ,
+            deleteitem ,
         };
     } ,
 
