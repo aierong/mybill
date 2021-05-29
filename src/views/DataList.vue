@@ -193,6 +193,6 @@ export default defineComponent( {
 <!-- 样式代码片段  scoped -->
 <style lang="less"
        scoped
-       src="./OutList.less">
+       src="./DataList.less">
 
 </style>

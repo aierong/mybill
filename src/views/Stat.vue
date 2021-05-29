@@ -263,7 +263,7 @@ export default defineComponent( {
                 billtypeid : 0
             } )
 
-            router.push( '/outlist' )
+            router.push( '/datalist' )
 
             return;
         }
@@ -275,7 +275,7 @@ export default defineComponent( {
                 billtypeid
             } )
 
-            router.push( '/outlist' )
+            router.push( '/datalist' )
 
             return;
         }
