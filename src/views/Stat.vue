@@ -13,9 +13,17 @@ Time: 17:48
     <div>
         <!--       日期选择-->
         <div class="selectdate">
-            <span style="font-size: 28px">{{ selectyyyymm }}</span>
+            <span style="font-size: 28px"
+                  @click="SelectYearMonth">{{ selectyyyymm }}</span>
             <van-icon size="25"
-                      name="notes-o"/>
+                      name="notes-o"
+                      @click="SelectYearMonth"/>
+
+            <!--    选择日期弹窗   -->
+            <SelectYearMonthDialog ref="selectdateRef"
+                                   @selectdate="userselectdate"
+                                   :year="userselectyear"
+                                   :month="userselectmonth"/>
 
         </div>
 
@@ -35,7 +43,7 @@ Time: 17:48
             <div>
                 <span>收支构成</span>
                 <span class="itemmoney">
-                <span>支出</span> <span>收入</span>
+                    <span>支出</span> <span>收入</span>
                 </span>
             </div>
         </div>
@@ -110,16 +118,21 @@ import { IStatPageData } from "@store/types";
 
 import outitemlist from "@comp/outitemlist.vue";
 
+import SelectYearMonthDialog from "@comp/popup/SelectYearMonthDialog.vue";
+import { ISelectDateObj , ISelectBillTypeObj } from "@comp/types";
+
 export default defineComponent( {
     // 子组件
     components : {
-        outitemlist ,
+        outitemlist , SelectYearMonthDialog ,
     } ,
     // 声明 props
     props : {} ,
     setup () {
         const router = useRouter()
         const store = useStore( key )
+
+        const selectdateRef = ref<typeof SelectYearMonthDialog | null>( null )
 
         const topnum : number = 10;
 
@@ -168,12 +181,14 @@ export default defineComponent( {
         } )
 
         onMounted( async () => {
+            await RefreshAll();
+        } )
 
+        const RefreshAll = async () => {
             await getlist( true );
             await getlist( false );
             await gettoplist();
-
-        } )
+        }
 
         const getlist = async ( isout : boolean ) => {
             let status = await billapi.getstatlist( modeldata.userselectyear , modeldata.userselectmonth , isout );
@@ -216,6 +231,38 @@ export default defineComponent( {
             return;
         }
 
+        const SelectYearMonth = () => {
+
+            if ( selectdateRef.value != null ) {
+                selectdateRef.value.toggle();
+            }
+        }
+
+        /**
+         * 选择日期后,确定
+         * @param val
+         */
+        const userselectdate = async ( val : ISelectDateObj ) => {
+            // console.log( val )
+
+            var isrefresh = false;
+
+            //有可能选择的和之前一样的,这里判断一下
+            if ( modeldata.userselectyear != val.year || modeldata.userselectmonth != val.month ) {
+                modeldata.userselectyear = val.year;
+                modeldata.userselectmonth = val.month;
+
+                isrefresh = true;
+            }
+
+            // console.log( 'isrefresh' , isrefresh )
+
+            if ( isrefresh ) {
+                //再从新请求 服务器
+                await RefreshAll();
+            }
+        }
+
         onBeforeRouteLeave( ( to , from ) => {
             // 导航离开该组件的对应路由时调用
             // 离开时,记录一下,页面参数
@@ -232,9 +279,10 @@ export default defineComponent( {
         } )
 
         return {
-            ...toRefs( modeldata ) , topnum ,
+            ...toRefs( modeldata ) , selectdateRef , topnum ,
             suminmoney , sumoutmoney , list , isdisplayoutmore , selectyyyymm ,
             onClickMore ,
+            SelectYearMonth , userselectdate ,
         };
     } ,
 
