@@ -103,11 +103,11 @@ export default defineComponent( {
         } )
 
         const billtypeid = computed<number>( () => {
-            return store.getters.getoutlistpagebilltypeid;
+            return store.getters.getdatalistpagebilltypeid;
         } )
 
         const billtypetxt = computed<string>( () => {
-            return store.getters.getoutlistpagebilltypetxt;
+            return store.getters.getdatalistpagebilltypetxt;
         } )
 
         const onClickLeft = () => {
@@ -122,8 +122,8 @@ export default defineComponent( {
                 userselectmonth.value = store.state.StatPageData.month;
             }
 
-            if ( store.state.OutListPageData != null ) {
-                state.querymode = store.state.OutListPageData.mode;
+            if ( store.state.DataListPageData != null ) {
+                state.querymode = store.state.DataListPageData.mode;
             }
         }
 
@@ -170,7 +170,7 @@ export default defineComponent( {
         onBeforeRouteLeave( ( to , from ) => {
             var payload : querymode = state.querymode;
 
-            store.commit( UserMutationType.updateoutlistpagemode , payload )
+            store.commit( UserMutationType.updatedatalistpagemode , payload )
 
             return;
         } )

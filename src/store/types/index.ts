@@ -36,7 +36,7 @@ export interface IDetailPageData {
     sourcepagepath : string,
 }
 
-export interface IOutListPageData {
+export interface IDataListPageData {
     mode : querymode,
     billtypeid : number,
     billtypetxt : string,
@@ -47,7 +47,7 @@ export interface IPageData {
     AddPageData : IAddPageData | null,
     StatPageData : IStatPageData | null,
     DetailPageData : IDetailPageData,
-    OutListPageData : IOutListPageData,
+    DataListPageData : IDataListPageData,
 }
 
 export interface IState extends IUserState , IPageData {

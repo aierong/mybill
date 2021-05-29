@@ -17,17 +17,17 @@ const getdetailpagesourcepagepath = ( state : IState ) => {
     return '';
 };
 
-const getoutlistpagebilltypeid = ( state : IState ) => {
-    if ( state.OutListPageData != null ) {
-        return state.OutListPageData.billtypeid;
+const getdatalistpagebilltypeid = ( state : IState ) => {
+    if ( state.DataListPageData != null ) {
+        return state.DataListPageData.billtypeid;
     }
 
     return 0;
 };
 
-const getoutlistpagebilltypetxt = ( state : IState ) => {
-    if ( state.OutListPageData != null ) {
-        return state.OutListPageData.billtypetxt;
+const getdatalistpagebilltypetxt = ( state : IState ) => {
+    if ( state.DataListPageData != null ) {
+        return state.DataListPageData.billtypetxt;
     }
 
     return '';
@@ -36,7 +36,8 @@ const getoutlistpagebilltypetxt = ( state : IState ) => {
 export const pagedatagetters = {
 
     getdetailpagesourcepagepath ,
-    getoutlistpagebilltypeid ,
-    getoutlistpagebilltypetxt ,
+
+    getdatalistpagebilltypeid ,
+    getdatalistpagebilltypetxt ,
 
 }

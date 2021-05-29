@@ -84,7 +84,7 @@ Time: 17:48
         <div>
             <div>{{ userselectmonth }}月份支出排行</div>
             <itemlist :list="topoutlist"
-                         @deleteitemresult="deleteitemresult"/>
+                      @deleteitemresult="deleteitemresult"/>
             <!--            <br>-->
             <van-divider v-if="isdisplayoutmore"
                          :style="{  padding: '0 16px' }">
@@ -147,7 +147,7 @@ import * as UserMutationType from '@store/mutations/mutation-types.ts'
 
 import * as billapi from '@/http/api/bill'
 
-import { IStatPageData , IOutListPageData } from "@store/types";
+import { IStatPageData , IDataListPageData } from "@store/types";
 
 import itemlist from "@comp/itemlist.vue";
 
@@ -258,7 +258,7 @@ export default defineComponent( {
 
         const onClickMore = () => {
             //记录一下,当时的类型和类型名称, 这里记录没有
-            store.commit( UserMutationType.updateoutlistpagebilltype , {
+            store.commit( UserMutationType.updatedatalistpagebilltype , {
                 billtypetxt : '' ,
                 billtypeid : 0
             } )
@@ -270,7 +270,7 @@ export default defineComponent( {
 
         const typeitemClick = ( billtypeid : number , billtypetxt : string ) => {
             //记录一下,当时的类型和类型名称
-            store.commit( UserMutationType.updateoutlistpagebilltype , {
+            store.commit( UserMutationType.updatedatalistpagebilltype , {
                 billtypetxt ,
                 billtypeid
             } )
@@ -339,7 +339,7 @@ export default defineComponent( {
             store.commit( UserMutationType.updatestatpagedata , payload )
 
             // 这里 默认按金额
-            store.commit( UserMutationType.updateoutlistpagemode , 'money' )
+            store.commit( UserMutationType.updatedatalistpagemode , 'money' )
 
             return;
         } )

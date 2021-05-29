@@ -23,8 +23,8 @@ export const updatestatpagedata = "updatestatpagedata"
 
 export const updatedetailpagedata = "updatedetailpagedata"
 
-export const updateoutlistpagemode = "updateoutlistpagemode"
+export const updatedatalistpagemode = "updatedatalistpagemode"
 
-export const updateoutlistpagebilltype = "updateoutlistpagebilltype"
+export const updatedatalistpagebilltype = "updatedatalistpagebilltype"
 
 
