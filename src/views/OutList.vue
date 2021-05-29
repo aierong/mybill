@@ -28,7 +28,7 @@ Time: 17:37
 
         <br>
         <itemlist :list="list"
-                     @deleteitemresult="deleteitemresult"/>
+                  @deleteitemresult="deleteitemresult"/>
         <br>
     </div>
 
@@ -129,7 +129,7 @@ export default defineComponent( {
 
         const getlist = async () => {
             let status = await billapi.getdatalist( userselectyear.value ,
-                userselectmonth.value ,
+                userselectmonth.value , true ,
                 billtypeid.value ,
                 state.querymode );
 

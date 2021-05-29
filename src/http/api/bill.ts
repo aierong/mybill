@@ -17,8 +17,8 @@ export function getlist ( year : number , month : number , billtypeid : number )
     return axios.get( `${ prefix }/getlist/${ year }/${ month }/${ billtypeid }` );
 }
 
-export function getdatalist ( year : number , month : number , billtypeid : number , mode : string ) {
-    return axios.get( `${ prefix }/getlist/${ year }/${ month }/${ billtypeid }/${ mode }` );
+export function getdatalist ( year : number , month : number , isout : boolean , billtypeid : number , mode : string ) {
+    return axios.get( `${ prefix }/getlist/${ year }/${ month }/${ isout }/${ billtypeid }/${ mode }` );
 }
 
 export function getstatlist ( year : number , month : number , isout : boolean ) {
