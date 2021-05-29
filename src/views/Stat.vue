@@ -52,7 +52,6 @@ Time: 17:48
                      :key="index">
                     <van-row gutter="1">
                         <van-col span="8">
-
                             <aliicon :iconname="item.avatar"
                                      :iconsize="22"
                                      :colortypes="isout?'out':'in'"/>
@@ -68,9 +67,8 @@ Time: 17:48
                             </div>
                         </van-col>
                         <van-col span="6">
-                            <div>
+                            <div @click="typeitemClick(item.billtypeid,item.typename)">
                                 <span class="typeitemmoney">¥{{ $FormatStatMoney( item.moneys ) }}</span>
-
                                 <van-icon name="arrow"/>
                             </div>
                         </van-col>
@@ -147,7 +145,7 @@ import * as UserMutationType from '@store/mutations/mutation-types.ts'
 
 import * as billapi from '@/http/api/bill'
 
-import { IStatPageData } from "@store/types";
+import { IStatPageData , IOutListPageData } from "@store/types";
 
 import outitemlist from "@comp/outitemlist.vue";
 
@@ -256,6 +254,24 @@ export default defineComponent( {
         }
 
         const onClickMore = () => {
+            //记录一下,当时的类型和类型名称, 这里记录没有
+            store.commit( UserMutationType.updateoutlistpagebilltype , {
+                billtypetxt : '' ,
+                billtypeid : 0
+            } )
+
+            router.push( '/outlist' )
+
+            return;
+        }
+
+        const typeitemClick = ( billtypeid : number , billtypetxt : string ) => {
+            //记录一下,当时的类型和类型名称
+            store.commit( UserMutationType.updateoutlistpagebilltype , {
+                billtypetxt ,
+                billtypeid
+            } )
+
             router.push( '/outlist' )
 
             return;
@@ -314,7 +330,7 @@ export default defineComponent( {
             store.commit( UserMutationType.updatestatpagedata , payload )
 
             // 这里 默认按金额
-            store.commit( UserMutationType.updateoutlistpagedata , 'money' )
+            store.commit( UserMutationType.updateoutlistpagemode , 'money' )
 
             return;
         } )
@@ -325,7 +341,7 @@ export default defineComponent( {
             suminmoney , sumoutmoney , list , isdisplayoutmore , selectyyyymm ,
             onClickMore ,
             SelectYearMonth , userselectdate ,
-            deleteitemresult ,
+            deleteitemresult , typeitemClick ,
         };
     } ,
 

@@ -17,8 +17,26 @@ const getdetailpagesourcepagepath = ( state : IState ) => {
     return '';
 };
 
+const getoutlistpagebilltypeid = ( state : IState ) => {
+    if ( state.OutListPageData != null ) {
+        return state.OutListPageData.billtypeid;
+    }
+
+    return 0;
+};
+
+const getoutlistpagebilltypetxt = ( state : IState ) => {
+    if ( state.OutListPageData != null ) {
+        return state.OutListPageData.billtypetxt;
+    }
+
+    return '';
+};
+
 export const pagedatagetters = {
 
     getdetailpagesourcepagepath ,
+    getoutlistpagebilltypeid ,
+    getoutlistpagebilltypetxt ,
 
 }

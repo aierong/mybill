@@ -16,7 +16,7 @@ Time: 17:37
                      left-arrow
                      @click-left="onClickLeft"/>
 
-        <div class="monthsumtxt">{{ userselectmonth }}月共支出</div>
+        <div class="monthsumtxt">{{ userselectmonth }}月<span v-if="billtypeid>0">{{ billtypetxt }}</span>共支出</div>
         <div class="summoneytxt">¥{{ $FormatMoney( summoney ) }}</div>
         <br>
         <div>
@@ -101,6 +101,14 @@ export default defineComponent( {
             } )
         } )
 
+        const billtypeid = computed<number>( () => {
+            return store.getters.getoutlistpagebilltypeid;
+        } )
+
+        const billtypetxt = computed<string>( () => {
+            return store.getters.getoutlistpagebilltypetxt;
+        } )
+
         const onClickLeft = () => {
             router.push( { path : '/stat' } )
 
@@ -119,7 +127,10 @@ export default defineComponent( {
         }
 
         const getlist = async () => {
-            let status = await billapi.getoutlist( userselectyear.value , userselectmonth.value , 0 , state.querymode );
+            let status = await billapi.getoutlist( userselectyear.value ,
+                userselectmonth.value ,
+                billtypeid.value ,
+                state.querymode );
 
             if ( status.data.Success ) {
                 state.list = status.data.Result;
@@ -158,7 +169,7 @@ export default defineComponent( {
         onBeforeRouteLeave( ( to , from ) => {
             var payload : querymode = state.querymode;
 
-            store.commit( UserMutationType.updateoutlistpagedata , payload )
+            store.commit( UserMutationType.updateoutlistpagemode , payload )
 
             return;
         } )
@@ -166,10 +177,12 @@ export default defineComponent( {
         return {
             ...toRefs( state ) ,
             userselectyear , userselectmonth , isselectmoney , summoney ,
+            billtypeid , billtypetxt ,
             onClickLeft ,
             onClickMoney ,
             onClickDate ,
             deleteitemresult ,
+
         };
     } ,
 

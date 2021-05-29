@@ -17,7 +17,7 @@ import {
     IStatPageData ,
     // IOutListPageData ,
 } from '@store/types'
-import { updateoutlistpagedata } from "@store/mutations/mutation-types";
+import { updateoutlistpagebilltype } from "@store/mutations/mutation-types";
 
 export const pagedatamutations = {
 
@@ -34,8 +34,13 @@ export const pagedatamutations = {
         state.DetailPageData.sourcepagepath = payload;
     } ,
 
-    [ types.updateoutlistpagedata ] ( state : IState , payload : querymode ) {
+    [ types.updateoutlistpagemode ] ( state : IState , payload : querymode ) {
         state.OutListPageData.mode = payload;
+    } ,
+
+    [ types.updateoutlistpagebilltype ] ( state : IState , payload : any ) {
+        state.OutListPageData.billtypetxt = payload.billtypetxt;
+        state.OutListPageData.billtypeid = payload.billtypeid;
     } ,
 
 }

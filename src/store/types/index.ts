@@ -38,6 +38,8 @@ export interface IDetailPageData {
 
 export interface IOutListPageData {
     mode : querymode,
+    billtypeid : number,
+    billtypetxt : string,
 }
 
 export interface IPageData {

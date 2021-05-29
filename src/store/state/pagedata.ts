@@ -29,6 +29,8 @@ export const pagedatastate : IPageData = {
     } ,
 
     OutListPageData : {
-        mode : 'money'
+        mode : 'money' ,
+        billtypeid : 0 ,
+        billtypetxt : ''
     }
 };
