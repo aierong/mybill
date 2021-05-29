@@ -43,11 +43,13 @@ Time: 17:48
             <div class="typehead">
                 <span style="margin-left: 10px;">收支构成</span>
                 <span class="itemmoney">
-                    <span @click="typeClick(true)">支出</span> <span @click="typeClick(false)">收入</span>
+                    <span :class="{ outactive:typedata_isout , itemtxt:true  }"
+                          @click="typeClick(true)">支出</span>
+                    <span :class="{ inactive:!typedata_isout   ,itemtxt:true }"
+                          @click="typeClick(false)">收入</span>
                 </span>
             </div>
             <div class="typeitem">
-
                 <div v-for="(item,index) in typedata_list"
                      :key="index">
                     <van-row gutter="1">
@@ -315,6 +317,9 @@ export default defineComponent( {
         }
 
         const typeClick = ( isout : boolean ) => {
+            if ( modeldata.typedata_isout != isout ) {
+                modeldata.typedata_isout = isout;
+            }
         }
 
         onMounted( async () => {
