@@ -21,8 +21,8 @@ export function getdatalist ( year : number , month : number , isout : boolean ,
     return axios.get( `${ prefix }/getlist/${ year }/${ month }/${ isout }/${ billtypeid }/${ mode }` );
 }
 
-export function getstatmonthlist ( isout : boolean , monthnum : number ) {
-    return axios.get( `${ prefix }/getstatmonthlist/${ isout }/${ monthnum }` );
+export function getstatmonthlist ( year : number , month : number , isout : boolean , monthnum : number ) {
+    return axios.get( `${ prefix }/getstatmonthlist/${ year }/${ month }/${ isout }/${ monthnum }` );
 }
 
 export function getstatlist ( year : number , month : number , isout : boolean ) {

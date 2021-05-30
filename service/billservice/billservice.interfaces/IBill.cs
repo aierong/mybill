@@ -41,6 +41,8 @@ namespace billservice.interfaces
         Task<int> GetOutListCountAsync ( string mobile , int year , int month );
 
 
-        Task<List<BillSumMonthReturnDto>> GetSumByMonthAsync ( string mobile , bool isout ,int monthnum);
+        Task<List<BillSumMonthReturnDto>> GetSumByMonthAsync ( string mobile , int year , int month , bool isout , int monthnum );
+
+        Task<List<BillSumDayReturnDto>> GetSumByDayAsync ( string mobile , int year , int month , bool isout , int monthnum );
     }
 }

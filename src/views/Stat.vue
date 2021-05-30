@@ -243,7 +243,9 @@ export default defineComponent( {
         }
 
         const getstatmonthlist = async ( isout : boolean ) => {
-            const { data } = await billapi.getstatmonthlist( isout , monthmaxnum );
+            const { data } = await billapi.getstatmonthlist( modeldata.userselectyear ,
+                                                            modeldata.userselectmonth ,
+                                                            isout , monthmaxnum );
 
             if ( data.Success ) {
                 if ( isout ) {
@@ -265,7 +267,8 @@ export default defineComponent( {
         }
 
         const gettypedatalist = async ( isout : boolean ) => {
-            const { data } = await billapi.getstatlist( modeldata.userselectyear , modeldata.userselectmonth , isout );
+            const { data } = await billapi.getstatlist( modeldata.userselectyear ,
+                modeldata.userselectmonth , isout );
 
             if ( data.Success ) {
                 if ( isout ) {

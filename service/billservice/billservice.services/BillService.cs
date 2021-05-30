@@ -406,9 +406,9 @@ DROP TABLE #tem";
 
 
 
-        public async Task<List<BillSumMonthReturnDto>> GetSumByMonthAsync ( string mobile , bool isout , int monthnum )
+        public async Task<List<BillSumMonthReturnDto>> GetSumByMonthAsync ( string mobile , int year , int month , bool isout , int monthnum )
         {
-            DateTime now = DateTime.Now;  //获取最新时间
+            DateTime now = new DateTime( year , month , 1 );  //获取最新时间
 
             List<Tuple<int , int>> list = new List<Tuple<int , int>>()
             {
@@ -418,7 +418,6 @@ DROP TABLE #tem";
             for ( int i = 1 ; i < monthnum ; i++ )
             {
                 DateTime q = now.AddMonths( i * -1 );
-
 
                 list.Add( new Tuple<int , int>( q.Year , q.Month ) );
             }
@@ -445,14 +444,14 @@ GROUP BY    [moneyyear] ,
             foreach ( var pair in list )
             {
 
-                int year = pair.Item1;
-                int month = pair.Item2;
+                int _year = pair.Item1;
+                int _month = pair.Item2;
 
                 string mb = string.Format( @"
                     (
                         [moneyyear] = {0}
                         AND [moneymonth] = {1}
-                    )" , year , month );
+                    )" , _year , _month );
 
                 tem = tem + ( string.IsNullOrEmpty( tem ) ? mb : "  OR " + mb );
 
@@ -472,11 +471,10 @@ GROUP BY    [moneyyear] ,
             //得到的记录，可能不存在有些月份，这里判断一下，把没有的月份填充
             foreach ( var pair in list )
             {
+                int _year = pair.Item1;
+                int _month = pair.Item2;
 
-                int year = pair.Item1;
-                int month = pair.Item2;
-
-                bool bl = dt.Exists( item => item.moneyyear == year && item.moneymonth == month );
+                bool bl = dt.Exists( item => item.moneyyear == _year && item.moneymonth == _month );
 
                 if ( bl )
                 {
@@ -488,16 +486,40 @@ GROUP BY    [moneyyear] ,
                     dt.Add( new BillSumMonthReturnDto()
                     {
                         moneys = 0 ,
-                        moneymonth = month ,
-                        moneyyear = year
+                        moneymonth = _month ,
+                        moneyyear = _year
                     } );
                 }
             }
 
             //最后 排序
-            var _list = dt.OrderBy( item => item.moneyyear ).ThenBy( item => item.moneymonth );
+            //var _list = dt.OrderBy( item => item.moneyyear ).ThenBy( item => item.moneymonth );
+            //return _list.ToList();
 
-            return _list.ToList();
+            dt.Sort( ( x , y ) =>
+            {
+                if ( x.moneyyear < y.moneyyear )
+                {
+                    return -1;
+                }
+                else if ( x.moneyyear == y.moneyyear )
+                {
+                    return x.moneymonth < y.moneymonth ? -1 : ( x.moneymonth == y.moneymonth ? 0 : 1 );
+                }
+                else
+                {
+                    return 1;
+                }
+            } );
+
+            return dt;
+        }
+
+
+
+        public async Task<List<BillSumDayReturnDto>> GetSumByDayAsync ( string mobile , int year , int month , bool isout , int monthnum )
+        {
+            throw new NotImplementedException();
         }
     }
 }
