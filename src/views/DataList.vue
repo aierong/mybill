@@ -128,13 +128,13 @@ export default defineComponent( {
         }
 
         const getlist = async () => {
-            let status = await billapi.getdatalist( userselectyear.value ,
+            const { data } = await billapi.getdatalist( userselectyear.value ,
                 userselectmonth.value , true ,
                 billtypeid.value ,
                 state.querymode );
 
-            if ( status.data.Success ) {
-                state.list = status.data.Result;
+            if ( data.Success ) {
+                state.list = data.Result;
             }
             else {
                 state.list = []

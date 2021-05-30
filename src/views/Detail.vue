@@ -115,9 +115,6 @@ export default defineComponent( {
             modeldata : null
         } );
 
-        // //数据是否变动
-        // const isdatachange = ref<boolean>( false );
-
         const sourcepagepath = computed( () => {
             return store.getters.getdetailpagesourcepagepath;
         } )
@@ -139,13 +136,13 @@ export default defineComponent( {
 
         const getmodel = async () => {
 
-            var status = await billapi.get( props.queryid );
+            const { data } = await billapi.get( props.queryid );
 
             // console.log( 'status' , status )
 
-            if ( status.data.Success ) {
+            if ( data.Success ) {
 
-                state.modeldata = status.data.Result;
+                state.modeldata = data.Result;
             }
             else {
                 state.modeldata = null;
@@ -169,16 +166,16 @@ export default defineComponent( {
                 // on confirm
                 // console.log( "点确定按钮" )
 
-                var status = await billapi.deletebyid( props.queryid )
+                const { data } = await billapi.deletebyid( props.queryid )
 
-                if ( status.data.Success ) {
+                if ( data.Success ) {
                     //成功不用刷新模型了,直接跳回之前页面
                     Toast.success( "成功删除" )
 
                     gotoback();
                 }
                 else {
-                    Toast.fail( status.data.Message )
+                    Toast.fail( data.Message )
 
                     return;
                 }
@@ -216,7 +213,7 @@ export default defineComponent( {
             sourcepagepath ,
             onClickLeft ,
             onDelete , onUpdate ,
-            // isdatachange ,
+            
             operationRef , billrunresult ,
         };
     } ,
