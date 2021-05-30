@@ -120,6 +120,13 @@ interface IMonthStatObj {
     moneys : number,
 }
 
+interface IDayStatObj {
+    moneyday : number,
+    moneymonth : number,
+    moneyyear : number,
+    moneys : number,
+}
+
 interface IState {
     userselectyear : number,
     userselectmonth : number,
@@ -136,6 +143,10 @@ interface IState {
     monthstat_isout : boolean,
     monthstat_inlist : IMonthStatObj[],
     monthstat_outlist : IMonthStatObj[],
+
+    daystat_isout : boolean,
+    daystat_inlist : IDayStatObj[],
+    daystat_outlist : IDayStatObj[],
 }
 
 // 引入lodash
@@ -164,6 +175,7 @@ import itemlist from "@comp/itemlist.vue";
 
 import SelectYearMonthDialog from "@comp/popup/SelectYearMonthDialog.vue";
 import { ISelectDateObj , ISelectBillTypeObj } from "@comp/types";
+import { getstatdaylist } from "@/http/api/bill";
 
 export default defineComponent( {
     // 子组件
@@ -203,6 +215,10 @@ export default defineComponent( {
             monthstat_isout : true ,
             monthstat_inlist : [] ,
             monthstat_outlist : [] ,
+
+            daystat_isout : true ,
+            daystat_inlist : [] ,
+            daystat_outlist : [] ,
         } )
 
         const selectyyyymm = computed( () => {
@@ -236,16 +252,44 @@ export default defineComponent( {
         const RefreshAll = async () => {
             await gettypedatalist( true );
             await gettypedatalist( false );
+
             await gettoplist();
 
             await getstatmonthlist( true );
             await getstatmonthlist( false );
+
+            await getstatdaylist( true );
+            await getstatdaylist( false );
+        }
+
+        const getstatdaylist = async ( isout : boolean ) => {
+            const { data } = await billapi.getstatdaylist( modeldata.userselectyear ,
+                modeldata.userselectmonth ,
+                isout );
+
+            if ( data.Success ) {
+                if ( isout ) {
+                    modeldata.daystat_outlist = data.Result;
+                }
+                else {
+                    modeldata.daystat_inlist = data.Result;
+                }
+
+            }
+            else {
+                if ( isout ) {
+                    modeldata.daystat_outlist = [];
+                }
+                else {
+                    modeldata.daystat_inlist = [];
+                }
+            }
         }
 
         const getstatmonthlist = async ( isout : boolean ) => {
             const { data } = await billapi.getstatmonthlist( modeldata.userselectyear ,
-                                                            modeldata.userselectmonth ,
-                                                            isout , monthmaxnum );
+                modeldata.userselectmonth ,
+                isout , monthmaxnum );
 
             if ( data.Success ) {
                 if ( isout ) {

@@ -474,7 +474,8 @@ GROUP BY    [moneyyear] ,
                 int _year = pair.Item1;
                 int _month = pair.Item2;
 
-                bool bl = dt.Exists( item => item.moneyyear == _year && item.moneymonth == _month );
+                bool bl = dt.Exists( item => item.moneyyear == _year
+                                                                && item.moneymonth == _month );
 
                 if ( bl )
                 {
@@ -517,9 +518,162 @@ GROUP BY    [moneyyear] ,
 
 
 
-        public async Task<List<BillSumDayReturnDto>> GetSumByDayAsync ( string mobile , int year , int month , bool isout , int monthnum )
+        public async Task<List<BillSumDayReturnDto>> GetSumByDayAsync ( string mobile , int year , int month , bool isout )
         {
-            throw new NotImplementedException();
+            // 如果是当月，就往前推1个月，如果是往月就从1号到最后一天
+            DateTime now = DateTime.Now;
+
+            DateTime startdate = now;
+            DateTime enddate = now;
+
+            if ( now.Year == year && now.Month == month )
+            {
+                //当前月
+                enddate = now.Date;
+                startdate = now.AddMonths( -1 ).Date;
+            }
+            else
+            {
+                //是往月
+                enddate = new DateTime( year , month , 1 ).AddMonths( 1 ).AddDays( -1 ).Date;  //获取这个月最后一天
+                startdate = new DateTime( year , month , 1 ).Date;
+
+            }
+
+            //初始化一个集合
+            List<Tuple<int , int , int>> list = new List<Tuple<int , int , int>>()
+            {
+            };
+
+            int loop = 0;
+
+            while ( true )
+            {
+                DateTime tempdate = enddate.AddDays( loop * -1 );
+
+                list.Add( new Tuple<int , int , int>( tempdate.Year , tempdate.Month , tempdate.Day ) );
+
+                loop++;
+
+                if ( enddate.AddDays( loop * -1 ).Date >= startdate.Date )
+                {
+
+                }
+                else
+                {
+                    break;  //跳出循环
+                }
+            }
+
+
+            string sql = @"
+SELECT      [moneyyear] ,
+            [moneymonth] ,
+            moneyday,
+            SUM ( [moneys] ) moneys
+FROM        [bills]
+WHERE       delmark = 'N'
+            and [mobile]= @mobile
+            and isout=@isout
+
+            {0}
+             
+GROUP BY    [moneyyear] ,
+            [moneymonth],
+            moneyday
+";
+
+            string tem = string.Empty;
+
+            ////循环
+            foreach ( var pair in list )
+            {
+                int _year = pair.Item1;
+                int _month = pair.Item2;
+                int _day = pair.Item3;
+
+                string mb = string.Format( @"
+                    (
+                        [moneyyear] = {0}
+                        AND [moneymonth] = {1} 
+                        and moneyday={2}
+                    )" , _year , _month , _day );
+
+                tem = tem + ( string.IsNullOrEmpty( tem ) ? mb : "  OR " + mb );
+            }
+
+            sql = string.Format( sql , string.IsNullOrEmpty( tem ) ? string.Empty : string.Format( " AND ( {0}  )" , tem ) );
+
+            List<BillSumDayReturnDto> dt = await fsql.Ado.QueryAsync<BillSumDayReturnDto>( sql ,
+              new
+              {
+
+                  mobile = mobile ,
+
+                  isout = isout
+              } );
+
+            //得到的记录，可能不存在有些日期的，这里判断一下，把没有的填充
+            foreach ( var pair in list )
+            {
+                int _year = pair.Item1;
+                int _month = pair.Item2;
+                int _day = pair.Item3;
+
+                bool bl = dt.Exists( item => item.moneyyear == _year
+                                                                && item.moneymonth == _month
+                                                                && item.moneyday == _day );
+
+                if ( bl )
+                {
+                    //存在 
+                }
+                else
+                {
+                    //不存在 就添加进去
+                    dt.Add( new BillSumDayReturnDto()
+                    {
+                        moneys = 0 ,
+                        moneymonth = _month ,
+                        moneyyear = _year ,
+                        moneyday = _day
+                    } );
+                }
+            }
+
+            //最后 排序
+            //var _list = dt.OrderBy( item => item.moneyyear ).ThenBy( item => item.moneymonth );
+            //return _list.ToList();
+
+            dt.Sort( ( x , y ) =>
+            {
+                if ( x.moneyyear < y.moneyyear )
+                {
+                    return -1;
+                }
+                else if ( x.moneyyear == y.moneyyear )
+                {
+                    if ( x.moneymonth < y.moneymonth )
+                    {
+                        return -1;
+                    }
+                    else if ( x.moneymonth == y.moneymonth )
+                    {
+                        return x.moneyday < y.moneyday ? -1 : ( x.moneyday == y.moneyday ? 0 : 1 );
+                    }
+                    else
+                    {
+                        return 1;
+                    }
+                }
+                else
+                {
+                    return 1;
+                }
+            } );
+
+            return dt;
+
         }
     }
 }

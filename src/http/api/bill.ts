@@ -25,6 +25,10 @@ export function getstatmonthlist ( year : number , month : number , isout : bool
     return axios.get( `${ prefix }/getstatmonthlist/${ year }/${ month }/${ isout }/${ monthnum }` );
 }
 
+export function getstatdaylist ( year : number , month : number , isout : boolean ) {
+    return axios.get( `${ prefix }/getstatdaylist/${ year }/${ month }/${ isout }` );
+}
+
 export function getstatlist ( year : number , month : number , isout : boolean ) {
     return axios.get( `${ prefix }/getstatlist/${ year }/${ month }/${ isout }` );
 }
