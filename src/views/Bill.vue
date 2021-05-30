@@ -225,13 +225,13 @@ export default defineComponent( {
 
         const getlist = async () => {
 
-            let status = await billapi.getlist( querymodeldata.userselectyear ,
+            const { data } = await billapi.getlist( querymodeldata.userselectyear ,
                 querymodeldata.userselectmonth ,
                 querymodeldata.userselectbilltypeid );
 
             // console.log( 'result' , status )
-            if ( status.data.Success ) {
-                billmodeldata.list = status.data.Result;
+            if ( data.Success ) {
+                billmodeldata.list = data.Result;
             }
             else {
                 billmodeldata.list = [];
@@ -291,6 +291,7 @@ export default defineComponent( {
                     } );
 
                     var _moneydate : string = item[ 0 ];
+
                     var dayobj : IDisplayDayBill = {
                         moneydate : _moneydate ,
                         list : billlist ,
@@ -309,11 +310,6 @@ export default defineComponent( {
         } )
 
         const isdisplaylist = computed( () => {
-            // if ( displaylist.value != null ) {
-            //     return displaylist.value.length > 0;
-            // }
-            //
-            // return false;
 
             return displaylist.value.length > 0;
         } )
@@ -450,9 +446,6 @@ export default defineComponent( {
 
             // 记录状态数据
             store.commit( UserMutationType.updateaddpagedata , payload );
-
-            // console.log( "dao1独自守卫onBeforeRouteLeave,进入之前to:" , to );
-            // console.log( "dao1独自守卫onBeforeRouteLeave,进入之前from:" , from );
 
         } );
 

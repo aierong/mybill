@@ -174,10 +174,10 @@ export default defineComponent( {
                     email : modeldata.userinfo.email
                 }
 
-                let status = await userapi.add( registerUser );
+                const { data } = await userapi.add( registerUser );
 
                 // console.log( 'status' , status )
-                if ( status.data.Success ) {
+                if ( data.Success ) {
                     // this.$toast( status.data.msg )
                     Toast( "注册成功,请登录" )
 
@@ -187,7 +187,7 @@ export default defineComponent( {
 
                 }
                 else {
-                    Toast.fail( status.data.Message )
+                    Toast.fail( data.Message )
                 }
 
                 return;

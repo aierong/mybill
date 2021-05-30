@@ -125,14 +125,14 @@ export default defineComponent( {
             ( async () => {
                 var mobile = modeldata.userinfo.mobile;
 
-                let status = await userapi.login( mobile , EncryptPassWord( modeldata.userinfo.password ) );
+                const { data } = await userapi.login( mobile , EncryptPassWord( modeldata.userinfo.password ) );
 
                 // console.log( 'login status' , status )
 
-                if ( status.data.Success ) {
+                if ( data.Success ) {
 
                     //     // 存储token
-                    let tokendata = status.data.Result.token;
+                    let tokendata = data.Result.token;
 
                     //返回的token是可以用的
                     localStorage.setItem( constant.tokenname , tokendata );
@@ -146,7 +146,7 @@ export default defineComponent( {
                     return;
                 }
                 else {
-                    Toast.fail( status.data.Message )
+                    Toast.fail( data.Message )
                 }
 
                 return;
