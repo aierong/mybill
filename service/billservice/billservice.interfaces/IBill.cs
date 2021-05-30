@@ -36,8 +36,11 @@ namespace billservice.interfaces
 
         Task<List<BillReturnDto>> GetTopOutListAsync ( string mobile , int year , int month , int topnum );
 
-      
+
 
         Task<int> GetOutListCountAsync ( string mobile , int year , int month );
+
+
+        Task<List<BillSumMonthReturnDto>> GetSumByMonthAsync ( string mobile , bool isout ,int monthnum);
     }
 }

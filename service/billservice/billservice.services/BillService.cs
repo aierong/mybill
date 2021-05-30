@@ -194,9 +194,9 @@ namespace billservice.services
             // money按金额 date按日期
             sql = sql.Replace( "#or#" , "money".Equals( mode , StringComparison.OrdinalIgnoreCase ) ? " ORDER BY b.moneys DESC " : ( "date".Equals( mode , StringComparison.OrdinalIgnoreCase ) ? " ORDER BY b.moneydate DESC " : string.Empty ) )
                 .Replace( "#sx#" , billtypeid <= 0 ? string.Empty : string.Format( "  and b.billtypeid={0}" , billtypeid ) );
-                
 
-            List <BillReturnDto> dt = await fsql.Ado.QueryAsync<BillReturnDto>( sql ,
+
+            List<BillReturnDto> dt = await fsql.Ado.QueryAsync<BillReturnDto>( sql ,
                 new
                 {
 
@@ -367,7 +367,7 @@ DROP TABLE #tem";
 
 
 
-     
+
 
         public async Task<int> GetOutListCountAsync ( string mobile , int year , int month )
         {
@@ -404,5 +404,37 @@ DROP TABLE #tem";
         }
 
 
+
+        public async Task<List<BillSumMonthReturnDto>> GetSumByMonthAsync ( string mobile , bool isout , int monthnum )
+        {
+            DateTime now = DateTime.Now;  //获取最新时间
+
+            Dictionary<int , int> dictionary = new Dictionary<int , int>();
+            dictionary.Add( now.Year , now.Month );
+
+            for ( int i = 1 ; i < monthnum - 1 ; i++ )
+            {
+                DateTime q = now.AddMonths( i * -1 );
+
+                dictionary.Add( q.Year , q.Month );
+            }
+
+
+            return null;
+        }
     }
 }
+
+
+/**
+ SELECT 
+      [moneyyear]
+      ,[moneymonth]
+      
+      ,sum([moneys])
+  FROM [mybill].[dbo].[bills]
+  where delmark='N'
+  --and [mobile]=''
+  and (  ([moneyyear]=2021 and [moneymonth]=5) or  ([moneyyear]=2021 and [moneymonth]=4) )
+  group by [moneyyear] ,[moneymonth]
+*/
