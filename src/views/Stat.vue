@@ -114,6 +114,12 @@ interface IStatBillObj {
     ratio : number,
 }
 
+interface IMonthStatObj {
+    moneymonth : number,
+    moneyyear : number,
+    moneys : number,
+}
+
 interface IState {
     userselectyear : number,
     userselectmonth : number,
@@ -124,7 +130,12 @@ interface IState {
     typedata_outlist : IStatBillObj[],
 
     topoutlist : IBillObj[],
+    //支出记录数量
     outlistcounts : number,
+
+    monthstat_isout : boolean,
+    monthstat_inlist : IMonthStatObj[],
+    monthstat_outlist : IMonthStatObj[],
 }
 
 // 引入lodash
@@ -163,12 +174,15 @@ export default defineComponent( {
     // 声明 props
     props : {} ,
     setup () {
+        //支出排行榜最大数量
+        const outmaxtopnum : number = 10;
+
+        const monthmaxnum : number = 6;
+
         const router = useRouter()
         const store = useStore( key )
 
         const selectdateRef = ref<typeof SelectYearMonthDialog | null>( null )
-
-        const topnum : number = 10;
 
         var now = new Date();
 
@@ -185,6 +199,10 @@ export default defineComponent( {
 
             topoutlist : [] ,
             outlistcounts : 0 ,
+
+            monthstat_isout : true ,
+            monthstat_inlist : [] ,
+            monthstat_outlist : [] ,
         } )
 
         const selectyyyymm = computed( () => {
@@ -192,7 +210,7 @@ export default defineComponent( {
         } )
 
         const isdisplayoutmore = computed( () => {
-            return modeldata.outlistcounts > topnum;
+            return modeldata.outlistcounts > outmaxtopnum;
         } )
 
         const typedata_list = computed<IStatBillObj[]>( () => {
@@ -219,17 +237,42 @@ export default defineComponent( {
             await gettypedatalist( true );
             await gettypedatalist( false );
             await gettoplist();
+
+            await getstatmonthlist( true );
+            await getstatmonthlist( false );
+        }
+
+        const getstatmonthlist = async ( isout : boolean ) => {
+            const { data } = await billapi.getstatmonthlist( isout , monthmaxnum );
+
+            if ( data.Success ) {
+                if ( isout ) {
+                    modeldata.monthstat_outlist = data.Result;
+                }
+                else {
+                    modeldata.monthstat_inlist = data.Result;
+                }
+
+            }
+            else {
+                if ( isout ) {
+                    modeldata.monthstat_outlist = [];
+                }
+                else {
+                    modeldata.monthstat_inlist = [];
+                }
+            }
         }
 
         const gettypedatalist = async ( isout : boolean ) => {
-            let status = await billapi.getstatlist( modeldata.userselectyear , modeldata.userselectmonth , isout );
+            const { data } = await billapi.getstatlist( modeldata.userselectyear , modeldata.userselectmonth , isout );
 
-            if ( status.data.Success ) {
+            if ( data.Success ) {
                 if ( isout ) {
-                    modeldata.typedata_outlist = status.data.Result;
+                    modeldata.typedata_outlist = data.Result;
                 }
                 else {
-                    modeldata.typedata_inlist = status.data.Result;
+                    modeldata.typedata_inlist = data.Result;
                 }
 
             }
@@ -244,11 +287,13 @@ export default defineComponent( {
         }
 
         const gettoplist = async () => {
-            let status = await billapi.gettopoutlist( modeldata.userselectyear , modeldata.userselectmonth , topnum );
+            const { data } = await billapi.gettopoutlist( modeldata.userselectyear ,
+                modeldata.userselectmonth ,
+                outmaxtopnum );
 
-            if ( status.data.Success ) {
-                modeldata.topoutlist = status.data.Result.list;
-                modeldata.outlistcounts = status.data.Result.counts;
+            if ( data.Success ) {
+                modeldata.topoutlist = data.Result.list;
+                modeldata.outlistcounts = data.Result.counts;
             }
             else {
                 modeldata.topoutlist = []
@@ -351,7 +396,7 @@ export default defineComponent( {
 
         return {
             ...toRefs( modeldata ) ,
-            selectdateRef , topnum ,
+            selectdateRef ,
             suminmoney , sumoutmoney , typedata_list , isdisplayoutmore , selectyyyymm ,
             onClickMore ,
             SelectYearMonth , userselectdate ,

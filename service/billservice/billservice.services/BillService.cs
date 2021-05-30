@@ -6,6 +6,7 @@ using System.Data;
 using billservice.interfaces;
 using billservice.models;
 using billservice.models.Dto;
+using System.Collections.Specialized;
 
 namespace billservice.services
 {
@@ -409,32 +410,96 @@ DROP TABLE #tem";
         {
             DateTime now = DateTime.Now;  //获取最新时间
 
-            Dictionary<int , int> dictionary = new Dictionary<int , int>();
-            dictionary.Add( now.Year , now.Month );
+            List<Tuple<int , int>> list = new List<Tuple<int , int>>()
+            {
+                new Tuple<int, int>(now.Year,now.Month)
+            };
 
-            for ( int i = 1 ; i < monthnum - 1 ; i++ )
+            for ( int i = 1 ; i < monthnum ; i++ )
             {
                 DateTime q = now.AddMonths( i * -1 );
 
-                dictionary.Add( q.Year , q.Month );
+
+                list.Add( new Tuple<int , int>( q.Year , q.Month ) );
             }
 
+            string sql = @"
+SELECT      [moneyyear] ,
+            [moneymonth] ,
+            SUM ( [moneys] ) moneys
+FROM        [bills]
+WHERE       delmark = 'N'
+            and [mobile]= @mobile
+            and isout=@isout
 
-            return null;
+            {0}
+             
+GROUP BY    [moneyyear] ,
+            [moneymonth]
+--ORDER BY    [moneyyear] ,            [moneymonth]
+";
+
+            string tem = string.Empty;
+
+            ////循环
+            foreach ( var pair in list )
+            {
+
+                int year = pair.Item1;
+                int month = pair.Item2;
+
+                string mb = string.Format( @"
+                    (
+                        [moneyyear] = {0}
+                        AND [moneymonth] = {1}
+                    )" , year , month );
+
+                tem = tem + ( string.IsNullOrEmpty( tem ) ? mb : "  OR " + mb );
+
+            }
+
+            sql = string.Format( sql , string.IsNullOrEmpty( tem ) ? string.Empty : string.Format( " AND ( {0}  )" , tem ) );
+
+            List<BillSumMonthReturnDto> dt = await fsql.Ado.QueryAsync<BillSumMonthReturnDto>( sql ,
+                new
+                {
+
+                    mobile = mobile ,
+
+                    isout = isout
+                } );
+
+            //得到的记录，可能不存在有些月份，这里判断一下，把没有的月份填充
+            foreach ( var pair in list )
+            {
+
+                int year = pair.Item1;
+                int month = pair.Item2;
+
+                bool bl = dt.Exists( item => item.moneyyear == year && item.moneymonth == month );
+
+                if ( bl )
+                {
+                    //存在 
+                }
+                else
+                {
+                    //不存在 就添加进去
+                    dt.Add( new BillSumMonthReturnDto()
+                    {
+                        moneys = 0 ,
+                        moneymonth = month ,
+                        moneyyear = year
+                    } );
+                }
+            }
+
+            //最后 排序
+            var _list = dt.OrderBy( item => item.moneyyear ).ThenBy( item => item.moneymonth );
+
+            return _list.ToList();
         }
     }
 }
 
 
-/**
- SELECT 
-      [moneyyear]
-      ,[moneymonth]
-      
-      ,sum([moneys])
-  FROM [mybill].[dbo].[bills]
-  where delmark='N'
-  --and [mobile]=''
-  and (  ([moneyyear]=2021 and [moneymonth]=5) or  ([moneyyear]=2021 and [moneymonth]=4) )
-  group by [moneyyear] ,[moneymonth]
-*/

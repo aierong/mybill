@@ -111,6 +111,22 @@ namespace billservice.Controllers
         }
 
 
+        [HttpGet]
+        [Route( "getstatmonthlist/{isout}/{monthnum}" )]
+        public async Task<ServiceResult<List<BillSumMonthReturnDto>>> getstatmonthlist ( bool isout , int monthnum )
+        {
+            var result = new ServiceResult<List<BillSumMonthReturnDto>>();
+
+            var mobile = base.UserMobile;
+
+            var list = await this.Ibill.GetSumByMonthAsync( mobile , isout , monthnum );
+
+            result.IsSuccess( list );
+
+            return result;
+        }
+
+
 
         [HttpGet]
         [Route( "getstatlist/{year}/{month}/{isout}" )]
