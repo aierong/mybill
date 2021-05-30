@@ -27,4 +27,6 @@ export const updatedatalistpagemode = "updatedatalistpagemode"
 
 export const updatedatalistpagebilltype = "updatedatalistpagebilltype"
 
+export const updatedatalistpageisout = "updatedatalistpageisout"
+
 

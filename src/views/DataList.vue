@@ -106,6 +106,10 @@ export default defineComponent( {
             return store.getters.getdatalistpagebilltypeid;
         } )
 
+        const isout = computed<boolean>( () => {
+            return store.getters.getdatalistpageisout;
+        } )
+
         const billtypetxt = computed<string>( () => {
             return store.getters.getdatalistpagebilltypetxt;
         } )
@@ -129,7 +133,8 @@ export default defineComponent( {
 
         const getlist = async () => {
             const { data } = await billapi.getdatalist( userselectyear.value ,
-                userselectmonth.value , true ,
+                userselectmonth.value ,
+                isout.value ,
                 billtypeid.value ,
                 state.querymode );
 
@@ -178,7 +183,7 @@ export default defineComponent( {
         return {
             ...toRefs( state ) ,
             userselectyear , userselectmonth , isselectmoney , summoney ,
-            billtypeid , billtypetxt ,
+            billtypeid , billtypetxt , isout ,
             onClickLeft ,
             onClickMoney ,
             onClickDate ,

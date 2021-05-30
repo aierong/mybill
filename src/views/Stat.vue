@@ -263,6 +263,9 @@ export default defineComponent( {
                 billtypeid : 0
             } )
 
+            //true
+            store.commit( UserMutationType.updatedatalistpageisout , true );
+
             router.push( '/datalist' )
 
             return;
@@ -274,6 +277,8 @@ export default defineComponent( {
                 billtypetxt ,
                 billtypeid
             } )
+
+            store.commit( UserMutationType.updatedatalistpageisout , modeldata.typedata_isout );
 
             router.push( '/datalist' )
 

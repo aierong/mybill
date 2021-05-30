@@ -31,6 +31,8 @@ export const pagedatastate : IPageData = {
     DataListPageData : {
         mode : 'money' ,
         billtypeid : 0 ,
-        billtypetxt : ''
+        billtypetxt : '' ,
+
+        isout : false ,
     }
 };

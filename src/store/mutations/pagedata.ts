@@ -36,9 +36,13 @@ export const pagedatamutations = {
         state.DataListPageData.mode = payload;
     } ,
 
-    [ types.updatedatalistpagebilltype ] ( state : IState , payload : any ) {
+    [ types.updatedatalistpagebilltype ] ( state : IState , payload : { billtypetxt : string, billtypeid : number } ) {
         state.DataListPageData.billtypetxt = payload.billtypetxt;
         state.DataListPageData.billtypeid = payload.billtypeid;
+    } ,
+
+    [ types.updatedatalistpageisout ] ( state : IState , payload : boolean ) {
+        state.DataListPageData.isout = payload;
     } ,
 
 }

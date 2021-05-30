@@ -40,6 +40,8 @@ export interface IDataListPageData {
     mode : querymode,
     billtypeid : number,
     billtypetxt : string,
+
+    isout : boolean,
 }
 
 export interface IPageData {

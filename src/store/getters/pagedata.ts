@@ -33,11 +33,20 @@ const getdatalistpagebilltypetxt = ( state : IState ) => {
     return '';
 };
 
+const getdatalistpageisout = ( state : IState ) => {
+    if ( state.DataListPageData != null ) {
+        return state.DataListPageData.isout;
+    }
+
+    return false;
+};
+
 export const pagedatagetters = {
 
     getdetailpagesourcepagepath ,
 
     getdatalistpagebilltypeid ,
     getdatalistpagebilltypetxt ,
+    getdatalistpageisout ,
 
 }
