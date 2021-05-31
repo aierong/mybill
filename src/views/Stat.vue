@@ -80,6 +80,17 @@ Time: 17:48
             </div>
         </div>
         <br>
+        <!--        月度对比-->
+        <div>
+            <div>
+                <span>月度对比</span>
+                <span>
+                    <span @click="monthtypeClick(true)">支出</span>
+                    <span @click="monthtypeClick(false)">收入</span>
+                </span>
+            </div>
+        </div>
+        <br>
         <!--         支出排行-->
         <div>
             <div>{{ userselectmonth }}月份支出排行</div>
@@ -219,6 +230,24 @@ export default defineComponent( {
             daystat_isout : true ,
             daystat_inlist : [] ,
             daystat_outlist : [] ,
+        } )
+
+        const MonthYVal = computed<number[]>( () => {
+            if ( modeldata.monthstat_isout ) {
+                return modeldata.monthstat_outlist.map( item => item.moneys )
+            }
+            else {
+                return modeldata.monthstat_inlist.map( item => item.moneys )
+            }
+        } )
+
+        const MonthXVal = computed<string[]>( () => {
+            if ( modeldata.monthstat_isout ) {
+                return modeldata.monthstat_outlist.map( item => item.moneymonth + '月' )
+            }
+            else {
+                return modeldata.monthstat_inlist.map( item => item.moneymonth + '月' )
+            }
         } )
 
         const selectyyyymm = computed( () => {
@@ -419,6 +448,12 @@ export default defineComponent( {
             }
         }
 
+        const monthtypeClick = ( isout : boolean ) => {
+            if ( modeldata.monthstat_isout != isout ) {
+                modeldata.monthstat_isout = isout;
+            }
+        }
+
         onMounted( async () => {
             await RefreshAll();
         } )
@@ -445,9 +480,11 @@ export default defineComponent( {
             ...toRefs( modeldata ) ,
             selectdateRef ,
             suminmoney , sumoutmoney , typedata_list , isdisplayoutmore , selectyyyymm ,
+            MonthXVal , MonthYVal ,
             onClickMore ,
             SelectYearMonth , userselectdate ,
             deleteitemresult , typeitemClick , typeClick ,
+            monthtypeClick ,
         };
     } ,
 
