@@ -10,7 +10,7 @@ Time: 17:52
     <div>
         <!--     头部   -->
         <div class="header">
-            <div style="padding-top: 10px;margin-left: 10px;">
+            <div class="headertype">
                 <van-button hairline
                             @click="onBillTypeSelect"
                             color="#3EB575"
@@ -23,8 +23,8 @@ Time: 17:52
                                       :selectbilltypeid="userselectbilltypeid"
                                       ref="selectbilltypedialogRef"/>
             </div>
-            <div style="margin-top: 5px;margin-left: 4px;padding-bottom: 10px;">
-                <span style="margin-left: 10px;color: white;"
+            <div class="headerdate">
+                <span class="datetxt"
                       @click="SelectYearMonth">{{ selectyyyymm }}</span>
                 <van-icon name="arrow-down"
                           color="white"
