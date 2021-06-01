@@ -17,7 +17,6 @@ Time: 15:30
                closeable
                position="bottom">
         <br><br><br>
-
         <span :class="{ alltype:true, active:isactive(0)  }"
               @click="onAllClick">全部</span>
         <br>
@@ -32,7 +31,6 @@ Time: 15:30
             </van-grid-item>
         </van-grid>
         <br>
-
         <van-divider content-position="left">收入类型</van-divider>
         <van-grid>
             <van-grid-item v-for="(item,index) in inlist"
@@ -44,7 +42,6 @@ Time: 15:30
             </van-grid-item>
         </van-grid>
     </van-popup>
-
 </template>
 
 <!-- TypeScript脚本代码片段 -->

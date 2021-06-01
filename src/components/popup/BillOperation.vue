@@ -54,9 +54,10 @@ Time: 17:35
                         </div>
                     </template>
                     <!--                    这里带一个添加按钮-->
-                    <span style="margin-left: 15px;margin-right: 15px;"><van-icon @click="onAddType"
-                                                                                  name="add-o"
-                                                                                  size="26"/></span>
+                    <span style="margin-left: 15px;margin-right: 15px;">
+                        <van-icon @click="onAddType"
+                                  name="add-o"
+                                  size="26"/></span>
                 </div>
                 <div class="divitem"
                      v-else>
@@ -65,15 +66,15 @@ Time: 17:35
                              @click="initemselect(mxitem.ids)">
                             <aliicon :iconname="mxitem.avatar"
                                      :iconsize="26"
-                                     colortypes="no"
-                            />
+                                     colortypes="no"/>
                             {{ mxitem.typename }}
                         </div>
                     </template>
                     <!--                    这里带一个添加按钮-->
-                    <span style="margin-left: 15px;margin-right: 15px;"><van-icon @click="onAddType"
-                                                                                  name="add-o"
-                                                                                  size="26"/></span>
+                    <span style="margin-left: 15px;margin-right: 15px;">
+                        <van-icon @click="onAddType"
+                                  name="add-o"
+                                  size="26"/></span>
                 </div>
             </div>
             <br>
@@ -121,10 +122,8 @@ Time: 17:35
     <van-popup :close-on-click-overlay="false"
                v-model:show="showdatedlg"
                position="bottom">
-        <!--        :min-date="minDate"-->
         <van-datetime-picker type="date"
                              title="选择年月日"
-
                              :max-date="maxDate"
                              @cancel="onCancelDate"
                              @confirm="onConfirmDate"
@@ -214,7 +213,6 @@ export default defineComponent( {
         const amount = ref( '' )
 
         const initval = () => {
-            // console.log( 'initval' )
 
             var now = new Date();
 
