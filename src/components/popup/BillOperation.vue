@@ -121,8 +121,11 @@ Time: 17:35
     <van-popup :close-on-click-overlay="false"
                v-model:show="showdatedlg"
                position="bottom">
+        <!--        :min-date="minDate"-->
         <van-datetime-picker type="date"
                              title="选择年月日"
+
+                             :max-date="maxDate"
                              @cancel="onCancelDate"
                              @confirm="onConfirmDate"
                              v-model="CurrentSelectDate"/>
@@ -160,6 +163,8 @@ import * as billapi from '@/http/api/bill'
 
 import { EncryptPassWord } from "@common/util";
 import { AxiosResponse } from "axios";
+
+import dayjs from 'dayjs'
 
 export default defineComponent( {
     // 定义是事件
@@ -200,6 +205,9 @@ export default defineComponent( {
         const day = ref( now.getDate() );
 
         const CurrentSelectDate = ref( now )
+        //限制一下,日期控件的最大和最小
+        const maxDate : Date = now;
+        // const minDate : Date = dayjs( now ).subtract( 3 , 'year' ).toDate();
 
         const moneys = ref<number>( 0.00 );
 
@@ -546,7 +554,8 @@ export default defineComponent( {
             day ,
             displaydate , datetxt ,
             showdatedlg ,
-            CurrentSelectDate ,
+            CurrentSelectDate , maxDate ,
+            // minDate ,
             onCancelDate ,
             onConfirmDate ,
             isout , billtypeid ,

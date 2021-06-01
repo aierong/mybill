@@ -13,6 +13,7 @@ Time: 11:38
                v-model:show="show"
                position="bottom">
         <van-datetime-picker type="year-month"
+                             :max-date="maxDate"
                              :formatter="formatter"
                              title="选择年月"
                              v-model="currentDate"
@@ -57,6 +58,9 @@ export default defineComponent( {
         } ,
     } ,
     setup ( props , { emit } ) {
+        var now = new Date();
+        const maxDate : Date = now;
+
         const show = ref( false )
 
         const currentDate = ref( new Date() );
@@ -117,7 +121,7 @@ export default defineComponent( {
 
         return {
             show , currentDate , formatter ,
-            onConfirm , onCancel , toggle ,
+            onConfirm , onCancel , toggle , maxDate ,
         };
     } ,
 
