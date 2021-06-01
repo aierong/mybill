@@ -9,7 +9,6 @@ Time: 11:50
 
 <!-- html代码片段 -->
 <template>
-
     <div>
         <van-dialog :before-close="beforeClose"
                     show-cancel-button
@@ -99,5 +98,4 @@ export default defineComponent( {
 <style lang="less"
        scoped
        src="./selectavatar.less">
-
 </style>
