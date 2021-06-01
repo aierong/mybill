@@ -81,12 +81,14 @@ Time: 17:48
         </div>
         <br>
         <!--        月度对比-->
-        <div>
+        <div class="monthstat">
             <div>
-                <span>月度对比</span>
-                <span>
-                    <span @click="monthtypeClick(true)">支出</span>
-                    <span @click="monthtypeClick(false)">收入</span>
+                <span style="margin-left: 10px;">月度对比</span>
+                <span class="itemmoney">
+                    <span :class="{ outactive:monthstat_isout , itemtxt:true  }"
+                          @click="monthtypeClick(true)">支出</span>
+                    <span :class="{ inactive:!monthstat_isout   ,itemtxt:true }"
+                          @click="monthtypeClick(false)">收入</span>
                 </span>
             </div>
             <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
@@ -491,7 +493,6 @@ export default defineComponent( {
             if ( modeldata.monthstat_isout != isout ) {
                 modeldata.monthstat_isout = isout;
 
-
                 myChart.setOption( {
                     series : [
                         {
@@ -505,7 +506,6 @@ export default defineComponent( {
                     } ,
                 } );
             }
-
 
         }
 
