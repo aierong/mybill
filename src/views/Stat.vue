@@ -89,6 +89,11 @@ Time: 17:48
                     <span @click="monthtypeClick(false)">收入</span>
                 </span>
             </div>
+            <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+            <div id="monthchart"
+                 ref="monthchart"
+                 style="height: 300px">
+            </div>
         </div>
         <br>
         <!--         支出排行-->
@@ -188,6 +193,8 @@ import SelectYearMonthDialog from "@comp/popup/SelectYearMonthDialog.vue";
 import { ISelectDateObj , ISelectBillTypeObj } from "@comp/types";
 import { getstatdaylist } from "@/http/api/bill";
 
+import * as echarts from 'echarts';
+
 export default defineComponent( {
     // 子组件
     components : {
@@ -197,6 +204,8 @@ export default defineComponent( {
     // 声明 props
     props : {} ,
     setup () {
+        let myChart;
+
         //支出排行榜最大数量
         const outmaxtopnum : number = 10;
 
@@ -206,6 +215,8 @@ export default defineComponent( {
         const store = useStore( key )
 
         const selectdateRef = ref<typeof SelectYearMonthDialog | null>( null )
+
+        const monthchart = ref( null );
 
         var now = new Date();
 
@@ -231,6 +242,34 @@ export default defineComponent( {
             daystat_inlist : [] ,
             daystat_outlist : [] ,
         } )
+
+        var option = {
+            // title : {
+            //     //text:主标题文本，'\n'指定换行
+            //     text : '人员体系分布情况' ,
+            //     //subtext:副标题文本，'\n'指定换行
+            //     subtext : '数据来自网络'
+            // } ,
+            tooltip : {
+                trigger : 'item'
+            } ,
+            xAxis : {
+                type : 'category' ,
+                //data : [ 'Mon' , 'Tue' , 'Wed' , 'Thu' , 'Fri' , 'Sat' , 'Sun' ]
+                data : []
+            } ,
+            yAxis : {
+                type : 'value'
+            } ,
+            series : [
+                {
+                    //data : [ 120 , 200 , 150 , 80 , 70 , 110 , 130 ] ,
+                    data : [] ,
+                    type : 'bar'
+                }
+
+            ]
+        };
 
         const MonthYVal = computed<number[]>( () => {
             if ( modeldata.monthstat_isout ) {
@@ -451,11 +490,46 @@ export default defineComponent( {
         const monthtypeClick = ( isout : boolean ) => {
             if ( modeldata.monthstat_isout != isout ) {
                 modeldata.monthstat_isout = isout;
+
+
+                myChart.setOption( {
+                    series : [
+                        {
+                            // series中其他属性我没有动，没有变化，所有我就修改data
+                            data : MonthYVal.value ,
+                        }
+                    ] ,
+                    // x轴数据如果变化，就调整这里
+                    xAxis : {
+                        data : MonthXVal.value
+                    } ,
+                } );
             }
+
+
         }
 
         onMounted( async () => {
             await RefreshAll();
+
+            var chartDom : any = document.getElementById( 'monthchart' );
+            myChart = echarts.init( chartDom );
+
+            // 为echarts对象加载数据
+            myChart.setOption( option );
+
+            myChart.setOption( {
+                series : [
+                    {
+                        // series中其他属性我没有动，没有变化，所有我就修改data
+                        data : MonthYVal.value ,
+                    }
+                ] ,
+                // x轴数据如果变化，就调整这里
+                xAxis : {
+                    data : MonthXVal.value
+                } ,
+            } );
         } )
 
         onBeforeRouteLeave( ( to , from ) => {
@@ -478,6 +552,7 @@ export default defineComponent( {
 
         return {
             ...toRefs( modeldata ) ,
+            monthchart ,
             selectdateRef ,
             suminmoney , sumoutmoney , typedata_list , isdisplayoutmore , selectyyyymm ,
             MonthXVal , MonthYVal ,
