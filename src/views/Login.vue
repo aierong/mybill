@@ -9,7 +9,6 @@ Time: 16:40
 
 <!-- html代码片段 -->
 <template>
-
     <div>
         <van-nav-bar right-text="注册账号"
                      title="用户登录"

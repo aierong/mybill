@@ -33,14 +33,12 @@ Time: 16:39
                        label="用户名"
                        placeholder="请输入用户名"
                        :rules="[{ required: true, message: '请填写用户名' }  ]"/>
-
             <van-field v-model="userinfo.password"
                        type="password"
                        label="密码"
                        placeholder="请输入密码"
                        required
                        :rules="[{ required: true, message: '请填写密码' },{ validator: validatorPwdMessage } ]"/>
-
             <van-field v-model="userinfo.password2"
                        type="password"
                        label="再次密码"
@@ -52,7 +50,6 @@ Time: 16:39
                        label="邮箱"
                        placeholder="请输入邮箱"
                        :rules="[{ validator: validatorEmailMessage } ]"/>
-
             <van-field label="头像">
                 <template #input>
                     <van-icon :name="userinfo.avatar"

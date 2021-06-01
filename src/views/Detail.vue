@@ -9,13 +9,11 @@ Time: 17:11
 
 <!-- html代码片段 -->
 <template>
-
     <div>
         <van-nav-bar title="详细数据"
                      left-text="返回"
                      left-arrow
                      @click-left="onClickLeft"/>
-        <!--        {{ queryid }}-->
         <div class="detail"
              v-if="modeldata!=null">
             <div class="card">
@@ -213,7 +211,6 @@ export default defineComponent( {
             sourcepagepath ,
             onClickLeft ,
             onDelete , onUpdate ,
-            
             operationRef , billrunresult ,
         };
     } ,

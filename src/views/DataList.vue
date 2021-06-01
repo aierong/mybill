@@ -9,7 +9,6 @@ Time: 17:37
 
 <!-- html代码片段 -->
 <template>
-
     <div>
         <van-nav-bar title="详细数据"
                      left-text="返回"
@@ -25,13 +24,11 @@ Time: 17:37
             <span :class="{ active:!isselectmoney ,datetxt:true }"
                   @click="onClickDate">按时间</span>
         </div>
-
         <br>
         <itemlist :list="list"
                   @deleteitemresult="deleteitemresult"/>
         <br>
     </div>
-
 </template>
 
 <!-- TypeScript脚本代码片段 -->

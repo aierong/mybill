@@ -1,9 +1,7 @@
 <template>
     <div class="home">
         <router-view/>
-        <!--        这里加几个回车,要不上面router-view内容会挡住最下面 -->
-        <!--        <br> <br> <br><br><br>-->
-        <!--        <mytabbar v-show="show"/>-->
+
     </div>
 </template>
 
@@ -19,27 +17,13 @@ import {
     watch ,
 } from "vue";
 
-// import { useRoute } from 'vue-router'
-// import { useStore } from 'vuex'
-// import { key } from '@store/index.ts'
-//
-// import mytabbar from "@comp/mytabbar.vue";
-
 export default defineComponent( {
     name : 'Home' ,
-    components : {
-        // mytabbar ,
-    } ,
+
     setup () {
-        // const store = useStore( key )
-        //
-        // //通过vuex计算属性,控制tabbar要不要显示
-        // const show = computed( () => {
-        //     return store.getters.gettabbarshow;
-        // } )
 
         return {
-            // show ,
+
         }
     }
 } );
