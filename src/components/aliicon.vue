@@ -9,7 +9,10 @@ Time: 18:55
 
 <!-- html代码片段 -->
 <template>
-    <i :class="[{ iniconcolor: colortypes == 'in'  ,outiconcolor:colortypes == 'out'  },iconfont, iconname]"
+    <i :class="[
+        { iniconcolor: colortypes == 'in'  ,outiconcolor:colortypes == 'out'  },
+        iconfont,
+        iconname]"
        :style="{  fontSize: iconsize + 'px' }"></i>
 </template>
 

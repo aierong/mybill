@@ -44,61 +44,6 @@ import {
 export default defineComponent( {
 
     setup () {
-        // const router = useRouter()
-        // const route = useRoute()
-        //
-        // const active = ref<number>( 0 );
-
-        // const onchange = ( index : number ) : void => {
-        //     // console.log( 'index' , index )
-        //
-        //     if ( index == 0 ) {
-        //         // 页面跳转
-        //         router.push( "/bill" )
-        //     }
-        //     else if ( index == 1 ) {
-        //         // 页面跳转
-        //         router.push( "/stat" );
-        //     }
-        //     else if ( index == 2 ) {
-        //         // 页面跳转
-        //         router.push( "/me" )
-        //     }
-        // }
-
-        // const setuptab = ( path : string ) : void => {
-        //     if ( path == "/bill" ) {
-        //         active.value = 0;
-        //
-        //         return;
-        //     }
-        //     else if ( path == '/stat' ) {
-        //         active.value = 1;
-        //
-        //         return;
-        //     }
-        //     else if ( path == '/me' ) {
-        //         active.value = 2;
-        //
-        //         return;
-        //     }
-        //     else {
-        //         active.value = 0;
-        //
-        //         return;
-        //     }
-        // }
-
-        // onMounted( () => {
-        //     // var path = route.path;
-        //
-        //     // console.log( 'path' , path )
-        //
-        //     // 从新设置一下tab,要不刷新页面,会丢失tab
-        //     // setuptab( path );
-        //     var meta : any = route.meta;
-        //     active.value = parseInt( meta.tabbarindex );
-        // } )
 
         return {
             // active ,
@@ -113,5 +58,4 @@ export default defineComponent( {
 <style scoped
        lang="less"
        src="./mytabbar.less">
-
 </style>
