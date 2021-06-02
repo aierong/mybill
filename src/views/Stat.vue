@@ -91,6 +91,13 @@ Time: 17:48
                           @click="daytypeClick(false)">收入</span>
                 </span>
             </div>
+            <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+            <div style="overflow-x: auto;">
+                <div id="daychart"
+                     ref="daychart"
+                     style="height: 300px;width: 500px;">
+                </div>
+            </div>
         </div>
         <br>
         <!--        月度对比-->
@@ -107,7 +114,7 @@ Time: 17:48
             <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
             <div id="monthchart"
                  ref="monthchart"
-                 style="height: 300px">
+                 style="height: 300px;">
             </div>
         </div>
         <br>
@@ -442,7 +449,11 @@ export default defineComponent( {
                 let _minmonth : IDayStatObj = _.minBy( DayChartList.value , item => item.moneymonth );
 
                 let _max : IDayStatObj = _.maxBy( DayChartList.value , ( item : IDayStatObj ) => {
-                    return item.moneyyear == _minmonth.moneyyear && item.moneymonth == _minmonth.moneymonth;
+                    if ( item.moneyyear == _minmonth.moneyyear && item.moneymonth == _minmonth.moneymonth ) {
+                        return item.moneyday;
+                    }
+
+                    return 0;
                 } )
 
                 return _max;
@@ -735,6 +746,24 @@ export default defineComponent( {
             } );
         }
 
+        const setupdaychartdata = () => {
+            DayChart.setOption( {
+                series : [
+                    {
+                        // series中其他属性我没有动，没有变化，所有我就修改data
+                        data : DayChartYVal.value ,
+                        itemStyle : {
+                            color : modeldata.daystat_isout ? '#39be77' : '#ECBE25'
+                        }
+                    }
+                ] ,
+                // x轴数据如果变化，就调整这里
+                xAxis : {
+                    data : DayChartXVal.value
+                } ,
+            } );
+        }
+
         const monthtypeClick = ( isout : boolean ) => {
             if ( modeldata.monthstat_isout != isout ) {
                 modeldata.monthstat_isout = isout;
@@ -761,7 +790,15 @@ export default defineComponent( {
             // 为echarts对象加载数据
             MonthChart.setOption( monthoption );
 
+            //
+            var daychartDom : any = document.getElementById( 'daychart' );
+            DayChart = echarts.init( daychartDom );
+
+            // 为echarts对象加载数据
+            DayChart.setOption( dayoption );
+
             setupmonthchartdata();
+            setupdaychartdata();
         } )
 
         onBeforeRouteLeave( ( to , from ) => {
