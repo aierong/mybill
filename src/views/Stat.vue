@@ -288,50 +288,150 @@ export default defineComponent( {
             ]
         };
 
-        // 判断是否跨年,例如:同时有1月和12月
-        const IsMonthChartStrideYear = computed<boolean>( () => {
+        const MonthChartList = computed<IMonthStatObj[]>( () => {
             if ( modeldata.monthstat_isout ) {
-                return modeldata.monthstat_outlist.some( item => item.moneymonth == 1 ) && modeldata.monthstat_outlist.some( item => item.moneymonth == 12 );
+                return modeldata.monthstat_outlist;
             }
             else {
-                return modeldata.monthstat_inlist.some( item => item.moneymonth == 1 ) && modeldata.monthstat_inlist.some( item => item.moneymonth == 12 )
+                return modeldata.monthstat_inlist;
             }
+        } )
+
+        // 判断是否跨年,例如:同时有12月和1月
+        const IsMonthChartStrideYear = computed<boolean>( () => {
+            // if ( modeldata.monthstat_isout ) {
+            //     return modeldata.monthstat_outlist.some( item => item.moneymonth == 1 ) && modeldata.monthstat_outlist.some( item => item.moneymonth == 12 );
+            // }
+            // else {
+            //     return modeldata.monthstat_inlist.some( item => item.moneymonth == 1 ) && modeldata.monthstat_inlist.some( item => item.moneymonth == 12 )
+            // }
+
+            return MonthChartList.value.some( item => item.moneymonth == 1 ) && modeldata.monthstat_inlist.some( item => item.moneymonth == 12 )
         } )
 
         const MonthChartYVal = computed<number[]>( () => {
-            if ( modeldata.monthstat_isout ) {
-                return modeldata.monthstat_outlist.map( item => item.moneys )
-            }
-            else {
-                return modeldata.monthstat_inlist.map( item => item.moneys )
-            }
+            // if ( modeldata.monthstat_isout ) {
+            //     return modeldata.monthstat_outlist.map( item => item.moneys )
+            // }
+            // else {
+            //     return modeldata.monthstat_inlist.map( item => item.moneys )
+            // }
+
+            return MonthChartList.value.map( item => item.moneys )
         } )
 
         const MonthChartXVal = computed<string[]>( () => {
-            if ( modeldata.monthstat_isout ) {
-                return modeldata.monthstat_outlist.map( ( item ) => {
-                    if ( IsMonthChartStrideYear.value ) {
-                        if ( item.moneymonth == 1 || item.moneymonth == 12 ) {
-                            return item.moneymonth + '月' + '\n' + item.moneyyear;
-                        }
+            // if ( modeldata.monthstat_isout ) {
+            //     return modeldata.monthstat_outlist.map( ( item ) => {
+            //         if ( IsMonthChartStrideYear.value ) {
+            //             if ( item.moneymonth == 1 || item.moneymonth == 12 ) {
+            //                 return item.moneymonth + '月' + '\n' + item.moneyyear;
+            //             }
+            //
+            //         }
+            //
+            //         return item.moneymonth + '月'
+            //     } )
+            // }
+            // else {
+            //     return modeldata.monthstat_inlist.map( ( item ) => {
+            //         if ( IsMonthChartStrideYear.value ) {
+            //             if ( item.moneymonth == 1 || item.moneymonth == 12 ) {
+            //                 return item.moneymonth + '月' + '\n' + item.moneyyear;
+            //             }
+            //
+            //         }
+            //
+            //         return item.moneymonth + '月'
+            //     } )
+            // }
 
+            return MonthChartList.value.map( ( item ) => {
+                if ( IsMonthChartStrideYear.value ) {
+                    if ( item.moneymonth == 1 || item.moneymonth == 12 ) {
+                        return item.moneymonth + '月' + '\n' + item.moneyyear;
                     }
 
-                    return item.moneymonth + '月'
-                } )
+                }
+
+                return item.moneymonth + '月'
+            } )
+        } )
+
+        const DayChartList = computed<IDayStatObj[]>( () => {
+            if ( modeldata.daystat_isout ) {
+                return modeldata.daystat_outlist;
             }
             else {
-                return modeldata.monthstat_inlist.map( ( item ) => {
-                    if ( IsMonthChartStrideYear.value ) {
-                        if ( item.moneymonth == 1 || item.moneymonth == 12 ) {
-                            return item.moneymonth + '月' + '\n' + item.moneyyear;
-                        }
+                return modeldata.daystat_inlist;
+            }
+        } )
 
+        // 判断是否跨月,例如:同时有2个月
+        const IsDayChartStrideMonth = computed<boolean>( () => {
+
+            var isevery : boolean = true;
+
+            if ( DayChartList.value.length > 0 ) {
+                // 取第一个出来
+                var _month : number = DayChartList.value[ 0 ].moneymonth;
+
+                isevery = DayChartList.value.every( item => item.moneymonth == _month );
+            }
+
+            return !isevery;
+        } )
+
+        // 最小那个月份的,最大那天(也就是该月最后一天)
+        const DayMinMonthData = computed<IDayStatObj | null>( () => {
+            if ( DayChartList.value.length > 0 ) {
+                let _minmonth : IDayStatObj = _.minBy( DayChartList.value , item => item.moneymonth );
+
+                let _max : IDayStatObj = _.maxBy( DayChartList.value , ( item : IDayStatObj ) => {
+                    return item.moneyyear == _minmonth.moneyyear && item.moneymonth == _minmonth.moneymonth;
+                } )
+
+                return _max;
+            }
+
+            return null;
+        } )
+
+        const DayChartYVal = computed<number[]>( () => {
+            return DayChartList.value.map( item => item.moneys )
+        } )
+
+        const DayChartXVal = computed<string[]>( () => {
+
+            return DayChartList.value.map( ( item : IDayStatObj ) => {
+                if ( IsDayChartStrideMonth.value ) {
+                    var isbrdate : boolean = false;
+
+                    //是第1天
+                    if ( item.moneyday == 1 ) {
+                        isbrdate = true;
                     }
 
-                    return item.moneymonth + '月'
-                } )
-            }
+                    //是该月最后一天
+                    if ( DayMinMonthData.value != null ) {
+                        if ( DayMinMonthData.value.moneyday == item.moneyday
+                            && DayMinMonthData.value.moneymonth == item.moneymonth
+                            && DayMinMonthData.value.moneyyear == item.moneyyear ) {
+                            isbrdate = true;
+                        }
+                    }
+
+                    if ( isbrdate ) {
+                        var _date : Date = new Date( item.moneyyear , item.moneymonth - 1 , item.moneyday );
+                        var _week : number = _date.getDay();
+
+                        var _weekstr:string="";
+                    }
+
+                }
+
+                return item.moneymonth + '月'
+            } )
         } )
 
         const selectyyyymm = computed( () => {
@@ -598,7 +698,10 @@ export default defineComponent( {
             monthchart ,
             selectdateRef ,
             suminmoney , sumoutmoney , typedata_list , isdisplayoutmore , selectyyyymm ,
-            IsMonthChartStrideYear , MonthChartXVal , MonthChartYVal ,
+            MonthChartList , IsMonthChartStrideYear , MonthChartXVal , MonthChartYVal ,
+
+            DayChartList , IsDayChartStrideMonth , DayMinMonthData , DayChartYVal ,
+
             onClickMore ,
             SelectYearMonth , userselectdate ,
             deleteitemresult , typeitemClick , typeClick ,
