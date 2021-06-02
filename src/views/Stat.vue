@@ -248,32 +248,8 @@ export default defineComponent( {
             daystat_outlist : [] ,
         } )
 
-        // var dataStyle = {
-        //     show : true ,
-        //     position : 'top' ,
-        //     formatter : function ( params ) {
-        //         // console.log( 'params' , params )
-        //         if ( proxy != null ) {
-        //             return proxy.$FormatStatMoney( params.value , 2 );
-        //         }
-        //         else {
-        //             return params.value;
-        //         }
-        //
-        //     }
-        //     // position : 'right'
-        // };
-
         var option = {
-            // title : {
-            //     //text:主标题文本，'\n'指定换行
-            //     text : '人员体系分布情况' ,
-            //     //subtext:副标题文本，'\n'指定换行
-            //     subtext : '数据来自网络'
-            // } ,
-            tooltip : {
-                trigger : 'item'
-            } ,
+
             xAxis : {
                 type : 'category' ,
                 //data : [ 'Mon' , 'Tue' , 'Wed' , 'Thu' , 'Fri' , 'Sat' , 'Sun' ]
@@ -311,7 +287,7 @@ export default defineComponent( {
             ]
         };
 
-        const MonthYVal = computed<number[]>( () => {
+        const MonthChartYVal = computed<number[]>( () => {
             if ( modeldata.monthstat_isout ) {
                 return modeldata.monthstat_outlist.map( item => item.moneys )
             }
@@ -320,7 +296,7 @@ export default defineComponent( {
             }
         } )
 
-        const MonthXVal = computed<string[]>( () => {
+        const MonthChartXVal = computed<string[]>( () => {
             if ( modeldata.monthstat_isout ) {
                 return modeldata.monthstat_outlist.map( item => item.moneymonth + '月' )
             }
@@ -536,7 +512,7 @@ export default defineComponent( {
                 series : [
                     {
                         // series中其他属性我没有动，没有变化，所有我就修改data
-                        data : MonthYVal.value ,
+                        data : MonthChartYVal.value ,
                         itemStyle : {
                             color : modeldata.monthstat_isout ? '#39be77' : '#ECBE25'
                         }
@@ -544,7 +520,7 @@ export default defineComponent( {
                 ] ,
                 // x轴数据如果变化，就调整这里
                 xAxis : {
-                    data : MonthXVal.value
+                    data : MonthChartXVal.value
                 } ,
             } );
         }
@@ -593,7 +569,7 @@ export default defineComponent( {
             monthchart ,
             selectdateRef ,
             suminmoney , sumoutmoney , typedata_list , isdisplayoutmore , selectyyyymm ,
-            MonthXVal , MonthYVal ,
+            MonthChartXVal , MonthChartYVal ,
             onClickMore ,
             SelectYearMonth , userselectdate ,
             deleteitemresult , typeitemClick , typeClick ,
