@@ -80,6 +80,19 @@ Time: 17:48
             </div>
         </div>
         <br>
+        <!--        每日对比-->
+        <div class="daystat">
+            <div>
+                <span style="margin-left: 10px;">每日对比</span>
+                <span class="itemmoney">
+                    <span :class="{ outactive:daystat_isout , itemtxt:true  }"
+                          @click="daytypeClick(true)">支出</span>
+                    <span :class="{ inactive:!daystat_isout   ,itemtxt:true }"
+                          @click="daytypeClick(false)">收入</span>
+                </span>
+            </div>
+        </div>
+        <br>
         <!--        月度对比-->
         <div class="monthstat">
             <div>
@@ -288,6 +301,47 @@ export default defineComponent( {
             ]
         };
 
+        let DayChart;
+
+        var dayoption = {
+
+            xAxis : {
+                type : 'category' ,
+                //data : [ 'Mon' , 'Tue' , 'Wed' , 'Thu' , 'Fri' , 'Sat' , 'Sun' ]
+                data : []
+            } ,
+            yAxis : {
+                type : 'value' ,
+                show : false ,
+            } ,
+            series : [
+                {
+                    //data : [ 120 , 200 , 150 , 80 , 70 , 110 , 130 ] ,
+                    data : [] ,
+                    type : 'bar' ,
+                    label : {
+                        show : true ,
+                        position : 'top' ,
+                        formatter : function ( params ) {
+                            // console.log( 'params' , params )
+                            if ( proxy != null ) {
+                                return proxy.$FormatStatMoney( params.value , 2 );
+                            }
+                            else {
+                                return params.value;
+                            }
+
+                        }
+
+                    } ,
+                    itemStyle : {
+                        color : '#ECBE25'
+                    }
+                }
+
+            ]
+        };
+
         const MonthChartList = computed<IMonthStatObj[]>( () => {
             if ( modeldata.monthstat_isout ) {
                 return modeldata.monthstat_outlist;
@@ -404,6 +458,35 @@ export default defineComponent( {
         const DayChartXVal = computed<string[]>( () => {
 
             return DayChartList.value.map( ( item : IDayStatObj ) => {
+
+                var _date : Date = new Date( item.moneyyear , item.moneymonth - 1 , item.moneyday );
+                var _week : number = _date.getDay();
+
+                var _weekstr : string = "";
+
+                switch ( _week ) {
+                    case 1:
+                        _weekstr = '一'
+                        break;
+                    case 2:
+                        _weekstr = '二'
+                        break;
+                    case 3:
+                        _weekstr = '三'
+                        break;
+                    case 4:
+                        _weekstr = '四'
+                        break;
+                    case 5:
+                        _weekstr = '五'
+                        break;
+                    case 6:
+                        _weekstr = '六'
+                        break;
+                    default:
+                        _weekstr = '日'
+                }
+
                 if ( IsDayChartStrideMonth.value ) {
                     var isbrdate : boolean = false;
 
@@ -422,15 +505,13 @@ export default defineComponent( {
                     }
 
                     if ( isbrdate ) {
-                        var _date : Date = new Date( item.moneyyear , item.moneymonth - 1 , item.moneyday );
-                        var _week : number = _date.getDay();
 
-                        var _weekstr:string="";
+                        return _weekstr + '\n' + `${ item.moneymonth }.${ item.moneyday }`;
                     }
 
                 }
 
-                return item.moneymonth + '月'
+                return _weekstr + '\n' + item.moneyday;
             } )
         } )
 
@@ -663,6 +744,14 @@ export default defineComponent( {
 
         }
 
+        const daytypeClick = ( isout : boolean ) => {
+            if ( modeldata.daystat_isout != isout ) {
+                modeldata.daystat_isout = isout;
+
+                // setupmonthchartdata();
+            }
+        }
+
         onMounted( async () => {
             await RefreshAll();
 
@@ -700,12 +789,12 @@ export default defineComponent( {
             suminmoney , sumoutmoney , typedata_list , isdisplayoutmore , selectyyyymm ,
             MonthChartList , IsMonthChartStrideYear , MonthChartXVal , MonthChartYVal ,
 
-            DayChartList , IsDayChartStrideMonth , DayMinMonthData , DayChartYVal ,
+            DayChartList , IsDayChartStrideMonth , DayMinMonthData , DayChartYVal , DayChartXVal ,
 
             onClickMore ,
             SelectYearMonth , userselectdate ,
             deleteitemresult , typeitemClick , typeClick ,
-            monthtypeClick ,
+            monthtypeClick , daytypeClick ,
         };
     } ,
 
