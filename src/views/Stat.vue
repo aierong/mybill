@@ -207,7 +207,6 @@ export default defineComponent( {
     // 声明 props
     props : {} ,
     setup () {
-        let myChart;
 
         const { proxy } = getCurrentInstance() as ComponentInternalInstance;
 
@@ -248,7 +247,9 @@ export default defineComponent( {
             daystat_outlist : [] ,
         } )
 
-        var option = {
+        let MonthChart;
+
+        var monthoption = {
 
             xAxis : {
                 type : 'category' ,
@@ -536,7 +537,7 @@ export default defineComponent( {
         }
 
         const setupmonthchartdata = () => {
-            myChart.setOption( {
+            MonthChart.setOption( {
                 series : [
                     {
                         // series中其他属性我没有动，没有变化，所有我就修改data
@@ -565,11 +566,11 @@ export default defineComponent( {
         onMounted( async () => {
             await RefreshAll();
 
-            var chartDom : any = document.getElementById( 'monthchart' );
-            myChart = echarts.init( chartDom );
+            var monthchartDom : any = document.getElementById( 'monthchart' );
+            MonthChart = echarts.init( monthchartDom );
 
             // 为echarts对象加载数据
-            myChart.setOption( option );
+            MonthChart.setOption( monthoption );
 
             setupmonthchartdata();
         } )
