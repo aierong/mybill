@@ -287,6 +287,16 @@ export default defineComponent( {
             ]
         };
 
+        // 判断是否跨年,例如:同时有1月和12月
+        const IsMonthChartStrideYear = computed<boolean>( () => {
+            if ( modeldata.monthstat_isout ) {
+                return modeldata.monthstat_outlist.some( item => item.moneymonth == 1 ) && modeldata.monthstat_outlist.some( item => item.moneymonth == 12 );
+            }
+            else {
+                return modeldata.monthstat_inlist.some( item => item.moneymonth == 1 ) && modeldata.monthstat_inlist.some( item => item.moneymonth == 12 )
+            }
+        } )
+
         const MonthChartYVal = computed<number[]>( () => {
             if ( modeldata.monthstat_isout ) {
                 return modeldata.monthstat_outlist.map( item => item.moneys )
@@ -298,10 +308,28 @@ export default defineComponent( {
 
         const MonthChartXVal = computed<string[]>( () => {
             if ( modeldata.monthstat_isout ) {
-                return modeldata.monthstat_outlist.map( item => item.moneymonth + '月' )
+                return modeldata.monthstat_outlist.map( ( item ) => {
+                    if ( IsMonthChartStrideYear.value ) {
+                        if ( item.moneymonth == 1 || item.moneymonth == 12 ) {
+                            return item.moneymonth + '月' + '\n' + item.moneyyear;
+                        }
+
+                    }
+
+                    return item.moneymonth + '月'
+                } )
             }
             else {
-                return modeldata.monthstat_inlist.map( item => item.moneymonth + '月' )
+                return modeldata.monthstat_inlist.map( ( item ) => {
+                    if ( IsMonthChartStrideYear.value ) {
+                        if ( item.moneymonth == 1 || item.moneymonth == 12 ) {
+                            return item.moneymonth + '月' + '\n' + item.moneyyear;
+                        }
+
+                    }
+
+                    return item.moneymonth + '月'
+                } )
             }
         } )
 
@@ -569,7 +597,7 @@ export default defineComponent( {
             monthchart ,
             selectdateRef ,
             suminmoney , sumoutmoney , typedata_list , isdisplayoutmore , selectyyyymm ,
-            MonthChartXVal , MonthChartYVal ,
+            IsMonthChartStrideYear , MonthChartXVal , MonthChartYVal ,
             onClickMore ,
             SelectYearMonth , userselectdate ,
             deleteitemresult , typeitemClick , typeClick ,

@@ -38,4 +38,7 @@ router.afterEach(() => {
 
 
 
+echarts  X轴文本太长,换行
+'\n'
+
 
