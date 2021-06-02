@@ -178,6 +178,7 @@ import {
     toRefs ,
     computed ,
     onMounted ,
+    getCurrentInstance , ComponentInternalInstance ,
 } from "vue";
 
 import { useRouter , useRoute , onBeforeRouteLeave } from 'vue-router'
@@ -207,6 +208,8 @@ export default defineComponent( {
     props : {} ,
     setup () {
         let myChart;
+
+        const { proxy } = getCurrentInstance() as ComponentInternalInstance;
 
         //支出排行榜最大数量
         const outmaxtopnum : number = 10;
@@ -245,6 +248,22 @@ export default defineComponent( {
             daystat_outlist : [] ,
         } )
 
+        // var dataStyle = {
+        //     show : true ,
+        //     position : 'top' ,
+        //     formatter : function ( params ) {
+        //         // console.log( 'params' , params )
+        //         if ( proxy != null ) {
+        //             return proxy.$FormatStatMoney( params.value , 2 );
+        //         }
+        //         else {
+        //             return params.value;
+        //         }
+        //
+        //     }
+        //     // position : 'right'
+        // };
+
         var option = {
             // title : {
             //     //text:主标题文本，'\n'指定换行
@@ -261,13 +280,32 @@ export default defineComponent( {
                 data : []
             } ,
             yAxis : {
-                type : 'value'
+                type : 'value' ,
+                show : false ,
             } ,
             series : [
                 {
                     //data : [ 120 , 200 , 150 , 80 , 70 , 110 , 130 ] ,
                     data : [] ,
-                    type : 'bar'
+                    type : 'bar' ,
+                    label : {
+                        show : true ,
+                        position : 'top' ,
+                        formatter : function ( params ) {
+                            // console.log( 'params' , params )
+                            if ( proxy != null ) {
+                                return proxy.$FormatStatMoney( params.value , 2 );
+                            }
+                            else {
+                                return params.value;
+                            }
+
+                        }
+
+                    } ,
+                    itemStyle : {
+                        color : '#ECBE25'
+                    }
                 }
 
             ]
@@ -476,11 +514,15 @@ export default defineComponent( {
             if ( isrefresh ) {
                 //再从新请求 服务器
                 await RefreshAll();
+
+                setupmonthchartdata();
             }
         }
 
         const deleteitemresult = async ( isok : boolean ) => {
             await RefreshAll();
+
+            setupmonthchartdata();
         }
 
         const typeClick = ( isout : boolean ) => {
@@ -489,22 +531,29 @@ export default defineComponent( {
             }
         }
 
+        const setupmonthchartdata = () => {
+            myChart.setOption( {
+                series : [
+                    {
+                        // series中其他属性我没有动，没有变化，所有我就修改data
+                        data : MonthYVal.value ,
+                        itemStyle : {
+                            color : modeldata.monthstat_isout ? '#39be77' : '#ECBE25'
+                        }
+                    }
+                ] ,
+                // x轴数据如果变化，就调整这里
+                xAxis : {
+                    data : MonthXVal.value
+                } ,
+            } );
+        }
+
         const monthtypeClick = ( isout : boolean ) => {
             if ( modeldata.monthstat_isout != isout ) {
                 modeldata.monthstat_isout = isout;
 
-                myChart.setOption( {
-                    series : [
-                        {
-                            // series中其他属性我没有动，没有变化，所有我就修改data
-                            data : MonthYVal.value ,
-                        }
-                    ] ,
-                    // x轴数据如果变化，就调整这里
-                    xAxis : {
-                        data : MonthXVal.value
-                    } ,
-                } );
+                setupmonthchartdata();
             }
 
         }
@@ -518,18 +567,7 @@ export default defineComponent( {
             // 为echarts对象加载数据
             myChart.setOption( option );
 
-            myChart.setOption( {
-                series : [
-                    {
-                        // series中其他属性我没有动，没有变化，所有我就修改data
-                        data : MonthYVal.value ,
-                    }
-                ] ,
-                // x轴数据如果变化，就调整这里
-                xAxis : {
-                    data : MonthXVal.value
-                } ,
-            } );
+            setupmonthchartdata();
         } )
 
         onBeforeRouteLeave( ( to , from ) => {
