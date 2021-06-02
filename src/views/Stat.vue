@@ -95,7 +95,7 @@ Time: 17:48
             <div style="overflow-x: auto;">
                 <div id="daychart"
                      ref="daychart"
-                     style="height: 300px;width: 500px;">
+                     style="height: 300px;width: 1300px;">
                 </div>
             </div>
         </div>
@@ -112,9 +112,11 @@ Time: 17:48
                 </span>
             </div>
             <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-            <div id="monthchart"
-                 ref="monthchart"
-                 style="height: 300px;">
+            <div>
+                <div id="monthchart"
+                     ref="monthchart"
+                     style="height: 300px;">
+                </div>
             </div>
         </div>
         <br>
@@ -270,7 +272,6 @@ export default defineComponent( {
         let MonthChart;
 
         var monthoption = {
-
             xAxis : {
                 type : 'category' ,
                 //data : [ 'Mon' , 'Tue' , 'Wed' , 'Thu' , 'Fri' , 'Sat' , 'Sun' ]
@@ -290,6 +291,11 @@ export default defineComponent( {
                         position : 'top' ,
                         formatter : function ( params ) {
                             // console.log( 'params' , params )
+                            //0不显示
+                            if ( parseFloat( params.value ) <= 0 ) {
+                                return '';
+                            }
+
                             if ( proxy != null ) {
                                 return proxy.$FormatStatMoney( params.value , 2 );
                             }
@@ -311,7 +317,6 @@ export default defineComponent( {
         let DayChart;
 
         var dayoption = {
-
             xAxis : {
                 type : 'category' ,
                 //data : [ 'Mon' , 'Tue' , 'Wed' , 'Thu' , 'Fri' , 'Sat' , 'Sun' ]
@@ -331,6 +336,11 @@ export default defineComponent( {
                         position : 'top' ,
                         formatter : function ( params ) {
                             // console.log( 'params' , params )
+                            //0不显示
+                            if ( parseFloat( params.value ) <= 0 ) {
+                                return '';
+                            }
+
                             if ( proxy != null ) {
                                 return proxy.$FormatStatMoney( params.value , 2 );
                             }
@@ -360,52 +370,16 @@ export default defineComponent( {
 
         // 判断是否跨年,例如:同时有12月和1月
         const IsMonthChartStrideYear = computed<boolean>( () => {
-            // if ( modeldata.monthstat_isout ) {
-            //     return modeldata.monthstat_outlist.some( item => item.moneymonth == 1 ) && modeldata.monthstat_outlist.some( item => item.moneymonth == 12 );
-            // }
-            // else {
-            //     return modeldata.monthstat_inlist.some( item => item.moneymonth == 1 ) && modeldata.monthstat_inlist.some( item => item.moneymonth == 12 )
-            // }
 
             return MonthChartList.value.some( item => item.moneymonth == 1 ) && modeldata.monthstat_inlist.some( item => item.moneymonth == 12 )
         } )
 
         const MonthChartYVal = computed<number[]>( () => {
-            // if ( modeldata.monthstat_isout ) {
-            //     return modeldata.monthstat_outlist.map( item => item.moneys )
-            // }
-            // else {
-            //     return modeldata.monthstat_inlist.map( item => item.moneys )
-            // }
 
             return MonthChartList.value.map( item => item.moneys )
         } )
 
         const MonthChartXVal = computed<string[]>( () => {
-            // if ( modeldata.monthstat_isout ) {
-            //     return modeldata.monthstat_outlist.map( ( item ) => {
-            //         if ( IsMonthChartStrideYear.value ) {
-            //             if ( item.moneymonth == 1 || item.moneymonth == 12 ) {
-            //                 return item.moneymonth + '月' + '\n' + item.moneyyear;
-            //             }
-            //
-            //         }
-            //
-            //         return item.moneymonth + '月'
-            //     } )
-            // }
-            // else {
-            //     return modeldata.monthstat_inlist.map( ( item ) => {
-            //         if ( IsMonthChartStrideYear.value ) {
-            //             if ( item.moneymonth == 1 || item.moneymonth == 12 ) {
-            //                 return item.moneymonth + '月' + '\n' + item.moneyyear;
-            //             }
-            //
-            //         }
-            //
-            //         return item.moneymonth + '月'
-            //     } )
-            // }
 
             return MonthChartList.value.map( ( item ) => {
                 if ( IsMonthChartStrideYear.value ) {
@@ -713,6 +687,7 @@ export default defineComponent( {
                 await RefreshAll();
 
                 setupmonthchartdata();
+                setupdaychartdata();
             }
         }
 
@@ -720,6 +695,7 @@ export default defineComponent( {
             await RefreshAll();
 
             setupmonthchartdata();
+            setupdaychartdata();
         }
 
         const typeClick = ( isout : boolean ) => {
@@ -769,6 +745,7 @@ export default defineComponent( {
                 modeldata.monthstat_isout = isout;
 
                 setupmonthchartdata();
+
             }
 
         }
@@ -777,7 +754,7 @@ export default defineComponent( {
             if ( modeldata.daystat_isout != isout ) {
                 modeldata.daystat_isout = isout;
 
-                // setupmonthchartdata();
+                setupdaychartdata();
             }
         }
 
