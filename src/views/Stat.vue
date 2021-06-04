@@ -41,7 +41,7 @@ Time: 17:48
         <!--        按类型得统计图表-->
         <div>
             <div class="typehead">
-                <span style="margin-left: 10px;">收支构成</span>
+                <span class="title">分类构成</span>
                 <span class="itemmoney">
                     <span :class="{ outactive:typedata_isout , itemtxt:true  }"
                           @click="typeClick(true)">支出</span>
@@ -79,6 +79,9 @@ Time: 17:48
                 </div>
             </div>
         </div>
+        <van-divider dashed
+                     :style="{ color: '#010d18', borderColor: '#010d18',   padding: '0 16px' }">
+        </van-divider>
         <br>
         <!--        每日对比-->
         <div class="daystat">
@@ -99,6 +102,9 @@ Time: 17:48
                 </div>
             </div>
         </div>
+        <van-divider dashed
+                     :style="{ color: '#010d18', borderColor: '#010d18',   padding: '0 16px' }">
+        </van-divider>
         <br>
         <!--        月度对比-->
         <div class="monthstat">
@@ -119,6 +125,9 @@ Time: 17:48
                 </div>
             </div>
         </div>
+        <van-divider dashed
+                     :style="{ color: '#010d18', borderColor: '#010d18',   padding: '0 16px' }">
+        </van-divider>
         <br>
         <!--         支出排行-->
         <div>
