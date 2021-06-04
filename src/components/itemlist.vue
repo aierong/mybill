@@ -16,7 +16,7 @@ Time: 17:30
             <van-cell center
                       @click="itemClick(mxitem.ids)">
                 <template #title>
-                    <span>{{ mxindex + 1 }}</span>
+                    <span class="notxt">{{ mxindex + 1 }}</span>
                     <aliicon :iconname="mxitem.avatar"
                              :iconsize="36"
                              :colortypes="mxitem.isout?'out':'in'"/>
