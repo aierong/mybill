@@ -39,8 +39,8 @@ Time: 17:48
         </div>
         <br>
         <!--        按类型得统计图表-->
-        <div>
-            <div class="typehead">
+        <div class="typestat">
+            <div class="head">
                 <span class="title">分类构成</span>
                 <span class="itemmoney">
                     <span :class="{ outactive:typedata_isout , itemtxt:true  }"
@@ -85,8 +85,8 @@ Time: 17:48
         <br>
         <!--        每日对比-->
         <div class="daystat">
-            <div>
-                <span style="margin-left: 10px;">每日对比</span>
+            <div class="head">
+                <span class="title">每日对比</span>
                 <span class="itemmoney">
                     <span :class="{ outactive:daystat_isout , itemtxt:true  }"
                           @click="daytypeClick(true)">支出</span>
@@ -108,8 +108,8 @@ Time: 17:48
         <br>
         <!--        月度对比-->
         <div class="monthstat">
-            <div>
-                <span style="margin-left: 10px;">月度对比</span>
+            <div class="head">
+                <span class="title">月度对比</span>
                 <span class="itemmoney">
                     <span :class="{ outactive:monthstat_isout , itemtxt:true  }"
                           @click="monthtypeClick(true)">支出</span>
@@ -130,8 +130,8 @@ Time: 17:48
         </van-divider>
         <br>
         <!--         支出排行-->
-        <div>
-            <div>{{ userselectmonth }}月份支出排行</div>
+        <div class="outtop">
+            <div class="title">{{ userselectmonth }}月份支出排行</div>
             <itemlist :list="topoutlist"
                       @deleteitemresult="deleteitemresult"/>
             <!--            <br>-->
