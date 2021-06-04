@@ -134,7 +134,7 @@ Time: 17:48
             <div class="title">{{ userselectmonth }}月份支出排行</div>
             <itemlist :list="topoutlist"
                       @deleteitemresult="deleteitemresult"/>
-            <!--            <br>-->
+
             <van-divider v-if="isdisplayoutmore"
                          :style="{  padding: '0 16px' }">
                 <span @click="onClickMore"
