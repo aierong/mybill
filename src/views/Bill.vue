@@ -43,7 +43,8 @@ Time: 17:52
         </div>
 
         <!--     列表,循环   -->
-        <div v-if="isdisplaylist"
+        <div class="itemlist"
+             v-if="isdisplaylist"
              :key="index"
              v-for="(item,index) in displaylist">
             <van-cell-group>
