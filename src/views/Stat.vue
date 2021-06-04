@@ -14,8 +14,9 @@ Time: 17:48
         <div class="pagehead">
             <!--       日期选择-->
             <div class="selectdate">
-            <span style="font-size: 28px"
-                  @click="SelectYearMonth">{{ selectyyyymm }}</span>
+                <span style="font-size: 25px"
+                      @click="SelectYearMonth">{{ selectyyyymm }}
+                </span>
                 <van-icon size="25"
                           name="notes-o"
                           @click="SelectYearMonth"/>
