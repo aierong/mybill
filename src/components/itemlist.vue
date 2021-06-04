@@ -23,7 +23,7 @@ Time: 17:30
                     <span class="itemtxt">{{ mxitem.typename }}</span>
                 </template>
                 <template #default>
-                    <span class="money">-{{ $FormatMoney( mxitem.moneys ) }}</span>
+                    <span class="money">{{ mxitem.isout ? '-' : '+' }}{{ $FormatMoney( mxitem.moneys ) }}</span>
                     <br>
                     <span class="date">{{ formatdate( mxitem.moneydate ) }}</span>
                 </template>
