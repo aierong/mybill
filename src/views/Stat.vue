@@ -11,32 +11,35 @@ Time: 17:48
 <template>
 
     <div>
-        <!--       日期选择-->
-        <div class="selectdate">
+        <div class="pagehead">
+            <!--       日期选择-->
+            <div class="selectdate">
             <span style="font-size: 28px"
                   @click="SelectYearMonth">{{ selectyyyymm }}</span>
-            <van-icon size="25"
-                      name="notes-o"
-                      @click="SelectYearMonth"/>
+                <van-icon size="25"
+                          name="notes-o"
+                          @click="SelectYearMonth"/>
 
-            <!--    选择日期弹窗   -->
-            <SelectYearMonthDialog ref="selectdateRef"
-                                   @selectdate="userselectdate"
-                                   :year="userselectyear"
-                                   :month="userselectmonth"/>
+                <!--    选择日期弹窗   -->
+                <SelectYearMonthDialog ref="selectdateRef"
+                                       @selectdate="userselectdate"
+                                       :year="userselectyear"
+                                       :month="userselectmonth"/>
 
+            </div>
+
+            <!--        一些汇总栏目-->
+            <div class="sumouttxt">
+                共支出
+            </div>
+            <div class="sunoutmoney">
+                ¥{{ $FormatMoney( sumoutmoney ) }}
+            </div>
+            <div class="suninmoney">
+                共收入¥{{ $FormatMoney( suminmoney ) }}
+            </div>
         </div>
 
-        <!--        一些汇总栏目-->
-        <div class="sumouttxt">
-            共支出
-        </div>
-        <div class="sunoutmoney">
-            ¥{{ $FormatMoney( sumoutmoney ) }}
-        </div>
-        <div class="suninmoney">
-            共收入¥{{ $FormatMoney( suminmoney ) }}
-        </div>
         <br>
         <!--        按类型得统计图表-->
         <div class="typestat">
