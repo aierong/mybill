@@ -5,7 +5,7 @@ import Home from '@views/Home.vue'
 
 import * as constant from '@common/constant'
 
-import { store } from '@store/index'
+import { store } from '@/store'
 import * as UserMutationType from '@store/mutations/mutation-types.ts'
 
 const routes : Array<RouteRecordRaw> = [
