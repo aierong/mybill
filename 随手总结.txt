@@ -25,16 +25,6 @@ router.afterEach(() => {
 
 
 
-关于:tabbar的使用
-项目中,有些页面是需要tabbar的,有些不需要
-
-2种处理方式:
-第一种:tabbar做成公用组件,哪些页面需要tabbar就引用即可<mytabbar></mytabbar>
-    这种方式简单
-
-第二种:tabbar做成公用组件,在2级主界面引用添加这个tabbar,<router-view/><tabbars v-show="show"/>
-      由于有些2级页面不需要tabbar,这时可以在router.afterEach事件中判断一下,然后写入状态值到vuex,vuex再去通知2级页面控制show
-
 
 
 echarts  X轴文本太长,换行
