@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace billservice.Controllers.Base
 {
+    /// <summary>
+    /// 控制器基类
+    /// </summary>
     public class BaseController : ControllerBase
     {
         public string UserMobile
