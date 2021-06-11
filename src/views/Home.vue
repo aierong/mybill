@@ -1,7 +1,6 @@
 <template>
-    <div class="home">
+    <div>
         <router-view/>
-
     </div>
 </template>
 
@@ -13,18 +12,14 @@ import {
     reactive ,
     toRefs ,
     computed ,
-    onMounted ,
-    watch ,
+
 } from "vue";
 
 export default defineComponent( {
     name : 'Home' ,
-
     setup () {
 
-        return {
-
-        }
+        return {}
     }
 } );
 </script>

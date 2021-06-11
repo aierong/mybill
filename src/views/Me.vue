@@ -202,36 +202,6 @@ export default defineComponent( {
             pwddialog( true );
         }
 
-        // const pwdconfirm = async () => {
-        //     console.log( 'pwdconfirm' )
-        //
-        //     // return;
-        //
-        //     let status = await userapi.updatepassword( EncryptPassWord( modeldata.pwdinfo.pwd ) );
-        //
-        //     var isok : boolean = false;
-        //     if ( status.data.Success ) {
-        //         isok = true;
-        //     }
-        //
-        //     // pwddialog( false );
-        //
-        //     if ( isok ) {
-        //         Toast( "修改成功!请重新登录!" )
-        //
-        //         exitsystem( store.state.loginusermobile );
-        //
-        //         return;
-        //     }
-        // }
-
-        // const pwdcancel = () => {
-        //     // console.log( 'cancel' )
-        //
-        //     // 不用代码控制关闭状态
-        //     // pwddialog( false );
-        // }
-
         const pwdbeforeclose = async ( action : string ) => {
             // console.log( 'pwdbeforeclose' , action )
 
@@ -284,8 +254,6 @@ export default defineComponent( {
         onMounted( async () => {
             let status = await userapi.getuser();
 
-            // console.log( 'me status' , status )
-
             if ( status.data.Success ) {
                 var userDto = status.data.Result;
 
@@ -297,9 +265,12 @@ export default defineComponent( {
         return {
             ...toRefs( modeldata ) ,
             avatarobj ,
-            PwdClick , pwdbeforeclose ,
-            exitClick , AboutClick ,
-            avatarclick , userselectavatar ,
+            PwdClick ,
+            pwdbeforeclose ,
+            exitClick ,
+            AboutClick ,
+            avatarclick ,
+            userselectavatar ,
         };
     } ,
 
