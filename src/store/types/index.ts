@@ -29,7 +29,10 @@ export interface IAddPageData {
 export interface IStatPageData {
     year : number,
     month : number,
+
     typedata_isout : boolean,
+    monthstat_isout : boolean,
+    daystat_isout : boolean,
 }
 
 export interface IDetailPageData {

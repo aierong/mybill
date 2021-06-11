@@ -798,8 +798,9 @@ export default defineComponent( {
             var payload : IStatPageData = {
                 year : modeldata.userselectyear ,
                 month : modeldata.userselectmonth ,
-                typedata_isout : modeldata.typedata_isout
-
+                typedata_isout : modeldata.typedata_isout ,
+                monthstat_isout : modeldata.monthstat_isout ,
+                daystat_isout : modeldata.daystat_isout ,
             };
 
             store.commit( UserMutationType.updatestatpagedata , payload )
