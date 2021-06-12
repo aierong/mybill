@@ -772,7 +772,24 @@ export default defineComponent( {
             }
         }
 
+        const initdata = () => {
+            //有可能vuex中记录了,上次的记录,取回来用
+
+            if ( store.state.StatPageData != null ) {
+
+                modeldata.userselectyear = store.state.StatPageData.year;
+                modeldata.userselectmonth = store.state.StatPageData.month;
+
+                modeldata.typedata_isout = store.state.StatPageData.typedata_isout;
+                modeldata.monthstat_isout = store.state.StatPageData.monthstat_isout;
+                modeldata.daystat_isout = store.state.StatPageData.daystat_isout;
+
+            }
+        }
+
         onMounted( async () => {
+            initdata();
+
             await RefreshAll();
 
             var monthchartDom : any = document.getElementById( 'monthchart' );
@@ -835,3 +852,4 @@ export default defineComponent( {
        scoped
        src="./Stat.less">
 </style>
+
