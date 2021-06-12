@@ -30,6 +30,20 @@ lodash
 
 #### 后端:
 
+ASP.NET Core3.1 Web Api
+
+FreeSql               ORM框架
+
+AutoMapper      对象映射
+
+FluentValidation        参数验证
+
+Microsoft.AspNetCore.Mvc.Cors       跨域
+
+Microsoft.AspNetCore.Authentication.JwtBearer                JWT
+
+
+
 
 
 
