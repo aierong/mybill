@@ -70,3 +70,7 @@ Microsoft.AspNetCore.Authentication.JwtBearer                JWT
 
 ![](mdresourcefile/stat.gif)
 
+
+
+![](mdresourcefile/data.png)
+
