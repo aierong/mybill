@@ -838,9 +838,13 @@ export default defineComponent( {
             DayChartList , IsDayChartStrideMonth , DayMinMonthData , DayChartYVal , DayChartXVal ,
 
             onClickMore ,
-            SelectYearMonth , userselectdate ,
-            deleteitemresult , typeitemClick , typeClick ,
-            monthtypeClick , daytypeClick ,
+            SelectYearMonth ,
+            userselectdate ,
+            deleteitemresult ,
+            typeitemClick ,
+            typeClick ,
+            monthtypeClick ,
+            daytypeClick ,
         };
     } ,
 
