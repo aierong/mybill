@@ -201,23 +201,6 @@ export default defineComponent( {
             return querymodeldata.querytype == 'in' || querymodeldata.querytype == 'all';
         } )
 
-        const initdata = () => {
-            //有可能vuex中记录了,上次的记录,取回来用
-
-            if ( store.state.AddPageData != null ) {
-                // var datas = store.state.AddPageData;
-
-                querymodeldata.querytype = store.state.AddPageData.querytype;
-                querymodeldata.userselectyear = store.state.AddPageData.year;
-                querymodeldata.userselectmonth = store.state.AddPageData.month;
-
-                querymodeldata.userselectbilltypeid = store.state.AddPageData.billtypeid;
-                querymodeldata.userselectbilltypetxt = store.state.AddPageData.billtypetxt;
-
-            }
-        }
-
-
 
         const getlist = async () => {
 
@@ -427,8 +410,23 @@ export default defineComponent( {
             return;
         }
 
+        const initdata = () => {
+            //有可能vuex中记录了,上次的记录,取回来用
+
+            if ( store.state.AddPageData != null ) {
+
+                querymodeldata.querytype = store.state.AddPageData.querytype;
+                querymodeldata.userselectyear = store.state.AddPageData.year;
+                querymodeldata.userselectmonth = store.state.AddPageData.month;
+
+                querymodeldata.userselectbilltypeid = store.state.AddPageData.billtypeid;
+                querymodeldata.userselectbilltypetxt = store.state.AddPageData.billtypetxt;
+
+            }
+        }
+
         onMounted( async () => {
-            // console.log( 'onMounted bill' )
+            // 加载vuex中数据
             initdata();
 
             await getlist();
