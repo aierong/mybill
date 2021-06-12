@@ -217,12 +217,7 @@ export default defineComponent( {
             }
         }
 
-        onMounted( async () => {
-            // console.log( 'onMounted bill' )
-            initdata();
 
-            await getlist();
-        } )
 
         const getlist = async () => {
 
@@ -431,6 +426,13 @@ export default defineComponent( {
 
             return;
         }
+
+        onMounted( async () => {
+            // console.log( 'onMounted bill' )
+            initdata();
+
+            await getlist();
+        } )
 
         onBeforeRouteLeave( ( to , from ) => {
             // 导航离开该组件的对应路由时调用
