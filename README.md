@@ -46,6 +46,14 @@ Microsoft.AspNetCore.Authentication.JwtBearer                JWT
 
 ## 功能预览
 
+![](mdresourcefile/dl.png)
+
+
+
+月度帐单
+
+![](mdresourcefile/bill.png)
+
 
 
 
