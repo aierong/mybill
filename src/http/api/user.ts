@@ -13,7 +13,7 @@ import axios from '@/http/http.ts';
 const prefix = '/users';
 
 export function add ( registerUser ) {
-    return axios.post( `${ prefix }` , registerUser );
+    return axios.post<string>( `${ prefix }` , registerUser );
 }
 
 export function login ( mobile : string , password : string ) {

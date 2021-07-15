@@ -56,8 +56,7 @@ namespace billservice.Extensions
 
 
 
-            //注册cache服务
-            services.AddMemoryCache();
+            
 
 
             services.AddMvc().AddJsonOptions( ( options ) =>

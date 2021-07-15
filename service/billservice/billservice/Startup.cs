@@ -15,7 +15,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
- 
+
 
 namespace billservice
 {
@@ -56,6 +56,7 @@ namespace billservice
             services.AddFluentValidationService( Configuration );
             services.AddTokenService( Configuration );
             services.AddCorsService( Configuration );
+            services.AddCacheService( Configuration );
             services.AddOtherService( Configuration );
 
         }
