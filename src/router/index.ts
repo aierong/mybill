@@ -111,8 +111,6 @@ const router = createRouter( {
 } )
 
 router.beforeEach( ( to , from ) => {
-    // console.log( 'beforeEach to' , to )
-    // console.log( 'beforeEach from' , from )
 
     if ( to.meta != null && to.meta.requiresAuth != null && !to.meta.requiresAuth ) {
         // 没有问题,继续运行
