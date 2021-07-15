@@ -8,15 +8,16 @@
  */
 // import axios from 'axios'
 import axios from '@/http/http.ts';
+import { IResult , IBillTypesListResult } from '@/types/index.ts'
 
 const prefix = '/billtypes';
 
 export function getlist ( isout : boolean , isrefresh : boolean = true ) {
-    return axios.get( `${ prefix }/getallbilltype/${ isout }/${ isrefresh }` );
+    return axios.get<IBillTypesListResult>( `${ prefix }/getallbilltype/${ isout }/${ isrefresh }` );
 }
 
 export function add ( isout : boolean , typename : string = '' ) {
-    return axios.post( `${ prefix }` , { isout , typename } );
+    return axios.post<IResult>( `${ prefix }` , { isout , typename } );
 }
 
 

@@ -7,7 +7,7 @@
 
  */
 
-
+import { IBillType } from "@comp/types";
 
 export interface IBillObj {
     ids : number;
@@ -39,11 +39,22 @@ export type QueryType = "all" | "out" | "in";
 
 export type querymode = "money" | "date";
 
-
 export interface IResult {
     Code : number;
     Message : string;
     Success : boolean;
     TimestampUtc : number;
     Timestamp : number;
+}
+
+export interface ILoginResult extends IResult {
+    Result? : {
+        token : string;
+        mobile : string;
+    };
+
+}
+
+export interface IBillTypesListResult extends IResult {
+    Result : IBillType[];
 }

@@ -126,12 +126,12 @@ export default defineComponent( {
 
                 const { data } = await userapi.login( mobile , EncryptPassWord( modeldata.userinfo.password ) );
 
-                // console.log( 'login status' , status )
+                // console.log( 'login data' , data )
 
                 if ( data.Success ) {
 
-                    //     // 存储token
-                    let tokendata = data.Result.token;
+                    // 存储token
+                    let tokendata = data.Result != null ? data.Result.token : "";
 
                     //返回的token是可以用的
                     localStorage.setItem( constant.tokenname , tokendata );

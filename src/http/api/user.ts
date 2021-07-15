@@ -10,14 +10,16 @@
 // import axios from 'axios'
 import axios from '@/http/http.ts';
 
+import { IResult , ILoginResult } from '@/types/index.ts'
+
 const prefix = '/users';
 
 export function add ( registerUser ) {
-    return axios.post<string>( `${ prefix }` , registerUser );
+    return axios.post<IResult>( `${ prefix }` , registerUser );
 }
 
 export function login ( mobile : string , password : string ) {
-    return axios.post( `${ prefix }/login` , { mobile : mobile , password : password } );
+    return axios.post<ILoginResult>( `${ prefix }/login` , { mobile : mobile , password : password } );
 }
 
 /**
@@ -30,7 +32,7 @@ export function updateavatar ( avatar : string ) {
     var params = new URLSearchParams()
     params.append( "avatar" , avatar )
 
-    return axios.post( `${ prefix }/updateavatar` , params );
+    return axios.post<IResult>( `${ prefix }/updateavatar` , params );
 }
 
 /**
@@ -41,7 +43,7 @@ export function updatepassword ( password : string ) {
     var params = new URLSearchParams()
     params.append( "password" , password )
 
-    return axios.post( `${ prefix }/updatepassword` , params );
+    return axios.post<IResult>( `${ prefix }/updatepassword` , params );
 }
 
 export function getuser () {
