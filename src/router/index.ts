@@ -1,4 +1,13 @@
 import { createRouter , createWebHistory , RouteRecordRaw } from 'vue-router'
+
+//可以通过扩展 RouteMeta 接口来定义meta字段： 这样就可以在代码中有提示了
+declare module 'vue-router' {
+    interface RouteMeta {
+        // 是可选的
+        requiresAuth? : boolean
+    }
+}
+
 import * as Cookies from 'js-cookie'
 
 import Home from '@views/Home.vue'
@@ -105,9 +114,7 @@ router.beforeEach( ( to , from ) => {
     // console.log( 'beforeEach to' , to )
     // console.log( 'beforeEach from' , from )
 
-    if ( to.meta != null
-        && to.meta.requiresAuth != null
-        && !to.meta.requiresAuth ) {
+    if ( to.meta != null && to.meta.requiresAuth != null && !to.meta.requiresAuth ) {
         // 没有问题,继续运行
         // return;
     }
