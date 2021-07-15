@@ -7,26 +7,28 @@
 
  */
 
+
+
 export interface IBillObj {
-    ids : number,
+    ids : number;
 
-    mobile : string,
-    billtypeid : number,
-    typename : string,
-    avatar : string,
-    isout : boolean,
-    moneys : number,
-    moneydate : string,
+    mobile : string;
+    billtypeid : number;
+    typename : string;
+    avatar : string;
+    isout : boolean;
+    moneys : number;
+    moneydate : string;
 
-    moneyyear : number,
-    moneymonth : number,
-    moneyday : number,
-    memo : string,
-    sources : string,
-    adddate : string,
-    updatedate : string,
-    deletedate : string,
-    delmark : string,
+    moneyyear : number;
+    moneymonth : number;
+    moneyday : number;
+    memo : string;
+    sources : string;
+    adddate : string;
+    updatedate : string;
+    deletedate : string;
+    delmark : string;
 
 }
 
@@ -35,5 +37,13 @@ export interface IBillObj {
  */
 export type QueryType = "all" | "out" | "in";
 
-
 export type querymode = "money" | "date";
+
+
+export interface IResult {
+    Code : number;
+    Message : string;
+    Success : boolean;
+    TimestampUtc : number;
+    Timestamp : number;
+}
