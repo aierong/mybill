@@ -8,7 +8,7 @@
  */
 
 /**
- * 头像列表
+   头像列表
  */
 export const avatariconlist = [
     'smile-o' ,
@@ -17,15 +17,20 @@ export const avatariconlist = [
 ];
 
 /**
- * token名称
+   token名称
  */
 export const tokenname = 'billloginusertoken'
 
 /**
- *
+  登录名字
  */
 export const PersistedName = {
     LoginUserMobile : 'MyBillLoginUserId'
 }
 
+/**
+ 有效期
+ */
 export const CookieExpires = 7;
+
+
