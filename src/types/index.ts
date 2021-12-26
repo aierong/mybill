@@ -71,5 +71,3 @@ export interface ILoginResult extends IResult {
 export interface IBillTypesListResult extends IResult {
     Result : IBillType[];
 }
-
-
