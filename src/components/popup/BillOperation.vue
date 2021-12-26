@@ -157,7 +157,7 @@ import {
 //引入一下
 import { Toast } from 'vant';
 
-import * as billtypeapi from "@/http/api/billtype";
+import * as billtypeapi from "../../http/api/billtype";
 import * as billapi from '@/http/api/bill'
 
 import { EncryptPassWord } from "@common/util";
@@ -336,6 +336,9 @@ export default defineComponent( {
         const getinlist = async () => {
 
             var instatus = await billtypeapi.getlist( false , true );
+
+            // var status2 = await billtypeapi.getlistnew( false , true );
+            // var status22 = await billtypeapi.getlistnew2( false , true );
 
             if ( instatus.data.Success ) {
                 listmodeldata.inlist = instatus.data.Result;

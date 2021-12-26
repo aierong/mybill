@@ -7,7 +7,8 @@
 
  */
 // import axios from 'axios'
-import axios from '../http';
+import axios from '@/http/http.ts';
+
 import { IResult , IBillTypesListResult , IAxiosResult } from '@/types/index.ts'
 import { IBillType } from "@comp/types";
 
@@ -17,6 +18,13 @@ export function getlist ( isout : boolean , isrefresh : boolean = true ) {
     return axios.get<IBillTypesListResult>( `${ prefix }/getallbilltype/${ isout }/${ isrefresh }` );
 }
 
+export function add ( isout : boolean , typename : string = '' ) {
+    return axios.post<IResult>( `${ prefix }` , { isout , typename } );
+}
+
+
+
+
 export function getlistnew ( isout : boolean , isrefresh : boolean = true ) {
     return axios.get<IAxiosResult<IBillType[]>>( `${ prefix }/getallbilltype/${ isout }/${ isrefresh }` );
 }
@@ -24,9 +32,3 @@ export function getlistnew ( isout : boolean , isrefresh : boolean = true ) {
 export function getlistnew2 ( isout : boolean , isrefresh : boolean = true ) : Promise<IAxiosResult<IBillType[]>> {
     return axios.get( `${ prefix }/getallbilltype/${ isout }/${ isrefresh }` );
 }
-
-export function add ( isout : boolean , typename : string = '' ) {
-    return axios.post<IResult>( `${ prefix }` , { isout , typename } );
-}
-
-
