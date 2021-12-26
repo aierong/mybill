@@ -10,7 +10,7 @@
 // import axios from 'axios'
 import axios from '@/http/http.ts';
 
-import { IResult , ILoginResult } from '@/types/index.ts'
+import { IResult , ILoginResult , IAxiosResult } from '@/types/index.ts'
 
 const prefix = '/users';
 
