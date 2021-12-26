@@ -53,7 +53,6 @@ export interface ILoginResult extends IResult {
         token : string;
         mobile : string;
     };
-
 }
 
 // 定义接口继承
