@@ -29,6 +29,8 @@ export function getlistnew ( isout : boolean , isrefresh : boolean = true ) {
     return axios.get<IAxiosResult<IBillType[]>>( `${ prefix }/getallbilltype/${ isout }/${ isrefresh }` );
 }
 
-export function getlistnew2 ( isout : boolean , isrefresh : boolean = true ) : Promise<IAxiosResult<IBillType[]>> {
-    return axios.get( `${ prefix }/getallbilltype/${ isout }/${ isrefresh }` );
-}
+
+//下面这样写不行
+// export function getlistnew2 ( isout : boolean , isrefresh : boolean = true ) : Promise<IAxiosResult<IBillType[]>> {
+//     return axios.get( `${ prefix }/getallbilltype/${ isout }/${ isrefresh }` );
+// }

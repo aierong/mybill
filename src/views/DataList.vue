@@ -64,15 +64,15 @@ import * as billapi from '@/http/api/bill'
 
 import itemlist from "@comp/itemlist.vue";
 import { IStatPageData } from "@store/types";
-import { getdatalist } from "@/http/api/bill";
+import { getdatalist , getdatalistnew } from "@/http/api/bill";
 
 export default defineComponent( {
     // 子组件
     components : {
         itemlist ,
     } ,
-    // 声明 props
-    props : {} ,
+    // // 声明 props
+    // props : {} ,
     setup () {
         const router = useRouter()
         const store = useStore( key )
@@ -134,6 +134,16 @@ export default defineComponent( {
                 isout.value ,
                 billtypeid.value ,
                 state.querymode );
+
+            // console.log( 'data' , data )
+
+            // const res = await billapi.getdatalistnew( userselectyear.value ,
+            //     userselectmonth.value ,
+            //     isout.value ,
+            //     billtypeid.value ,
+            //     state.querymode );
+            // //res.data.Result中有带回来的数据
+            // console.log( 'res' , res , res.data.Result );
 
             if ( data.Success ) {
                 state.list = data.Result;

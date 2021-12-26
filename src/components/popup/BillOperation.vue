@@ -338,7 +338,8 @@ export default defineComponent( {
             var instatus = await billtypeapi.getlist( false , true );
 
             // var status2 = await billtypeapi.getlistnew( false , true );
-            // var status22 = await billtypeapi.getlistnew2( false , true );
+            // //status2.data.Result中有带回来的数据
+            // console.log( 'status2' , status2 , status2.data.Result )
 
             if ( instatus.data.Success ) {
                 listmodeldata.inlist = instatus.data.Result;

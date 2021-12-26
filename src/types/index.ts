@@ -40,13 +40,14 @@ export type QueryType = "all" | "out" | "in";
 export type querymode = "money" | "date";
 
 
+// 泛型的
 export interface IAxiosResult<T> {
     Code : number;
     Message : string;
     Success : boolean;
     TimestampUtc : number;
     Timestamp : number;
-    ResultData: T;
+    Result: T;
 }
 
 export interface IResult {
