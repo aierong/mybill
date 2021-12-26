@@ -47,6 +47,7 @@ export interface IResult {
     Timestamp : number;
 }
 
+// 定义接口继承
 export interface ILoginResult extends IResult {
     Result? : {
         token : string;
@@ -55,6 +56,7 @@ export interface ILoginResult extends IResult {
 
 }
 
+// 定义接口继承
 export interface IBillTypesListResult extends IResult {
     Result : IBillType[];
 }
