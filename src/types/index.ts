@@ -47,6 +47,7 @@ export interface IAxiosResult<T> {
     Success : boolean;
     TimestampUtc : number;
     Timestamp : number;
+    //Result是返回数据,这里定义为泛型
     Result: T;
 }
 
