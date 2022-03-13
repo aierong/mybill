@@ -12,7 +12,7 @@
 
 #### 前端:
 
-vue3.0  vuex4.0 vue-router4.0 (三件套)
+vue3.0(Typescript)  vuex4.0 vue-router4.0 (三件套)
 
 vuex-persistedstate  (vuex数据持久化)
 
