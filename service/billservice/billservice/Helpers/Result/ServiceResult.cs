@@ -8,7 +8,9 @@ using System.Threading.Tasks;
 namespace billservice.Helpers.Result
 {
 
-
+    /// <summary>
+    /// 
+    /// </summary>
     public class ServiceResult
     {
         /// <summary>
