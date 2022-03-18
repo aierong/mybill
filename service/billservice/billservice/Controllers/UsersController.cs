@@ -144,9 +144,9 @@ namespace billservice.Controllers
         [AllowAnonymous]
         [HttpPost]
         [Route( "" )]
-        public async Task<ServiceResult> add ( [FromBody] UserAddDto userDto )
+        public async Task<ServiceResult<string>> add ( [FromBody] UserAddDto userDto )
         {
-            var result = new ServiceResult();
+            var result = new ServiceResult<string>() { Result = string.Empty };
 
             users user = this.mapper.Map<UserAddDto , users>( userDto );
 
@@ -159,6 +159,7 @@ namespace billservice.Controllers
                 return result;
             }
 
+            //result.IsSuccess( string.Empty );
             return result;
         }
 
@@ -167,9 +168,9 @@ namespace billservice.Controllers
 
         [HttpPost]
         [Route( "updateavatar" )]
-        public async Task<ServiceResult> updateavatar ( [FromForm] string avatar )
+        public async Task<ServiceResult<string>> updateavatar ( [FromForm] string avatar )
         {
-            var result = new ServiceResult();
+            var result = new ServiceResult<string>() { Result = string.Empty };
 
             var mobile = base.UserMobile;
 
@@ -190,9 +191,9 @@ namespace billservice.Controllers
 
         [HttpPost]
         [Route( "updatepassword" )]
-        public async Task<ServiceResult> updatepassword ( [FromForm] string password )
+        public async Task<ServiceResult<string>> updatepassword ( [FromForm] string password )
         {
-            var result = new ServiceResult();
+            var result = new ServiceResult<string>() { Result = string.Empty };
 
             var mobile = base.UserMobile;
 
@@ -204,7 +205,6 @@ namespace billservice.Controllers
 
                 return result;
             }
-
 
             return result;
         }

@@ -62,7 +62,7 @@ namespace billservice.Controllers
             if ( systemlist != null && systemlist.Count > 0 )
             {
                 resultsystemlist = systemlist.FindAll( item => item.isout == isout );
-                
+
             }
 
 
@@ -94,7 +94,7 @@ namespace billservice.Controllers
             if ( usertypelist != null && usertypelist.Count > 0 )
             {
                 resultusertypelist = usertypelist.FindAll( item => item.isout == isout );
-                
+
             }
 
             List<billtype> list = new List<billtype>() { };
@@ -118,9 +118,9 @@ namespace billservice.Controllers
 
 
         [HttpPost]
-        public async Task<ServiceResult> add ( [FromBody] BillTypeDto billTypeDto )
+        public async Task<ServiceResult<string>> add ( [FromBody] BillTypeDto billTypeDto )
         {
-            var result = new ServiceResult();
+            var result = new ServiceResult<string>() { Result = string.Empty };
 
             billtype _billtype = this.mapper.Map<BillTypeDto , billtype>( billTypeDto , opt => opt.Items[Constant.mobilename] = base.UserMobile );
 

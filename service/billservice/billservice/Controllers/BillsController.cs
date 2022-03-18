@@ -35,9 +35,9 @@ namespace billservice.Controllers
 
         [HttpPost]
         [Route( "add" )]
-        public async Task<ServiceResult> add ( [FromBody] BillDto billDto )
+        public async Task<ServiceResult<string>> add ( [FromBody] BillDto billDto )
         {
-            var result = new ServiceResult();
+            var result = new ServiceResult<string>() { Result = string.Empty };
 
             bills _bill = this.mapper.Map<BillDto , bills>( billDto , opt => opt.Items[Constant.mobilename] = base.UserMobile );
 
@@ -57,9 +57,9 @@ namespace billservice.Controllers
 
         [HttpPost]
         [Route( "update" )]
-        public async Task<ServiceResult> update ( [FromBody] BillDto billDto )
+        public async Task<ServiceResult<string>> update ( [FromBody] BillDto billDto )
         {
-            var result = new ServiceResult();
+            var result = new ServiceResult<string>() { Result = string.Empty };
 
             bills _bill = this.mapper.Map<BillDto , bills>( billDto , opt => opt.Items[Constant.mobilename] = base.UserMobile );
 
@@ -203,9 +203,9 @@ namespace billservice.Controllers
 
         [HttpPost]
         [Route( "delete" )]
-        public async Task<ServiceResult> delete ( [FromForm] int id = 0 )
+        public async Task<ServiceResult<string>> delete ( [FromForm] int id = 0 )
         {
-            var result = new ServiceResult();
+            var result = new ServiceResult<string>() { Result = string.Empty };
 
             var mobile = base.UserMobile;
 
@@ -229,6 +229,7 @@ namespace billservice.Controllers
 
             return result;
         }
+
 
 
     }

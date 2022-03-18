@@ -44,7 +44,7 @@ namespace billservice.Extensions
 
                     }
 
-                    var result = new ServiceResult();
+                    var result = new ServiceResult<string>() { Result = string.Empty };
                     result.IsFailed( errormsg );
 
                     return new JsonResult( result );
@@ -56,7 +56,7 @@ namespace billservice.Extensions
 
 
 
-            
+
 
 
             services.AddMvc().AddJsonOptions( ( options ) =>
