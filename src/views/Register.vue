@@ -172,8 +172,13 @@ export default defineComponent( {
                 }
 
                 const { data } = await userapi.add( registerUser );
+                // let ress = await userapi.add( registerUser );
+                // let data = ress.data;
 
-                // console.log( 'onSubmit data' , data )
+                // let  = await userapi.addnew( registerUser );
+                // console.log( 'ress' , ress )
+
+                // console.log( 'onSubmit data:' , ress , data )
 
                 if ( data.Success ) {
                     // this.$toast( status.data.msg )

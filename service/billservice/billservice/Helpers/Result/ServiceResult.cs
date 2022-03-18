@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
- 
- 
+
+
 
 namespace billservice.Helpers.Result
 {
@@ -18,20 +18,22 @@ namespace billservice.Helpers.Result
         {
             // 给几个默认值
 
-            Code = ServiceResultCode.Succeed;
+            //Code = ServiceResultCode.Succeed;
 
             Message = string.Empty;
+
+            Success = true;
         }
 
 
 
-        /// <summary>
-        /// 响应码
-        /// </summary>
-        public ServiceResultCode Code
-        {
-            get; set;
-        }
+        ///// <summary>
+        ///// 响应码
+        ///// </summary>
+        //public ServiceResultCode Code
+        //{
+        //    get; set;
+        //}
 
 
 
@@ -50,10 +52,12 @@ namespace billservice.Helpers.Result
         /// </summary>
         public bool Success
         {
-            get
-            {
-                return Code == ServiceResultCode.Succeed;
-            }
+            //get
+            //{
+            //    return Code == ServiceResultCode.Succeed;
+            //}
+
+            get; set;
         }
 
 
@@ -101,7 +105,9 @@ namespace billservice.Helpers.Result
         {
             Message = message;
 
-            Code = ServiceResultCode.Succeed;
+            //Code = ServiceResultCode.Succeed;
+
+            Success = true;
         }
 
 
@@ -114,7 +120,8 @@ namespace billservice.Helpers.Result
         {
             Message = message;
 
-            Code = ServiceResultCode.Failed;
+            //Code = ServiceResultCode.Failed;
+            Success = false;
         }
 
 
@@ -127,14 +134,10 @@ namespace billservice.Helpers.Result
         {
             Message = exception.InnerException?.StackTrace;
 
-            Code = ServiceResultCode.Failed;
+            //Code = ServiceResultCode.Failed;
+            Success = false;
         }
     }
-
-
-
-
-
 
 
 

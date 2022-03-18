@@ -183,9 +183,9 @@ export default defineComponent( {
             modeldata.showdialog = false;
 
             if ( avatar != '' ) {
-                let status = await userapi.updateavatar( avatar );
+                const { data } = await userapi.updateavatar( avatar );
 
-                if ( status.data.Success ) {
+                if ( data.Success ) {
                     modeldata.userinfo.avatar = avatar;
                 }
 
@@ -228,10 +228,10 @@ export default defineComponent( {
                     return false;
                 }
 
-                let status = await userapi.updatepassword( EncryptPassWord( modeldata.pwdinfo.pwd ) );
+                const { data } = await userapi.updatepassword( EncryptPassWord( modeldata.pwdinfo.pwd ) );
 
                 var isok : boolean = false;
-                if ( status.data.Success ) {
+                if ( data.Success ) {
                     isok = true;
                 }
 

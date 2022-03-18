@@ -9,7 +9,7 @@
 // import axios from 'axios'
 import axios from '@/http/http.ts';
 import { IBillDto , IBillType } from '@comp/types'
-import { IAxiosResult , IBillObj } from "@/types";
+import { HttpResponse , IAxiosResult , IBillObj } from "@/types";
 
 const prefix = '/bills';
 
@@ -56,17 +56,12 @@ export function deletebyid ( id : number ) {
     return axios.post( `${ prefix }/delete` , params );
 }
 
-export function getdatalistnew ( year : number , month : number , isout : boolean , billtypeid : number , mode : string ) {
-    console.log( 'getdatalistnew' )
+export function getdatalistnew ( year : number , month : number , isout : boolean , billtypeid : number , mode : string ): Promise<HttpResponse<IBillObj[]>> {
+    // console.log( 'getdatalistnew' )
 
-    return axios.get<IAxiosResult<IBillObj[]>>( `${ prefix }/getlist/${ year }/${ month }/${ isout }/${ billtypeid }/${ mode }` );
+    //return axios.get<IAxiosResult<IBillObj[]>>( `${ prefix }/getlist/${ year }/${ month }/${ isout }/${ billtypeid }/${ mode }` );
+
+    return axios.get ( `${ prefix }/getlist/${ year }/${ month }/${ isout }/${ billtypeid }/${ mode }` );
 }
-
-// 下面这样写不行
-// export function getdatalistnew2 ( year : number , month : number , isout : boolean , billtypeid : number , mode : string ) : Promise<IAxiosResult<IBillObj[]>> {
-//     console.log( 'getdatalistnew2' )
-//
-//     return axios.get( `${ prefix }/getlist/${ year }/${ month }/${ isout }/${ billtypeid }/${ mode }` );
-// }
 
 

@@ -20,9 +20,11 @@ namespace billservice.Helpers.Result
         {
             Message = message;
 
-            Code = ServiceResultCode.Succeed;
+            //Code = ServiceResultCode.Succeed;
 
             Result = result;
+
+            Success = true;
         }
 
 

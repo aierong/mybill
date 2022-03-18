@@ -7,7 +7,7 @@
 
  */
 
-import axios from 'axios';
+import axios , { AxiosRequestConfig , AxiosResponse } from 'axios';
 import { tokenname } from '@common/constant'
 import router from '@/router'
 
@@ -16,12 +16,34 @@ import { Toast } from 'vant';
 
 let _url = process.env.VUE_APP_serverurl;
 
-axios.defaults.baseURL = `${ _url }/api`
-axios.defaults.timeout = 50000;
+// axios.defaults.baseURL = `${ _url }/api`
+// axios.defaults.timeout = 50000;
+
+const service = axios.create( {
+    baseURL : `${ _url }/api` ,
+    timeout : 50000 ,
+} );
 
 // 请求拦截
-axios.interceptors.request.use(
-    config => {
+// axios.interceptors.request.use(
+//     config => {
+//         let loginusertoken = localStorage.getItem( tokenname );
+//
+//         if ( loginusertoken ) {
+//             // Bearer是JWT的认证头部信息
+//             // 注意要加:'Bearer '  有一个空格
+//             // 我们后端是用koa-jwt自动验证，必须要加上'Bearer ',如果是自己写验证还得把'Bearer '去掉再调用jwt.verify验证
+//             config.headers.common[ 'Authorization' ] = 'Bearer ' + loginusertoken;
+//         }
+//
+//         return config;
+//     } ,
+//     error => {
+//         return Promise.reject( error );
+//     }
+// );
+
+service.interceptors.request.use( ( config : AxiosRequestConfig ) => {
         let loginusertoken = localStorage.getItem( tokenname );
 
         if ( loginusertoken ) {
@@ -39,11 +61,42 @@ axios.interceptors.request.use(
 );
 
 // 响应拦截
-axios.interceptors.response.use(
-    response => {
+// axios.interceptors.response.use(
+//     response => {
+//         return response;
+//     } ,
+//     error => {
+//         // 错误提醒
+//
+//         const { status } = error.response;
+//
+//         if ( status == 401 ) {
+//             // alert( 'token过期, 请重新登录!' );
+//             Toast.fail( 'token过期,请重新登录' )
+//             // 清楚token
+//             localStorage.removeItem( tokenname );
+//             // 页面跳转
+//             router.push( '/login' );
+//         }
+//         if ( status == 403 ) {
+//             // alert( '无权限,请重新登录!' );
+//             Toast.fail( '无权限,请重新登录' )
+//             // 清楚token
+//             localStorage.removeItem( tokenname );
+//             // 页面跳转
+//             router.push( '/login' );
+//         }
+//         else {
+//             alert( error.response.data );
+//         }
+//         return Promise.reject( error );
+//     }
+// );
+
+service.interceptors.response.use( ( response : AxiosResponse ) => {
         return response;
     } ,
-    error => {
+    ( error ) => {
         // 错误提醒
 
         const { status } = error.response;
@@ -71,6 +124,7 @@ axios.interceptors.response.use(
     }
 );
 
-export default axios;
+// export default axios;
+export default service
 
 

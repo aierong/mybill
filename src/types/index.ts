@@ -7,8 +7,6 @@
 
  */
 
-import { IBillType } from "@comp/types";
-
 export interface IBillObj {
     ids : number;
 
@@ -39,36 +37,27 @@ export type QueryType = "all" | "out" | "in";
 
 export type querymode = "money" | "date";
 
-
 // 泛型的
 export interface IAxiosResult<T> {
-    Code : number;
+    // Code : number;
     Message : string;
     Success : boolean;
     TimestampUtc : number;
     Timestamp : number;
     //Result是返回数据,这里定义为泛型
-    Result: T;
+    Result : T;
 }
 
-//基本版本
-export interface IResult {
-    Code : number;
-    Message : string;
-    Success : boolean;
-    TimestampUtc : number;
-    Timestamp : number;
+// 接口响应通过格式
+export interface HttpResponse<T> {
+    status : number
+    statusText : string
+    data : IAxiosResult<T>
 }
 
-// 定义接口继承
-export interface ILoginResult extends IResult {
-    Result? : {
-        token : string;
-        mobile : string;
-    };
+export interface IToken {
+    mobile : string
+    token : string
 }
 
-// 定义接口继承
-export interface IBillTypesListResult extends IResult {
-    Result : IBillType[];
-}
+

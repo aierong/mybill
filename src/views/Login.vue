@@ -125,8 +125,10 @@ export default defineComponent( {
                 var mobile = modeldata.userinfo.mobile;
 
                 const { data } = await userapi.login( mobile , EncryptPassWord( modeldata.userinfo.password ) );
+                //var ress = await userapi.login( mobile , EncryptPassWord( modeldata.userinfo.password ) );
 
-                // console.log( 'login data' , data )
+                //const data=ress.data;
+                //console.log( 'login data', ress, data )
 
                 if ( data.Success ) {
 
