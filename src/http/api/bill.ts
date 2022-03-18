@@ -6,12 +6,12 @@
  功能: TypeScript脚本
 
  */
-// import axios from 'axios'
+
 import axios from '@/http/http.ts';
 import { IBillDto , IBillType } from '@comp/types'
 import { HttpResponse , IAxiosResult , IBillObj } from "@/types";
 
-const prefix = '/bills';
+const prefix : string = '/bills';
 
 export function getlist ( year : number , month : number , billtypeid : number ) {
     return axios.get( `${ prefix }/getlist/${ year }/${ month }/${ billtypeid }` );
