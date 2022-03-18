@@ -51,6 +51,7 @@ export interface IAxiosResult<T> {
     Result: T;
 }
 
+//基本版本
 export interface IResult {
     Code : number;
     Message : string;
