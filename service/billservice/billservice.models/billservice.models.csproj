@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="FreeSql.Provider.SqlServer" Version="3.0.100" />
+    <PackageReference Include="FreeSql.Provider.SqlServer" Version="3.2.665" />
   </ItemGroup>
 
 </Project>
