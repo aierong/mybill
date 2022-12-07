@@ -11,7 +11,7 @@ namespace billservice.models.Dto
         /// </summary>
         public List<BillReturnDto> list
         {
-            get;set;
+            get; set;
         }
 
         /// <summary>
@@ -19,7 +19,7 @@ namespace billservice.models.Dto
         /// </summary>
         public int counts
         {
-            get;set;
+            get; set;
         }
     }
 }

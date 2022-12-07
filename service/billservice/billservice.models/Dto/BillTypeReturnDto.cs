@@ -52,7 +52,7 @@ namespace billservice.models.Dto
             get; set;
         }
 
-         
+
 
     }
 }

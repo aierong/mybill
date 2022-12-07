@@ -39,7 +39,7 @@ namespace billservice.models.Dto
 
         public bool isadd
         {
-            get;set;
+            get; set;
         }
 
 

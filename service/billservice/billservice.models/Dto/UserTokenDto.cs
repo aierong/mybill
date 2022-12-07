@@ -9,7 +9,7 @@ namespace billservice.models.Dto
     {
         public string token
         {
-            get;set;
+            get; set;
         }
 
 
