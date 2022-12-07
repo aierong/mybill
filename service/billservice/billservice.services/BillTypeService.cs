@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using billservice.interfaces;
 using billservice.models;
- 
+
 
 namespace billservice.services
 {
@@ -22,7 +22,7 @@ namespace billservice.services
 
         public bool IsExistName ( string typename , string mobile )
         {
-            
+
             // 先判断自己的类型是否重名
             var isAny = fsql.Select<billtype>().Where( it => it.typename == typename
                                                                                 && it.mobile == mobile
@@ -44,7 +44,7 @@ namespace billservice.services
 
         public bool IsExistType ( int billtypeid , bool isout )
         {
-             
+
             var isAny = fsql.Select<billtype>().Where( it => it.ids == billtypeid
                                                                                 && it.isout == isout ).Any();
 
@@ -55,7 +55,7 @@ namespace billservice.services
 
         public bool IsExistUserType ( int billtypeid , string mobile )
         {
-             
+
             var isAny = fsql.Select<billtype>().Where( it => it.ids == billtypeid
                                                                                 && it.issystemtype == false
                                                                                 && it.mobile == mobile ).Any();
@@ -67,7 +67,7 @@ namespace billservice.services
 
         public bool IsExistSystemType ( int billtypeid )
         {
-             
+
             var isAny = fsql.Select<billtype>().Where( it => it.ids == billtypeid
                                                                                 && it.issystemtype == true ).Any();
 
@@ -78,7 +78,7 @@ namespace billservice.services
 
         public bool Save ( billtype _billtype )
         {
-             
+
             var ids = fsql.Insert( _billtype ).ExecuteAffrows();
 
             return ids > 0;
@@ -88,7 +88,7 @@ namespace billservice.services
 
         public async Task<bool> SaveAsync ( billtype _billtype )
         {
-             
+
             var ids = await fsql.Insert( _billtype ).ExecuteAffrowsAsync();
 
             return ids > 0;
@@ -98,7 +98,7 @@ namespace billservice.services
 
         public async Task<List<billtype>> GetAllSystemTypeAsync ()
         {
-             
+
             var list = await fsql.Select<billtype>().Where( it => it.issystemtype == true ).ToListAsync();
 
             return list;
@@ -108,7 +108,7 @@ namespace billservice.services
 
         public async Task<List<billtype>> GetAllUserTypeAsync ( string mobile )
         {
-             
+
             var list = await fsql.Select<billtype>().Where( it => it.issystemtype == false && it.mobile == mobile ).ToListAsync();
 
             return list;

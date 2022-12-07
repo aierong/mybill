@@ -14,8 +14,6 @@ namespace billservice.services
     {
         readonly IFreeSql fsql;
 
-
-
         public BillService ( IFreeSql fsql )
         {
             this.fsql = fsql;
@@ -43,7 +41,6 @@ namespace billservice.services
 
         public bool Save ( bills bill )
         {
-
             var ids = fsql.Insert( bill ).ExecuteAffrows();
 
             return ids > 0;

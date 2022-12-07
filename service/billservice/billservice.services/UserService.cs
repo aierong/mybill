@@ -21,7 +21,6 @@ namespace billservice.services
 
         public users GetUser ( string mobile )
         {
-
             var model = fsql.Select<users>().Where( it => it.mobile == mobile ).ToOne();
 
             return model;
@@ -31,7 +30,6 @@ namespace billservice.services
 
         public async Task<users> GetUserAsync ( string mobile )
         {
-
             var model = await fsql.Select<users>().Where( it => it.mobile == mobile ).ToOneAsync();
 
             return model;
@@ -41,7 +39,6 @@ namespace billservice.services
 
         public bool IsExistEmail ( string email )
         {
-
             var isAny = fsql.Select<users>().Where( it => it.email == email ).Any();
 
             return isAny;
@@ -51,7 +48,6 @@ namespace billservice.services
 
         public bool IsExistUser ( string mobile )
         {
-
             var isAny = fsql.Select<users>().Where( it => it.mobile == mobile ).Any();
 
             return isAny;
@@ -61,7 +57,6 @@ namespace billservice.services
 
         public bool Save ( users user )
         {
-
             var ids = fsql.Insert( user ).ExecuteAffrows();
 
             return ids > 0;
@@ -71,7 +66,6 @@ namespace billservice.services
 
         public async Task<bool> SaveAsync ( users user )
         {
-
             var ids = await fsql.Insert( user ).ExecuteAffrowsAsync();
 
             return ids > 0;
@@ -81,7 +75,6 @@ namespace billservice.services
 
         public bool UpdateAvatar ( string mobile , string avatar )
         {
-
             var result = fsql.Update<users>()
                           .Set( a => a.avatar , avatar )
                           .Set( a => a.updatedate , DateTime.Now )
@@ -95,7 +88,6 @@ namespace billservice.services
 
         public async Task<bool> UpdateAvatarAsync ( string mobile , string avatar )
         {
-
             var result = await fsql.Update<users>()
                           .Set( a => a.avatar , avatar )
                           .Set( a => a.updatedate , DateTime.Now )
@@ -109,7 +101,6 @@ namespace billservice.services
 
         public bool UpdateLoginInfo ( string mobile , int logintimes )
         {
-
             var result = fsql.Update<users>()
                           .Set( a => a.logintimes , logintimes )
                           .Set( a => a.lastlogindate , DateTime.Now )
@@ -123,7 +114,6 @@ namespace billservice.services
 
         public async Task<bool> UpdateLoginInfoAsync ( string mobile , int logintimes )
         {
-
             var result = await fsql.Update<users>()
                           .Set( a => a.logintimes , logintimes )
                           .Set( a => a.lastlogindate , DateTime.Now )
@@ -137,7 +127,6 @@ namespace billservice.services
 
         public bool UpdatePassWord ( string mobile , string pwd )
         {
-
             var result = fsql.Update<users>()
                           .Set( a => a.password , pwd )
                           .Set( a => a.updatedate , DateTime.Now )
@@ -151,7 +140,6 @@ namespace billservice.services
 
         public async Task<bool> UpdatePassWordAsync ( string mobile , string pwd )
         {
-
             var result = await fsql.Update<users>()
                           .Set( a => a.password , pwd )
                           .Set( a => a.updatedate , DateTime.Now )
