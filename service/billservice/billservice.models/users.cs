@@ -6,7 +6,7 @@ using FreeSql.DataAnnotations;
 namespace billservice.models
 {
     ///<summary>
-    ///
+    /// 用户
     ///</summary>
     public partial class users
     {

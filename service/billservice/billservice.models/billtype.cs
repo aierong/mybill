@@ -6,7 +6,7 @@ using FreeSql.DataAnnotations;
 namespace billservice.models
 {
     ///<summary>
-    ///
+    /// 单据类型
     ///</summary>
     public partial class billtype
     {
