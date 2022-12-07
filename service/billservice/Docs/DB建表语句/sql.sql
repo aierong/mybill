@@ -35,7 +35,6 @@ CREATE TABLE users
     lastlogindate DATETIME ,
     -- 累计登录次数
     logintimes INT NOT NULL DEFAULT ( 0 ) ,
-
     -- 记录的 添加 修改 删除时间
     adddate DATETIME NOT NULL DEFAULT ( GETDATE ()) ,
     updatedate DATETIME ,
@@ -63,6 +62,8 @@ INSERT INTO [dbo].[users] (
                     '2bHX20zW5wk1Nooe+xDjdw==' ,
                     '管理员' ,
                     'aierong@126.com'
+
+
 
 CREATE TABLE billtype
 (
@@ -145,3 +146,5 @@ CREATE TABLE bills
 -- 搞一个索引
 CREATE INDEX idx_bills
     ON bills ( mobile )
+
+
