@@ -22,6 +22,7 @@ module.exports = {
     //关闭eslint
     lintOnSave : false ,
 
+    //配置别名
     chainWebpack : config => {
         //vue有一个默认的别名:@ 对应 src
         //下面定义了2个别名
