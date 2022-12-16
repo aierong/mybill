@@ -21,19 +21,36 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace billservice.Controllers
 {
+    /// <summary>
+    /// 用户控制器
+    /// </summary>
     [Authorize]
     [Route( "api/users" )]
     [ApiController]
     public class UsersController : Base.BaseController
     {
+        /// <summary>
+        /// 
+        /// </summary>
         readonly IUser iuser;
 
+        /// <summary>
+        /// 
+        /// </summary>
         readonly IMapper mapper;
 
+        /// <summary>
+        /// 
+        /// </summary>
         readonly TokenConfigData tokenConfigData;
 
 
-
+        /// <summary>
+        /// 构造函数注入
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="mapper"></param>
+        /// <param name="_TokenConfigDataOptions"></param>
         public UsersController ( IUser user , IMapper mapper , IOptionsMonitor<TokenConfigData> _TokenConfigDataOptions )
         {
             this.iuser = user;
@@ -43,6 +60,11 @@ namespace billservice.Controllers
 
 
 
+        /// <summary>
+        /// 登录
+        /// </summary>
+        /// <param name="userLoginDto"></param>
+        /// <returns></returns>
         [AllowAnonymous]
         [HttpPost]
         [Route( "login" )]
@@ -108,14 +130,11 @@ namespace billservice.Controllers
             // 把自己的数据带回去
             result.IsSuccess( new UserTokenDto()
             {
-
                 token = jwtToken ,
 
                 //rolename = _role ,
 
                 mobile = mobile ,
-
-
             } );
 
             return result;
@@ -141,6 +160,11 @@ namespace billservice.Controllers
 
 
 
+        /// <summary>
+        /// 添加用户
+        /// </summary>
+        /// <param name="userDto"></param>
+        /// <returns></returns>
         [AllowAnonymous]
         [HttpPost]
         [Route( "" )]
@@ -158,8 +182,7 @@ namespace billservice.Controllers
 
                 return result;
             }
-
-            //result.IsSuccess( string.Empty );
+                        
             return result;
         }
 

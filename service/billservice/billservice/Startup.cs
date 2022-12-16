@@ -26,11 +26,11 @@ namespace billservice
             Configuration = configuration;
 
             /**
-            ÕâÀï²»Çå³ıÒ»ÏÂ
+            è¿™é‡Œä¸æ¸…é™¤ä¸€ä¸‹
 
-            new Claim( System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames.Sub, "Ö÷ÌâÀ´ÁËD2-B49B") 
+            new Claim( System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames.Sub, "ä¸»é¢˜æ¥äº†D2-B49B") 
 
-            ÕâÖÖ·½Ê½×¢²áµÄÖµ»á±»¿ò¼ÜÄ¬ÈÏ×ª»»Îª:http://schemas.xmlsoap.org/ws/2005/05/identity/claims£¬ÕâÑùµÄ´æ´¢·½Ê½
+            è¿™ç§æ–¹å¼æ³¨å†Œçš„å€¼ä¼šè¢«æ¡†æ¶é»˜è®¤è½¬æ¢ä¸º:http://schemas.xmlsoap.org/ws/2005/05/identity/claimsï¼Œè¿™æ ·çš„å­˜å‚¨æ–¹å¼
             
             */
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
@@ -49,8 +49,8 @@ namespace billservice
         {
             services.AddControllers();
 
-            // ¿ÉÒÔ°Ñ·şÎñ×¢²áµÄ´úÂë·ÅÔÚ¾²Ì¬À©Õ¹·½·¨Àï£¬Ê¹µÃ ConfigureServices ¸ü¼Ó¼ò½à
-            // ¿ÉÒÔ·ÖÄ£¿é·Ö±ğĞ´²»Í¬µÄ¾²Ì¬À©Õ¹·½·¨
+            // å¯ä»¥æŠŠæœåŠ¡æ³¨å†Œçš„ä»£ç æ”¾åœ¨é™æ€æ‰©å±•æ–¹æ³•é‡Œï¼Œä½¿å¾— ConfigureServices æ›´åŠ ç®€æ´
+            // å¯ä»¥åˆ†æ¨¡å—åˆ†åˆ«å†™ä¸åŒçš„é™æ€æ‰©å±•æ–¹æ³•
             services.AddDBService( Configuration );
             services.AddAutoMapperService( Configuration );
             services.AddFluentValidationService( Configuration );
@@ -70,7 +70,7 @@ namespace billservice
                 app.UseDeveloperExceptionPage();
             }
 
-            // È«¾ÖÒì³£´¦Àí
+            // å…¨å±€å¼‚å¸¸å¤„ç†
             app.UseExceptionHandler( config =>
             {
                 config.Run( async context =>
@@ -89,7 +89,7 @@ namespace billservice
 
                         string jsonerror = System.Text.Json.JsonSerializer.Serialize( result );
 
-                        // ÉèÖÃÀàĞÍºÍ×´Ì¬Âë
+                        // è®¾ç½®ç±»å‹å’ŒçŠ¶æ€ç 
                         context.Response.StatusCode = StatusCodes.Status200OK;
                         context.Response.ContentType = "application/json";
 
@@ -99,14 +99,14 @@ namespace billservice
             } );
 
             CorsConfigData _CorsConfigData = this.Configuration.GetSection( "CorsInfo" ).Get<CorsConfigData>();
-            //¶¨ÒåÃû³Æ
+            //å®šä¹‰åç§°
             string PolicyName = _CorsConfigData.name;
             app.UseCors( PolicyName );
 
             app.UseRouting();
 
-            // ¿ªÆôÑéÖ¤ÖĞ¼ä¼ş
-            app.UseAuthentication();//ÆôÓÃÑéÖ¤
+            // å¼€å¯éªŒè¯ä¸­é—´ä»¶
+            app.UseAuthentication();//å¯ç”¨éªŒè¯
 
             app.UseAuthorization();
 

@@ -14,15 +14,37 @@ using Microsoft.Extensions.Caching.Memory;
 
 namespace billservice.Controllers
 {
+    /// <summary>
+    /// 账单类型控制器
+    /// </summary>
     [Authorize]
     [Route( "api/billtypes" )]
     [ApiController]
     public class BillTypesController : Base.BaseController
     {
+        /// <summary>
+        /// 
+        /// </summary>
         readonly IMapper mapper;
+
+        /// <summary>
+        /// 
+        /// </summary>
         readonly IBillType Ibilltype;
+
+        /// <summary>
+        /// cache
+        /// </summary>
         readonly IMemoryCache memoryCache;
 
+
+
+        /// <summary>
+        /// 构造函数注入
+        /// </summary>
+        /// <param name="Ibilltype"></param>
+        /// <param name="mapper"></param>
+        /// <param name="memoryCache"></param>
         public BillTypesController ( IBillType Ibilltype , IMapper mapper , IMemoryCache memoryCache )
         {
             this.Ibilltype = Ibilltype;
@@ -65,7 +87,6 @@ namespace billservice.Controllers
 
             }
 
-
             //再取用户类型回来 ,判断一下:如果是刷新就取数据库,如果不是就取缓存
             List<billtype> usertypelist = null;
             List<billtype> resultusertypelist = null;
@@ -106,7 +127,6 @@ namespace billservice.Controllers
             {
                 list.AddRange( resultusertypelist );
             }
-
 
             List<BillTypeReturnDto> listDto = this.mapper.Map<List<billtype> , List<BillTypeReturnDto>>( list );
 
