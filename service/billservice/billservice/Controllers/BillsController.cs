@@ -11,18 +11,34 @@ using billservice.models.Dto;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
+
+
 namespace billservice.Controllers
 {
+    /// <summary>
+    /// 账单控制器
+    /// </summary>
     [Authorize]
     [Route( "api/bills" )]
     [ApiController]
     public class BillsController : Base.BaseController
     {
-
+        /// <summary>
+        /// 
+        /// </summary>
         readonly IMapper mapper;
+
+        /// <summary>
+        /// 
+        /// </summary>
         readonly IBill Ibill;
 
 
+        /// <summary>
+        /// 构造函数注入
+        /// </summary>
+        /// <param name="Ibill"></param>
+        /// <param name="mapper"></param>
         public BillsController ( IBill Ibill , IMapper mapper )
         {
             this.Ibill = Ibill;
@@ -179,10 +195,6 @@ namespace billservice.Controllers
 
             return result;
         }
-
-
-
-
 
 
 

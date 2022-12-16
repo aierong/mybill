@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+
+
 
 namespace billservice.Controllers.Base
 {
@@ -12,6 +10,9 @@ namespace billservice.Controllers.Base
     /// </summary>
     public class BaseController : ControllerBase
     {
+        /// <summary>
+        /// 获取登录账号
+        /// </summary>
         public string UserMobile
         {
             get
