@@ -7,14 +7,18 @@
 
  */
 
-import { IFormatMoney , IFormatPercent , IFormatStatMoney } from '@plugins/types'
+import {
+    IFormatMoney,
+    IFormatPercent, 
+    IFormatStatMoney
+} from '@plugins/types'
 
 // 定义类型 ，这样并且在vue页面中proxy调用有语法提示的
 declare module '@vue/runtime-core' {
     interface ComponentCustomProperties {
-        $FormatMoney : IFormatMoney;
-        $FormatStatMoney : IFormatStatMoney;
-        $FormatPercent : IFormatPercent;
+        $FormatMoney: IFormatMoney;
+        $FormatStatMoney: IFormatStatMoney;
+        $FormatPercent: IFormatPercent;
     }
 }
 
@@ -24,35 +28,47 @@ declare module '@vue/runtime-core' {
  * @param digits
  * @constructor
  */
-function FormatNumber ( num : number , digits : number = 2 ) {
-    return num.toFixed( digits );
+function FormatNumber(num: number, digits: number = 2) {
+    return num.toFixed(digits);
 }
 
-let FormatPercent : IFormatPercent = function ( num : number , digits : number = 2 ) {
-    return `${ FormatNumber( num * 100 , digits ) }%`;
+/*
+格式化百分数
+*/
+let FormatPercent: IFormatPercent = function (num: number, digits: number = 2) {
+    return `${FormatNumber(num * 100, digits)}%`;
 }
 
-let FormatMoney : IFormatMoney = function ( num , digits ) : string {
-    return FormatNumber( num , digits );
+/*
+格式化金额
+*/
+let FormatMoney: IFormatMoney = function (num, digits): string {
+    return FormatNumber(num, digits);
 }
 
-let FormatStatMoney : IFormatStatMoney = function ( num , digits ) : string {
-    var y : number = 100000000;
+/*
+格式化统计金额
+*/
+let FormatStatMoney: IFormatStatMoney = function (num, digits): string {
+    var y: number = 100000000;
 
-    if ( num >= y ) {
-        return FormatNumber( num / y , digits ) + '亿';
+    if (num >= y) {
+        return FormatNumber(num / y, digits) + '亿';
     }
 
-    var w : number = 10000;
-    if ( num >= w ) {
-        return FormatNumber( num / w , digits ) + '万';
+    var w: number = 10000;
+    if (num >= w) {
+        return FormatNumber(num / w, digits) + '万';
     }
 
-    return FormatNumber( num , digits );
+    return FormatNumber(num, digits);
 }
 
+/*
+导出方法
+*/
 export default {
-    install ( app , options ) {
+    install(app, options) {
         // 原型上可以绑定挂靠变量,方法：
 
         // 1.变量名,方法名推荐使用$开头(避免和本地变量冲突)
