@@ -22,8 +22,8 @@ namespace billservice.Validator
             this.bill = bill;
             this._context = _context;
 
-            CascadeMode = CascadeMode.Stop;
-
+            //CascadeMode = CascadeMode.Stop;
+            RuleLevelCascadeMode = CascadeMode.Stop;   //11.0版本的写法
 
 
             RuleFor( item => item.isadd )

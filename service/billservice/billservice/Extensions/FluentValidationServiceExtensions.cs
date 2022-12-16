@@ -21,9 +21,10 @@ namespace billservice.Extensions
         /// <returns></returns>
         public static IServiceCollection AddFluentValidationService ( this IServiceCollection services , IConfiguration configuration )
         {
-            //新版本，好像不要这样注册了
-            services.AddMvc().AddFluentValidation();
             
+            //services.AddMvc().AddFluentValidation();
+            services.AddFluentValidationAutoValidation();  //新版本注册
+
 
             services.AddTransient<IValidator<UserAddDto> , UserAddDtoValidator>();
             services.AddTransient<IValidator<UserLoginDto> , UserLoginDtoValidator>();

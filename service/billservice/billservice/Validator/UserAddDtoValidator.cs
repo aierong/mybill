@@ -18,8 +18,8 @@ namespace billservice.Validator
         {
             this.user = user;
 
-            CascadeMode = CascadeMode.Stop;
-
+            //CascadeMode = CascadeMode.Stop;
+            RuleLevelCascadeMode = CascadeMode.Stop;   //11.0版本的写法
 
 
             RuleFor( user => user.mobile )
