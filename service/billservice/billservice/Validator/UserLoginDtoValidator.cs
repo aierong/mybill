@@ -8,8 +8,13 @@ using billservice.models;
 using billservice.models.Dto;
 using FluentValidation;
 
+
+
 namespace billservice.Validator
 {
+    /// <summary>
+    /// 登录用户验证类
+    /// </summary>
     public class UserLoginDtoValidator : AbstractValidator<UserLoginDto>
     {
         readonly IUser user;
@@ -54,7 +59,6 @@ namespace billservice.Validator
                     return false;
 
                 } ).When( item => !string.IsNullOrWhiteSpace( item.mobile ) ).WithMessage( "密码错误" )
-
                 .WithName( "密码" );
 
 
