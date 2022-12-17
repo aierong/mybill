@@ -6,6 +6,9 @@ using billservice.models;
 
 namespace billservice.interfaces
 {
+    /// <summary>
+    /// 账单类型接口
+    /// </summary>
     public interface IBillType
     {
         bool IsExistName ( string typename , string mobile );

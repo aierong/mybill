@@ -5,10 +5,13 @@ using System.Threading.Tasks;
 using billservice.models;
 using billservice.models.Dto;
 
-// billservice.services
+ 
 
 namespace billservice.interfaces
 {
+    /// <summary>
+    /// 账单接口
+    /// </summary>
     public interface IBill
     {
 

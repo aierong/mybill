@@ -6,6 +6,9 @@ using billservice.models;
 
 namespace billservice.interfaces
 {
+    /// <summary>
+    /// 用户接口
+    /// </summary>
     public interface IUser
     {
         /// <summary>
