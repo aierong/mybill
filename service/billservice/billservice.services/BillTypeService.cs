@@ -8,11 +8,17 @@ using billservice.models;
 
 namespace billservice.services
 {
-
+    /// <summary>
+    /// 
+    /// </summary>
     public class BillTypeService : IBillType
     {
         readonly IFreeSql fsql;
 
+        /// <summary>
+        /// 注入
+        /// </summary>
+        /// <param name="fsql"></param>
         public BillTypeService ( IFreeSql fsql )
         {
             this.fsql = fsql;

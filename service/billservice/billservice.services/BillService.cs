@@ -10,10 +10,20 @@ using System.Collections.Specialized;
 
 namespace billservice.services
 {
+    /// <summary>
+    /// 账单服务
+    /// </summary>
     public class BillService : IBill
     {
+        /// <summary>
+        /// 
+        /// </summary>
         readonly IFreeSql fsql;
 
+        /// <summary>
+        /// 注入
+        /// </summary>
+        /// <param name="fsql"></param>
         public BillService ( IFreeSql fsql )
         {
             this.fsql = fsql;
@@ -37,6 +47,7 @@ namespace billservice.services
 
             return isAny;
         }
+
 
 
         public bool Save ( bills bill )

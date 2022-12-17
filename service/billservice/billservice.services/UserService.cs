@@ -7,11 +7,17 @@ using billservice.models;
 
 namespace billservice.services
 {
-
+    /// <summary>
+    /// 用户服务
+    /// </summary>
     public class UserService : IUser
     {
         readonly IFreeSql fsql;
 
+        /// <summary>
+        /// 注入
+        /// </summary>
+        /// <param name="fsql"></param>
         public UserService ( IFreeSql fsql )
         {
             this.fsql = fsql;
