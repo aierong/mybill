@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31205.134
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "billservice", "billservice\billservice.csproj", "{6AE02167-F251-4E4B-A1D5-3E0A196C2527}"
 EndProject
@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "billservice.models", "bills
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "billservice.interfaces", "billservice.interfaces\billservice.interfaces.csproj", "{438BC1F3-127D-4533-B305-FEBB5944C78C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "billservice.services", "billservice.services\billservice.services.csproj", "{CDF41A02-53F5-443F-AD3B-E6EE110D1B60}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "billservice.services", "billservice.services\billservice.services.csproj", "{CDF41A02-53F5-443F-AD3B-E6EE110D1B60}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
