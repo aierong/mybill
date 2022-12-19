@@ -14,6 +14,7 @@ using billservice.models;
 using billservice.models.Dto;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
@@ -45,17 +46,28 @@ namespace billservice.Controllers
         readonly TokenConfigData tokenConfigData;
 
 
+
+        /// <summary>
+        /// 日志
+        /// </summary>
+        readonly ILogger<UsersController> logger;
+
+
         /// <summary>
         /// 构造函数注入
         /// </summary>
         /// <param name="user"></param>
         /// <param name="mapper"></param>
         /// <param name="_TokenConfigDataOptions"></param>
-        public UsersController ( IUser user , IMapper mapper , IOptionsMonitor<TokenConfigData> _TokenConfigDataOptions )
+        public UsersController ( IUser user , 
+                                    IMapper mapper , 
+                                    IOptionsMonitor<TokenConfigData> _TokenConfigDataOptions,
+                                    ILogger<UsersController> logger )
         {
             this.iuser = user;
             this.mapper = mapper;
             this.tokenConfigData = _TokenConfigDataOptions.CurrentValue;
+            this.logger = logger;
         }
 
 
