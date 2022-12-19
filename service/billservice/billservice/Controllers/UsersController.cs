@@ -35,10 +35,14 @@ namespace billservice.Controllers
         /// </summary>
         readonly IUser iuser;
 
+
+
         /// <summary>
         /// 
         /// </summary>
         readonly IMapper mapper;
+
+
 
         /// <summary>
         /// 
@@ -51,6 +55,7 @@ namespace billservice.Controllers
         /// 日志
         /// </summary>
         readonly ILogger<UsersController> logger;
+
 
 
         /// <summary>
