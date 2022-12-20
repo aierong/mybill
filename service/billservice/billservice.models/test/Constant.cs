@@ -5,7 +5,7 @@ using System.Text;
 
 
 
-namespace WindowsServiceApp
+namespace billservice.models.test
 {
     public  class Constant
     {
