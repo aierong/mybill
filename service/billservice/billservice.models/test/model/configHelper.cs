@@ -2,7 +2,7 @@
 using System.Configuration;
 //using System.Net.Configuration;
 
-namespace Helpers
+namespace billservice.models.test.model
 {
     class configHelper
     {
