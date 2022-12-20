@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace WindowsServiceApp.dataclass
+namespace billservice.models.test
 {
     /// <summary>
     /// 应用程序配置数据模型类

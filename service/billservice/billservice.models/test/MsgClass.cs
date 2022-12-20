@@ -5,7 +5,7 @@ using System.Text;
 
 
 
-namespace WindowsServiceApp.dataclass
+namespace billservice.models.test
 {
     /// <summary>
     /// 消息类
