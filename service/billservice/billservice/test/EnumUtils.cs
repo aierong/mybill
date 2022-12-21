@@ -6,7 +6,7 @@ using System.Text;
 
 using System.ComponentModel;
 
-namespace Utils
+namespace Utbillservice.testils
 {
     public class EnumUtil
     {
