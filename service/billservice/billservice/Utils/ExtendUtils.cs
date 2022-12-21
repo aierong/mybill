@@ -8,7 +8,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 
 
-namespace Utils
+namespace billservice.Utils
 {
     public static class ExtendUtils
     {

@@ -5,7 +5,7 @@ using System.Text;
 
 
 
-namespace Utils
+namespace billservice.Utils
 {
     /// <summary>
     /// 常量

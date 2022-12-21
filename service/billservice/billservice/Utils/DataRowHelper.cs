@@ -4,38 +4,14 @@ using System.Data;
 using System.Linq;
 using System.Text;
 
-namespace Utils
+namespace billservice.Utils
 {
     public class DataRowHelper
     {
 
 
 
-        //public static T SafeReadRow<T> ( DataRow row , string fieldName , T defaultValue )
-        //{
-        //    try
-        //    {
-        //        if ( row.Table.Columns.Contains( fieldName ) && !row.IsNull( fieldName ) )
-        //        {
-        //            object obj = row[fieldName];
-
-        //            if ( obj == null || obj == System.DBNull.Value )
-        //                return defaultValue;
-
-        //            return ( T )Convert.ChangeType( obj , defaultValue.GetType() );
-        //        }
-
-        //        return defaultValue;
-        //    }
-        //    catch
-        //    {
-        //        return defaultValue;
-        //    }
-        //    finally
-        //    {
-
-        //    }
-        //}
+ 
 
 
         public static T SafeReadRow<T> ( DataRow row , string field , T defaultValue )

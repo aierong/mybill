@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Utils
+namespace billservice.Utils
 {
     /// <summary>
     /// 各种验证帮助类
