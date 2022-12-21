@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 
-namespace WebAppZJJ.Middlewares
+namespace billservice.test.Middlewares
 {
     public static class MyCustomMiddlewareExtensions
     {
