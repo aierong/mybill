@@ -25,6 +25,8 @@ app.use( components )
 app.use( common )
 
 // 注入key
-app.use( store , key ).use( router ).mount( '#app' )
+app.use( store , key )
+.use( router )
+.mount( '#app' )
 
 
