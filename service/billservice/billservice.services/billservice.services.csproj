@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\billservice.interfaces\billservice.interfaces.csproj" />
+    <ProjectReference Include="..\Utils\Utils.csproj" />
   </ItemGroup>
 
 </Project>

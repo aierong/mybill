@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "billservice.interfaces", "b
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "billservice.services", "billservice.services\billservice.services.csproj", "{CDF41A02-53F5-443F-AD3B-E6EE110D1B60}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Utils", "Utils\Utils.csproj", "{1239737B-24F1-4BB8-A14D-BA55612F80E2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -38,6 +40,10 @@ Global
 		{CDF41A02-53F5-443F-AD3B-E6EE110D1B60}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CDF41A02-53F5-443F-AD3B-E6EE110D1B60}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CDF41A02-53F5-443F-AD3B-E6EE110D1B60}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1239737B-24F1-4BB8-A14D-BA55612F80E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1239737B-24F1-4BB8-A14D-BA55612F80E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1239737B-24F1-4BB8-A14D-BA55612F80E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1239737B-24F1-4BB8-A14D-BA55612F80E2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
