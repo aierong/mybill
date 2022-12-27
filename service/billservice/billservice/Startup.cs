@@ -86,7 +86,10 @@ namespace billservice
                         string errorStackTrace = ex.StackTrace != null ? ex.StackTrace : string.Empty;
                         string errpath = context.Request.Path;
 
-                        var result = new ServiceResult<string>() { Result = string.Empty };
+                        var result = new ServiceResult<string>()
+                        {
+                            Result = string.Empty
+                        };
                         result.IsFailed( errormsg );
 
                         string jsonerror = System.Text.Json.JsonSerializer.Serialize( result );
