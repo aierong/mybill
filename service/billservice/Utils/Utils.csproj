@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Masuit.Tools.Core" Version="2.5.9.1" />
+    <PackageReference Include="Masuit.Tools.AspNetCore" Version="1.1.9.1" />
   </ItemGroup>
 
 </Project>
