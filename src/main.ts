@@ -3,7 +3,6 @@ import App from './App.vue'
 import router from './router'
 import { store , key } from '@store/index'
 
-
 //导入vant
 import Vant from 'vant';
 import 'vant/lib/index.css';
@@ -25,5 +24,3 @@ app.use( common )
 app.use( store , key )
 .use( router )
 .mount( '#app' )
-
-
