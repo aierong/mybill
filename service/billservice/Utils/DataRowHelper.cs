@@ -9,35 +9,14 @@ namespace Utils
     public class DataRowHelper
     {
 
-
-
-        //public static T SafeReadRow<T> ( DataRow row , string fieldName , T defaultValue )
-        //{
-        //    try
-        //    {
-        //        if ( row.Table.Columns.Contains( fieldName ) && !row.IsNull( fieldName ) )
-        //        {
-        //            object obj = row[fieldName];
-
-        //            if ( obj == null || obj == System.DBNull.Value )
-        //                return defaultValue;
-
-        //            return ( T )Convert.ChangeType( obj , defaultValue.GetType() );
-        //        }
-
-        //        return defaultValue;
-        //    }
-        //    catch
-        //    {
-        //        return defaultValue;
-        //    }
-        //    finally
-        //    {
-
-        //    }
-        //}
-
-
+        /// <summary>
+        /// 安全读取
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="row"></param>
+        /// <param name="field"></param>
+        /// <param name="defaultValue"></param>
+        /// <returns></returns>
         public static T SafeReadRow<T> ( DataRow row , string field , T defaultValue )
         {
             try
@@ -69,7 +48,13 @@ namespace Utils
 
 
 
-
+        /// <summary>
+        /// 安全读取
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="row"></param>
+        /// <param name="field"></param>
+        /// <returns></returns>
         public static T SafeReadRow<T> ( DataRow row , string field )
         {
             // 
