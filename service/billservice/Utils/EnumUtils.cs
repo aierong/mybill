@@ -8,6 +8,9 @@ using System.ComponentModel;
 
 namespace Utils
 {
+    /// <summary>
+    /// 枚举工具类
+    /// </summary>
     public class EnumUtil
     {
 

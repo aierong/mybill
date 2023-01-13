@@ -8,10 +8,16 @@ using System.Text;
 using System.Text.RegularExpressions;
 
 
+
 namespace Utils
 {
     public static class ExtendUtils
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public static bool IsDecimal ( this string value )
         {
             return Regex.IsMatch( value , @"^[+-]?\d*[.]?\d*$" );
@@ -19,6 +25,11 @@ namespace Utils
 
 
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public static bool GetBoolean ( this object value )
         {
             if ( value is bool )
@@ -29,6 +40,11 @@ namespace Utils
 
 
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public static bool GetBoolean ( this string value )
         {
             if ( string.IsNullOrEmpty( value ) )
@@ -46,6 +62,11 @@ namespace Utils
 
 
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public static decimal GetDecimal ( this object value )
         {
             if ( value == null )
@@ -67,6 +88,11 @@ namespace Utils
 
 
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public static decimal GetDecimal ( this string value )
         {
             if ( string.IsNullOrEmpty( value ) || !IsDecimal( value ) )
@@ -77,6 +103,11 @@ namespace Utils
 
 
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public static int GetInteger ( this object value )
         {
             if ( value == null )
@@ -96,6 +127,13 @@ namespace Utils
                 return GetInteger( value.ToString() );
         }
 
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public static int GetInteger ( this string value )
         {
             if ( string.IsNullOrEmpty( value ) || !IsDecimal( value ) )
@@ -104,6 +142,14 @@ namespace Utils
                 return ( int )Convert.ToDecimal( value );
         }
 
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="defa"></param>
+        /// <returns></returns>
         public static int GetInteger ( this string value , int defa )
         {
             if ( value.IsNullOrEmpty() )
@@ -112,6 +158,13 @@ namespace Utils
                 return value.GetInteger();
         }
 
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public static string GetString ( this object value )
         {
             if ( value == null || value is DBNull )
@@ -121,6 +174,14 @@ namespace Utils
             return value.ToString();
         }
 
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="defaultString"></param>
+        /// <returns></returns>
         public static string GetString ( this object value , string defaultString )
         {
             if ( string.IsNullOrEmpty( value.GetString() ) )
@@ -129,6 +190,9 @@ namespace Utils
             }
             return value.GetString();
         }
+
+
+
 
         /// <summary>
         /// 等效IsNullOrEmpty

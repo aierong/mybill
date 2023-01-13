@@ -63,7 +63,14 @@ namespace Utils
 
 
 
-
+        /// <summary>
+        /// 安全设置
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="row"></param>
+        /// <param name="field"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public static bool SafeSetRowValue<T> ( DataRow row , string field , T value )
         {
             try
