@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Data;
 using billservice.interfaces;
+using billservice.IRepository;
 using billservice.models;
 using billservice.models.Dto;
 using System.Collections.Specialized;
@@ -13,29 +14,29 @@ namespace billservice.services
     /// <summary>
     /// 账单服务
     /// </summary>
-    public class BillService : IBill
+    public class BillService : interfaces.IBill
     {
         /// <summary>
         /// 
         /// </summary>
-        readonly IFreeSql fsql;
+        readonly IRepository.IBill iBill;
+
 
         /// <summary>
         /// 注入
         /// </summary>
-        /// <param name="fsql"></param>
-        public BillService ( IFreeSql fsql )
+        /// <param name="iBill"></param>
+        public BillService ( IRepository.IBill iBill )
         {
-            this.fsql = fsql;
+            this.iBill = iBill;
         }
 
 
 
         public bool IsExistId ( int id , string mobile )
         {
-            var isAny = fsql.Select<bills>().Where( it => it.ids == id
-                                                                                 && it.mobile == mobile ).Any();
-            return isAny;
+
+            return this.iBill.IsExistId( id , mobile );
         }
 
 
