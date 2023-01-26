@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using billservice.interfaces;
+using billservice.IRepository;
 using billservice.models;
 
 
@@ -11,17 +12,18 @@ namespace billservice.services
     /// <summary>
     /// 
     /// </summary>
-    public class BillTypeService : IBillType
+    public class BillTypeService : interfaces.IBillType
     {
-        readonly IFreeSql fsql;
+        readonly IRepository.IBillType iBillType;
+
 
         /// <summary>
         /// 注入
         /// </summary>
-        /// <param name="fsql"></param>
-        public BillTypeService ( IFreeSql fsql )
+        /// <param name="iBillType"></param>
+        public BillTypeService ( IRepository.IBillType iBillType )
         {
-            this.fsql = fsql;
+            this.iBillType = iBillType;
         }
 
 
@@ -29,21 +31,7 @@ namespace billservice.services
         public bool IsExistName ( string typename , string mobile )
         {
 
-            // 先判断自己的类型是否重名
-            var isAny = fsql.Select<billtype>().Where( it => it.typename == typename
-                                                                                && it.mobile == mobile
-                                                                                && it.issystemtype == false ).Any();
-
-            if ( isAny )
-            {
-                return true;
-            }
-
-            // 再判断 是否于系统的名称是否重名
-            isAny = fsql.Select<billtype>().Where( it => it.typename == typename
-                                                                                && it.issystemtype == true ).Any();
-
-            return isAny;
+            return this.iBillType.IsExistName( typename , mobile );
         }
 
 
@@ -51,10 +39,8 @@ namespace billservice.services
         public bool IsExistType ( int billtypeid , bool isout )
         {
 
-            var isAny = fsql.Select<billtype>().Where( it => it.ids == billtypeid
-                                                                                && it.isout == isout ).Any();
 
-            return isAny;
+            return this.iBillType.IsExistType( billtypeid , isout );
         }
 
 
@@ -62,11 +48,9 @@ namespace billservice.services
         public bool IsExistUserType ( int billtypeid , string mobile )
         {
 
-            var isAny = fsql.Select<billtype>().Where( it => it.ids == billtypeid
-                                                                                && it.issystemtype == false
-                                                                                && it.mobile == mobile ).Any();
 
-            return isAny;
+
+            return this.iBillType.IsExistUserType( billtypeid , mobile );
         }
 
 
@@ -74,10 +58,8 @@ namespace billservice.services
         public bool IsExistSystemType ( int billtypeid )
         {
 
-            var isAny = fsql.Select<billtype>().Where( it => it.ids == billtypeid
-                                                                                && it.issystemtype == true ).Any();
 
-            return isAny;
+            return this.iBillType.IsExistSystemType( billtypeid );
         }
 
 
@@ -85,9 +67,9 @@ namespace billservice.services
         public bool Save ( billtype _billtype )
         {
 
-            var ids = fsql.Insert( _billtype ).ExecuteAffrows();
 
-            return ids > 0;
+
+            return this.iBillType.Save( _billtype );
         }
 
 
@@ -95,9 +77,9 @@ namespace billservice.services
         public async Task<bool> SaveAsync ( billtype _billtype )
         {
 
-            var ids = await fsql.Insert( _billtype ).ExecuteAffrowsAsync();
 
-            return ids > 0;
+
+            return await this.iBillType.SaveAsync( _billtype );
         }
 
 
@@ -105,9 +87,9 @@ namespace billservice.services
         public async Task<List<billtype>> GetAllSystemTypeAsync ()
         {
 
-            var list = await fsql.Select<billtype>().Where( it => it.issystemtype == true ).ToListAsync();
 
-            return list;
+
+            return await this.iBillType.GetAllSystemTypeAsync();
         }
 
 
@@ -115,9 +97,9 @@ namespace billservice.services
         public async Task<List<billtype>> GetAllUserTypeAsync ( string mobile )
         {
 
-            var list = await fsql.Select<billtype>().Where( it => it.issystemtype == false && it.mobile == mobile ).ToListAsync();
 
-            return list;
+
+            return await this.iBillType.GetAllUserTypeAsync( mobile );
         }
 
 

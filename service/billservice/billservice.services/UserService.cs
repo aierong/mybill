@@ -3,156 +3,133 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using billservice.interfaces;
+using billservice.IRepository;
 using billservice.models;
+
+
 
 namespace billservice.services
 {
     /// <summary>
     /// 用户服务
     /// </summary>
-    public class UserService : IUser
+    public class UserService : interfaces.IUser
     {
-        readonly IFreeSql fsql;
+        readonly IRepository.IUser iuser;
+
 
         /// <summary>
         /// 注入
         /// </summary>
-        /// <param name="fsql"></param>
-        public UserService ( IFreeSql fsql )
+        /// <param name="iuser"></param>
+        public UserService ( IRepository.IUser iuser )
         {
-            this.fsql = fsql;
+            this.iuser = iuser;
         }
 
 
 
         public users GetUser ( string mobile )
         {
-            var model = fsql.Select<users>().Where( it => it.mobile == mobile ).ToOne();
 
-            return model;
+            return this.iuser.GetUser( mobile );
+
         }
 
 
 
         public async Task<users> GetUserAsync ( string mobile )
         {
-            var model = await fsql.Select<users>().Where( it => it.mobile == mobile ).ToOneAsync();
 
-            return model;
+            return await this.iuser.GetUserAsync( mobile );
         }
 
 
 
         public bool IsExistEmail ( string email )
         {
-            var isAny = fsql.Select<users>().Where( it => it.email == email ).Any();
 
-            return isAny;
+
+            return this.iuser.IsExistEmail( email );
         }
 
 
 
         public bool IsExistUser ( string mobile )
         {
-            var isAny = fsql.Select<users>().Where( it => it.mobile == mobile ).Any();
-
-            return isAny;
+            return this.iuser.IsExistUser( mobile );
         }
 
 
 
         public bool Save ( users user )
         {
-            var ids = fsql.Insert( user ).ExecuteAffrows();
 
-            return ids > 0;
+
+            return this.iuser.Save( user );
         }
 
 
 
         public async Task<bool> SaveAsync ( users user )
         {
-            var ids = await fsql.Insert( user ).ExecuteAffrowsAsync();
 
-            return ids > 0;
+
+            return await this.iuser.SaveAsync( user );
         }
 
 
 
         public bool UpdateAvatar ( string mobile , string avatar )
         {
-            var result = fsql.Update<users>()
-                          .Set( a => a.avatar , avatar )
-                          .Set( a => a.updatedate , DateTime.Now )
-                          .Where( it => it.mobile == mobile )
-                          .ExecuteAffrows();
 
-            return result > 0;
+
+            return this.iuser.UpdateAvatar( mobile , avatar );
         }
 
 
 
         public async Task<bool> UpdateAvatarAsync ( string mobile , string avatar )
         {
-            var result = await fsql.Update<users>()
-                          .Set( a => a.avatar , avatar )
-                          .Set( a => a.updatedate , DateTime.Now )
-                          .Where( it => it.mobile == mobile )
-                          .ExecuteAffrowsAsync();
 
-            return result > 0;
+
+            return await this.iuser.UpdateAvatarAsync( mobile , avatar );
         }
 
 
 
         public bool UpdateLoginInfo ( string mobile , int logintimes )
         {
-            var result = fsql.Update<users>()
-                          .Set( a => a.logintimes , logintimes )
-                          .Set( a => a.lastlogindate , DateTime.Now )
-                          .Where( it => it.mobile == mobile )
-                          .ExecuteAffrows();
 
-            return result > 0;
+
+            return this.iuser.UpdateLoginInfo( mobile , logintimes );
         }
 
 
 
         public async Task<bool> UpdateLoginInfoAsync ( string mobile , int logintimes )
         {
-            var result = await fsql.Update<users>()
-                          .Set( a => a.logintimes , logintimes )
-                          .Set( a => a.lastlogindate , DateTime.Now )
-                          .Where( it => it.mobile == mobile )
-                          .ExecuteAffrowsAsync();
 
-            return result > 0;
+
+            return await this.iuser.UpdateLoginInfoAsync( mobile , logintimes );
         }
 
 
 
         public bool UpdatePassWord ( string mobile , string pwd )
         {
-            var result = fsql.Update<users>()
-                          .Set( a => a.password , pwd )
-                          .Set( a => a.updatedate , DateTime.Now )
-                          .Where( it => it.mobile == mobile )
-                          .ExecuteAffrows();
 
-            return result > 0;
+
+            return this.iuser.UpdatePassWord( mobile , pwd );
         }
 
 
 
         public async Task<bool> UpdatePassWordAsync ( string mobile , string pwd )
         {
-            var result = await fsql.Update<users>()
-                          .Set( a => a.password , pwd )
-                          .Set( a => a.updatedate , DateTime.Now )
-                          .Where( it => it.mobile == mobile )
-                          .ExecuteAffrowsAsync();
 
-            return result > 0;
+
+            return await this.iuser.UpdatePassWordAsync( mobile , pwd );
         }
 
 
