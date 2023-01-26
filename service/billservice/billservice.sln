@@ -15,6 +15,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "billservice.services", "bil
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Utils", "Utils\Utils.csproj", "{1239737B-24F1-4BB8-A14D-BA55612F80E2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "billservice.IRepository", "billservice.IRepository\billservice.IRepository.csproj", "{D1FEA90E-4112-4D93-A192-F5E3AE5D0307}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "billservice.Repository", "billservice.Repository\billservice.Repository.csproj", "{56923974-ECBD-4A76-827C-56B6F8229EE3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,6 +48,14 @@ Global
 		{1239737B-24F1-4BB8-A14D-BA55612F80E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1239737B-24F1-4BB8-A14D-BA55612F80E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1239737B-24F1-4BB8-A14D-BA55612F80E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1FEA90E-4112-4D93-A192-F5E3AE5D0307}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1FEA90E-4112-4D93-A192-F5E3AE5D0307}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1FEA90E-4112-4D93-A192-F5E3AE5D0307}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1FEA90E-4112-4D93-A192-F5E3AE5D0307}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56923974-ECBD-4A76-827C-56B6F8229EE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56923974-ECBD-4A76-827C-56B6F8229EE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56923974-ECBD-4A76-827C-56B6F8229EE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56923974-ECBD-4A76-827C-56B6F8229EE3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
