@@ -2,10 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using billservice.interfaces;
-using billservice.services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+
+using billservice.interfaces;
+using billservice.IRepository;
+using billservice.services;
+using billservice.Repository;
+
 
 namespace billservice.Extensions
 {
@@ -37,9 +41,14 @@ namespace billservice.Extensions
 
 
 
-            services.AddSingleton<IUser , UserService>();
-            services.AddSingleton<IBillType , BillTypeService>();
-            services.AddSingleton<IBill , BillService>();
+            services.AddSingleton<interfaces.IUser , services.UserService>();
+            services.AddSingleton<interfaces.IBillType , services.BillTypeService>();
+            services.AddSingleton<interfaces.IBill , services.BillService>();
+
+            services.AddSingleton<IRepository.IUser , Repository.UserService>();
+            services.AddSingleton<IRepository.IBillType , Repository.BillTypeService>();
+            services.AddSingleton<IRepository.IBill , Repository.BillService>();
+
 
             return services;
         }
