@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\billservice.interfaces\billservice.interfaces.csproj" />
-    <ProjectReference Include="..\Utils\Utils.csproj" />
+    <ProjectReference Include="..\billservice.IRepository\billservice.IRepository.csproj" />
   </ItemGroup>
 
 </Project>
