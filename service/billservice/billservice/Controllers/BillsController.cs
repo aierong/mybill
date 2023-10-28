@@ -127,6 +127,7 @@ namespace billservice.Controllers
         }
 
 
+
         [HttpGet]
         [Route( "getstatmonthlist/{year}/{month}/{isout}/{monthnum}" )]
         public async Task<ServiceResult<List<BillSumMonthReturnDto>>> getstatmonthlist ( int year , int month , bool isout , int monthnum )
@@ -141,6 +142,7 @@ namespace billservice.Controllers
 
             return result;
         }
+
 
 
         [HttpGet]
