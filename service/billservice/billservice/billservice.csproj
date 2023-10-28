@@ -10,7 +10,7 @@
 
     <PackageReference Include="EasyCaching.InMemory" Version="1.9.1" />
 
-    <PackageReference Include="FluentValidation.AspNetCore" Version="11.2.2" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.32" />
     <PackageReference Include="NLog.Web.AspNetCore" Version="5.2.2" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.27.0" />
