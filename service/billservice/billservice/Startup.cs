@@ -58,7 +58,7 @@ namespace billservice
             services.AddFluentValidationService();
             services.AddTokenService( Configuration );
             services.AddCorsService( Configuration );
-            services.AddCacheService( Configuration );
+            services.AddCacheService();
             services.AddOtherService( Configuration );
 
         }

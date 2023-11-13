@@ -132,6 +132,21 @@ namespace billservice.Extensions
 
 
 
+        /// <summary>
+        /// 注册cache服务
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="configuration"></param>
+        /// <returns></returns>
+        public static IServiceCollection AddCacheService ( this IServiceCollection services )
+        {
+
+            //注册cache服务
+            services.AddMemoryCache();
+
+            return services;
+        }
+
 
     }
 }
