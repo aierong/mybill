@@ -59,7 +59,7 @@ namespace billservice
             services.AddTokenService( Configuration );
             services.AddCorsService( Configuration );
             services.AddCacheService();
-            services.AddOtherService( Configuration );
+            services.AddOtherService();
 
         }
 
