@@ -26,7 +26,8 @@ namespace billservice
                 .ConfigureWebHostDefaults( webBuilder =>
                  {
                      webBuilder.UseStartup<Startup>();
-                 } ).ConfigureLogging( logging =>
+                 } )
+                .ConfigureLogging( logging =>
                  {
                      logging.ClearProviders();
                      logging.SetMinimumLevel( Microsoft.Extensions.Logging.LogLevel.Trace );

@@ -15,12 +15,12 @@ namespace billservice.Extensions
         /// <param name="services"></param>
         /// <param name="configuration"></param>
         /// <returns></returns>
-        public static IServiceCollection AddAutoMapperService ( this IServiceCollection services , IConfiguration configuration )
-        {
+        //public static IServiceCollection AddAutoMapperService ( this IServiceCollection services )
+        //{
 
-            services.AddAutoMapper( AppDomain.CurrentDomain.GetAssemblies() );
+        //    services.AddAutoMapper( AppDomain.CurrentDomain.GetAssemblies() );
 
-            return services;
-        }
+        //    return services;
+        //}
     }
 }
