@@ -152,11 +152,11 @@ namespace billservice.Extensions
 
 
 
+
         /// <summary>
         /// 其它的相关服务注册
         /// </summary>
         /// <param name="services"></param>
-        /// <param name="configuration"></param>
         /// <returns></returns>
         public static IServiceCollection AddOtherService ( this IServiceCollection services )
         {
