@@ -55,7 +55,7 @@ namespace billservice
             // 可以分模块分别写不同的静态扩展方法
             services.AddDBService( Configuration );
             services.AddAutoMapperService();
-            services.AddFluentValidationService( Configuration );
+            services.AddFluentValidationService();
             services.AddTokenService( Configuration );
             services.AddCorsService( Configuration );
             services.AddCacheService( Configuration );
