@@ -10,6 +10,9 @@ using Microsoft.AspNetCore.Http;
 
 namespace billservice.Validator
 {
+    /// <summary>
+    /// 验证类
+    /// </summary>
     public class BillTypeDtoValidator : AbstractValidator<BillTypeDto>
     {
         readonly IBillType billtype;

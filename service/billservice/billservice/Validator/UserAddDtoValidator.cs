@@ -8,6 +8,9 @@ using FluentValidation;
 
 namespace billservice.Validator
 {
+    /// <summary>
+    /// 验证类
+    /// </summary>
     public class UserAddDtoValidator : AbstractValidator<UserAddDto>
     {
         readonly IUser user;
