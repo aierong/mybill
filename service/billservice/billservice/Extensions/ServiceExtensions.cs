@@ -59,6 +59,13 @@ namespace billservice.Extensions
         }
 
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="configuration"></param>
+        /// <returns></returns>
         public static IServiceCollection AddTokenService ( this IServiceCollection services , IConfiguration configuration )
         {
             const string sectionname = "TokenInfo";
