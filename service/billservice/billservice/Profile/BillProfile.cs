@@ -27,7 +27,7 @@ namespace billservice.Profile
                         dest.updatedate = null;
                         dest.deletedate = null;
 
-                        dest.delmark = Helpers.Constant.N;
+                        dest.delmark = Constant.N;
 
                         DateTime date = Convert.ToDateTime( src.moneydate );
 
