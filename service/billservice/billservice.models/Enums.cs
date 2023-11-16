@@ -1,10 +1,8 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 
-namespace billservice.Helpers
+namespace billservice.models
 {
     /// <summary>
     /// 系统2个角色
@@ -21,5 +19,4 @@ namespace billservice.Helpers
         /// </summary>
         user
     }
-     
 }
