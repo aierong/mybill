@@ -1,14 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
-
-/*
-问题简介： 返回DateTime,前端接收到的字符有时候为2018-01-01T12:01:01，有时候为2018-01-01T01:01:01.722+08:00，无法正常解析
-
-*/
 
 namespace billservice.Helpers
 {
