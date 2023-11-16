@@ -62,14 +62,14 @@ namespace billservice.Controllers
         /// <param name="user"></param>
         /// <param name="mapper"></param>
         /// <param name="_TokenConfigDataOptions"></param>
-        public UsersController ( IUser user , 
-                                    IMapper mapper , 
-                                    IOptionsMonitor<TokenConfigData> _TokenConfigDataOptions,
+        public UsersController ( IUser user ,
+                                    IMapper mapper ,
+                                    IOptions<TokenConfigData> _TokenConfigDataOptions ,
                                     ILogger<UsersController> logger )
         {
             this.iuser = user;
             this.mapper = mapper;
-            this.tokenConfigData = _TokenConfigDataOptions.CurrentValue;
+            this.tokenConfigData = _TokenConfigDataOptions.Value;
             this.logger = logger;
         }
 
@@ -197,7 +197,7 @@ namespace billservice.Controllers
 
                 return result;
             }
-                        
+
             return result;
         }
 
