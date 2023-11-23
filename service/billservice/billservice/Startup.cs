@@ -103,10 +103,8 @@ namespace billservice
                 } );
             } );
 
-            CorsConfigData _CorsConfigData = this.Configuration.GetSection( "CorsInfo" ).Get<CorsConfigData>();
-            //定义名称
-            string PolicyName = _CorsConfigData.name;
-            app.UseCors( PolicyName );
+
+            app.UseCors();
 
             app.UseRouting();
 

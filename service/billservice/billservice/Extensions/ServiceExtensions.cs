@@ -156,16 +156,15 @@ namespace billservice.Extensions
         {
             CorsConfigData _CorsConfigData = configuration.GetSection( "CorsInfo" ).Get<CorsConfigData>();
 
-            //定义名称
-            string PolicyName = _CorsConfigData.name;
-            string[] urls = _CorsConfigData.urls.ToArray();
+
+
 
             //添加cors 服务 配置跨域处理            
-            services.AddCors( options => options.AddPolicy( PolicyName ,
+            services.AddCors( options => options.AddDefaultPolicy(
              builder =>
              {
 
-                 builder.WithOrigins( urls )
+                 builder.WithOrigins( _CorsConfigData.urls.ToArray() )
                                  .AllowAnyMethod()
                                  .AllowAnyHeader()
                                  .AllowCredentials();
