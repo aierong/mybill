@@ -7,9 +7,6 @@ namespace billservice.Helpers.ConfigData
 {
     public class CorsConfigData
     {
- 
-
-
         public List<string> urls
         {
             get; set;
