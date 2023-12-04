@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using billservice.Helpers;
 using billservice.models;
 using billservice.models.Dto;
 
@@ -13,9 +9,7 @@ namespace billservice.Profile
     {
         public BillProfile ()
         {
-            CreateMap<BillDto , bills>()
-
-                .AfterMap( ( src , dest , context ) =>
+            CreateMap<BillDto , bills>().AfterMap( ( src , dest , context ) =>
                 {
                     DateTime now = DateTime.Now;
 
