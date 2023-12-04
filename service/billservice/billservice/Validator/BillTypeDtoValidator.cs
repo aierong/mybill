@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-using System.Threading.Tasks;
+﻿using System.Linq;
 using billservice.interfaces;
 using billservice.models.Dto;
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
+
+
 
 namespace billservice.Validator
 {
@@ -16,6 +14,10 @@ namespace billservice.Validator
     public class BillTypeDtoValidator : AbstractValidator<BillTypeDto>
     {
         readonly IBillType billtype;
+
+        /// <summary>
+        /// 上下文
+        /// </summary>
         readonly IHttpContextAccessor _context;
 
         public BillTypeDtoValidator ( IBillType billtype , IHttpContextAccessor _context )

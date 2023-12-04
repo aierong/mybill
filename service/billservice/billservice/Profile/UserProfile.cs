@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using billservice.Helpers;
 using billservice.models;
 using billservice.models.Dto;
@@ -14,8 +11,8 @@ namespace billservice.Profile
         public UserProfile ()
         {
             CreateMap<UserAddDto , users>()
-               .ForMember( destination => destination.password , opt => opt.MapFrom( src => MD5Security.Encrypt( src.password ) ) )
-               .AfterMap( ( src , dest ) =>
+                .ForMember( destination => destination.password , opt => opt.MapFrom( src => MD5Security.Encrypt( src.password ) ) )
+                .AfterMap( ( src , dest ) =>
                {
                    DateTime now = DateTime.Now;
 

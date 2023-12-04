@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using billservice.interfaces;
 using billservice.models.Dto;
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
+
+
 
 namespace billservice.Validator
 {
@@ -16,6 +16,10 @@ namespace billservice.Validator
     {
         readonly IBillType billtype;
         readonly IBill bill;
+
+        /// <summary>
+        /// 上下文
+        /// </summary>
         readonly IHttpContextAccessor _context;
 
 
