@@ -13,6 +13,9 @@ namespace billservice.Validator
     /// </summary>
     public class BillTypeDtoValidator : AbstractValidator<BillTypeDto>
     {
+        /// <summary>
+        /// 
+        /// </summary>
         readonly IBillType billtype;
 
         /// <summary>
@@ -20,6 +23,11 @@ namespace billservice.Validator
         /// </summary>
         readonly IHttpContextAccessor _context;
 
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="billtype"></param>
+        /// <param name="_context"></param>
         public BillTypeDtoValidator ( IBillType billtype , IHttpContextAccessor _context )
         {
 

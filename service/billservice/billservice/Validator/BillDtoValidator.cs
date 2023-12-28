@@ -14,7 +14,14 @@ namespace billservice.Validator
     /// </summary>
     public class BillDtoValidator : AbstractValidator<BillDto>
     {
+        /// <summary>
+        /// 
+        /// </summary>
         readonly IBillType billtype;
+
+        /// <summary>
+        /// 
+        /// </summary>
         readonly IBill bill;
 
         /// <summary>

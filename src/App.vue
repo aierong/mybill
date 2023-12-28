@@ -1,12 +1,10 @@
 <template>
     <div id="apppage">
-
     </div>
     <router-view/>
 </template>
 
 <style lang="less">
-
 html,
 body,
 #apppage {

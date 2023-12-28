@@ -11,10 +11,16 @@ namespace billservice.Validator
     /// </summary>
     public class UserAddDtoValidator : AbstractValidator<UserAddDto>
     {
+        /// <summary>
+        /// 
+        /// </summary>
         readonly IUser user;
 
 
-
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="user"></param>
         public UserAddDtoValidator ( IUser user )
         {
             this.user = user;
