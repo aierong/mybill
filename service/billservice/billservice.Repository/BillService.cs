@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Data;
- 
+using System.Threading.Tasks;
+using billservice.IRepository;
 using billservice.models;
 using billservice.models.Dto;
-using System.Collections.Specialized;
-using billservice.IRepository;
 
 namespace billservice.Repository
 {

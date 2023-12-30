@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
- 
-using billservice.models;
 using billservice.IRepository;
+using billservice.models;
 
 namespace billservice.Repository
 {
