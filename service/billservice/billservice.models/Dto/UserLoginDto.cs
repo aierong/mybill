@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace billservice.models.Dto
+﻿namespace billservice.models.Dto
 {
     public class UserLoginDto
     {
