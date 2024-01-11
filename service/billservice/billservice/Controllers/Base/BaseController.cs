@@ -29,7 +29,6 @@ namespace billservice.Controllers.Base
 
                         return name;
                     }
-
                 }
 
                 return string.Empty;

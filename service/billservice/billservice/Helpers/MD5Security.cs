@@ -1,12 +1,13 @@
 ﻿using System;
-using System.IO;
 using System.Security.Cryptography;
 using System.Text;
+
+
 
 namespace billservice.Helpers
 {
     /// <summary>
-    /// MD5
+    /// MD5加密类
     /// </summary>
     public class MD5Security
     {
