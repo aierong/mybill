@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using billservice.Helpers.Result.Paged;
 
+
+
 namespace billservice.Helpers.Result
 {
     public class PagedList<T> : ListResult<T>, IPagedList<T>
