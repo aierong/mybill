@@ -12,32 +12,34 @@
             get; set;
         }
 
-
         public decimal moneys
         {
             get; set;
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
         public string moneydate
         {
             get; set;
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
         public string memo
         {
             get; set;
         }
 
-
-
+        /// <summary>
+        /// 
+        /// </summary>
         public bool isadd
         {
             get; set;
         }
-
-
 
         /// <summary>
         /// 记录id (修改模式才传递值)
