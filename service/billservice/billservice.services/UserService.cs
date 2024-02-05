@@ -75,6 +75,12 @@ namespace billservice.services
 
 
 
+        /// <summary>
+        /// 修改头像
+        /// </summary>
+        /// <param name="mobile"></param>
+        /// <param name="avatar"></param>
+        /// <returns></returns>
         public bool UpdateAvatar ( string mobile , string avatar )
         {
 
@@ -111,6 +117,12 @@ namespace billservice.services
 
 
 
+        /// <summary>
+        /// 修改密码
+        /// </summary>
+        /// <param name="mobile"></param>
+        /// <param name="pwd"></param>
+        /// <returns></returns>
         public bool UpdatePassWord ( string mobile , string pwd )
         {
 

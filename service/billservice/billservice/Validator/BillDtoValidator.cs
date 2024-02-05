@@ -72,8 +72,6 @@ namespace billservice.Validator
                         return bl;
 
                     }
-
-                    //return true;
                 } ).WithMessage( item => string.Format( "{0}:{1}错误!它不是系统公用类型或者不是该用户专属类型" , "{PropertyName}" , item.billtypeid ) )
                 .WithName( "账目类型ID" );
 
@@ -86,8 +84,6 @@ namespace billservice.Validator
                     var _billtypeid = item.billtypeid;
 
                     return this.billtype.IsExistType( _billtypeid , isout );
-
-                    //return true;
                 } ).WithMessage( "账目类型ID与账目进出类型不相符" )
                 .WithName( "账目进出类型" );
 
@@ -139,7 +135,6 @@ namespace billservice.Validator
                .WithName( "记录ID" );
 
         }
-
 
 
 
