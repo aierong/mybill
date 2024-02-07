@@ -14,7 +14,7 @@ namespace billservice.Validator
     public class UserLoginDtoValidator : AbstractValidator<UserLoginDto>
     {
         /// <summary>
-        /// 
+        /// 用户接口
         /// </summary>
         readonly IUser user;
 

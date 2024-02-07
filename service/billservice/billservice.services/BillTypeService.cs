@@ -24,18 +24,27 @@ namespace billservice.services
 
 
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="typename"></param>
+        /// <param name="mobile"></param>
+        /// <returns></returns>
         public bool IsExistName ( string typename , string mobile )
         {
-
             return this.iBillType.IsExistName( typename , mobile );
         }
 
 
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="billtypeid"></param>
+        /// <param name="isout"></param>
+        /// <returns></returns>
         public bool IsExistType ( int billtypeid , bool isout )
         {
-
-
             return this.iBillType.IsExistType( billtypeid , isout );
         }
 
