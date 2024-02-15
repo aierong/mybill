@@ -216,7 +216,10 @@ namespace billservice.Controllers
         [Route( "delete" )]
         public async Task<ServiceResult<string>> delete ( [FromForm] int id = 0 )
         {
-            var result = new ServiceResult<string>() { Result = string.Empty };
+            var result = new ServiceResult<string>()
+            {
+                Result = string.Empty
+            };
 
             var mobile = base.UserMobile;
 

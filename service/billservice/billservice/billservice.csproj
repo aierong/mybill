@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+    <PackageReference Include="Coravel" Version="4.2.2" />
 
 
     <PackageReference Include="EasyCaching.InMemory" Version="1.9.2" />

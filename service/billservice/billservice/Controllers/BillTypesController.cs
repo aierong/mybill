@@ -23,17 +23,17 @@ namespace billservice.Controllers
     public class BillTypesController : Base.BaseController
     {
         /// <summary>
-        /// 
+        /// 对象映射
         /// </summary>
         readonly IMapper mapper;
 
         /// <summary>
-        /// 
+        /// 单据类型
         /// </summary>
         readonly IBillType Ibilltype;
 
         /// <summary>
-        /// cache
+        /// cache功能
         /// </summary>
         readonly IMemoryCache memoryCache;
 
@@ -115,7 +115,6 @@ namespace billservice.Controllers
             if ( usertypelist != null && usertypelist.Count > 0 )
             {
                 resultusertypelist = usertypelist.FindAll( item => item.isout == isout );
-
             }
 
             List<billtype> list = new List<billtype>() { };
