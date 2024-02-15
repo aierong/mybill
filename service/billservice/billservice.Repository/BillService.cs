@@ -14,12 +14,12 @@ namespace billservice.Repository
     public class BillService : IBill
     {
         /// <summary>
-        /// 
+        /// 数据库接口
         /// </summary>
         readonly IFreeSql fsql;
 
         /// <summary>
-        /// 注入
+        /// 依赖注入
         /// </summary>
         /// <param name="fsql"></param>
         public BillService ( IFreeSql fsql )
@@ -28,7 +28,12 @@ namespace billservice.Repository
         }
 
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="mobile"></param>
+        /// <returns></returns>
         public bool IsExistId ( int id , string mobile )
         {
             var isAny = fsql.Select<bills>().Where( it => it.ids == id
@@ -38,6 +43,12 @@ namespace billservice.Repository
 
 
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="mobile"></param>
+        /// <returns></returns>
         public async Task<bool> IsExistIdAsync ( int id , string mobile )
         {
             var isAny = await fsql.Select<bills>().Where( it => it.ids == id
@@ -48,6 +59,11 @@ namespace billservice.Repository
 
 
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="bill"></param>
+        /// <returns></returns>
         public bool Save ( bills bill )
         {
             var ids = fsql.Insert( bill ).ExecuteAffrows();
@@ -57,6 +73,11 @@ namespace billservice.Repository
 
 
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="bill"></param>
+        /// <returns></returns>
         public async Task<bool> SaveAsync ( bills bill )
         {
 
@@ -67,6 +88,11 @@ namespace billservice.Repository
 
 
 
+        /// <summary>
+        /// 修改
+        /// </summary>
+        /// <param name="bill"></param>
+        /// <returns></returns>
         public bool Update ( bills bill )
         {
 
@@ -88,6 +114,11 @@ namespace billservice.Repository
 
 
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="bill"></param>
+        /// <returns></returns>
         public async Task<bool> UpdateAsync ( bills bill )
         {
 
@@ -108,7 +139,14 @@ namespace billservice.Repository
         }
 
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="mobile"></param>
+        /// <param name="year"></param>
+        /// <param name="month"></param>
+        /// <param name="billtypeid"></param>
+        /// <returns></returns>
         public async Task<List<BillReturnDto>> GetListAsync ( string mobile , int year , int month , int billtypeid )
         {
 
@@ -158,7 +196,16 @@ namespace billservice.Repository
         }
 
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="mobile"></param>
+        /// <param name="year"></param>
+        /// <param name="month"></param>
+        /// <param name="isout"></param>
+        /// <param name="billtypeid"></param>
+        /// <param name="mode"></param>
+        /// <returns></returns>
         public async Task<List<BillReturnDto>> GetListAsync ( string mobile , int year , int month , bool isout , int billtypeid , string mode )
         {
             // billtypeid大于等于0 ,这样就查询所有数据,但是要判断一下类型,看是出还是入
@@ -220,6 +267,11 @@ namespace billservice.Repository
 
 
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<BillReturnDto> GetAsync ( int id )
         {
             string sql = @"SELECT  top 1    bt.typename ,
@@ -264,6 +316,11 @@ namespace billservice.Repository
 
 
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<bool> DeleteAsync ( int id )
         {
             var result = await fsql.Update<bills>()
@@ -277,6 +334,14 @@ namespace billservice.Repository
 
 
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="mobile"></param>
+        /// <param name="year"></param>
+        /// <param name="month"></param>
+        /// <param name="isout"></param>
+        /// <returns></returns>
         public async Task<List<BillMapReturnDto>> GetStatListAsync ( string mobile , int year , int month , bool isout )
         {
             string sql = @"
@@ -322,6 +387,14 @@ DROP TABLE #tem";
 
 
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="mobile"></param>
+        /// <param name="year"></param>
+        /// <param name="month"></param>
+        /// <param name="topnum"></param>
+        /// <returns></returns>
         public async Task<List<BillReturnDto>> GetTopOutListAsync ( string mobile , int year , int month , int topnum )
         {
 
@@ -374,8 +447,13 @@ DROP TABLE #tem";
 
 
 
-
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="mobile"></param>
+        /// <param name="year"></param>
+        /// <param name="month"></param>
+        /// <returns></returns>
         public async Task<int> GetOutListCountAsync ( string mobile , int year , int month )
         {
             string sql = @"SELECT    COUNT ( 1 ) AS counts
@@ -412,6 +490,15 @@ DROP TABLE #tem";
 
 
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="mobile"></param>
+        /// <param name="year"></param>
+        /// <param name="month"></param>
+        /// <param name="isout"></param>
+        /// <param name="monthnum"></param>
+        /// <returns></returns>
         public async Task<List<BillSumMonthReturnDto>> GetSumByMonthAsync ( string mobile , int year , int month , bool isout , int monthnum )
         {
             DateTime now = new DateTime( year , month , 1 );  //获取最新时间
@@ -524,6 +611,14 @@ GROUP BY    [moneyyear] ,
 
 
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="mobile"></param>
+        /// <param name="year"></param>
+        /// <param name="month"></param>
+        /// <param name="isout"></param>
+        /// <returns></returns>
         public async Task<List<BillSumDayReturnDto>> GetSumByDayAsync ( string mobile , int year , int month , bool isout )
         {
             // 如果是当月，就往前推1个月，如果是往月就从1号到最后一天
