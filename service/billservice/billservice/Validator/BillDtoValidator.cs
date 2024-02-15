@@ -20,7 +20,7 @@ namespace billservice.Validator
         readonly IBillType billtype;
 
         /// <summary>
-        /// 
+        /// 单据
         /// </summary>
         readonly IBill bill;
 
@@ -72,7 +72,8 @@ namespace billservice.Validator
                         return bl;
 
                     }
-                } ).WithMessage( item => string.Format( "{0}:{1}错误!它不是系统公用类型或者不是该用户专属类型" , "{PropertyName}" , item.billtypeid ) )
+                } )
+                .WithMessage( item => string.Format( "{0}:{1}错误!它不是系统公用类型或者不是该用户专属类型" , "{PropertyName}" , item.billtypeid ) )
                 .WithName( "账目类型ID" );
 
             RuleFor( item => item.isout )
@@ -84,7 +85,8 @@ namespace billservice.Validator
                     var _billtypeid = item.billtypeid;
 
                     return this.billtype.IsExistType( _billtypeid , isout );
-                } ).WithMessage( "账目类型ID与账目进出类型不相符" )
+                } )
+                .WithMessage( "账目类型ID与账目进出类型不相符" )
                 .WithName( "账目进出类型" );
 
             RuleFor( item => item.moneydate )
@@ -103,11 +105,13 @@ namespace billservice.Validator
                    }
 
                    return true;
-               } ).WithMessage( "{PropertyName}不是正确日期格式(格式:xxxx-xx-xx)" )
+               } )
+               .WithMessage( "{PropertyName}不是正确日期格式(格式:xxxx-xx-xx)" )
                .WithName( "账目日期" );
 
             RuleFor( item => item.moneys )
-                .NotNull().WithMessage( "{PropertyName}没有传递或者空" )
+                .NotNull()
+                .WithMessage( "{PropertyName}没有传递或者空" )
                 .GreaterThan( 0 ).WithMessage( "{PropertyName}请大于0" )
                 .WithName( "金额" );
 
