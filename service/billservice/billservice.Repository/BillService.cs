@@ -74,7 +74,7 @@ namespace billservice.Repository
 
 
         /// <summary>
-        /// 
+        /// 保存
         /// </summary>
         /// <param name="bill"></param>
         /// <returns></returns>
@@ -115,7 +115,7 @@ namespace billservice.Repository
 
 
         /// <summary>
-        /// 
+        /// 修改
         /// </summary>
         /// <param name="bill"></param>
         /// <returns></returns>
@@ -139,8 +139,9 @@ namespace billservice.Repository
         }
 
 
+
         /// <summary>
-        /// 
+        /// 获取列表
         /// </summary>
         /// <param name="mobile"></param>
         /// <param name="year"></param>
@@ -150,7 +151,7 @@ namespace billservice.Repository
         public async Task<List<BillReturnDto>> GetListAsync ( string mobile , int year , int month , int billtypeid )
         {
 
-            string sql = @"SELECT      bt.typename ,
+            string sql = @"SELECT   bt.typename ,
                                     bt.avatar ,
                                     b.ids ,
                                     b.mobile ,
@@ -210,7 +211,7 @@ namespace billservice.Repository
         {
             // billtypeid大于等于0 ,这样就查询所有数据,但是要判断一下类型,看是出还是入
 
-            string sql = @"SELECT    bt.typename ,
+            string sql = @"SELECT   bt.typename ,
                                     bt.avatar ,
                                     b.ids ,
                                     b.mobile ,
@@ -241,8 +242,9 @@ namespace billservice.Repository
                             -- 类型筛选
                             #sx#
 
-                        -- 按金额排行
+                            -- 按金额排行
                             #or#
+
                         ";
 
             // money按金额 date按日期
@@ -253,12 +255,10 @@ namespace billservice.Repository
             List<BillReturnDto> dt = await fsql.Ado.QueryAsync<BillReturnDto>( sql ,
                 new
                 {
-
                     mobile = mobile ,
                     moneyyear = year ,
                     moneymonth = month ,
                     isout = isout
-
                 } );
 
             return dt;
@@ -295,14 +295,13 @@ namespace billservice.Repository
                         JOIN   billtype AS bt
                         ON  b.billtypeid = bt.ids 
 
-                        WHERE  b.ids = @ids                                                 ";
+                        WHERE  b.ids = @ids                                                 
+                    ";
 
             List<BillReturnDto> dt = await fsql.Ado.QueryAsync<BillReturnDto>( sql ,
                 new
                 {
-
-                    ids = id ,
-
+                    ids = id 
                 } );
 
             if ( dt != null && dt.Count > 0 )
@@ -311,13 +310,12 @@ namespace billservice.Repository
             }
 
             return null;
-
         }
 
 
 
         /// <summary>
-        /// 
+        /// 删除
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -365,12 +363,13 @@ SELECT      billtypeid ,
             typename ,
             avatar ,
             moneys ,
-            --SUM(moneys) over() as sum,
+           
             CONVERT ( MONEY, moneys / SUM ( moneys ) OVER ()) AS ratio
 FROM        #tem
 ORDER BY    moneys DESC
 
-DROP TABLE #tem";
+DROP TABLE #tem
+";
 
             List<BillMapReturnDto> dt = await fsql.Ado.QueryAsync<BillMapReturnDto>( sql ,
                 new
@@ -423,13 +422,11 @@ DROP TABLE #tem";
                             AND b.moneyyear = @moneyyear AND b.moneymonth= @moneymonth 
                             AND b.delmark='N'
                             
-                             AND bt.isout=@isout
+                            AND bt.isout=@isout
 
-                        -- 按金额排行
-                        ORDER BY b.moneys DESC 
+                            -- 按金额排行
+                            ORDER BY b.moneys DESC 
                         ";
-
-
 
             List<BillReturnDto> dt = await fsql.Ado.QueryAsync<BillReturnDto>( sql ,
                 new
@@ -465,7 +462,8 @@ DROP TABLE #tem";
                             AND b.moneyyear = @moneyyear AND b.moneymonth= @moneymonth 
                             AND b.delmark='N'
                             
-                            AND bt.isout=@isout                                                 ";
+                            AND bt.isout=@isout                                                
+                        ";
 
 
             DataTable tb = await fsql.Ado.ExecuteDataTableAsync( sql , new
@@ -527,13 +525,12 @@ WHERE       delmark = 'N'
             {0}
              
 GROUP BY    [moneyyear] ,
-            [moneymonth]
---ORDER BY    [moneyyear] ,            [moneymonth]
+            [moneymonth] 
 ";
 
             string tem = string.Empty;
 
-            ////循环
+            //循环
             foreach ( var pair in list )
             {
 
@@ -555,9 +552,7 @@ GROUP BY    [moneyyear] ,
             List<BillSumMonthReturnDto> dt = await fsql.Ado.QueryAsync<BillSumMonthReturnDto>( sql ,
                 new
                 {
-
                     mobile = mobile ,
-
                     isout = isout
                 } );
 
