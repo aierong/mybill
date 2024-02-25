@@ -10,6 +10,9 @@ namespace billservice.services
     /// </summary>
     public class UserService : interfaces.IUser
     {
+        /// <summary>
+        /// 接口
+        /// </summary>
         readonly IRepository.IUser iuser;
 
 

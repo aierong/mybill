@@ -10,6 +10,9 @@ namespace billservice.services
     /// </summary>
     public class BillTypeService : interfaces.IBillType
     {
+        /// <summary>
+        /// 类型接口
+        /// </summary>
         readonly IRepository.IBillType iBillType;
 
 
