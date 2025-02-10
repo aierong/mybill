@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace APPIQC.Common
+namespace Utils.zw.tool
 {
     public class DataRowHelper
     {
@@ -52,10 +52,10 @@ namespace APPIQC.Common
 
                     if ( underlyingType != null )
                     {
-                        return ( T ) Convert.ChangeType( row[field] , underlyingType );
+                        return (T) Convert.ChangeType( row[field] , underlyingType );
                     }
 
-                    return ( T ) Convert.ChangeType( row[field] , typeFromHandle );
+                    return (T) Convert.ChangeType( row[field] , typeFromHandle );
                 }
                 return defaultValue;
             }
