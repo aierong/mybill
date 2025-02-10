@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FreeSql.Provider.SqlServer" Version="3.5.104" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\billservice.interfaces\billservice.interfaces.csproj" />
     <ProjectReference Include="..\billservice.IRepository\billservice.IRepository.csproj" />
   </ItemGroup>
