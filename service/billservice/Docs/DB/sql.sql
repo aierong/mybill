@@ -1,12 +1,14 @@
--- ��ɫ�� Ŀǰ��2�ֽ�ɫ admin user
+-- 角色表 目前就2种角色 admin user
 CREATE TABLE roles
 (
     ids INT IDENTITY ,
-    -- ��ɫ��
+    -- 角色名
     name NVARCHAR(28) NOT NULL DEFAULT ( '' ) PRIMARY KEY
 )
 
--- �Ȳ���2����ɫ
+
+
+-- 先插入2个角色
 INSERT INTO [dbo].[roles] ( [name] )
             SELECT  'admin'
             UNION ALL
@@ -15,39 +17,41 @@ go
 
 
 
--- �û���
+-- 用户表
 CREATE TABLE users
 (
     ids INT IDENTITY ,
-    -- ��ɫ�� 
+    -- 角色名 
     rolename NVARCHAR(28) NOT NULL DEFAULT ( 'user' ) ,
-    --�绰����
+    --电话号码
     mobile VARCHAR(25) NOT NULL PRIMARY KEY ,
-    --ͷ��
+    --头像
     avatar NVARCHAR(88) NOT NULL DEFAULT ( '' ) ,
-    -- ����
+    -- 密码
     password NVARCHAR(188) NOT NULL DEFAULT ( '' ) ,
-    -- ����
+    -- 姓名
     name NVARCHAR(188) NOT NULL DEFAULT ( '' ) ,
     -- email
     email NVARCHAR(188) NOT NULL DEFAULT ( '' ) ,
-    -- ���һ�ε�¼ʱ��
+    -- 最后一次登录时间
     lastlogindate DATETIME ,
-    -- �ۼƵ�¼����
+    -- 累计登录次数
     logintimes INT NOT NULL DEFAULT ( 0 ) ,
-    -- ��¼�� ���� �޸� ɾ��ʱ��
+    -- 记录的 添加 修改 删除时间
     adddate DATETIME NOT NULL DEFAULT ( GETDATE ()) ,
     updatedate DATETIME ,
     deletedate DATETIME ,
 
-    --ɾ����־,��ʱ����
+    --删除标志,暂时无用
     delmark VARCHAR(1) NOT NULL DEFAULT ( 'N' )
 )
 
--- 202cb962ac59075b964b07152d234b70             123ǰ���������
--- 2bHX20zW5wk1Nooe+xDjdw==                     123���ݿ�������
+-- 202cb962ac59075b964b07152d234b70             123前端密码加密
+-- 2bHX20zW5wk1Nooe+xDjdw==                     123数据库中密码
 
---��Ĭ�ϲ��� һ������Ա
+
+
+--先默认插入 一个管理员
 INSERT INTO [dbo].[users] (
                               [rolename] ,
                               [mobile] ,
@@ -60,7 +64,7 @@ INSERT INTO [dbo].[users] (
                     '13912345678' ,
                     'smile-o' ,
                     '2bHX20zW5wk1Nooe+xDjdw==' ,
-                    '����Ա' ,
+                    '管理员' ,
                     'aierong@126.com'
 
 
@@ -68,82 +72,82 @@ INSERT INTO [dbo].[users] (
 CREATE TABLE billtype
 (
     ids INT IDENTITY PRIMARY KEY ,
-    -- ��֧������
+    -- 是支出类型
     isout BIT NOT NULL DEFAULT ( 0 ) ,
-    -- ��ϵͳԤ��������
+    -- 是系统预定义类型
     issystemtype BIT NOT NULL DEFAULT ( 1 ) ,
-    -- ��������
+    -- 类型名称
     typename NVARCHAR(38) NOT NULL DEFAULT ( '' ) ,
-	-- ͼ��
+	-- 图标
 	avatar NVARCHAR(88) NOT NULL DEFAULT ( '' ) ,
 
-    -- �ĸ��û�������
+    -- 哪个用户的类型
     mobile VARCHAR(25) NOT NULL DEFAULT ( '' ) ,
 
-    -- ��¼�� ���� �޸� ɾ��ʱ��
+    -- 记录的 添加 修改 删除时间
     adddate DATETIME NOT NULL DEFAULT ( GETDATE ()) ,
     updatedate DATETIME ,
     deletedate DATETIME
 )
 
--- һЩϵͳ���õ�����
+-- 一些系统内置的类型
 INSERT INTO [dbo].[billtype]
            ([isout]
            ,[issystemtype]
            ,[typename],avatar)
-SELECT 1,1,'����','icon-canyin'  
+SELECT 1,1,'餐饮','icon-canyin'  
 UNION ALL
-SELECT 1,1,'����','icon-yule'  
+SELECT 1,1,'娱乐','icon-yule'  
 UNION ALL
-SELECT 1,1,'ס��' ,'icon-zhufang' 
+SELECT 1,1,'住房' ,'icon-zhufang' 
 UNION ALL
-SELECT 1,1,'����'  ,'icon-gouwu'
+SELECT 1,1,'购物'  ,'icon-gouwu'
 UNION ALL
-SELECT 0,1,'����'  ,'icon-gongzitiao'
+SELECT 0,1,'工资'  ,'icon-gongzitiao'
 UNION ALL
-SELECT 0,1,'����'  ,'icon-jiangjinguize'
+SELECT 0,1,'奖金'  ,'icon-jiangjinguize'
 UNION ALL
-SELECT 0,1,'���'  ,'icon-hongbao'
+SELECT 0,1,'红包'  ,'icon-hongbao'
 UNION ALL
-SELECT 0,1,'ת��'  ,'icon-weibiaoti5'
+SELECT 0,1,'转账'  ,'icon-weibiaoti5'
 
 
 
--- ��Ŀ
+-- 账目
 CREATE TABLE bills
 (
     ids INT IDENTITY PRIMARY KEY ,
-    -- �ĸ��û�
+    -- 哪个用户
     mobile VARCHAR(25) NOT NULL DEFAULT ( '' ) ,
-    -- ����id
+    -- 类型id
     billtypeid INT NOT NULL DEFAULT ( 0 ) ,
-	-- ��֧������
+	-- 是支出类型
     isout BIT NOT NULL DEFAULT ( 0 ) ,
-    -- ��� 
+    -- 金额 
     moneys MONEY NOT NULL DEFAULT ( 0 ) ,
-    -- �������� 2020-01-01
+    -- 金额发生日期 2020-01-01
     moneydate NVARCHAR(168) NOT NULL DEFAULT ( '' ) ,
 	
 	moneyyear INT NOT NULL DEFAULT(0),
 	moneymonth INT NOT NULL DEFAULT(0) ,
 	moneyday INT NOT NULL DEFAULT(0),
 
-    --��ע
+    --备注
     memo NVARCHAR(168) DEFAULT ( '' ) ,
 
-	-- ��Դ,��ʱ����
+	-- 来源,暂时无用
 	sources  NVARCHAR(168) DEFAULT ( '' ) ,
 
-    -- ��¼�� ���� �޸� ɾ��ʱ��
+    -- 记录的 添加 修改 删除时间
     adddate DATETIME NOT NULL DEFAULT ( GETDATE ()) ,
     updatedate DATETIME ,
     deletedate DATETIME ,
 
-    --ɾ����־
+    --删除标志
     delmark VARCHAR(1) NOT NULL DEFAULT ( 'N' )
 )
 
--- ��һ������
+-- 搞一个索引
 CREATE INDEX idx_bills
     ON bills ( mobile )
 
