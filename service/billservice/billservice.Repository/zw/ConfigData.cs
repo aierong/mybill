@@ -4,10 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
+
 namespace APPIQC.Models
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class ConfigData
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public string RefreshTime
         {
             get; set;
