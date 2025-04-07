@@ -8,7 +8,7 @@ Time: 17:52
 <!-- html代码片段 -->
 <template>
     <div>
-        <!--     头部   -->
+        <!--      头部    -->
         <div class="header">
             <div class="headertype">
                 <van-button hairline
@@ -249,7 +249,6 @@ export default defineComponent( {
                 var daylist : IDisplayDayBill[] = [];
 
                 let all = Object.entries( gr );
-                // console.log( 'arr3' , arr3 )
 
                 all.forEach( ( item : any[] , index : number ) => {
                     //item是一个数组,只存放2个元素
