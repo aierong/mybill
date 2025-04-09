@@ -1,3 +1,7 @@
+-- 建表语句
+
+
+
 -- 角色表 目前就2种角色 admin user
 CREATE TABLE roles
 (
